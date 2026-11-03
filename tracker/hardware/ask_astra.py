@@ -98,7 +98,21 @@ def main():
     if body is None:
         return 1
     req = urllib.request.Request(ROUTER, data=json.dumps(body).encode(),
-                                headers={"Content-Type": "application/json"})
+                                headers={
+                                    "Content-Type": "application/json",
+                                    # THE SPATIAL SIGNAL. Without this header the flat router never
+                                    # considers openai_codex: gpt-6-astra is deliberately excluded
+                                    # from the general lanes (PROVIDER_MODELS comment, 2026-10-10 --
+                                    # "only a pinned gpt-* slug from a spatial/vision/review tier
+                                    # reaches this lane"), and the drain fallback that WOULD reach it
+                                    # is gated on drain_fallback.signaled(headers, tier_hint).
+                                    # Measured 2026-11-03: unheaded requests were served by
+                                    # moonshotai/kimi-k3.1-pro (a DIFFERENT FAMILY) and earlier 503'd
+                                    # with candidates_tried=["openai_codex"], i.e. the right lane was
+                                    # known and never entered. With this header the same call returns
+                                    # model="gpt-6-astra" and a resp_* Responses-API id.
+                                    "X-Model-Tier": "spatial",
+                                })
     try:
         with urllib.request.urlopen(req, timeout=420) as r:
             d = json.loads(r.read())
@@ -117,6 +131,27 @@ def main():
             fh.write(f"# Astra visual review\n\nServed model: {served}\n"
                      f"Images: {', '.join(images)}\n\n{answer}\n")
         print(f"\n(written to {a.out})")
+
+    # A DIFFERENT FAMILY IS NOT A REVIEW. The router has served moonshotai/kimi-k3.1-pro for
+    # gpt-6-astra requests (measured 2026-11-03: 14 of 15 attempts). Kimi is the family that
+    # authors most of this board's work, so its "review" is not cross-family and must never be
+    # presented as Astra's spatial verdict. Print the mismatch loudly and exit non-zero BEFORE the
+    # verdict is interpreted, so a loop cannot mistake a substitute's answer for the lane's.
+    family = (served or "").split("/")[0].lower()
+    if served != MODEL:
+        same_family = family in ("moonshotai", "moonshot")
+        print()
+        print("!" * 78)
+        print(f"SERVED MISMATCH: requested {MODEL!r}, served {served!r}")
+        if same_family:
+            print("This is a SAME-FAMILY-AS-AUTHOR substitution: the answer is NOT an independent")
+            print("spatial review and must not be cited as one.")
+        else:
+            print("The served model is not the requested model; treat the answer with caution.")
+        print("!" * 78)
+        # Exit 5, NOT 3. 3 is already DEFECTS_PRESENT below, and a lane lie must be distinguishable
+        # from a real defect verdict -- otherwise a substituted review reads as a passing review.
+        return 5
 
     # a non-zero exit on defects, so a loop can branch on it
     up = answer.upper()
