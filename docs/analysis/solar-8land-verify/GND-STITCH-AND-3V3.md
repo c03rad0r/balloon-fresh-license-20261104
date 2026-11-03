@@ -97,3 +97,36 @@ Astra's review of this state: `review/lanes/astra-v6.txt` — served `gpt-6-astr
 empty space" finding is **correct and matches the 9 measured dead ends**. Its "vias on pads" finding
 is a render artefact at this point: pads are drawn translucent and adjacent vias composite over them;
 0 vias are at a pad centre.
+
+---
+
+# Follow-on: GND pour islands bridged (54 → 46)
+
+After stitching, DRC still reported 22 items whose BOTH ends were GND **zones** — the three GND
+pours are separate pieces of copper and a via at a pad does not necessarily land in each piece.
+
+`bridge_gnd_islands.py` adds one GND via inside each pour outline that contains none. **10 vias
+added, 3 islands had no legal site. Unconnected 54 → 46, 0 errors, no new violation classes.**
+
+Board sha256 `bb65226fbfd923ddf1c4b4e08155bc48d5372f4cb1b18d751b568dabf2f526a5`
+
+## Three bugs in that script, each caught by DRC
+
+1. **`fp.Contains(pt)` is not a per-island test.** It returns True if the point is in ANY island of
+   the filled polygon set, so every island looked bridged and the first run added **0 vias** while
+   the 22 opens stayed. The per-island test is `fp.COutline(i).PointInside(pt)`.
+2. **Hole-to-hole measured from the wrong reference.** The check compared the via centre against the
+   pad *rectangle*, which is not a drill distance. Fixed to pad centre + its own drill radius.
+3. **Own-net PTH pads were excluded as obstacles.** A through-hole pad on our own net still occupies
+   a drilled hole; skipping it placed a via on `J_PROG.1`'s barrel — `hole_to_hole`, actual
+   **0.0000 mm**. Own-net PTH pads now contribute their drill (but not their copper).
+
+## Remaining by net
+
+```
+12 /VSCAP    8 /W3_SOLAR_N   8 /W2_SOLAR_N   6 GND
+ 6 /F33_VSENSE   6 +3V3       4 /W1_SOLAR_N   4 /SPI1_SCK ...
+```
+
+`/VSCAP` is next: one 4469 mm² B.Cu zone whose own DRC entry says the zone is disconnected **from
+itself**, which is the same signature the 3V3 zone had before the In2 plane was built.
