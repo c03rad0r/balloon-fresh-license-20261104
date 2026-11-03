@@ -662,7 +662,8 @@ images in future so that you catch and fix such errors before showing me your pr
     passing: it plants a real same-layer crossing and requires exit 1 (verified clean rc=0,
     poisoned rc=1). A gate that once reported 165 FALSE defects must be able to report a REAL one.
 16. **Gates run BEFORE any render is shown to the operator.** Pipeline order:
-    route → 8 custom gates → `check_drc.py` → `check_schematic_parity.py` → render → Signal.
+    route → 8 custom gates → `check_drc.py` → `check_schematic_parity.py` →
+    `check_socket_edge_tracks.py` → render → Signal.
     Showing an image of a board that fails a gate is a process defect.
 17. **Renders must make LAYER IDENTITY unambiguous.** The operator flagged two same-coloured
     lanes crossing and could not tell whether it was a short — because the old renderer drew ONE
@@ -766,6 +767,29 @@ it gets checked & enforced automatically in future."*
     catches B48. A comment-matching test was tried first and a poison test proved it did NOT fail
     when the bug was reintroduced; it was replaced.
     **Never relax these tests to make a commit pass.** If a test fails, the router is wrong.
+
+## WING-SOCKET EDGE RULE (2026-11-03) — BINDING, ADR-142
+
+13a. **THE `J_W` EDGE EXEMPTION IS PAD-ONLY. A TRACK MUST NEVER CROSS A SOCKET CAVITY.**
+    The wing sockets are edge-launched, so their pads sit on `Edge.Cuts` on purpose and
+    are exempted from the 0.50 mm edge rule. A **track** is not. Each `J_W` carries four
+    `Edge.Cuts` graphics forming a 6.0 × 0.5 mm cavity cut into the board edge, and the
+    pads sit on the **far** side of it — so reaching a land from the board interior
+    requires crossing the cavity, which is copper physically cut by a board edge.
+    Measured crossing pairs: `/W1_SOLAR_N` −0.092, `/W2_SOLAR_N` −0.100 and −0.096,
+    `/W3_SOLAR_N` −0.096 mm.
+
+    **Do not try to fix this in `.kicad_dru`.** ADR-142 §2 swept seven condition forms
+    (`tracker/hardware/dru_edge_form_sweep.py`) and **no form reaches a track — not even a
+    conditionless `edge_clearance (min 0.00mm)` waiver**, which removes all 16 pad items
+    (20 → 4) and leaves every track item standing. The limit is the rule engine, not the
+    condition syntax; there is no tighter scoping that would work either.
+
+    Enforced by `tracker/hardware/check_socket_edge_tracks.py`, wired into
+    `scripts/git-hooks/pre-commit-board-gates.py` and `tests/test_adr142_socket_edge_tracks.py`
+    (which includes a **positive control** that plants a crossing track and requires exit 1).
+    Pairs 3, 6 and 7 complete in **assembly** via the two-face tab (ADR-120 R1,
+    `WING-TO-HUB-SOCKET-SPEC.md` §2) — that is what the two-land interface exists for.
 
 ## REPOSITORY ROOT LAYOUT (2026-10-25) — BINDING
 

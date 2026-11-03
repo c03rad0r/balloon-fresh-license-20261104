@@ -185,7 +185,8 @@ jobs:
         run: |
           /usr/bin/python3 -m pip install --quiet pytest \
             || /usr/bin/python3 -m pip install --quiet --break-system-packages pytest
-          /usr/bin/python3 -m pytest tests/test_pcb_pipeline_gates.py -v --tb=short \
+          /usr/bin/python3 -m pytest tests/test_pcb_pipeline_gates.py \
+            tests/test_adr142_socket_edge_tracks.py -v --tb=short \
             --junitxml="$RUNNER_TEMP/pcb-pipeline.xml"
 
       # FAIL CLOSED. The four behavioural checks used to skip silently when the

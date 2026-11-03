@@ -179,6 +179,14 @@ if PY is None:
 GATES = [
     ("check_drc.py", []),
     ("check_schematic_parity.py", []),
+    # ADR-142 (Accepted 2026-11-03): the wing-socket edge exemption is PAD-ONLY. A track
+    # crossing a J_W cavity is copper physically cut by a board edge, and measured in the ADR
+    # NO .kicad_dru condition form can suppress the DRC item -- not even a conditionless
+    # waiver. DRC reports it correctly; what goes wrong is a reader counting 16 intentional
+    # pad items and treating the 4 track items as the same class of noise. This gate makes
+    # that impossible: it refuses any board carrying a track within 0.50 mm of, or across,
+    # a wing-socket cavity edge.
+    ("check_socket_edge_tracks.py", []),
     # SILK LEGIBILITY (2026-10-22). Operator: "please make sure that the silk screen is legible
     # and doesn't overlap with parts or other silk screens before you start routing the board.
     # Please make sure this is part of the quality gates that have git hooks and please make sure
