@@ -72,6 +72,7 @@ def main():
 
     # ---- obstacles: every copper object not on our net, plus ALL edge geometry ----
     segs, pts, rects, edges = [], [], [], []
+    all_pad_rects = []
     for t in b.GetTracks():
         if t.GetNetname() == a.net:
             continue
@@ -86,6 +87,9 @@ def main():
         for p in fp.Pads():
             bb = p.GetBoundingBox()
             dr = p.GetDrillSize()
+            all_pad_rects.append((bb.GetLeft() / UM, bb.GetTop() / UM, bb.GetRight() / UM,
+                                  bb.GetBottom() / UM, max(dr.x, dr.y) / UM / 2.0,
+                                  p.GetNetCode() == code))
             if p.GetNetCode() == code:
                 # OWN-NET PTH PADS ARE STILL HOLES. A plated through-hole on our net already spans
                 # every layer, so a via near it is pointless AND its drill is still a hole: skipping
@@ -123,6 +127,16 @@ def main():
         r = VIA_D / 2.0 + CLEAR
         if not (0.8 < x < 71.3 and 0.8 < y < 79.3):
             return False
+        # NEVER INSIDE AN SMD PAD. The obstacle list deliberately excludes own-net copper (a GND
+        # pour island is own-net, so its pads would otherwise block every site), and that exclusion
+        # also let the via land INSIDE an own-net SMD pad — via-in-pad, which JLCPCB does not fill.
+        # Measured 2026-11-03: this script put 7 GND vias back into pads, undoing the stitcher's fix,
+        # and the only thing that revealed it was a second spatial review. Check pad BODY directly,
+        # independent of net.
+        pt0 = pcbnew.VECTOR2I(int(x * UM), int(y * UM))
+        for (pl, pt_, prr, pbo, _dr, _own) in all_pad_rects:
+            if pl <= x <= prr and pt_ <= y <= pbo:
+                return False
         for (x1, y1, x2, y2, rw, _l) in segs:
             if seg_pt(x, y, x1, y1, x2, y2) < r + rw:
                 return False
