@@ -29,6 +29,7 @@ Run:
   python3 stitch_gnd_planes.py <in.kicad_pcb> <out.kicad_pcb> --offset   # v3
 """
 import math
+import os
 import sys
 
 sys.path.insert(0, "/usr/lib/python3/dist-packages")
@@ -41,6 +42,12 @@ BOARD_EDGE = 0.5      # jlcpcb-s1-frozen.kicad_dru: copper-to-edge minimum
 TRACK_W = 0.2
 RING_STEP = 0.25
 R_MAX = 4.0
+
+
+# Centre taps put a via INSIDE an SMD pad. Off by default: JLCPCB does not fill/cap vias, so an
+# uncapped barrel in a pad wicks solder during reflow. Keep the flag so the old behaviour is
+# reproducible for comparison, but never enable it for a flight candidate.
+_CENTER_TAPS = os.environ.get("STITCH_CENTER_TAPS", "0") == "1"
 
 
 def mm(v):
@@ -155,6 +162,21 @@ def main():
                 edge_shapes.append(ps)
             except Exception:
                 pass
+    for fp in board.GetFootprints():
+        for gi in fp.GraphicalItems():
+            if gi.GetLayer() != pcbnew.Edge_Cuts:
+                continue
+            try:
+                ps = pcbnew.SHAPE_POLY_SET()
+                gi.TransformShapeToPolygon(ps, pcbnew.Edge_Cuts, 0, ARC_ERR, pcbnew.ERROR_INSIDE)
+                edge_shapes.append(ps)
+            except Exception:
+                pass
+    # FOOTPRINT Edge.Cuts GRAPHICS ARE EDGE GEOMETRY TOO. Measured 2026-11-03: collecting only
+    # board.GetDrawings() missed the four 6.0 x 0.5 mm cavity slots inside each J_W footprint, so
+    # offset vias were placed on top of them and DRC raised 4 copper_edge_clearance. This is the
+    # same blind spot as B48: the keep-out must be built from EVERY Edge.Cuts shape on the board,
+    # not just the ones that happen to live at board level.
     for fp in board.GetFootprints():
         for pad in fp.Pads():
             # ONLY foreign (non-GND) copper blocks a GND via. Adding the GND pad's OWN polygon made
@@ -271,7 +293,8 @@ def main():
                     return True
         return False
 
-    added_here = added_offset = already = unresolvable = 0
+    added_here = added_offset = already = unresolvable = pth_skipped = 0
+    _placed = []
     bad = []
 
     for fp in board.GetFootprints():
@@ -281,17 +304,53 @@ def main():
             ls = pad.GetLayerSet()
             if not (ls.Contains(pcbnew.F_Cu) or ls.Contains(pcbnew.B_Cu)):
                 continue
+            # A PLATED THROUGH-HOLE PAD ALREADY CONNECTS EVERY COPPER LAYER. Adding a via on top of
+            # one produces two drills at the same XY -- kicad-cli reports it as `holes_co_located`,
+            # a fabrication error (measured 2026-11-03: 3 instances, each a via dropped on the barrel
+            # of J_PROG.1, C_CAP2.2 and J_HUB_PV.5). A PTH pad is not an unstitched site; skip it.
+            if pad.GetAttribute() == pcbnew.PAD_ATTRIB_PTH:
+                pth_skipped += 1
+                continue
             p = pad.GetPosition()
             cx, cy = mm(p.x), mm(p.y)
+            # A via at the pad centre is only legal if its ANNULAR RING FITS INSIDE THE PAD.
+            # Measured 2026-11-03: free() tested only foreign copper, so 43 GND vias landed at SMD
+            # pad centres on pads as small as 0.54 x 0.64 mm -- narrower than the 0.60 mm via. The
+            # ring then hangs off the pad: solder wicks down the barrel and the joint area shrinks.
+            # kicad-cli DRC does not report this, so the check has to live here. Anything that does
+            # not fit goes to the offset path instead, which is what v3 exists for.
+            _bb = pad.GetBoundingBox()
+            # Annular ring check. A 0.60 mm via needs 0.10 mm of pad beyond it on EVERY side, so the
+            # pad must exceed the via by 0.20 mm on each axis. Measured 2026-11-03: a 1.32 x 0.60 mm
+            # pad passes a naive ">= VIA_D" test but leaves ZERO ring on the 0.60 axis, which is
+            # exactly the via-overhanging-pad defect. 8 such pads survived the first attempt.
+            _fits = (_bb.GetWidth() / 1e6 >= VIA_D + 0.20
+                     and _bb.GetHeight() / 1e6 >= VIA_D + 0.20)
             if near_gnd_via(cx, cy):
                 already += 1
                 continue
 
-            if free(cx, cy):
+            # CENTRE VIAS ARE VIA-IN-PAD, AND JLCPCB DOES NOT FILL THEM. An uncapped via inside an
+            # SMD pad wicks solder down the barrel during reflow: the joint loses paste and can go
+            # open. Astra flagged this twice from the render ("several white vias sit directly on
+            # gold pads") and measurement agreed -- 30 centres inside pads, 4 with rings thinner
+            # than 0.10 mm/side. Placement is now offset-ONLY: every GND tap is a normal via beside
+            # the pad joined by a short stub, which is a standard, manufacturable plane tap and is
+            # what this tool's v3 mode was built for. Cost, measured: 43 centre taps become ~40
+            # offset taps, a few pads report UNRESOLVABLE instead of being forced.
+            if _CENTER_TAPS and _fits and free(cx, cy):
                 site, off = (cx, cy), False
             elif offset_mode:
                 site = None
-                ring = VIA_D / 2.0 + CLEARANCE
+                # START OUTSIDE THE PAD. A via inside an SMD pad is via-in-pad: JLCPCB does not
+                # fill or cap it by default, so solder wicks down the barrel and the joint loses
+                # paste. Measured 2026-11-03: starting the ring at VIA_D/2+CLEARANCE still landed
+                # 45 vias inside pads (19 with under-sized rings on 0.7 mm-tall pads), because that
+                # radius is smaller than half the pad. Start beyond the pad's own half-diagonal so
+                # no ring position can sit within the pad body.
+                _bb = pad.GetBoundingBox()
+                _half_diag = 0.5 * math.hypot(_bb.GetWidth() / 1e6, _bb.GetHeight() / 1e6)
+                ring = max(VIA_D / 2.0 + CLEARANCE, _half_diag + VIA_D / 2.0 + CLEARANCE)
                 while ring <= R_MAX and site is None:
                     n = max(8, int(2 * math.pi * ring / 0.2))
                     for k in range(n):
@@ -313,6 +372,16 @@ def main():
                 continue
 
             sx, sy = site
+            # TWO PAD OBJECTS CAN SHARE ONE XY. Each J_W tab carries every pad number twice — once
+            # on F.Cu, once on B.Cu, same position and net, because the tab is soldered from both
+            # sides. Iterating pads therefore visits the same location twice and, with offset-only
+            # placement, drops TWO vias at the identical site. kicad-cli reports that as
+            # holes_co_located (measured 2026-11-03: 5 of them, all GND, all at J_W/Wing_Tab).
+            # Skip a site that already has one of our vias.
+            if any(math.hypot(sx - vx, sy - vy) < 0.05 for (vx, vy) in _placed):
+                already += 1
+                continue
+            _placed.append((sx, sy))
             # stub track from the pad to the via, when offset
             if off:
                 tr = pcbnew.PCB_TRACK(board)
@@ -341,6 +410,7 @@ def main():
     print(f"vias at pad centre      : {added_here}")
     print(f"vias OFFSET + GND stub  : {added_offset}")
     print(f"pads already stitched   : {already}")
+    print(f"PTH pads skipped (already all-layer): {pth_skipped}")
     print(f"UNRESOLVABLE            : {unresolvable}")
     if bad:
         print("  unresolved pads:", ", ".join(bad[:20]))
