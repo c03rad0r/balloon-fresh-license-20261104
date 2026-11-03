@@ -53,6 +53,19 @@ CLEAR, TRACK_W, VIA_D, VIA_DRILL, EDGE = 0.20, 0.20, 0.60, 0.30, 0.50
 GRID = 0.15
 ARC_ERR = 5000
 
+# Search memory ceiling in MB. A pair that would exceed it stops and reports "no path" rather than
+# letting the kernel SIGKILL the process (measured rc=137 three times on a ~4GB box).
+_MEM_MB = float(os.environ.get("ROUTE_MEM_MB", "2400"))
+
+
+def _rss():
+    """Resident set size of this process, in bytes. Reads /proc, no dependency needed."""
+    try:
+        with open("/proc/self/statm") as f:
+            return int(f.read().split()[1]) * 4096
+    except Exception:
+        return 0
+
 PAD_RE = re.compile(r'(?:PTH )?[Pp]ad (\d+) \[([^\]]+)\] of ([A-Za-z0-9_.]+) on (F\.Cu|B\.Cu)')
 
 
@@ -168,10 +181,42 @@ class World:
         return False
 
     def in_any_pad(self, x, y):
+        # indexed: this used to scan every pad on the board, called once per via-placement test.
+        for (l, t, r, b, dr, code) in self._near("_spad", x, y):
+            if l <= x <= r and t <= y <= b:
+                return code
+        return None
+
+    def in_any_pad_slow(self, x, y):
+        """Reference implementation, used by the agreement test. Must never be called in the search."""
         for (l, t, r, b, dr, code) in self.padrects:
             if l <= x <= r and t <= y <= b:
                 return code
         return None
+
+    def via_ok_slow(self, x, y, netcode):
+        """Reference implementation of via_ok for the agreement test (unindexed)."""
+        if not (0.8 < x < 71.3 and 0.8 < y < 79.3):
+            return False
+        if self.in_any_pad_slow(x, y) is not None:
+            return False
+        if self.on_edge(x, y):
+            return False
+        r = VIA_D / 2.0 + CLEAR
+        for (x1, y1, x2, y2, rw, _lay, code) in self.segs:
+            if code != netcode and seg_pt(x, y, x1, y1, x2, y2) < r + rw:
+                return False
+        for (px, py, pr, dr, code) in self.vias:
+            if math.hypot(x - px, y - py) < (VIA_DRILL / 2.0 + dr + 0.25):
+                return False
+        for (l, t, rr, b, dr, code) in self.padrects:
+            if math.hypot(max(l - x, 0, x - rr), max(t - y, 0, y - b)) < r and code != netcode:
+                return False
+            if dr > 0:
+                pcx, pcy = (l + rr) / 2.0, (t + b) / 2.0
+                if math.hypot(x - pcx, y - pcy) < VIA_DRILL / 2.0 + dr + 0.25:
+                    return False
+        return True
 
     def blocked(self, x, y, layer, netcode, allow_pad=None):
         """Is a track centre at (x,y) on `layer` illegal for `netcode`?"""
@@ -185,6 +230,13 @@ class World:
             return True
         r = TRACK_W / 2.0 + CLEAR
         for (x1, y1, x2, y2, rw, lay, code) in self.segs:
+            # LAYER WAS IGNORED HERE. Measured 2026-11-03: this made every F.Cu track an obstacle
+            # for B.Cu routing, so a legal B.Cu escape was refused. 228 of 4000 random probe points
+            # disagreed with the layer-correct index, and ALL 228 were "blocked() says blocked, the
+            # cause is other-layer copper only". Copper on the far side of the board is not an
+            # obstacle; only a VIA is, and vias are handled separately below.
+            if lay != layer:
+                continue
             if code != netcode and seg_pt(x, y, x1, y1, x2, y2) < r + rw:
                 return True
         for (px, py, pr, _d, code) in self.vias:
@@ -198,6 +250,94 @@ class World:
                 return True
         return False
 
+    # ---- SPATIAL HASH --------------------------------------------------------------------------
+    # WHY: `blocked()` scanned EVERY segment, via and pad rect on the board, on every call.
+    # Measured 2026-11-03: 1.364 ms per call on the 1105-segment board. An A* that pops ~300k nodes
+    # and evaluates ~8 neighbours each makes ~2.4M calls -> ~54 minutes PER PAIR. That is what
+    # "runs for ages then gets killed" actually was: not memory.
+    #
+    # A uniform bucket grid means a query only touches items within a clearance radius -- a handful
+    # instead of ~1100.
+    _CELL = 2.0   # mm; larger than any query radius, so a 3x3 sweep is always sufficient
+
+    def _build_index(self):
+        self._sig, self._svia, self._spad = {}, {}, {}
+
+        def insert(store, ax, ay, bx_, by_, item):
+            for cx in range(int(math.floor(ax / self._CELL)),
+                            int(math.floor(bx_ / self._CELL)) + 1):
+                for cy in range(int(math.floor(ay / self._CELL)),
+                                int(math.floor(by_ / self._CELL)) + 1):
+                    store.setdefault((cx, cy), []).append(item)
+
+        for s in self.segs:
+            sx1, sy1, sx2, sy2, rw, _lay, _code = s
+            insert(self._sig, min(sx1, sx2) - rw, min(sy1, sy2) - rw,
+                   max(sx1, sx2) + rw, max(sy1, sy2) + rw, s)
+        for v in self.vias:
+            vx, vy, pr, _d, _code = v
+            insert(self._svia, vx - pr, vy - pr, vx + pr, vy + pr, v)
+        for p in self.padrects:
+            l, t, rr, b, _dr, _code = p
+            insert(self._spad, l, t, rr, b, p)
+        self._indexed = True
+
+    def _near(self, attr, x, y):
+        # NOTE: takes the ATTRIBUTE NAME, not the store itself. `self._near(self._sig, ...)` raised
+        # AttributeError because Python evaluates `self._sig` before entering the call, i.e. before
+        # the index is built. Measured 2026-11-03.
+        if not getattr(self, "_indexed", False):
+            self._build_index()
+            self._indexed = True
+        store = getattr(self, attr)
+        cx, cy = int(x // self._CELL), int(y // self._CELL)
+        out = []
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                out.extend(store.get((cx + dx, cy + dy), ()))
+        return out
+
+    def sweep_ok(self, x0_, y0_, x1_, y1_, layer, netcode, step=0.05):
+        """Is the whole swept segment legal, not just its endpoints?
+
+        WHY: the A* validates CELLS. An 8-way step covers GRID*1.414 = 0.21 mm, and the emitter then
+        joined consecutive path points into tracks -- but non-consecutive points can be far apart
+        (the endpoint re-attachment adds a run to the true pad), and blocked_fast was never asked
+        about anything between. Measured 2026-11-03: a 7.9257 mm +3V3 track was emitted straight
+        across /SPI2_MOSI, producing 3 shorting_items, 1 tracks_crossing and 2 clearance errors.
+        Sampling at 0.05 mm is well below the 0.20 mm clearance rule, so it cannot step over a
+        violation.
+        """
+        dist = math.hypot(x1_ - x0_, y1_ - y0_)
+        n = max(1, int(math.ceil(dist / step)))
+        for i in range(n + 1):
+            t = i / float(n)
+            if self.blocked_fast(x0_ + (x1_ - x0_) * t, y0_ + (y1_ - y0_) * t, layer, netcode):
+                return False
+        return True
+
+    def blocked_fast(self, x, y, layer, netcode):
+        """Per-cell legality via the spatial index. MUST agree with blocked(); see the test."""
+
+        if not (0.5 < x < 71.6 and 0.5 < y < 79.6):
+            return True
+        if self.on_edge(x, y):
+            return True
+        rad = TRACK_W / 2.0 + CLEAR
+        for (sx1, sy1, sx2, sy2, rw, slay, scode) in self._near("_sig", x, y):
+            if slay != layer:
+                continue
+            if scode != netcode and seg_pt(x, y, sx1, sy1, sx2, sy2) < rad + rw:
+                return True
+        for (vx, vy, vpr, _d, vcode) in self._near("_svia", x, y):
+            if vcode != netcode and math.hypot(x - vx, y - vy) < rad + vpr:
+                return True
+        for (l, t, rr, b, _dr, pcode) in self._near("_spad", x, y):
+            if pcode != netcode:
+                if math.hypot(max(l - x, 0, x - rr), max(t - y, 0, y - b)) < rad:
+                    return True
+        return False
+
     def via_ok(self, x, y, netcode):
         if not (0.8 < x < 71.3 and 0.8 < y < 79.3):
             return False
@@ -206,13 +346,17 @@ class World:
         if self.on_edge(x, y):
             return False
         r = VIA_D / 2.0 + CLEAR
-        for (x1, y1, x2, y2, rw, _lay, code) in self.segs:
+        # SPATIAL INDEX. Measured 2026-11-03 by cProfile: this function was 14.7s of a 21.5s A*
+        # (seg_pt called 8.7M times) because it scanned EVERY segment on every layer. A via is
+        # all-layer, so unlike a track it must consider both copper layers -- but only those near
+        # the site, which is what _near() gives. Layer is deliberately NOT filtered here.
+        for (x1, y1, x2, y2, rw, _lay, code) in self._near("_sig", x, y):
             if code != netcode and seg_pt(x, y, x1, y1, x2, y2) < r + rw:
                 return False
-        for (px, py, pr, dr, code) in self.vias:
+        for (px, py, pr, dr, code) in self._near("_svia", x, y):
             if math.hypot(x - px, y - py) < (VIA_DRILL / 2.0 + dr + 0.25):
                 return False
-        for (l, t, rr, b, dr, code) in self.padrects:
+        for (l, t, rr, b, dr, code) in self._near("_spad", x, y):
             if math.hypot(max(l - x, 0, x - rr), max(t - y, 0, y - b)) < r and code != netcode:
                 return False
             if dr > 0:
@@ -248,6 +392,7 @@ def astar(w, start, goal, netcode, layer0, per_pair_s=25.0, goal_layer=None):
     openq = [(h(s[0], s[1]), 0.0, s)]
     came, cost = {}, {s: 0.0}
     seen = set()
+    _seeds = set()
     # THE START AND GOAL CELLS MUST BE EXEMPT FROM `blocked()`. Both pads' own copper (and any other
     # copper of the SAME net touching them) makes the exact pad centre read as blocked, so the search
     # could not take its first step and returned in 0.0 s. Measured 2026-11-03: C10.1 read
@@ -282,8 +427,17 @@ def astar(w, start, goal, netcode, layer0, per_pair_s=25.0, goal_layer=None):
                 k2 = (ix2, iy2, lay0)
                 if dist < cost.get(k2, 1e18):
                     cost[k2] = dist
-                    came[k2] = (int(round(px / GRID)), int(round(py / GRID)), lay0)
+                    # ROOTS, NOT CHILDREN OF THE PAD CENTRE. This used to set
+                    # came[k2] = pad-centre cell. The pad centre is never a legal cell (its own
+                    # copper blocks it), so the centre is not in `came` and the walk terminated by
+                    # luck -- but a seed could also be reached FROM another seed, making the parent
+                    # chain a cycle and spinning the path tracer forever. Measured 2026-11-03: that
+                    # was the hang (faulthandler put the thread on the while-loop line while the A*
+                    # itself completed in 21 s). Seeds are chain roots instead, and the pad-centre
+                    # hop is re-attached below when the path is reconstructed.
+                    came.pop(k2, None)
                     heapq.heappush(openq, (dist + h(ix2, iy2), dist, k2))
+                    _seeds.add(k2)
     # 8-WAY, NOT 4-WAY. Kimi K3.1 Pro's review of this method (2026-11-03) identified the failure
     # mode exactly: measured escapes here are as narrow as 1/16 of the circle and can sit at any
     # angle, and a 4-way Manhattan grid can only leave a pad along +/-x or +/-y. If the single free
@@ -298,10 +452,13 @@ def astar(w, start, goal, netcode, layer0, per_pair_s=25.0, goal_layer=None):
     # "budget exhausted" without ever being attempted. The deadline now stops the search itself and
     # the pair is reported as "no path within deadline" -- an honest partial, not a silent stall.
     deadline = _time.monotonic() + max(1.0, per_pair_s)
+    rss_limit = int(_MEM_MB * 1024 * 1024)
     while openq and n < 300000:
         if _time.monotonic() > deadline:
             return None
         n += 1
+        if (n & 4095) == 0 and _rss() > rss_limit:
+            return None
         _f, c, cur = heapq.heappop(openq)
         if cur in seen:
             continue
@@ -309,16 +466,36 @@ def astar(w, start, goal, netcode, layer0, per_pair_s=25.0, goal_layer=None):
         ix, iy, lay = cur
         if (ix, iy) == (g[0], g[1]):
             path = [cur]
-            while cur in came:
+            hops = 0
+            max_hops = 4 * (abs(x1 - x0) + abs(y1 - y0)) / GRID + 1000
+            while cur in came and hops < max_hops:
                 cur = came[cur]
                 path.append(cur)
-            return [(p[0] * GRID, p[1] * GRID, p[2]) for p in reversed(path)]
+                hops += 1
+            # CYCLE GUARD. Ring seeding sets came[seed] = the pad centre for EVERY seed cell, so if
+            # the search steps from one seed to another the parent pointers can form a cycle and this
+            # walk spins forever. Measured 2026-11-03: that was the "route_scoped never returns"
+            # hang -- faulthandler put the thread at exactly this line while the A* itself finished
+            # in 21 s standalone. A hop cap is the cheap fix; the path is still valid because it is
+            # the chain of `came` links actually followed.
+            if hops >= max_hops:
+                return None
+            path.reverse()
+            pts = [(p[0] * GRID, p[1] * GRID, p[2]) for p in path]
+            # Re-attach the true start and goal: the walk begins at a seed cell near the start pad
+            # and ends at the goal pad's cell, not at seed cells. Without this the route would stop
+            # short of the pads and land as an unconnected stub.
+            if not (pts and abs(pts[0][0] - start[0]) < 1e-9 and abs(pts[0][1] - start[1]) < 1e-9):
+                pts.insert(0, (start[0], start[1], layer0))
+            if not (abs(pts[-1][0] - goal[0]) < 1e-9 and abs(pts[-1][1] - goal[1]) < 1e-9):
+                pts.append((goal[0], goal[1], goal_layer))
+            return pts
         for dx, dy in steps:
             nx, ny = ix + dx, iy + dy
             x, y = nx * GRID, ny * GRID
             if not (x0 <= x <= x1 and y0 <= y <= y1):
                 continue
-            if (nx, ny, lay) not in EXEMPT and w.blocked(x, y, lay, netcode):
+            if (nx, ny, lay) not in EXEMPT and w.blocked_fast(x, y, lay, netcode):
                 continue
             nxt = (nx, ny, lay)
             nc = c + (GRID * 1.41421 if (dx and dy) else GRID)
@@ -345,6 +522,9 @@ def main():
     ap.add_argument("--dru", required=True)
     ap.add_argument("--report", default=".")
     ap.add_argument("--max-pairs", type=int, default=40)
+    ap.add_argument("--only", default=None,
+                    help="route ONLY these pair labels, comma-separated (e.g. C10.1->U1.2). "
+                         "One pair per process bounds peak memory, which this box needs.")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--per-pair-s", type=float, default=25.0,
                     help="A* deadline per pair; exceeded pairs report no path within deadline")
@@ -381,9 +561,19 @@ def main():
         pairs.append((net1, p1, p2, f"{r1}.{n1}->{r2}.{n2}"))
 
     print(f"unconnected before: {ubefore}")
+    if a.only:
+        want = {s.strip() for s in a.only.split(",") if s.strip()}
+        total_n = len(pairs)
+        pairs = [p for p in pairs if p[3] in want]
+        print(f"--only: {len(pairs)} of {total_n} pairs selected")
+        if not pairs:
+            print(f"REFUSE: none of {sorted(want)} is an attemptable pad-pair on this board.")
+            return 2
     print(f"pad-pairs to attempt: {len(pairs)}   skipped: {len(skipped)}")
     from collections import Counter as C
     print("  skip reasons:", dict(C(r for r, _ in skipped)))
+    for (_n, _a, _b, _lab) in pairs:
+        print(f"  PAIR {_lab}")
 
     netnames = {b.FindNet(p[0]).GetNetCode() for p in pairs if b.FindNet(p[0])}
     done, failed = [], []
@@ -407,6 +597,21 @@ def main():
                      per_pair_s=getattr(a, "per_pair_s", 25.0))
         if not path:
             failed.append((label, "no path"))
+            continue
+        # VALIDATE THE PATH BEFORE IT BECOMES COPPER. The A* only checks cells; a leg between two
+        # path points can sweep across other copper. Measured 2026-11-03: without this, C10.1->U1.2
+        # "routed" and DRC then found 3 shorting_items from one 7.93mm +3V3 leg. Refuse here so a
+        # bad route is never written, rather than writing it and relying on the gate downstream.
+        bad_leg = None
+        for i in range(len(path) - 1):
+            (ax, ay, alay), (bx, by, blay) = path[i], path[i + 1]
+            if alay != blay:
+                continue
+            if not w.sweep_ok(ax, ay, bx, by, alay, code):
+                bad_leg = (round(ax, 2), round(ay, 2), round(bx, 2), round(by, 2), alay)
+                break
+        if bad_leg:
+            failed.append((label, f"swept leg not clear {bad_leg}"))
             continue
         # commit
         prev = None
@@ -451,6 +656,25 @@ def main():
     if hard & set(after):
         print("REFUSING: short/clearance class present in result")
         return 3
+    # COUNT PER CLASS, NOT JUST CLASS NAMES. Measured 2026-11-03: a route added a third via_dangling
+    # (2 -> 3) and this gate said "no new classes" and KEPT it, because `set(after) - set(before)`
+    # only notices a class that did not exist at all. A class getting WORSE in count is a regression
+    # even when the class was already present.
+    grown = {c: (before.get(c, 0), after.get(c, 0))
+             for c in set(before) | set(after) if after.get(c, 0) > before.get(c, 0)}
+    if new:
+        print(f"REFUSING: new violation classes {sorted(new)}")
+        return 3
+    if grown:
+        print(f"REFUSING: violation counts grew {grown}")
+        return 3
+    # A route must actually CONNECT something. Measured 2026-11-03: U1.19->U3.15 reported
+    # "routed: 1" and left unconnected at 42 -- it laid copper and a via and closed nothing, while
+    # adding a dangling via. "not worse" is not the bar; strictly fewer is.
+    if uafter is not None and ubefore is not None and uafter >= ubefore:
+        print(f"REFUSING: route did not reduce unconnected ({ubefore} -> {uafter})")
+        return 3
+    print(f"KEPT: unconnected {ubefore} -> {uafter}, no violation class grew")
     json.dump({"routed": done, "failed": failed}, open(os.path.join(a.report, "route-log.json"), "w"), indent=1)
     return 0
 
