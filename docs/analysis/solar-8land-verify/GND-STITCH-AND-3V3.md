@@ -130,3 +130,33 @@ Board sha256 `bb65226fbfd923ddf1c4b4e08155bc48d5372f4cb1b18d751b568dabf2f526a5`
 
 `/VSCAP` is next: one 4469 mm² B.Cu zone whose own DRC entry says the zone is disconnected **from
 itself**, which is the same signature the 3V3 zone had before the In2 plane was built.
+
+---
+
+# /VSCAP: plane taps (46 → 42)
+
+`/VSCAP` was the last large net with the 3V3 signature: **one 4467 mm² B.Cu zone, zero tracks, zero
+vias.** Its zone was split into two islands (4362 + 104 mm²) and DRC reported it disconnected from
+itself. Five of its 11 pads are **F.Cu-only**, so they had no copper path to a B.Cu pour at all.
+
+Two steps:
+
+1. `bridge_gnd_islands.py --net /VSCAP` — one via inside each pour island. This alone produced **2
+   `via_dangling`**: the vias landed on the pour on one side and on nothing on the other, because the
+   F.Cu pads were never tapped.
+2. `tap_net_to_plane.py --net /VSCAP` — pads whose layer has no pour get a via beside the pad plus a
+   same-net stub, so pad → stub → via → pour is continuous on both faces. 4 taps added;
+   `R_BAL1.1` has no legal site and is reported.
+
+**Unconnected 46 → 42. 24 violations, 0 errors, all warnings.** `/VSCAP` clears entirely (was 12).
+Board sha256 `cb2e3c8ee9937bab0bfaa5589fca3ad332cba7abd47cea63d39ce5652a5710c1`
+
+## Two more bugs, both caught by DRC, both short-class
+
+1. **Track obstacles were filtered to the tapped layer.** A via is drilled through the *whole* stack,
+   so its annulus collides with copper on every layer. Filtering by layer put a `/VSCAP` via
+   directly onto a `/W1_SOLAR_N` B.Cu track — `shorting_items`, a real short, not a clearance nibble.
+2. **The stub never checked vias.** A `/VSCAP` F.Cu stub passed **0.008 mm** from a GND stitching
+   via. Vias are holes through every layer, so the stub must clear them on its own layer too.
+
+Both were introduced and caught within the same session; neither reached a merge.
