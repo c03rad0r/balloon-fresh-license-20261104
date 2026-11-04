@@ -1,0 +1,3 @@
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+# Bridge app: give app_main room for the protocol and radio buffers.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192

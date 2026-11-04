@@ -127,7 +127,91 @@ static void setSyncWord(const uint8_t sync[4]) {
   rfWrite2(OC_FLRC_SYNCWORD, p, 5);
 }
 
+/* Carrier-specific init for modules that do not follow the E80 demo sequence.
+ * Ported from firmware/rp2040/src/dual_radio_gps_sweep_rx.cpp initMode(), which
+ * is the sequence known to work on that carrier's module.
+ *
+ * Differences from the E80 path:
+ *   - FLRC packet type 0x04 (the E80 uses 0x05)
+ *   - CALIB_FRONT_END (0x0123) before CALIBRATE
+ *   - HF PA config on all bands
+ */
+#ifndef E80_BRIDGE_CARRIER_INIT
+#define E80_BRIDGE_CARRIER_INIT 0
+#endif
+
+#if E80_BRIDGE_CARRIER_INIT
+static int radioInitCarrier(const CfgPayload& cfg) {
+  rfHardReset();
+  delay(10);
+
+  { uint8_t c[] = {0x02, 0x00, 0x01}; rfWriteCmd(c, 3); }   // SET_STANDBY RC
+  delay(5);
+
+  rfGetErrors();
+  rfClearErrors();
+
+  { uint8_t c[] = {0x02, 0x07, 0x04}; rfWriteCmd(c, 3); }   // packet type FLRC = 0x04
+  delay(1);
+
+  rfSetRfFreqHz(cfg.frequency_hz);                          // FRF form via E80_RFREQ_FRF
+  delay(1);
+
+  { uint8_t c[] = {0x02, 0x01, (uint8_t)(cfg.sub_ghz ? 0x00 : 0x01), 0x00};
+    rfWriteCmd(c, 4); }                                     // SET_RX_PATH
+  delay(1);
+
+  uint16_t fe = (uint16_t)(cfg.frequency_hz / 4000000UL);   // CALIB_FRONT_END
+  if (!cfg.sub_ghz) fe |= 0x8000;
+  { uint8_t c[] = {0x01, 0x23, (uint8_t)(fe >> 8), (uint8_t)(fe & 0xFF),
+                   0, 0, 0, 0, 0, 0};
+    rfWriteCmd(c, 10); }
+  delay(5);
+
+  { uint8_t c[] = {0x01, 0x22, 0x5F}; rfWriteCmd(c, 3); }   // CALIBRATE
+  delay(5);
+
+  if (rfGetVersion(gChipVersion) == 0) return 2;
+  bool all_zero = !gChipVersion[0] && !gChipVersion[1] && !gChipVersion[2] && !gChipVersion[3];
+  bool all_ff = gChipVersion[0] == 0xFF && gChipVersion[1] == 0xFF &&
+                gChipVersion[2] == 0xFF && gChipVersion[3] == 0xFF;
+  if (all_zero || all_ff) return 2;
+
+  rfFlrcSetModParams(cfg.bitrate_kbps);
+  delay(1);
+  setSyncWord(cfg.sync_word);
+  delay(1);
+  rfFlrcSetPktParams(cfg.radio_payload);
+  delay(1);
+
+  { uint8_t c[] = {0x02, 0x02, 0x80, 0x00, 0x60, 0x07, 0x10}; rfWriteCmd(c, 7); }
+  delay(1);
+
+  rfSetTxParams(powerHalfDb(cfg.tx_power_dbm));
+  delay(1);
+  rfSetFallbackFs();
+  delay(1);
+
+  rfSetDioIrqFunction();                                    // DIO from E80_RADIO_IRQ_DIO
+  rfSetDioIrqMask(IRQ_RX_DONE | IRQ_TX_DONE | IRQ_CRC_ERROR);
+  delay(1);
+
+  rfClearTxFifo();
+  rfClearRxFifo();
+  rfClearIrq();
+  delay(10);
+
+  if (!rfWaitBusy()) return 1;
+  rfSetRx();
+  delay(2);
+  return 0;
+}
+#endif
+
 static int radioInit(const CfgPayload& cfg) {
+#if E80_BRIDGE_CARRIER_INIT
+  return radioInitCarrier(cfg);
+#else
   rfHardReset();
   rfGetErrors();
   rfClearErrors();
@@ -169,6 +253,7 @@ static int radioInit(const CfgPayload& cfg) {
   if (!rfWaitBusy()) return 1;
   rfSetRx();
   return 0;
+#endif
 }
 
 static bool radioApply(const CfgPayload& cfg) {
