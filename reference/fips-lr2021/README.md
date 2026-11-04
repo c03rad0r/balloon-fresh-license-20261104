@@ -131,7 +131,8 @@ the hardware gate and exact commands are in
 | `firmware/rp2040-bridge/` | RP2040 + E80 bridge firmware |
 | `scripts/` | bootstrap, sync, build, flash, demo |
 | `tests/hardware/` | PER, ping, relay and soak scripts |
-| `docs/` | protocol, bands, hardware, runbook, results |
+| `docs/` | protocol, bands, hardware, runbook, results, bring-up findings |
+| `docs/BOARD-INVENTORY.md` | every bench LR2021 board: USB IDs, wiring, firmware state |
 
 ## Known limitations
 

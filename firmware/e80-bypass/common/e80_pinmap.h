@@ -42,7 +42,9 @@
 #define E80_DOC_ESP32C3_RST   3    // J2-5  NRST  ↔ GPIO3
 
 // DIO line the E80 module uses for IRQ (demo firmware primary; wiring doc §7.4)
+#ifndef E80_RADIO_IRQ_DIO
 #define E80_RADIO_IRQ_DIO     8    // DIO8 — SET_DIO_FUNCTION dio index
+#endif
 
 #if defined(E80_HOST_RP2040)
 

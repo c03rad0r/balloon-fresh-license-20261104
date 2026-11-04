@@ -16,9 +16,15 @@
 | FIPS native transport | done; real E80 start verified (`1559063`), transport `lr2021` running/stopped cleanly |
 | Daemon + CLI | done, builds; `per`/`echo` validated over virtual PTYs |
 | RP2040 bridge firmware | written, host protocol test passes; hardware build/flash pending |
-| E80 STM32 bridge | built + flashed to one board; HELLO/CFG/STATUS verified; second board SWD blocked |
-| Hardware validation | one E80 bridge verified; two-node RF pending second board SWD |
+| E80 STM32 bridge | built; flashed via Pico and via ESP32-S3; HELLO/CFG/STATUS verified |
+| ESP32-S3 probe | **verified** — current OpenOCD + `adapter speed 5000`; programmed an E80 end to end |
+| Board inventory | 1 working bridge, 1 untested (failed with Pico earlier), 1 with a dead STM32 debug port |
+| Hardware validation | one E80 bridge verified; two-node RF pending a second working board |
 | Balloon-fresh PR | https://github.com/felixfelix-bot/balloon-fresh/pull/395 |
+
+See `docs/BRINGUP-FINDINGS-2026-11-03.md` for the probe setup, the meter tests
+that separate probe faults from board faults, and what the dead board is still
+good for.
 
 
 ---

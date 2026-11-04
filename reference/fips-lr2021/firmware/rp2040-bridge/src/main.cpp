@@ -52,13 +52,31 @@ static uint32_t gRelayHash[RELAY_CACHE] = {0};
 static uint32_t gRelayAt[RELAY_CACHE] = {0};
 static size_t gRelayNext = 0;
 
+/* Serial1 logging defaults on (GP12/GP13 free, as on the E80 SPI bypass).
+ * Build with -D E80_BRIDGE_UART_LOG=0 on carriers where those pins belong to
+ * another peripheral (e.g. the GPS UART on the dual-RP2040 carrier). */
+#ifndef E80_BRIDGE_UART_LOG
+#define E80_BRIDGE_UART_LOG 1
+#endif
+
+/* Poll the radio's IRQ status register over SPI instead of reading the module's
+ * DIO line. Needed on carriers where the IRQ is not routed to a usable GPIO
+ * (their sweep firmware may use a different DIO, or none at all). */
+#ifndef E80_BRIDGE_POLL_IRQ
+#define E80_BRIDGE_POLL_IRQ 0
+#endif
+
 static void logf(const char* fmt, ...) {
+#if E80_BRIDGE_UART_LOG
   char buf[240];
   va_list args;
   va_start(args, fmt);
   vsnprintf(buf, sizeof(buf), fmt, args);
   va_end(args);
   Serial1.println(buf);
+#else
+  (void)fmt;
+#endif
 }
 
 static void sendFrame(uint8_t kind, const uint8_t* payload, uint16_t len) {
@@ -214,15 +232,18 @@ static void txPacket(const uint8_t* data, size_t len) {
   uint32_t start = millis();
   bool done = false;
   while ((millis() - start) < 60) {
-    if (rfIrq()) {
-      uint32_t irq = rfGetIrqStatus();
-      if (irq & IRQ_TX_DONE) {
-        done = true;
-        break;
-      }
-      if (irq & IRQ_CRC_ERROR) {
-        break;
-      }
+#if E80_BRIDGE_POLL_IRQ
+    uint32_t irq = rfGetIrqStatus();
+#else
+    if (!rfIrq()) continue;
+    uint32_t irq = rfGetIrqStatus();
+#endif
+    if (irq & IRQ_TX_DONE) {
+      done = true;
+      break;
+    }
+    if (irq & IRQ_CRC_ERROR) {
+      break;
     }
   }
   if (!done) gStatsTimeouts++;
@@ -232,8 +253,13 @@ static void txPacket(const uint8_t* data, size_t len) {
 }
 
 static void handleRx() {
+#if E80_BRIDGE_POLL_IRQ
+  uint32_t irq = rfGetIrqStatus();
+  if (!(irq & (IRQ_RX_DONE | IRQ_CRC_ERROR))) return;
+#else
   if (!rfIrq()) return;
   uint32_t irq = rfGetIrqStatus();
+#endif
   if (irq & IRQ_CRC_ERROR) {
     gStatsCrc++;
     rfClearRxFifo();
@@ -376,9 +402,11 @@ static void watchdog() {
 
 void setup() {
   Serial.begin(2000000);
+#if E80_BRIDGE_UART_LOG
   Serial1.setTX(12);
   Serial1.setRX(13);
   Serial1.begin(115200);
+#endif
   delay(1500);
 
   pinMode(PIN_CS, OUTPUT);
