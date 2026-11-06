@@ -1,0 +1,450 @@
+[
+  {
+    "ref": "J_W2",
+    "number": "1",
+    "uuid": "f53d24e0-f3ba-4de7-8dc9-e4bb9a918f16",
+    "net": "/W1_SOLAR_N",
+    "xy": [
+      33.3,
+      77.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W2",
+    "number": "1",
+    "uuid": "47fa5d72-1d79-4136-a964-336a8295c732",
+    "net": "/W1_SOLAR_N",
+    "xy": [
+      33.3,
+      77.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W2",
+    "number": "2",
+    "uuid": "fda3b9f9-4d33-4263-84da-3969f284787a",
+    "net": "GND",
+    "xy": [
+      35.1,
+      77.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W2",
+    "number": "2",
+    "uuid": "ab960e36-9533-4bf4-888b-6c3c5b82f1bb",
+    "net": "GND",
+    "xy": [
+      35.1,
+      77.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W2",
+    "number": "3",
+    "uuid": "bd860c07-7229-44fa-b27b-0f42a372bf62",
+    "net": "/CUT_SENSE_W2",
+    "xy": [
+      36.9,
+      77.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W2",
+    "number": "3",
+    "uuid": "73363747-345c-4c31-b0a9-797cb41c837c",
+    "net": "/CUT_SENSE_W2",
+    "xy": [
+      36.9,
+      77.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W2",
+    "number": "4",
+    "uuid": "75db9ecf-9a7e-430e-a113-2ff1d948fc60",
+    "net": "/W2_SOLAR_N",
+    "xy": [
+      38.7,
+      77.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W2",
+    "number": "4",
+    "uuid": "f8c950ff-ac8d-4187-861c-23a62944ac5f",
+    "net": "/W2_SOLAR_N",
+    "xy": [
+      38.7,
+      77.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "1",
+    "uuid": "63145c0b-183b-4408-842c-58a0d4017c48",
+    "net": "/W2_SOLAR_N",
+    "xy": [
+      69.0,
+      42.7
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "1",
+    "uuid": "8f0a42a0-f366-48e9-b98b-7c25e2ca27e8",
+    "net": "/W2_SOLAR_N",
+    "xy": [
+      69.0,
+      42.7
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "2",
+    "uuid": "334196c0-0e55-418f-817f-1ec20dfd45ad",
+    "net": "GND",
+    "xy": [
+      69.0,
+      40.9
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "2",
+    "uuid": "4971ec11-b7e6-4334-935a-7223847b7d40",
+    "net": "GND",
+    "xy": [
+      69.0,
+      40.9
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "3",
+    "uuid": "63cc25d3-ea5e-4f5e-805a-0641017adb5d",
+    "net": "/CUT_SENSE_W3",
+    "xy": [
+      69.0,
+      39.1
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "3",
+    "uuid": "151c5cd9-1d48-4a77-bebb-9e28d4c1f156",
+    "net": "/CUT_SENSE_W3",
+    "xy": [
+      69.0,
+      39.1
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "4",
+    "uuid": "3a568d7e-3e32-4524-b896-1dd35975c207",
+    "net": "/W3_SOLAR_N",
+    "xy": [
+      69.0,
+      37.3
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W3",
+    "number": "4",
+    "uuid": "48391745-6a9e-4144-8896-e3f44884766e",
+    "net": "/W3_SOLAR_N",
+    "xy": [
+      69.0,
+      37.3
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "1",
+    "uuid": "5839bb05-7264-4d71-9181-ecdbf26a66ef",
+    "net": "/W3_SOLAR_N",
+    "xy": [
+      38.7,
+      3.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "1",
+    "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714",
+    "net": "/W3_SOLAR_N",
+    "xy": [
+      38.7,
+      3.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "2",
+    "uuid": "6671c9f7-357d-4ab1-b814-e7a00061bd16",
+    "net": "GND",
+    "xy": [
+      36.9,
+      3.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "2",
+    "uuid": "43bbe40a-889c-4d19-ae52-d1e86ed55a34",
+    "net": "GND",
+    "xy": [
+      36.9,
+      3.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "3",
+    "uuid": "2d35fd7a-74eb-4c87-b475-104a21198a9e",
+    "net": "/CUT_SENSE_W4",
+    "xy": [
+      35.1,
+      3.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "3",
+    "uuid": "0fcd77cf-66e4-4807-b7da-67be4e74b82f",
+    "net": "/CUT_SENSE_W4",
+    "xy": [
+      35.1,
+      3.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "4",
+    "uuid": "449a036a-8a56-447e-97f0-86cab64f00e4",
+    "net": "GND",
+    "xy": [
+      33.3,
+      3.0
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W4",
+    "number": "4",
+    "uuid": "9ce32384-57c6-4383-9111-c8dfcdab5d4b",
+    "net": "GND",
+    "xy": [
+      33.3,
+      3.0
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "1",
+    "uuid": "1ebad319-8e45-4855-a4d1-33830919cf73",
+    "net": "/W1_SOLAR_P",
+    "xy": [
+      3.0,
+      37.3
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "1",
+    "uuid": "477661e4-400e-4a34-a8af-c88ffd3263ab",
+    "net": "/W1_SOLAR_P",
+    "xy": [
+      3.0,
+      37.3
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "2",
+    "uuid": "50512d8c-236d-4d80-b54d-dae34542a9eb",
+    "net": "GND",
+    "xy": [
+      3.0,
+      39.1
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "2",
+    "uuid": "5ed8afc5-cade-42dd-9864-739ceb034c85",
+    "net": "GND",
+    "xy": [
+      3.0,
+      39.1
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "3",
+    "uuid": "738b27c6-47cd-4170-a13c-2927e2f504db",
+    "net": "/CUT_SENSE_W1",
+    "xy": [
+      3.0,
+      40.9
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "3",
+    "uuid": "b3f8d59c-910e-4b94-8520-e4a53ab40bd2",
+    "net": "/CUT_SENSE_W1",
+    "xy": [
+      3.0,
+      40.9
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "4",
+    "uuid": "7656e304-0273-4ef0-b688-28439d2db1d0",
+    "net": "/W1_SOLAR_N",
+    "xy": [
+      3.0,
+      42.7
+    ],
+    "layers": [
+      "F.Cu"
+    ],
+    "attribute": 1
+  },
+  {
+    "ref": "J_W1",
+    "number": "4",
+    "uuid": "d25f4cde-dbfa-4c1b-8f78-dba2a352c552",
+    "net": "/W1_SOLAR_N",
+    "xy": [
+      3.0,
+      42.7
+    ],
+    "layers": [
+      "B.Cu"
+    ],
+    "attribute": 1
+  }
+]
