@@ -31,6 +31,17 @@ GATES = [
     ('check_silk.py', ['--board', None], True),
 ]
 
+# The pre-commit hook also runs this, BEFORE any of the above, and this runner did not -- which is
+# how a 'five gates, authoritative' status was quoted while a sixth gate went unchecked. It is a
+# pytest file, not a check_*.py script, and it needs an interpreter with BOTH pytest and pcbnew.
+ROUTER_AGREEMENT = 'tests/test_router_grid_validator_agreement.py'
+ROUTER_AGREEMENT_PYTHONS = [
+    os.path.expanduser('~/venvs/kicad/bin/python'),
+    '/usr/bin/python3',
+]
+
+KICAD_PYTHON = os.path.expanduser('~/venvs/kicad/bin/python')
+
 
 def main():
     if len(sys.argv) < 2:
@@ -42,6 +53,37 @@ def main():
         return 2
 
     results = []
+
+    # SIXTH GATE FIRST, exactly as the pre-commit hook orders it.
+    ra_path = os.path.join(os.path.dirname(HW), '..', ROUTER_AGREEMENT)
+    ra_path = os.path.abspath(ra_path)
+    ra_status = 'MISSING'
+    if not os.path.exists(ra_path):
+        print('%-32s MISSING (hook REFUSES in this case)' % 'router_agreement')
+    else:
+        ran = False
+        for py in ROUTER_AGREEMENT_PYTHONS:
+            if not os.path.exists(py):
+                continue
+            r = subprocess.run([py, '-B', ra_path], capture_output=True, text=True, timeout=1800)
+            out = (r.stdout or '') + (r.stderr or '')
+            if 'ModuleNotFoundError' in out and 'pcbnew' in out:
+                continue
+            if 'ModuleNotFoundError' in out and 'pytest' in out:
+                continue      # wrong interpreter, try the next (matches the hook's behaviour)
+            ran = True
+            ra_status = 'PASS' if r.returncode == 0 else 'FAIL'
+            npass = out.count('PASS ')
+            print('\n=== %-30s %s  (%d tests)' % ('router_agreement', ra_status, npass))
+            if r.returncode != 0:
+                for ln in out.strip().splitlines()[-6:]:
+                    print('    ' + ln)
+            break
+        if not ran:
+            ra_status = 'REFUSED'
+            print('%-32s REFUSED -- no interpreter with pytest+pcbnew' % 'router_agreement')
+    results.append(('router_agreement', ra_status, True))
+
     for (script, argfmt, blocking) in GATES:
         path = os.path.join(HW, script)
         if not os.path.exists(path):
