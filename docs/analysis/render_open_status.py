@@ -53,7 +53,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('out')
     ap.add_argument('--board', required=True)
-    ap.add_argument('--drc', required=True)
+    ap.add_argument('--drc', required=True,
+                    help='kicad-cli DRC JSON for the SAME board. Generate it first with: '
+                         'kicad-cli pcb drc --format json --severity-all --units mm '
+                         '--output DRC.json <board>. Without this the render has no opens to draw.')
     ap.add_argument('--scale', type=float, default=10.0)
     ap.add_argument('--pad', type=int, default=14)
     a = ap.parse_args()
