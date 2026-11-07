@@ -1,0 +1,3 @@
+keep-out (34.9, 13.2, 35.6, 17.6)
+world: pads=301 tracks=1314 edges=16 holes=161 origin=(-0.05, -0.05) size=(72.1, 80.1)
+UNROUTED /SPI1_SCK:U3.5:U_C.5: no path on any layer pair (511.57s)

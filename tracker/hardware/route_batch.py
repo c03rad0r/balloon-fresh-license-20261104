@@ -189,6 +189,12 @@ class World:
     # ---- ONE predicate, used by the raster, by A* and by the validator ----
     def seg_ok(self, layer, p0, p1, net, own, kind="trace"):
         half = TRACK_W / 2 if kind == "trace" else VIA_D / 2
+        # Optional keep-out rectangles: cells the router must not enter. Used to steer a re-route
+        # away from a corridor that an earlier route already claimed. Checked FIRST so a refusal
+        # names the keep-out rather than an incidental pad, which makes the log readable.
+        for (kx0, ky0, kx1, ky1) in getattr(self, "keepout", ()):
+            if seg_rect(p0[0], p0[1], p1[0], p1[1], (kx0, ky0, kx1, ky1)) - half < 0:
+                return False, "keep-out corridor"
         for p in self.pads:
             if p["npth"] or p["net"] == net:
                 continue
@@ -307,6 +313,18 @@ def build_raster(W, pitch, net, own_rects, own=None):
         grid[LIDX[layer], j0:j1 + 1, i0:i1 + 1] = True
 
     half = TRACK_W / 2
+    # Keep-out rectangles must be blocked in the raster too, on BOTH layers. Missing this made
+    # the agreement test fail with "2+ free cells are illegal ... keep-out corridor": the search
+    # believed a corridor was open that the validator refused. The test did its job.
+    for (kx0, ky0, kx1, ky1) in getattr(W, "keepout", ()):
+        grid[0, max(0, int(math.floor((ky0 - oy) / pitch))):
+                min(ny, int(math.ceil((ky1 - oy) / pitch))) + 1,
+             max(0, int(math.floor((kx0 - ox) / pitch))):
+                min(nx, int(math.ceil((kx1 - ox) / pitch))) + 1] = True
+        grid[1, max(0, int(math.floor((ky0 - oy) / pitch))):
+                min(ny, int(math.ceil((ky1 - oy) / pitch))) + 1,
+             max(0, int(math.floor((kx0 - ox) / pitch))):
+                min(nx, int(math.ceil((kx1 - ox) / pitch))) + 1] = True
     for p in W.pads:
         if p["npth"] or p["net"] == net:
             continue
@@ -563,10 +581,15 @@ def main():
     ap.add_argument("--report", default="")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--deadline", type=float, default=240.0, help="seconds per pair")
+    ap.add_argument("--keepout", action="append", default=[], metavar="X0,Y0,X1,Y1",
+                    help="rectangle the route must avoid (repeatable)")
     a = ap.parse_args()
 
     import time
     W = World(a.board)
+    W.keepout = [tuple(float(v) for v in k.split(",")) for k in a.keepout]
+    for k in W.keepout:
+        print(f"keep-out {k}")
     print(f"world: pads={len(W.pads)} tracks={len(W.tracks)} edges={len(W.edge_segs)} "
           f"holes={len(W.holes)} origin={W.origin} size={W.size}")
 
