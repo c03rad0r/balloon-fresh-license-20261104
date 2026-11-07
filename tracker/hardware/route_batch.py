@@ -454,6 +454,15 @@ def astar(grid, nx, ny, start, goal, W, net, own, pitch, via_cache, max_exp=3_00
                 heapq.heappush(pq, (ng + h, ng, ni, nj, l))
         nl = 1 - l
         key = (i, j)
+        # via_cache is shared across the 4 layer-pair loop iterations in main(). Keying it only
+        # by (i, j) is safe ONLY because every iteration uses the same `net` and `own` -- if that
+        # ever stops being true, this cache silently returns one net's answer for another's.
+        # Assert the invariant rather than assume it.
+        if via_cache.get("__net__") not in (None, net):
+            raise AssertionError(
+                f"via_cache shared across nets: cached {via_cache['__net__']!r}, "
+                f"now routing {net!r}")
+        via_cache.setdefault("__net__", net)
         if key not in via_cache:
             via_cache[key] = W.via_ok(ox + i * pitch, oy + j * pitch, net)[0]
         if via_cache[key] and not grid[nl, j, i]:

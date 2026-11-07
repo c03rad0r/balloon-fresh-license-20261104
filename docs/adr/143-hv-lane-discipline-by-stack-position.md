@@ -1,6 +1,9 @@
 # ADR-143 — H/V lane discipline: direction assigned by STACK POSITION, never by layer ID
 
-**Status:** PROPOSED — measured, not yet accepted. Report-only gate shipped; strict mode NOT enabled.
+**Status:** ACCEPTED — operator decision 2026-11-07: *"Don't make it a blocking gate for this
+board. Make it an ADR that we follow going forward with future lanes we route. We can make it
+blocking at a later point in the road map when this board has been completed and ordered from
+JLCPCB."*
 **Date:** 2026-11-07
 **Supersedes:** nothing.
 **Board under test:** `docs/analysis/bulk-route-20261107/latest.kicad_pcb`, sha256
@@ -59,15 +62,21 @@ corridors 0.30 mm wide.
 
 ## 4. Decision
 
+**ACCEPTED by the operator 2026-11-07.** The rule applies to **lanes we route from now on**.
+It is NOT retrofitted onto this board and NOT a blocking gate until this board is complete and
+ordered from JLCPCB.
+
 1. **Adopt the discipline, expressed by stack position:** `F.Cu`=H, `In1.Cu`=V, `In2.Cu`=H,
-   `B.Cu`=V. Never by layer ID.
+   `B.Cu`=V. Never by layer ID. This is the standing rule for **future routing**.
 2. **Do NOT enable it as a blocking gate on the current board.** It starts at 50.5 %, and the
    board is under an active reviewer (Astra, CHANGES_REQUESTED). Retrofitting direction onto
    routed copper is a rewrite, not a tidy-up.
 3. **Ship the checker in report-only mode now**, wired into the existing board-gate hook, and
    record 50.5 % as the baseline so regressions are visible without blocking progress.
-4. **Enable strict mode on the next fresh layout**, where the rule is cheap because it is
-   applied before copper exists.
+4. **Enable strict mode only after this board is complete and ordered from JLCPCB.** That is the
+   operator's stated trigger. Until then, no commit may be refused on H/V grounds.
+   When the trigger is reached, flip the hook entry to pass `--strict` (see section 5) and record
+   the achieved figure as the new baseline — do not assume it will be high on this board.
 
 ## 5. Enforcement, and why it is a gate rather than prose
 
@@ -95,8 +104,14 @@ Therefore:
 ## 7. For future sessions
 
 - Rule: direction is a property of **stack position**, not layer number.
+- **Apply it when routing NEW lanes.** This is the accepted practice from 2026-11-07 onward.
 - Audit: `python3 tracker/hardware/hv_lane_audit.py` (reads `latest.kicad_pcb`, prints the
   table above).
 - Reproduce the numbers: the script is self-contained and read-only; it needs only `pcbnew`.
-- Current baseline on this board: **50.5 %**, so any gate that blocks at 50.5 % blocks
-  everything. That is the whole reason the gate is report-only.
+- Current baseline on this board: **50.5 %**. The hook runs the checker WITHOUT `--strict`, so it
+  prints that figure and never blocks.
+- **Trigger to make it blocking:** this board complete AND ordered from JLCPCB (operator,
+  2026-11-07). At that point change the `GATES` entry in
+  `scripts/git-hooks/pre-commit-board-gates.py` from `("check_hv_lanes.py", [])` to
+  `("check_hv_lanes.py", ["--strict", "--min", "90"])` and re-record the baseline.
+  Do not flip it earlier; at 50.5 % it would refuse every commit on an in-review board.
