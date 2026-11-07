@@ -1,4 +1,4 @@
-# Learnings — LR2021 / FIPS bench, 2026-11-03 to 11-05
+# Learnings — LR2021 / FIPS bench, 2026-11-03 to 11-07
 
 Consolidated so a future session does not rediscover any of this. Each item cost
 real time; most cost an hour or more.
@@ -7,6 +7,7 @@ real time; most cost an hour or more.
 
 | Need | Document |
 |---|---|
+| E80 + ESP32-S3 build, flash, RF and FIPS guide | `docs/E80-ESP32-S3-FIPS-ONBOARDING.md` |
 | Flash without a button | `docs/FLASHING-WITHOUT-BUTTONS.md` |
 | Which board is which | `docs/BOARD-INVENTORY.md` |
 | Where the radio work stands | `docs/OTA-PROOF-PLAN.md` |
@@ -84,14 +85,54 @@ Other hard-won facts:
 - At 868 the FLRC rate must be 650 kbps or lower: FLRC-2600 needs ~2.6 MHz and
   the 868.0–868.6 sub-band is only 600 kHz.
 
+## E80 SPI bypass findings on 2026-11-07
+
+Read `docs/E80-ESP32-S3-FIPS-ONBOARDING.md` before repeating any of this work.
+
+- **The E80 STM32 MUST be held in reset** while an ESP32-S3 drives J2. The user's
+  soldered NRST-to-GND jumper changed a zero version read into a real radio;
+  no meter-discovered wiring repair was necessary.
+- `GET_VERSION` returns two status/dummy bytes before payload. Treating an
+  entire four-byte read as firmware bytes produced the misleading `07 21 01 18`;
+  the parsed version is **`01 18`**, hence `HELLO chip=0x1801`.
+- Full-duplex SPI with dummy TX on reads works where the earlier half-duplex
+  receive-only transfer was rejected. BUSY/RST/SCK/MOSI/MISO/NSS all worked.
+- Poll the IRQ **status register** rather than depending on DIO8 being wired:
+  TX timeouts went to 0 when the bridge stopped waiting solely for the DIO pin.
+- FLRC TX FIFO framing is `0x0002 + payload` with **no inserted length byte**.
+  RX FIFO is `0x0001 + payload` in one transaction with no dummies. Packet
+  status uses `0x024B`; cumulative RX/CRC/length counters use `0x024A`.
+- Short FLRC packets on this bench show hardware-CRC failures even when the
+  payload is intact. Allow them into the FIPS link, whose CRC32 independently
+  rejects real corruption. Full 255-byte frames are a clean control
+  (`valid=20 crc=0` on one burst).
+- First S3→native-E80 exchange: 20 valid frames near −49 dBm. Both directions
+  later delivered 5/5 64-byte payloads through the host link layer.
+- **Textual peer IDs matter.** `TransportAddr` strings are UTF-8; `addr: "2"`
+  must produce decimal link ID 2, not ASCII byte 0x32. Reception constructs the
+  same decimal string (`c03rad0r/fips@66b53835`).
+- An `echo` helper listens on link ID **2** by default. Sending to peer ID 1
+  while it runs is a host-addressing error, not an RF failure.
+- Two namespaces established authenticated FIPS peers in **both** directions.
+  IPv6 ping was nevertheless 0/3 each way, so transport readiness is still not
+  claimed for SSH.
+- Copying the STM32's 304 us ramp/STDBY_RC fallback, adding front-end calib,
+  changing every TX packet length and enabling PRAM were tried individually;
+  they regressed or did not fix this RF pair. The working E80 bypass build is
+  firmware 0.4.8. Do not stack these unvalidated modifications again.
+
 ## Open problems
 
-1. **No frame has ever crossed between two nodes.** Both nodes transmit and
-   self-receive; neither hears the other. Framing is now copied verbatim from the
-   vendor, so the remaining suspects are absolute frequency / band-variant
-   differences. This needs an SDR or a third receiver, not another parameter.
-2. **The ESP32 bridge radio returns zeros on both NiceRF carriers** despite
-   correct pins and a proven driver. Hardware-side (module power or bus), needs a
-   meter.
-3. **FIPS peer addressing over `lr2021`** (peer address = 4-byte link id) has
-   never been exercised.
+1. **Larger payloads, fragmentation, IPv6 ping and SSH still need validation.**
+   The latest isolated two-node test authenticated both ways but ping was 0/3
+   each way. Daemon logs distinguish `bad magic`, `bad crc32` and stale-session
+   errors; use those measurements rather than changing RF settings blindly.
+2. **The native STM32 reference E80 became silent.** USB re-enumeration did not
+   bring it back; further native-reference comparisons require a physical power
+   cycle. This does not block the already-documented S3 bypass build.
+3. **NiceRF ESP32-C3 carriers are not an E80-equivalent shortcut.** One reads
+   version 0x1801 after the driver correction, but TX/IRQ behavior differs.
+   Do not substitute it for the validated E80 SPI-bypass adapter.
+4. **Throughput and production hardening remain open:** RX IRQ status polling is
+   intentional because DIO8 is not required on this adapter, and init retries
+   are bounded at three.
