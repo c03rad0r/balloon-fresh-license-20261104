@@ -75,23 +75,16 @@ def flood(grid, nx, ny, pitch, origin, from_cells, goal_cells, via_ok):
     # minutes (measured, killed). This is the same mistake the original raster made with
     # contains_xy -- pay the expensive test once per cell, not once per visit.
     via = np.zeros((ny, nx), dtype=bool)
-    # CROP to the rectangle actually spanned by this pair's start and goal cells. A whole-board
-    # via map is ~720k O(thousands-of-items) calls per pair -- measured, two runs had to be
-    # killed at 3 and 10 minutes. The flood cannot leave this rectangle without passing through
-    # a start or goal cell, so cropping changes no answer.
-    ii = [int(round((x - ox) / pitch)) for (x, y, l) in from_cells]
-    jj = [int(round((y - oy) / pitch)) for (x, y, l) in from_cells]
-    gx = [int(round((x - ox) / pitch)) for (x, y, l) in goal_cells]
-    gy = [int(round((y - oy) / pitch)) for (x, y, l) in goal_cells]
-    i0, i1 = max(0, min(ii + gx)), min(nx - 1, max(ii + gx))
-    j0, j1 = max(0, min(jj + gy)), min(ny - 1, max(jj + gy))
-    pad = 4
-    i0, i1 = max(0, i0 - pad), min(nx - 1, i1 + pad)
-    j0, j1 = max(0, j0 - pad), min(ny - 1, j1 + pad)
-    for j in range(j0, j1 + 1):
-        for i in range(i0, i1 + 1):
-            if not grid[0, j, i] or not grid[1, j, i]:
-                via[j, i] = via_ok(ox + i * pitch, oy + j * pitch)
+    # NO CROP. An earlier version computed the via map only inside the rectangle spanned by the
+    # two endpoints, on the reasoning that "the flood cannot leave this rectangle". That was
+    # FALSE: the raster is whole-board, so the flood roams freely on a layer and may change
+    # layers anywhere -- but the crop silently forbade every layer change outside the box. A net
+    # whose only via site lay outside that box was reported UNREACHABLE when it was routable.
+    # That is a test window manufacturing a false "blocked", the worst class of error in this
+    # workstream. The whole-board map is too slow to precompute (720k O(thousands-of-items)
+    # calls), so it is memoised LAZILY: each cell is evaluated only if the flood reaches it.
+    via_cache: dict[tuple[int, int], bool] = {}
+    comp = 0
     comp = 0
     for (sx, sy, sl) in from_cells:
         i = int(round((sx - ox) / pitch))
@@ -114,7 +107,12 @@ def flood(grid, nx, ny, pitch, origin, from_cells, goal_cells, via_ok):
                 dq.append((l, ni, nj))
             # layer change: only where a via at this site is legal for this net
             nl = 1 - l
-            if not grid[nl, cj, ci] and lab[nl, cj, ci] < 0 and via[cj, ci]:
+            if not grid[nl, cj, ci] and lab[nl, cj, ci] < 0:
+                key = (ci, cj)
+                if key not in via_cache:
+                    via_cache[key] = bool(via_ok(ox + ci * pitch, oy + cj * pitch))
+                if not via_cache[key]:
+                    continue
                 lab[nl, cj, ci] = comp
                 dq.append((nl, ci, cj))
     return lab, comp
