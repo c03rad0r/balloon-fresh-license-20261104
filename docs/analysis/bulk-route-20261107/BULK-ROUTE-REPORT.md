@@ -81,13 +81,30 @@ previous accepted route**. That is the expected cost of routing adjacently and i
 reason to relax anything — it is a reason to sequence the SPI1 nets together rather than one at
 a time, or to route them in the opposite order.
 
-`/SPI1_MOSI` `U3.4 → U_C.4` (both B.Cu, no via needed) also **fails** at 290.86 s. That makes
-the verdict on this ordering unambiguous rather than suggestive: with `/SPI1_SCK` already
-accepted through the `U_C` corridor, the two remaining SPI1 nets cannot be routed one at a
-time in this order. The correct next move is a single pass that routes `/SPI1_SCK`,
-`/SPI1_MISO` and `/SPI1_MOSI` together so the three parallel runs negotiate the shared corridor
-at once — not a fourth one-at-a-time attempt, which has now failed twice for the same measured
-reason.
+`/SPI1_MOSI` `U3.4 → U_C.4` (both B.Cu, no via needed) also **fails** at 290.86 s, and a joint
+pass routing `/SPI1_MOSI` + `/SPI1_MISO` together with a 450 s each **also fails both**
+(450.92 s / 456.65 s). So it is not ordering. The joint pass was the right experiment and it
+settled the question the other way.
+
+The measurement at the `U_C` end, free corridor per direction:
+
+| pad | 0° (east) | 90° | 180° (west) | 270° |
+|---|---|---|---|---|
+| `U_C.3` `/SPI1_MISO` | **1.10** → `/SPI1_SCK` | 0.65 → `U_C.4` | **1.15** → `/U3_RESET_N` | 0.65 → `U_C.2` |
+| `U_C.4` `/SPI1_MOSI` | **1.10** → `/SPI1_SCK` | **0.45** → `/SPI1_SCK` | **1.15** → `/U3_RESET_N` | 0.65 → `U_C.3` |
+| `U_C.5` `/SPI1_SCK` | **>2.0 CLEAR** | 0.65 → `U_C.6` | **1.70** | 0.65 → `U_C.4` |
+
+Blocker on the east side is **my own `/SPI1_SCK` route**; on the west it is `/U3_RESET_N`. A
+0.6/0.3 via needs 1.25 mm. `U_C.3` has 1.10 mm east and 1.15 mm west — **0.10–0.15 mm short**.
+`U_C.4` is worse: 0.45 mm north, so **0.80 mm short**. `U_C.5` was routable because it had the
+only >2 mm corridor, and `/SPI1_SCK` took it.
+
+**This is a self-inflicted order dependency, stated plainly.** `/SPI1_SCK` was accepted first
+and consumed the one >2 mm corridor at `U_C`. The two parallel SPI1 nets behind it now sit in a
+pocket whose best exit is 1.10–1.15 mm against 1.25 mm required. Reverting `/SPI1_SCK` and
+routing the three together might fit all three; that is a real option and it trades a verified
+−3 opens for a maybe. I did not take it unilaterally, because it discards working copper on a
+guess about a denser joint solve.
 
 **`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three. `U_HUB_CVT.3` is
 F.Cu-only and boxed on **all eight** directions: 0° 0.65 → `U_HUB_CVT.17`; 90° **0.10** and
