@@ -71,13 +71,25 @@ def main():
     print('\nfailing total: %s -> %s   regressions: %d'
           % (before.get('failing'), after.get('failing'), len(regressions)))
 
-    ok = not regressions and after.get('failing', 1) < before.get('failing', 0)
+    # The campaign's success criterion is OPENS DECREASING, and `unconnected_items` is an
+    # ALLOWED type, so it never appears in check_drc's `failing` total. Gating on `failing`
+    # therefore cannot see the improvement this whole campaign is about. Gate on opens.
+    open_b = cb.get('unconnected_items', -1)
+    open_a = ca.get('unconnected_items', -1)
+    errs_b = sum(v for k, v in cb.items() if k not in ('unconnected_items', 'silk_over_copper',
+                                                       'silk_overlap', 'copper_edge_clearance'))
+    errs_a = sum(v for k, v in ca.items() if k not in ('unconnected_items', 'silk_over_copper',
+                                                       'silk_overlap', 'copper_edge_clearance'))
+    ok = (not regressions) and open_a < open_b and errs_a <= errs_b
+    print('opens: %d -> %d   hard-error total: %d -> %d' % (open_b, open_a, errs_b, errs_a))
     print('VERDICT: %s' % ('PASS' if ok else 'FAIL'))
     if not ok:
         if regressions:
             print('  refused: these types increased: %s' % regressions)
+        elif open_a >= open_b:
+            print('  refused: opens did not decrease (%d -> %d)' % (open_b, open_a))
         else:
-            print('  refused: failing count did not decrease')
+            print('  refused: hard-error total increased (%d -> %d)' % (errs_b, errs_a))
         return 2
 
     shutil.copy(cand, LIVE)
