@@ -1,0 +1,6 @@
+board latest.kicad_pcb  pads=301 tracks=1451
+/VSCAP:C_CAP1.1:R_BAL1.1: UNREACHABLE  cellsA=882 cellsB=43 compA=[1] compB=[]
+/F33_VSENSE:U1.21:R_MON1.2: UNREACHABLE  cellsA=175 cellsB=49 compA=[1] compB=[]
+/VSCAP:D1.1:R_BAL1.1: UNREACHABLE  cellsA=140 cellsB=43 compA=[1] compB=[]
+
+3/3 pairs UNREACHABLE at 0.1 mm pitch
