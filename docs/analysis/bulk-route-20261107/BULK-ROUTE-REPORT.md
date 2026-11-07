@@ -49,7 +49,35 @@ boxed on **all eight** directions tested: 0° 0.85 → `/SPI2_MISO`; 90° **0.40
 **Shortfall 0.40 mm.** `U2.12` is clear past 3.0 mm in five of eight directions, so the block
 is entirely on the `U1` side. Same three escapes as `/EN`, same reason none was taken.
 
-**`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three. `U_HUB_CVT.3` is
+**`/U3_IRQ`, `/F33_IRQ`** — closed (batches U3IRQ, D). See the table.
+
+**`/VSCAP` `C_CAP1.1 → R_BAL1.1`** — UNROUTED after 800 s, then re-tried at an enforced 120 s
+deadline and returned at 121.17 s. Obstacle **not yet measured**, so no number is claimed here.
+Listed as attempted-with-cause.
+
+## SPI1 bus: same-layer pairing wins, then runs out of room
+
+`/SPI1_SCK` islands: `U3.5` and `U_C.5` on **B.Cu**, `U1.22` on F.Cu. The obvious pair
+`U3.5 → U1.22` needs a via at both ends into a fine-pitch field and failed at 304.75 s. The
+**same-layer** pair `U3.5 → U_C.5` needs **no via** and closed three DRC records
+(35 → 32) at 266.88 s. Rule that follows: prefer the pair needing the fewest layer changes.
+
+`/SPI1_MISO` is the same shape and still **fails** on its same-layer pair, and the measurement
+says why. Free corridor per pin on B.Cu (0° / 90° / 180° / 270°):
+
+| pad | free distance |
+|---|---|
+| `U3.5` (`/SPI1_SCK`) | >2, 0.65, >2, 0.65 mm |
+| `U3.3` (`/SPI1_MISO`) | >2, 0.65, >2, 0.65 mm |
+| `U_C.5` (`/SPI1_SCK`) | >2, 0.65, **1.7**, 0.65 mm |
+| `U_C.3` (`/SPI1_MISO`) | **1.1**, 0.65, **1.15**, 0.65 mm |
+
+`U3.5` and `U3.3` are identical, so the difference is entirely at `U_C`. `U_C.5` has 1.7–2 mm
+along x; `U_C.3` has 1.1–1.15 mm — because `/SPI1_SCK`'s new path now occupies that corridor.
+So `/SPI1_MISO` did not fail on its own geometry: it failed on **congestion created by the
+previous accepted route**. That is the expected cost of routing adjacently and it is not a
+reason to relax anything — it is a reason to sequence the SPI1 nets together rather than one at
+a time, or to route them in the opposite order.
 F.Cu-only and boxed on **all eight** directions: 0° 0.65 → `U_HUB_CVT.17`; 90° **0.10** and
 270° **0.10** → `U_HUB_CVT.4` / `.2`; the four diagonals 0.15; 180° 0.60 → `GND`. Longest
 corridor **0.65 mm** against **1.25 mm** needed. **Shortfall 0.60 mm.** `J_HUB_PV.4` (PTH,
