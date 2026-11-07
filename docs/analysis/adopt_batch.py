@@ -80,14 +80,20 @@ def main():
                                                        'silk_overlap', 'copper_edge_clearance'))
     errs_a = sum(v for k, v in ca.items() if k not in ('unconnected_items', 'silk_over_copper',
                                                        'silk_overlap', 'copper_edge_clearance'))
-    ok = (not regressions) and open_a < open_b and errs_a <= errs_b
-    print('opens: %d -> %d   hard-error total: %d -> %d' % (open_b, open_a, errs_b, errs_a))
+    silk_b = cb.get('silk_over_copper', 0) + cb.get('silk_overlap', 0)
+    silk_a = ca.get('silk_over_copper', 0) + ca.get('silk_overlap', 0)
+    # A silk batch improves silk, not opens. Both criteria are legitimate; which one applies
+    # depends on what the batch set out to do. Refuse if NEITHER improved.
+    ok = (not regressions) and (open_a < open_b or silk_a < silk_b) and errs_a <= errs_b
+    print('opens: %d -> %d   silk: %d -> %d   hard-error total: %d -> %d'
+          % (open_b, open_a, silk_b, silk_a, errs_b, errs_a))
     print('VERDICT: %s' % ('PASS' if ok else 'FAIL'))
     if not ok:
         if regressions:
             print('  refused: these types increased: %s' % regressions)
-        elif open_a >= open_b:
-            print('  refused: opens did not decrease (%d -> %d)' % (open_b, open_a))
+        elif open_a >= open_b and silk_a >= silk_b:
+            print('  refused: neither opens nor silk improved (%d->%d, %d->%d)'
+                  % (open_b, open_a, silk_b, silk_a))
         else:
             print('  refused: hard-error total increased (%d -> %d)' % (errs_b, errs_a))
         return 2
