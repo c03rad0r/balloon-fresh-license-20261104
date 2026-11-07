@@ -30,6 +30,7 @@ import json
 import math
 import os
 import sys
+import time
 
 import numpy as np
 import pcbnew
@@ -404,7 +405,7 @@ def agreement_test(W, grid, pitch, net, own, samples=4000, rng=None):
 
 
 def astar(grid, nx, ny, start, goal, W, net, own, pitch, via_cache, max_exp=3_000_000,
-          via_cost=VIA_COST):
+          via_cost=VIA_COST, deadline=None):
     si, sj, sl_id = start
     gi, gj, gl_id = goal
     sl, gl = LIDX[sl_id], LIDX[gl_id]
@@ -420,6 +421,12 @@ def astar(grid, nx, ny, start, goal, W, net, own, pitch, via_cache, max_exp=3_00
     closed = np.zeros((2, ny, nx), dtype=bool)
     exp = 0
     while pq:
+        # ENFORCED DEADLINE. Before this, --deadline was parsed and never read: a single net
+        # ran 24.5 minutes against an 800 s request and had to be killed by hand, and every
+        # "bounded batch" claim rested on the shell `timeout`, not on the router. Checked every
+        # 4096 expansions so the clock read does not itself become the cost.
+        if deadline is not None and (exp & 0xFFF) == 0 and time.time() > deadline:
+            return None, "deadline reached during search"
         f, g, i, j, l = heapq.heappop(pq)
         if closed[l, j, i]:
             continue
@@ -569,6 +576,7 @@ def main():
         own = {(p["ref"], p["num"]) for p in A + Bp}
         own_rects = [p["rect"] for p in A + Bp]
         t0 = time.time()
+        pair_deadline = t0 + float(getattr(a, "deadline", 240.0))
         grid, nx, ny = build_raster(W, a.pitch, net, own_rects, own)
         ok, why = agreement_test(W, grid, a.pitch, net, own)
         entry = {"spec": spec, "net": net, "agreement": why, "agreement_ok": ok}
@@ -589,7 +597,8 @@ def main():
                 cg = cell(Bp[0])
                 p, msg = astar(grid, nx, ny, (ci[0], ci[1], la), (cg[0], cg[1], lb),
                                W, net, own, a.pitch, cache,
-                               max_exp=int(2_000_000 * (1 + time.time() - t0)))
+                               max_exp=int(2_000_000 * (1 + time.time() - t0)),
+                               deadline=pair_deadline)
                 if p and (best is None or len(p) < len(best)):
                     best, entry["astar"] = p, msg
                 if best:
