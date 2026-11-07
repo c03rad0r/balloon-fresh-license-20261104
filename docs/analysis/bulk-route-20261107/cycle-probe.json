@@ -1,0 +1,14 @@
+{
+  "F_two_cycles": {
+    "opens": 22,
+    "viol": 24,
+    "errors": 0,
+    "kinds": {}
+  },
+  "G_three_cycles": {
+    "opens": 22,
+    "viol": 24,
+    "errors": 0,
+    "kinds": {}
+  }
+}
