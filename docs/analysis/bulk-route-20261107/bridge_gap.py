@@ -95,8 +95,8 @@ def fragment_gap(b, net):
     best = None
     for i in range(len(frags)):
         for j in range(i + 1, len(frags)):
-            if not (frags[i]['layers'] ^ frags[j]['layers']):
-                continue          # same layer only: not a cross-layer gap
+            # consider cross-layer pairs AND same-layer pairs: a same-layer gap needs no
+            # via at all and is the cheapest possible fix, so it must not be skipped.
             for (x1, y1) in frags[i]['pts']:
                 for (x2, y2) in frags[j]['pts']:
                     d = math.hypot(x1 - x2, y1 - y2)
@@ -105,7 +105,8 @@ def fragment_gap(b, net):
     if best is None:
         return None
     d, a, c, la, lc = best
-    return (a, c, sorted(la), sorted(lc), d / 1e6)
+    same = la == lc
+    return (a, c, sorted(la), sorted(lc), d / 1e6, same)
 
 
 def add_path(b, path, net):
@@ -188,10 +189,11 @@ def main():
             print('%-14s no cross-layer fragment gap' % net)
             report[net] = {'status': 'no gap'}
             continue
-        a, c, la, lc, gap = g
-        print('%-14s gap %.3f mm  (%.3f,%.3f) -> (%.3f,%.3f) layers %s -> %s'
+        a, c, la, lc, gap, same = g
+        print('%-14s gap %.3f mm  (%.3f,%.3f) -> (%.3f,%.3f) layers %s -> %s%s'
               % (net, gap, a[0] / 1e6, a[1] / 1e6, c[0] / 1e6, c[1] / 1e6,
-                 [b.GetLayerName(l) for l in la], [b.GetLayerName(l) for l in lc]))
+                 [b.GetLayerName(l) for l in la], [b.GetLayerName(l) for l in lc],
+                 '  [SAME LAYER - no via needed]' if same else ''))
         t0 = time.time()
         f = BR.SeqField(b, box, BR.ROUTE_CLEAR)
         margin = 3000000
