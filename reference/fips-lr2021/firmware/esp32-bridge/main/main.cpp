@@ -25,7 +25,7 @@
 #include "lr2021_spi.h"
 #include "bridge_protocol.h"
 
-static const uint8_t FW_VERSION[3] = {0, 4, 7};
+static const uint8_t FW_VERSION[3] = {0, 4, 8};
 static const uint16_t CAPS = 0x0007;
 
 #ifndef LR2021_E80_COMPAT
