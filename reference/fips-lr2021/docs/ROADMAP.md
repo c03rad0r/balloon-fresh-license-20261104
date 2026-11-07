@@ -104,26 +104,32 @@ protocol in `reference/fips-lr2021/firmware/rp2040-bridge`, framing in
 - [x] Bridge protocol over USB-Serial/JTAG (`firmware/esp32-bridge`)
 - [x] `HELLO_ACK` / `PONG` / `STAT` answer on real hardware
 - [x] Flashing without a button (`esptool --before usb_reset`)
-- [ ] **Replace the radio layer with `tracker/.../lr2021_transport`**
-- [ ] `chip` reports a non-zero version
-- [ ] TX completes (`timeouts` stops incrementing)
-- [ ] `per`/`echo` against an E80
+- [x] **Replace the radio layer with `tracker/.../lr2021_transport`**
+- [x] `chip` reports a non-zero version
+- [x] TX completion measured through the IRQ status register (`timeouts=0`)
+- [x] `per`/`echo` against a native E80 (5/5 accepted payloads each way)
+- [x] Full-size 255-byte RX control (`valid=20 crc=0`)
+- [x] Document at `docs/E80-ESP32-S3-FIPS-ONBOARDING.md`
 
 Lessons to keep: the main-task stack needs 8 KB; large buffers must be static;
-this chip's IRQ status register is unusable, so poll the DIO pin; and the
-bitrate table is carrier-specific.
+do not gate E80 TX/RX solely on its DIO wire; parse and use FLRC FIFO/status
+opcodes instead of their generic predecessors; and the bitrate/packet tables
+are carrier-specific. Short-packet PHY CRC flags require host CRC verification,
+not unconditional frame discard.
 
 ## Phase 4 — FIPS peer addressing
 
-The real integration gap: no discoverable peers, `auto_connect` false, peers must
-be configured statically with the transport address equal to the 4-byte link id.
-That path has never been exercised.
+Peer addressing is explicit, textual and decimal. Config uses `addr: "1"` or
+`"2"` corresponding to `local_id`; both sides had to be converted the same way.
+Two isolated FIPS namespaces proved bidirectional peer authentication before
+IPv6 testing was attempted.
 
-- [ ] Determine how a peer transport address is encoded and matched
-- [ ] Documented config example (`local_id` ↔ peer address)
-- [ ] Handshake over `lr2021`
-- [ ] `ping6`
-- [ ] TCP (`iperf3 -t`)
+- [x] Determine how a peer transport address is encoded and matched
+- [x] Documented config example (`local_id` ↔ decimal-string peer address)
+- [x] Handshake over `lr2021` (authenticated, connected peers in both namespaces)
+- [ ] `ping6` — latest test was 0/3 in each direction
+- [ ] TCP (`iperf3 -t`) and interactive SSH
+- [ ] Larger-payload plus fragmented-message validation
 - [ ] Document MTU interaction: FIPS TUN 1280 vs link MTU 1400
 
 ## Phase 5 — throughput
