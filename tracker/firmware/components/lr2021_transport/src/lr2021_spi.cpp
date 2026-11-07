@@ -106,7 +106,7 @@ esp_err_t EspIdfLr2021Radio::init_hardware() {
     devcfg.mode           = 0;  // SPI mode 0 (CPOL=0, CPHA=0)
     devcfg.spics_io_num   = LR2021_PIN_CS;
     devcfg.queue_size     = 1;
-    devcfg.flags          = SPI_DEVICE_HALFDUPLEX;
+    devcfg.flags          = 0;  /* full duplex */
 
     ret = spi_bus_add_device(SPI2_HOST, &devcfg, &spi_dev_);
     if (ret != ESP_OK) {
@@ -175,10 +175,15 @@ Lr2021Error EspIdfLr2021Radio::spi_read(const uint8_t* opcode, size_t opcode_len
     Lr2021Error err = wait_busy();
     if (err != Lr2021Error::Ok) return err;
 
-    // Read data
+    // Read data. Provide a dummy TX buffer too: with SPI_DEVICE_HALFDUPLEX a
+    // receive-only transaction is rejected by the driver (ESP_ERR_INVALID_ARG),
+    // which surfaced as Lr2021Error::SpiError.
+    static uint8_t dummy_tx[LR2021_MAX_PACKET + 8] = {0};
+    memset(dummy_tx, 0, sizeof(dummy_tx));
     memset(buf, 0, buf_len);
     t = {};
     t.length = buf_len * 8;
+    t.tx_buffer = dummy_tx;
     t.rx_buffer = buf;
     t.flags = 0;
     ret = spi_device_polling_transmit(spi_dev_, &t);
@@ -260,7 +265,14 @@ static void build_packet_params(const Lr2021Config& config, uint8_t params[4]) {
 #define LR2021_FORCE_CRC_OFF 0
 #endif
     uint8_t crc_byte = (config.crc_enabled && !LR2021_FORCE_CRC_OFF) ? 0x01 : 0x00;
+#ifndef LR2021_PKT_BYTE1
+#define LR2021_PKT_BYTE1 0
+#endif
+#if LR2021_PKT_BYTE1
+    uint8_t byte1 = (uint8_t)LR2021_PKT_BYTE1;
+#else
     uint8_t byte1 = (1u << 6) | (1u << 3) | (1u << 2) | crc_byte;
+#endif
     // Byte 2-3: payloadLen big-endian (upper byte 0 for ≤255)
     params[0] = byte0;
     params[1] = byte1;
@@ -513,3 +525,12 @@ Lr2021Error EspIdfLr2021Radio::sleep() {
 
 #endif // __has_include(<driver/...>)
 #endif // defined(__has_include)
+
+
+Lr2021Error EspIdfLr2021Radio::get_version(uint8_t out[4])
+{
+    if (!spi_initialized_) {
+        if (init_hardware() != ESP_OK) return Lr2021Error::SpiError;
+    }
+    return spi_read(Lr2021Opcodes::OP_GET_VERSION, 2, out, 4);
+}

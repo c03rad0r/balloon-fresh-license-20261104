@@ -156,6 +156,7 @@ struct PacketStatus {
 namespace Lr2021Opcodes {
     // Write/command opcodes
     static const uint8_t OP_CLEAR_ERRORS[]         = {0x01, 0x11, 0x00, 0x00};
+    static const uint8_t OP_GET_VERSION[]          = {0x01, 0x01};
     static const uint8_t OP_SET_STANDBY_XOSC[]     = {0x01, 0x28, 0x01};
     static const uint8_t OP_SET_PACKET_TYPE_FLRC[] = {0x02, 0x07, 0x05};
     static const uint8_t OP_SET_RF_FREQUENCY[]     = {0x02, 0x00};
@@ -343,6 +344,9 @@ public:
     Lr2021Error check_irq(bool& asserted) override;
     Lr2021Error standby() override;
     Lr2021Error sleep() override;
+
+    /// Read the chip version (0x0101). Proves the SPI bus reaches the radio.
+    Lr2021Error get_version(uint8_t out[4]);
 
 private:
     // SPI/GPIO handles

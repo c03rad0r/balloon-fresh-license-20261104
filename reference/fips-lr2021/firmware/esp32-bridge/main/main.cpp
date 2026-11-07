@@ -73,6 +73,15 @@ static bool radioApply(const CfgPayload &cfg)
     gLastInitMs = now_ms();
     gRadioOk = (err == Lr2021Error::Ok);
     if (gRadioOk) {
+        uint8_t ver[4] = {0, 0, 0, 0};
+        Lr2021Error verr = gRadio.get_version(ver);
+        memcpy(gChipVersion, ver, 4);
+        {
+            char msg[48];
+            snprintf(msg, sizeof(msg), "ver %02X %02X %02X %02X err=%d",
+                     ver[0], ver[1], ver[2], ver[3], (int)verr);
+            sendFrame(BR_EVT, (const uint8_t *)msg, (uint16_t)strlen(msg));
+        }
         gRadio.start_rx();
         gLastOkMs = now_ms();
     } else {

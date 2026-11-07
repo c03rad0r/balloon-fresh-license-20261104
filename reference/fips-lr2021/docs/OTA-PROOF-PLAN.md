@@ -320,3 +320,39 @@ explanations are no longer software-parameter drift:
 
 Both need a measurement, not another parameter change: an SDR (or any third
 receiver) to see where each radio actually transmits.
+
+
+## SPI bypass validation, 2026-11-07
+
+The ESP32-S3 driving an E80's LR2021 through `J2` (STM32 held in reset) was
+measured with a `GET_VERSION` read reported in an `EVT` frame.
+
+### Result
+
+| Check | Result |
+|---|---|
+| SPI transaction completes | **yes** (`err=0`) |
+| Version bytes returned | **`00 00 00 00`** |
+| Init sequence (writes + BUSY + RST) | completes |
+
+### What that means
+
+- **SCK, MOSI, NSS, BUSY and RST are functional** — command writes complete and
+  the BUSY handshake releases.
+- **MISO is returning nothing.** A working LR2021 answers `GET_VERSION` with real
+  version bytes; all zeros means the host is reading a line that the radio is not
+  driving, or the radio is unpowered.
+
+### Two driver fixes were needed to get this far
+
+1. With `SPI_DEVICE_HALFDUPLEX`, a receive-only transaction is rejected
+   (`Lr2021Error::SpiError`, `err=1`). Full-duplex (flags = 0) with hardware CS
+   fixes it.
+2. `GET_VERSION` was not exposed by the driver; it was added and is now reported
+   in `HELLO_ACK` and as an `EVT` frame.
+
+### Next step for the bypass
+
+Check **J2-9 (MISO) → ESP32 GPIO2** for continuity, and confirm the radio module
+is powered (the E80 has an RF module power jumper). Until the version reads
+non-zero, the bypass is not usable.
