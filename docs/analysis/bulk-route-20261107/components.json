@@ -1,0 +1,2090 @@
+{
+ "": [
+  {
+   "pads": [
+    "H2.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 13
+  },
+  {
+   "pads": [
+    "H2.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 14
+  },
+  {
+   "pads": [
+    "H2.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 15
+  },
+  {
+   "pads": [
+    "H2.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 16
+  },
+  {
+   "pads": [
+    "HW4.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 31
+  },
+  {
+   "pads": [
+    "HW4.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 32
+  },
+  {
+   "pads": [
+    "HW4.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 33
+  },
+  {
+   "pads": [
+    "HW4.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 34
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.7[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 35
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.17[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 37
+  },
+  {
+   "pads": [
+    "U5.5[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 51
+  },
+  {
+   "pads": [
+    "U3.17[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 58
+  },
+  {
+   "pads": [
+    "U5.18[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 59
+  },
+  {
+   "pads": [
+    "U1.29[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 62
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.9[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 64
+  },
+  {
+   "pads": [
+    "U_C.16[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 67
+  },
+  {
+   "pads": [
+    "U5.17[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 68
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.16[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 69
+  },
+  {
+   "pads": [
+    "H1.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 70
+  },
+  {
+   "pads": [
+    "H1.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 71
+  },
+  {
+   "pads": [
+    "H1.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 72
+  },
+  {
+   "pads": [
+    "H1.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 73
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.4[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 81
+  },
+  {
+   "pads": [
+    "U_CUT2.5[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 84
+  },
+  {
+   "pads": [
+    "U2.10[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 85
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.12[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 86
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.5[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 87
+  },
+  {
+   "pads": [
+    "U5.16[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 89
+  },
+  {
+   "pads": [
+    "U1.16[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 90
+  },
+  {
+   "pads": [
+    "HW2.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 93
+  },
+  {
+   "pads": [
+    "HW2.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 94
+  },
+  {
+   "pads": [
+    "HW2.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 95
+  },
+  {
+   "pads": [
+    "HW2.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 96
+  },
+  {
+   "pads": [
+    "U1.27[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 100
+  },
+  {
+   "pads": [
+    "U3.16[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 101
+  },
+  {
+   "pads": [
+    "U1.30[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 104
+  },
+  {
+   "pads": [
+    "U_CUT1.4[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 106
+  },
+  {
+   "pads": [
+    "U1.28[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 109
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.10[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 112
+  },
+  {
+   "pads": [
+    "U_C.17[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 118
+  },
+  {
+   "pads": [
+    "U_CUT1.6[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 119
+  },
+  {
+   "pads": [
+    "U3.10[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 120
+  },
+  {
+   "pads": [
+    "U_CUT3.5[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 121
+  },
+  {
+   "pads": [
+    "U7.4[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 122
+  },
+  {
+   "pads": [
+    "U1.26[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 124
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.8[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 126
+  },
+  {
+   "pads": [
+    "U_C.10[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 127
+  },
+  {
+   "pads": [
+    "U_CUT2.4[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 128
+  },
+  {
+   "pads": [
+    "U_C.9[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 130
+  },
+  {
+   "pads": [
+    "HW3.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 131
+  },
+  {
+   "pads": [
+    "HW3.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 132
+  },
+  {
+   "pads": [
+    "HW3.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 133
+  },
+  {
+   "pads": [
+    "HW3.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 134
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.11[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 135
+  },
+  {
+   "pads": [
+    "U2.9[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 137
+  },
+  {
+   "pads": [
+    "U5.11[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 138
+  },
+  {
+   "pads": [
+    "U_CUT4.6[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 139
+  },
+  {
+   "pads": [
+    "HW1.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 141
+  },
+  {
+   "pads": [
+    "HW1.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 142
+  },
+  {
+   "pads": [
+    "HW1.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 143
+  },
+  {
+   "pads": [
+    "HW1.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 144
+  },
+  {
+   "pads": [
+    "H4.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 146
+  },
+  {
+   "pads": [
+    "H4.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 147
+  },
+  {
+   "pads": [
+    "H4.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 148
+  },
+  {
+   "pads": [
+    "H4.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 149
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.15[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 150
+  },
+  {
+   "pads": [
+    "U5.13[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 151
+  },
+  {
+   "pads": [
+    "U_CUT3.6[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 152
+  },
+  {
+   "pads": [
+    "J_HUB_PV.3[B]",
+    "J_HUB_PV.3[F]",
+    "J_HUB_PV.3[In1.Cu]",
+    "J_HUB_PV.3[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 4,
+   "id": 153
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.6[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 156
+  },
+  {
+   "pads": [
+    "U3.9[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 157
+  },
+  {
+   "pads": [
+    "U_LORA1280.9[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 158
+  },
+  {
+   "pads": [
+    "U5.14[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 161
+  },
+  {
+   "pads": [
+    "U5.15[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 162
+  },
+  {
+   "pads": [
+    "U_CUT2.6[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 163
+  },
+  {
+   "pads": [
+    "U1.35[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 164
+  },
+  {
+   "pads": [
+    "H3.[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 166
+  },
+  {
+   "pads": [
+    "H3.[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 167
+  },
+  {
+   "pads": [
+    "H3.[In1.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 168
+  },
+  {
+   "pads": [
+    "H3.[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 169
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.13[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 171
+  },
+  {
+   "pads": [
+    "U_CUT3.4[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 172
+  },
+  {
+   "pads": [
+    "U_CUT4.4[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 173
+  },
+  {
+   "pads": [
+    "U_CUT1.5[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 175
+  },
+  {
+   "pads": [
+    "U_HUB_CVT.14[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 177
+  },
+  {
+   "pads": [
+    "U1.15[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 179
+  },
+  {
+   "pads": [
+    "U_CUT4.5[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 180
+  }
+ ],
+ "+3V3": [
+  {
+   "pads": [
+    "J_PROG.2[B]",
+    "J_PROG.2[F]",
+    "J_PROG.2[In1.Cu]",
+    "J_PROG.2[In2.Cu]",
+    "J_VCC.3[B]",
+    "U1.2[F]",
+    "U2.5[F]",
+    "U3.1[B]",
+    "U5.6[F]",
+    "U5.7[F]",
+    "U5.9[F]",
+    "U6.1[F]",
+    "U6.4[F]",
+    "U6.5[F]",
+    "U7.5[F]",
+    "U_C.1[B]",
+    "U_LORA1280.3[F]"
+   ],
+   "tracks": 15,
+   "vias": 56,
+   "polys": 14,
+   "n_nodes": 102,
+   "id": 38
+  },
+  {
+   "pads": [
+    "C10.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 110
+  },
+  {
+   "pads": [
+    "R_F1.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 170
+  }
+ ],
+ "/CUT_SENSE_W1": [
+  {
+   "pads": [
+    "J_W1.3[F]",
+    "U_CUT1.3[B]"
+   ],
+   "tracks": 11,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 17,
+   "id": 60
+  },
+  {
+   "pads": [
+    "J_W1.3[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 145
+  }
+ ],
+ "/CUT_SENSE_W2": [
+  {
+   "pads": [
+    "J_W2.3[F]",
+    "U_CUT2.3[B]"
+   ],
+   "tracks": 6,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 12,
+   "id": 26
+  },
+  {
+   "pads": [
+    "J_W2.3[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 113
+  }
+ ],
+ "/CUT_SENSE_W3": [
+  {
+   "pads": [
+    "J_W3.3[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 49
+  },
+  {
+   "pads": [
+    "J_W3.3[F]",
+    "U_CUT3.3[B]"
+   ],
+   "tracks": 6,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 12,
+   "id": 66
+  }
+ ],
+ "/CUT_SENSE_W4": [
+  {
+   "pads": [
+    "J_W4.3[F]",
+    "U_CUT4.3[B]"
+   ],
+   "tracks": 9,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 15,
+   "id": 17
+  },
+  {
+   "pads": [
+    "J_W4.3[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 42
+  }
+ ],
+ "/E28_BUSY": [
+  {
+   "pads": [
+    "U1.31[F]",
+    "U_LORA1280.15[F]"
+   ],
+   "tracks": 12,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 22,
+   "id": 6
+  }
+ ],
+ "/E28_CS_N": [
+  {
+   "pads": [
+    "U1.10[F]",
+    "U_LORA1280.8[F]"
+   ],
+   "tracks": 15,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 17,
+   "id": 53
+  }
+ ],
+ "/E28_DIO1": [
+  {
+   "pads": [
+    "U1.33[F]",
+    "U_LORA1280.16[F]"
+   ],
+   "tracks": 27,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 29,
+   "id": 22
+  }
+ ],
+ "/E28_DIO2": [
+  {
+   "pads": [
+    "U1.11[F]",
+    "U_LORA1280.1[F]"
+   ],
+   "tracks": 28,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 38,
+   "id": 8
+  }
+ ],
+ "/E28_DIO3": [
+  {
+   "pads": [
+    "U1.34[F]",
+    "U_LORA1280.2[F]"
+   ],
+   "tracks": 6,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 16,
+   "id": 11
+  }
+ ],
+ "/E28_RESET_N": [
+  {
+   "pads": [
+    "U1.32[F]",
+    "U_LORA1280.13[F]"
+   ],
+   "tracks": 18,
+   "vias": 16,
+   "polys": 0,
+   "n_nodes": 36,
+   "id": 46
+  }
+ ],
+ "/EN": [
+  {
+   "pads": [
+    "J_PROG.3[B]",
+    "J_PROG.3[F]",
+    "J_PROG.3[In1.Cu]",
+    "J_PROG.3[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 4,
+   "id": 55
+  },
+  {
+   "pads": [
+    "U1.3[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 105
+  }
+ ],
+ "/F33_BUSY": [
+  {
+   "pads": [
+    "U1.12[F]",
+    "U2.14[F]"
+   ],
+   "tracks": 9,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 19,
+   "id": 12
+  }
+ ],
+ "/F33_CS_N": [
+  {
+   "pads": [
+    "U1.7[F]",
+    "U2.13[F]"
+   ],
+   "tracks": 30,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 32,
+   "id": 2
+  }
+ ],
+ "/F33_IRQ": [
+  {
+   "pads": [
+    "U1.17[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 65
+  },
+  {
+   "pads": [
+    "U2.18[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 129
+  }
+ ],
+ "/F33_RESET_N": [
+  {
+   "pads": [
+    "U1.18[F]",
+    "U2.17[F]"
+   ],
+   "tracks": 40,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 50,
+   "id": 9
+  }
+ ],
+ "/F33_VCC": [
+  {
+   "pads": [
+    "C_BULK.1[F]",
+    "C_HF.1[F]",
+    "J_VCC.2[B]",
+    "R_MON1.1[F]",
+    "U2.1[F]"
+   ],
+   "tracks": 17,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 26,
+   "id": 25
+  }
+ ],
+ "/F33_VSENSE": [
+  {
+   "pads": [
+    "C_MON.1[F]",
+    "R_MON1.2[F]"
+   ],
+   "tracks": 39,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 41,
+   "id": 3
+  },
+  {
+   "pads": [
+    "R_MON2.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 97
+  },
+  {
+   "pads": [
+    "U1.21[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 108
+  }
+ ],
+ "/GNSS_PPS": [
+  {
+   "pads": [
+    "U1.23[F]",
+    "U5.4[F]"
+   ],
+   "tracks": 7,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 17,
+   "id": 39
+  }
+ ],
+ "/GNSS_RX": [
+  {
+   "pads": [
+    "U1.37[F]",
+    "U5.3[F]"
+   ],
+   "tracks": 112,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 122,
+   "id": 10
+  }
+ ],
+ "/GNSS_TX": [
+  {
+   "pads": [
+    "U1.36[F]",
+    "U5.2[F]"
+   ],
+   "tracks": 37,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 47,
+   "id": 23
+  }
+ ],
+ "/GNSS_VCC": [
+  {
+   "pads": [
+    "C4.1[F]",
+    "R_F1.2[F]",
+    "U5.8[F]"
+   ],
+   "tracks": 18,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 29,
+   "id": 43
+  }
+ ],
+ "/HUB_PV_MID1": [
+  {
+   "pads": [
+    "D_HUB1.2[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 76
+  },
+  {
+   "pads": [
+    "J_HUB_PV.2[B]",
+    "J_HUB_PV.2[F]",
+    "J_HUB_PV.2[In1.Cu]",
+    "J_HUB_PV.2[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 4,
+   "id": 77
+  },
+  {
+   "pads": [
+    "D_HUB2.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 178
+  }
+ ],
+ "/HUB_PV_N": [
+  {
+   "pads": [
+    "D_HUB2.2[F]",
+    "U_HUB_CVT.3[F]"
+   ],
+   "tracks": 9,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 11,
+   "id": 54
+  },
+  {
+   "pads": [
+    "J_HUB_PV.4[B]",
+    "J_HUB_PV.4[F]",
+    "J_HUB_PV.4[In1.Cu]",
+    "J_HUB_PV.4[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 4,
+   "id": 116
+  }
+ ],
+ "/HUB_PV_P": [
+  {
+   "pads": [
+    "U_HUB_CVT.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 61
+  },
+  {
+   "pads": [
+    "D_HUB1.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 111
+  },
+  {
+   "pads": [
+    "J_HUB_PV.1[B]",
+    "J_HUB_PV.1[F]",
+    "J_HUB_PV.1[In1.Cu]",
+    "J_HUB_PV.1[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 4,
+   "id": 165
+  }
+ ],
+ "/I2C_SCL": [
+  {
+   "pads": [
+    "U1.38[F]",
+    "U6.8[F]"
+   ],
+   "tracks": 16,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 18,
+   "id": 29
+  }
+ ],
+ "/I2C_SDA": [
+  {
+   "pads": [
+    "U1.39[F]",
+    "U6.7[F]"
+   ],
+   "tracks": 26,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 28,
+   "id": 21
+  }
+ ],
+ "/IO0": [
+  {
+   "pads": [
+    "J_PROG.6[B]",
+    "J_PROG.6[F]",
+    "J_PROG.6[In1.Cu]",
+    "J_PROG.6[In2.Cu]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 4,
+   "id": 98
+  }
+ ],
+ "/SCAP_ADC": [
+  {
+   "pads": [
+    "R_DIV1.2[F]",
+    "R_DIV2.1[F]"
+   ],
+   "tracks": 11,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 13,
+   "id": 56
+  }
+ ],
+ "/SCAP_MID": [
+  {
+   "pads": [
+    "C_CAP1.2[B]",
+    "C_CAP1.2[F]",
+    "C_CAP1.2[In1.Cu]",
+    "C_CAP1.2[In2.Cu]",
+    "C_CAP2.1[B]",
+    "C_CAP2.1[F]",
+    "C_CAP2.1[In1.Cu]",
+    "C_CAP2.1[In2.Cu]",
+    "R_BAL1.2[F]",
+    "R_BAL2.1[F]"
+   ],
+   "tracks": 16,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 26,
+   "id": 83
+  }
+ ],
+ "/SPI1_MISO": [
+  {
+   "pads": [
+    "U_LORA1280.5[F]"
+   ],
+   "tracks": 38,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 39,
+   "id": 1
+  },
+  {
+   "pads": [
+    "U_C.3[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 74
+  },
+  {
+   "pads": [
+    "U1.9[F]"
+   ],
+   "tracks": 1,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 2,
+   "id": 80
+  },
+  {
+   "pads": [
+    "U3.3[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 159
+  }
+ ],
+ "/SPI1_MOSI": [
+  {
+   "pads": [
+    "U1.8[F]",
+    "U_LORA1280.6[F]"
+   ],
+   "tracks": 14,
+   "vias": 8,
+   "polys": 0,
+   "n_nodes": 24,
+   "id": 24
+  },
+  {
+   "pads": [
+    "U_C.4[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 36
+  },
+  {
+   "pads": [
+    "U3.4[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 91
+  }
+ ],
+ "/SPI1_SCK": [
+  {
+   "pads": [
+    "U1.22[F]",
+    "U_LORA1280.7[F]"
+   ],
+   "tracks": 19,
+   "vias": 16,
+   "polys": 0,
+   "n_nodes": 37,
+   "id": 41
+  },
+  {
+   "pads": [
+    "U_C.5[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 78
+  },
+  {
+   "pads": [
+    "U3.5[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 123
+  }
+ ],
+ "/SPI2_MISO": [
+  {
+   "pads": [
+    "U1.6[F]",
+    "U2.16[F]"
+   ],
+   "tracks": 8,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 10,
+   "id": 52
+  }
+ ],
+ "/SPI2_MOSI": [
+  {
+   "pads": [
+    "U1.5[F]",
+    "U2.15[F]"
+   ],
+   "tracks": 12,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 14,
+   "id": 57
+  }
+ ],
+ "/SPI2_SCK": [
+  {
+   "pads": [
+    "U1.4[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 63
+  },
+  {
+   "pads": [
+    "U2.12[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 125
+  }
+ ],
+ "/U3_BUSY": [
+  {
+   "pads": [
+    "U1.24[F]",
+    "U3.7[B]"
+   ],
+   "tracks": 25,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 31,
+   "id": 4
+  }
+ ],
+ "/U3_CS_N": [
+  {
+   "pads": [
+    "U1.20[F]",
+    "U3.6[B]"
+   ],
+   "tracks": 105,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 111,
+   "id": 20
+  }
+ ],
+ "/U3_IRQ": [
+  {
+   "pads": [
+    "U3.15[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 45
+  },
+  {
+   "pads": [
+    "U1.19[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 102
+  }
+ ],
+ "/U3_RESET_N": [
+  {
+   "pads": [
+    "U1.25[F]",
+    "U3.14[B]"
+   ],
+   "tracks": 51,
+   "vias": 12,
+   "polys": 0,
+   "n_nodes": 65,
+   "id": 47
+  }
+ ],
+ "/USB_DN": [
+  {
+   "pads": [
+    "J_PROG.4[B]",
+    "J_PROG.4[F]",
+    "J_PROG.4[In1.Cu]",
+    "J_PROG.4[In2.Cu]"
+   ],
+   "tracks": 5,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 9,
+   "id": 30
+  },
+  {
+   "pads": [
+    "U1.13[F]"
+   ],
+   "tracks": 14,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 19,
+   "id": 50
+  }
+ ],
+ "/USB_DP": [
+  {
+   "pads": [
+    "J_PROG.5[B]",
+    "J_PROG.5[F]",
+    "J_PROG.5[In1.Cu]",
+    "J_PROG.5[In2.Cu]",
+    "U1.14[F]"
+   ],
+   "tracks": 46,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 55,
+   "id": 28
+  }
+ ],
+ "/U_C_BUSY": [
+  {
+   "pads": [
+    "U_C.7[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 114
+  }
+ ],
+ "/U_C_CS_N": [
+  {
+   "pads": [
+    "U_C.6[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 19
+  }
+ ],
+ "/U_C_IRQ": [
+  {
+   "pads": [
+    "U_C.15[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 79
+  }
+ ],
+ "/U_C_RESET_N": [
+  {
+   "pads": [
+    "U_C.14[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 140
+  }
+ ],
+ "/VSCAP": [
+  {
+   "pads": [
+    "C_CAP1.1[B]",
+    "C_CAP1.1[F]",
+    "C_CAP1.1[In1.Cu]",
+    "C_CAP1.1[In2.Cu]",
+    "J_VCC.1[B]",
+    "R_DIV1.1[F]",
+    "U7.1[F]",
+    "U7.3[F]",
+    "U_CUT2.1[B]",
+    "U_CUT3.1[B]",
+    "U_CUT4.1[B]"
+   ],
+   "tracks": 3,
+   "vias": 16,
+   "polys": 1,
+   "n_nodes": 31,
+   "id": 40
+  },
+  {
+   "pads": [
+    "D1.1[F]",
+    "U_CUT1.1[B]"
+   ],
+   "tracks": 1,
+   "vias": 8,
+   "polys": 1,
+   "n_nodes": 12,
+   "id": 44
+  },
+  {
+   "pads": [
+    "R_BAL1.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 88
+  }
+ ],
+ "/VTCXO_VNTC": [
+  {
+   "pads": [
+    "U3.13[B]",
+    "U_C.13[B]"
+   ],
+   "tracks": 11,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 13,
+   "id": 48
+  }
+ ],
+ "/W1_SOLAR_N": [
+  {
+   "pads": [
+    "D_BP1.2[B]",
+    "D_BP2.1[B]",
+    "J_W1.4[B]",
+    "J_W2.1[B]"
+   ],
+   "tracks": 32,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 36,
+   "id": 5
+  },
+  {
+   "pads": [
+    "J_W1.4[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 117
+  },
+  {
+   "pads": [
+    "J_W2.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 174
+  }
+ ],
+ "/W1_SOLAR_P": [
+  {
+   "pads": [
+    "D1.2[F]",
+    "D_BP1.1[B]",
+    "J_W1.1[F]"
+   ],
+   "tracks": 15,
+   "vias": 4,
+   "polys": 0,
+   "n_nodes": 22,
+   "id": 18
+  },
+  {
+   "pads": [
+    "J_W1.1[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 92
+  }
+ ],
+ "/W2_SOLAR_N": [
+  {
+   "pads": [
+    "D_BP2.2[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 7
+  },
+  {
+   "pads": [
+    "D_BP3.1[B]",
+    "J_W3.1[B]"
+   ],
+   "tracks": 8,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 10,
+   "id": 27
+  },
+  {
+   "pads": [
+    "J_W3.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 107
+  },
+  {
+   "pads": [
+    "J_W2.4[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 115
+  },
+  {
+   "pads": [
+    "J_W2.4[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 176
+  }
+ ],
+ "/W3_SOLAR_N": [
+  {
+   "pads": [
+    "D_BP3.2[B]",
+    "J_W3.4[B]"
+   ],
+   "tracks": 5,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 7,
+   "id": 75
+  },
+  {
+   "pads": [
+    "J_W3.4[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 82
+  },
+  {
+   "pads": [
+    "J_W4.1[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 103
+  },
+  {
+   "pads": [
+    "D_BP4.1[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 136
+  },
+  {
+   "pads": [
+    "J_W4.1[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 0,
+   "n_nodes": 1,
+   "id": 155
+  }
+ ],
+ "GND": [
+  {
+   "pads": [
+    "C10.2[F]",
+    "C4.2[F]",
+    "C_BULK.2[F]",
+    "C_CAP2.2[B]",
+    "C_CAP2.2[F]",
+    "C_CAP2.2[In1.Cu]",
+    "C_CAP2.2[In2.Cu]",
+    "C_HF.2[F]",
+    "C_MON.2[F]",
+    "D_BP4.2[B]",
+    "J_HUB_PV.5[B]",
+    "J_HUB_PV.5[F]",
+    "J_HUB_PV.5[In1.Cu]",
+    "J_HUB_PV.5[In2.Cu]",
+    "J_PROG.1[B]",
+    "J_PROG.1[F]",
+    "J_PROG.1[In1.Cu]",
+    "J_PROG.1[In2.Cu]",
+    "J_W1.2[B]",
+    "J_W1.2[F]",
+    "J_W2.2[B]",
+    "J_W2.2[F]",
+    "J_W3.2[B]",
+    "J_W3.2[F]",
+    "J_W4.2[B]",
+    "J_W4.2[F]",
+    "J_W4.4[B]",
+    "J_W4.4[F]",
+    "R_BAL2.2[F]",
+    "R_MON2.2[F]",
+    "U1.1[F]",
+    "U1.41[B]",
+    "U1.41[F]",
+    "U1.41[In1.Cu]",
+    "U1.41[In2.Cu]",
+    "U2.11[F]",
+    "U2.2[F]",
+    "U2.3[F]",
+    "U2.4[F]",
+    "U2.6[F]",
+    "U2.7[F]",
+    "U2.8[F]",
+    "U3.11[B]",
+    "U3.12[B]",
+    "U3.18[B]",
+    "U3.2[B]",
+    "U3.8[B]",
+    "U5.10[F]",
+    "U5.12[F]",
+    "U5.1[F]",
+    "U6.2[F]",
+    "U6.3[F]",
+    "U6.6[F]",
+    "U7.2[F]",
+    "U_C.11[B]",
+    "U_C.12[B]",
+    "U_C.18[B]",
+    "U_C.2[B]",
+    "U_C.8[B]",
+    "U_CUT1.2[B]",
+    "U_CUT3.2[B]",
+    "U_CUT4.2[B]",
+    "U_HUB_CVT.2[F]",
+    "U_LORA1280.10[F]",
+    "U_LORA1280.11[F]",
+    "U_LORA1280.12[F]",
+    "U_LORA1280.14[F]",
+    "U_LORA1280.4[F]"
+   ],
+   "tracks": 39,
+   "vias": 192,
+   "polys": 59,
+   "n_nodes": 403,
+   "id": 0
+  },
+  {
+   "pads": [
+    "U_CUT2.2[B]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 1,
+   "n_nodes": 2,
+   "id": 99
+  },
+  {
+   "pads": [
+    "U1.40[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 1,
+   "n_nodes": 2,
+   "id": 154
+  },
+  {
+   "pads": [
+    "R_DIV2.2[F]"
+   ],
+   "tracks": 0,
+   "vias": 0,
+   "polys": 1,
+   "n_nodes": 2,
+   "id": 160
+  }
+ ]
+}
