@@ -31,8 +31,8 @@ import batch_run as BR
 ROOT = '/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107'
 LIVE = os.path.join(ROOT, 'latest.kicad_pcb')
 TOL = 2000
-NET = '/SPI1_SCK'
-NAME = 'BRIDGE3'
+NET = os.environ.get('BRIDGE_NET', '/SPI1_SCK')
+NAME = os.environ.get('BRIDGE_TAG', 'BRIDGE3')
 
 
 class DSU:
