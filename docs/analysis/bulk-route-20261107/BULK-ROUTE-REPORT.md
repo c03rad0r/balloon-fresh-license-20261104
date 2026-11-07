@@ -1,6 +1,6 @@
 # Bulk routing — hub v10, branch `pr/bulk-route-20261107`
 
-**Not orderable. No master merge.** Cumulative on this branch: **38 → 33 native opens.**
+**Not orderable. No master merge.** Cumulative on this branch: **38 → 32 native opens.**
 
 Input: O35 repair candidate `fe11ee72c1206fb0715a9cee701961b8a1de37c0c7aaef663172bcf7bf9264c9`
 at `pr/o35-ground-repair-20261106` `824df0ba`. All work in the isolated worktree
@@ -15,6 +15,7 @@ at `pr/o35-ground-repair-20261106` `824df0ba`. All work in the isolated worktree
 | A | `/HUB_PV_MID1` `D_HUB1.2→D_HUB2.1` · 19 seg / 2 via / 14.0 mm | **38 → 35** | 24 → 24 | **+4** | 0 |
 | D | `/F33_IRQ` `U2.18→U1.17` · 30 seg / 6 via / 61.6 mm | **35 → 34** | 24 → 24 | **+0** | 0 |
 | U3IRQ | `/U3_IRQ` `U3.15→U1.19` · 119 seg / 5 via / 52.0 mm | **35 → 33** | 24 → 24 | **+0** | 0 |
+| SPI1SCK | `/SPI1_SCK` `U3.5→U_C.5` · 16 seg / 2 via / 42.8 mm | **35 → 32** | 24 → 24 | **+0** | 0 |
 
 Batch A predates the via-in-pad gate; its +4 is measured, not estimated — baseline carries
 **16** same-net via-in-pads, batch A carries **20**. Every batch after the gate was added shows
@@ -30,7 +31,8 @@ Board hashes: batch A `824b8a2a54df03a8b72b8472ce26b5ca9b68deb0d5023c84baa0c560e
 
 ## Nets closed
 
-`/HUB_PV_P`, `/F33_VSENSE`, `/HUB_PV_MID1` (batch A), `/F33_IRQ` (D), `/U3_IRQ` (U3IRQ).
+`/HUB_PV_P`, `/F33_VSENSE`, `/HUB_PV_MID1` (batch A), `/F33_IRQ` (D), `/U3_IRQ` (U3IRQ),
+`/SPI1_SCK` (SPI1SCK_UC). Six nets.
 
 ## Attempted and UNROUTED — measured obstacle, not a verdict of impossibility
 
@@ -79,6 +81,14 @@ previous accepted route**. That is the expected cost of routing adjacently and i
 reason to relax anything — it is a reason to sequence the SPI1 nets together rather than one at
 a time, or to route them in the opposite order.
 
+`/SPI1_MOSI` `U3.4 → U_C.4` (both B.Cu, no via needed) also **fails** at 290.86 s. That makes
+the verdict on this ordering unambiguous rather than suggestive: with `/SPI1_SCK` already
+accepted through the `U_C` corridor, the two remaining SPI1 nets cannot be routed one at a
+time in this order. The correct next move is a single pass that routes `/SPI1_SCK`,
+`/SPI1_MISO` and `/SPI1_MOSI` together so the three parallel runs negotiate the shared corridor
+at once — not a fourth one-at-a-time attempt, which has now failed twice for the same measured
+reason.
+
 **`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three. `U_HUB_CVT.3` is
 F.Cu-only and boxed on **all eight** directions: 0° 0.65 → `U_HUB_CVT.17`; 90° **0.10** and
 270° **0.10** → `U_HUB_CVT.4` / `.2`; the four diagonals 0.15; 180° 0.60 → `GND`. Longest
@@ -124,7 +134,7 @@ from the board's own `.kicad_dru`/`.kicad_pro`, never edited. No **foreign-net**
 `J_W` cavity (ADR-142). C10 frozen: candidate copper inside `x 8.00–11.20, y 41.00–44.20` is
 rejected, not merely avoided.
 
-## Remaining: 33 opens
+## Remaining: 32 opens
 
 11 are **two-face assembly lands** completed in assembly (ADR-120 R1) and 3 are **GND
 zone-anchor** records — 14 that are not missing copper. Still to attempt: `/HUB_PV_N`,
