@@ -110,15 +110,25 @@ def main():
         want = DIR_BY_NAME[name]
         good = c["H"] if want == "H" else c["V"]
         n = c["H"] + c["V"] + c["DIAG"]
+        if n == 0:
+            # A layer with only pad exits has no directional copper to judge. Printing 100.0 %
+            # for it (the old behaviour) reported an UNUSED layer as perfectly conforming --
+            # In1.Cu showed "100.0%" on 1.2 mm of track. Vacuous, not excellent; say so.
+            print(f"{name:8s} {want:>4s} {c['H']:5d} {c['V']:5d} {c['DIAG']:5d} "
+                  f"{c['escape']:6d} {'n/a':>9s}")
+            continue
         ok += good
         checked += n
-        pct = (good / n * 100) if n else 100.0
+        pct = good / n * 100
         print(f"{name:8s} {want:>4s} {c['H']:5d} {c['V']:5d} {c['DIAG']:5d} "
               f"{c['escape']:6d} {pct:8.1f}%")
-        if n and pct < a.min:
+        if pct < a.min:
             below.append((name, pct))
 
-    total = (ok / checked * 100) if checked else 100.0
+    if not checked:
+        print("\nwhole board: n/a -- no directional copper on any layer")
+        return 0
+    total = ok / checked * 100
     print(f"\nwhole board: {ok}/{checked} = {total:.1f}%   (threshold {a.min:.0f}%)")
 
     if a.verbose:
