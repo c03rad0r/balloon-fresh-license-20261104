@@ -14,6 +14,7 @@
 set -uo pipefail
 PY=/usr/bin/python3
 HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+REPO=$(cd "$HERE/../../.." && pwd)
 SPEC=$1
 LABEL=${2:-$(echo "$SPEC" | sed 's|^/||; s|:.*||')}
 DEADLINE=${DEADLINE:-900}
@@ -29,7 +30,7 @@ done
 before_sha=$(sha256sum "$W/board.kicad_pcb" | cut -d' ' -f1)
 echo "=== $LABEL   from ${before_sha:0:16}"
 
-$PY "$HERE/../tracker/hardware/route_batch.py" "$W/board.kicad_pcb" \
+$PY "$REPO/tracker/hardware/route_batch.py" "$W/board.kicad_pcb" \
     --pair "$SPEC" --out "$W/routed.kicad_pcb" --report "$W/report.json" \
     --deadline "$DEADLINE" 2>&1 | grep -v "Debug:" | tail -6
 
@@ -44,11 +45,11 @@ timeout 900 kicad-cli pcb drc --format json --severity-all --units mm \
 
 # via-in-pad: the check kicad-cli cannot do. Foreign-net overlap always blocks; same-net is
 # reported against the baseline so the delta is never hidden inside a total.
-$PY "$HERE/../tracker/hardware/verify_via_in_pad.py" "$W/routed.kicad_pcb" \
+$PY "$REPO/tracker/hardware/verify_via_in_pad.py" "$W/routed.kicad_pcb" \
     --baseline "$W/board.kicad_pcb" 2>&1 | grep -v "Debug:" | tail -6
 vrc=${PIPESTATUS[0]}
 
-$PY "$HERE/../tracker/hardware/proof.py" "$W/board.kicad_pcb" "$W/routed.kicad_pcb" \
+$PY "$REPO/tracker/hardware/proof.py" "$W/board.kicad_pcb" "$W/routed.kicad_pcb" \
     --drc-before "$HERE/batches/A/drc.json" --drc-after "$W/drc.json" \
     --pair "$SPEC" --regress-all --report "$W/proof.json" 2>&1 | grep -v "Debug:" | tail -12
 prc=${PIPESTATUS[0]}
