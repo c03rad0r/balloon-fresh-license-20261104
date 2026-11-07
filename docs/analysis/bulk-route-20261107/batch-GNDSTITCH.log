@@ -1,0 +1,15 @@
+batch GNDSTITCH from live: opens=22 viol=24 errors=0
+
+floating GND islands: 3
+  F.Cu  island 0     0.844 mm2 at (40.84, 43.84, 41.97, 44.95)  FROZEN - SKIP
+  F.Cu  island 11    2.249 mm2 at (27.65, 33.25, 29.45, 34.51)
+  B.Cu  island 3     0.925 mm2 at (36.48, 70.2, 37.8, 70.95)
+
+F.Cu  island 0: SKIPPED (inside C10 frozen region)
+
+F.Cu  island 11: NO LEGAL VIA SITE inside the island (2.249463120362)
+
+B.Cu  island 3: NO LEGAL VIA SITE inside the island (0.925471660829)
+
+batch GNDSTITCH: NOTHING STITCHED -- tree untouched
+rc=1
