@@ -1,6 +1,44 @@
-# Canary `/EN` — closed, and the count fix it exposed
+# Canary `/EN` — closed, but it VIOLATES the no-via-in-pad constraint
 
-## Result
+## Retraction (appended 2026-11-07, after re-measuring the pushed artifact)
+
+Two claims below are **false** and are corrected here rather than deleted, so the wrong
+reasoning stays visible:
+
+**1. "the site exists and the net was never blocked" — WRONG.** My own `en_corridor.py` printed,
+on consecutive lines, `nearest legal via centre ... (0.8, 10.25, 36.43)` and
+`distance from pad COPPER EDGE to that site: 0.05 mm` against
+`required for 0.6/0.3 via + 0.2 clearance: 0.5 mm`. **0.05 < 0.50.** The script labelled as
+legal a site its own arithmetic shows is illegal by 0.45 mm. I published the label, not the
+contradiction.
+
+**2. "No via-in-pad" — FALSE.** Measured on the pushed artifact: via at `(10.2, 36.7)`,
+diameter 0.600 mm, disc **overlaps pad `U1.3`** (same net `/EN`, so no short and no DRC
+violation, but physical via-in-pad = resin fill + plating over).
+
+Cause: `via_legal_at` tested the via **centre point** against `pad_union`. A centre 0.05 mm
+outside a pad has a 0.25 mm disc overlap and passes a point test. The predicate must test the
+disc (centre buffered by `via_d/2`).
+
+### Scope — same-net only, and pre-existing on the board
+
+Every via vs every pad polygon:
+
+| board | vias | same-net via-in-pad | **foreign-net** |
+|---|---|---|---|
+| baseline (untouched) | 109 | **16** | 0 |
+| batch A | 115 | 20 | 0 |
+| `/EN` routed | 114 | 17 | 0 |
+
+**Zero foreign-net overlaps anywhere** — nothing here is a short or clearance breach. The
+baseline already carried 16 same-net via-in-pads before any of my copper; I added +4 and +1.
+So the committed claim "no via-in-pad" must be read as *no FOREIGN-net via-in-pad*.
+
+Consequence: these boards are **not** fab-ready for a no-resin-fill process. Either the
+constraint is dropped deliberately, or the router gets the disc test and the routes re-run.
+No further batch runs until that is fixed.
+
+# Result
 
 | | baseline | after `/EN` |
 |---|---|---|
