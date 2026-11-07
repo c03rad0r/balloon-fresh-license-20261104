@@ -249,9 +249,17 @@ uint8_t EspIdfLr2021Radio::bitrate_to_brbw(uint32_t bitrate_kbps) {
 static void build_packet_params(const Lr2021Config& config, uint8_t params[4]) {
     // Byte 0: ((preambleIndex & 0x0F) << 2) | (syncWordLen / 2)
     // preamble=16 → index 3: (3<<2)|2 = 0x0E
-    uint8_t byte0 = 0x0E;
+    // Overridable so this driver can interoperate with the E80/RP2040 family,
+    // which uses 0x0C.
+#ifndef LR2021_PKT_BYTE0
+#define LR2021_PKT_BYTE0 0x0E
+#endif
+    uint8_t byte0 = (uint8_t)LR2021_PKT_BYTE0;
     // Byte 1: ((syncTx & 0x03) << 6) | ((syncMatch & 0x07) << 3) | (fixedLen<<2) | crc
-    uint8_t crc_byte = config.crc_enabled ? 0x01 : 0x00;
+#ifndef LR2021_FORCE_CRC_OFF
+#define LR2021_FORCE_CRC_OFF 0
+#endif
+    uint8_t crc_byte = (config.crc_enabled && !LR2021_FORCE_CRC_OFF) ? 0x01 : 0x00;
     uint8_t byte1 = (1u << 6) | (1u << 3) | (1u << 2) | crc_byte;
     // Byte 2-3: payloadLen big-endian (upper byte 0 for ≤255)
     params[0] = byte0;

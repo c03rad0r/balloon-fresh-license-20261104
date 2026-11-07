@@ -9,6 +9,12 @@ This tree is a reference implementation, not a flight integration. The FIPS-side
 code lives on a fork; this directory pins it, vendors the diff, and carries the
 RP2040 bridge firmware, configs and test scripts.
 
+## Start here
+
+- **No physical access?** `docs/FLASHING-WITHOUT-BUTTONS.md` — both ESP32 and
+  RP2040 can be reflashed over USB with no button press.
+- **Picking up this work?** `docs/LEARNINGS.md` first, then `docs/OTA-PROOF-PLAN.md`.
+
 ## What it does
 
 ```
@@ -133,6 +139,9 @@ the hardware gate and exact commands are in
 | `tests/hardware/` | PER, ping, relay and soak scripts |
 | `docs/` | protocol, bands, hardware, runbook, results, bring-up findings |
 | `docs/BOARD-INVENTORY.md` | every bench LR2021 board: USB IDs, wiring, firmware state |
+| `docs/FLASHING-WITHOUT-BUTTONS.md` | **flash ESP32 and RP2040 boards over USB, no button press** |
+| `docs/LEARNINGS.md` | every hard-won finding, so future sessions don't rediscover them |
+| `docs/OTA-PROOF-PLAN.md` | staged plan to prove an over-the-air frame |
 
 ## Known limitations
 

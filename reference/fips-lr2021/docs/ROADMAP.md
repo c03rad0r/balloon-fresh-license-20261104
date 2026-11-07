@@ -76,17 +76,42 @@ suspect for the remaining 100% loss:
 
 Largest piece; unlocks three boards.
 
-Inputs that exist: SPI/radio in `firmware/esp32-c3-flrc`, protocol in
-`reference/fips-lr2021/firmware/rp2040-bridge`, framing in
+**Revised 2026-11-04: do not reimplement the radio.** A first cut of
+`firmware/esp32-bridge` drove the radio from the E80 register driver and needed
+four blind iterations, each uncovering a carrier quirk:
+
+| Symptom | Actual cause |
+|---|---|
+| boot loop | 2 KB frame buffer on a 3.5 KB main-task stack |
+| `chip=0x0000` | RC standby instead of `SET_STANDBY_XOSC` (TCXO module) |
+| SPI read empty | manual GPIO CS + full duplex, instead of hardware CS + `SPI_DEVICE_HALFDUPLEX` |
+| TX never completes | the IRQ status register **reads back 0** on this chip; only the DIO pin works |
+| wrong rate | 650 kbps is `0x03` here, `0x04` in the E80 table |
+
+Every one of those is already encoded in
+**`tracker/firmware/components/lr2021_transport`**, whose `EspIdfLr2021Radio`
+runs on this exact hardware. The bridge must **link that component** rather than
+carry its own radio code. Keep only the host protocol on top:
+
+```
+USB-Serial/JTAG  ->  bridge protocol (A5 5A)  ->  EspIdfLr2021Radio  ->  LR2021
+```
+
+Inputs: proven driver in `tracker/firmware/components/lr2021_transport`,
+protocol in `reference/fips-lr2021/firmware/rp2040-bridge`, framing in
 `docs/BRIDGE-PROTOCOL.md`.
 
-- [x] Port `bridge_protocol` + TX/RX loop to ESP-IDF (`firmware/esp32-bridge`)
-- [x] USB-Serial/JTAG host link
-- [x] Per-carrier settings: IRQ DIO, frequency encoding, init variant
-- [x] Build for `esp32c3`
-- [x] Build for `esp32s3`
-- [ ] `fips-lr2021ctl hello` returns `HELLO_ACK` on an ESP32 board
+- [x] Bridge protocol over USB-Serial/JTAG (`firmware/esp32-bridge`)
+- [x] `HELLO_ACK` / `PONG` / `STAT` answer on real hardware
+- [x] Flashing without a button (`esptool --before usb_reset`)
+- [ ] **Replace the radio layer with `tracker/.../lr2021_transport`**
+- [ ] `chip` reports a non-zero version
+- [ ] TX completes (`timeouts` stops incrementing)
 - [ ] `per`/`echo` against an E80
+
+Lessons to keep: the main-task stack needs 8 KB; large buffers must be static;
+this chip's IRQ status register is unusable, so poll the DIO pin; and the
+bitrate table is carrier-specific.
 
 ## Phase 4 — FIPS peer addressing
 

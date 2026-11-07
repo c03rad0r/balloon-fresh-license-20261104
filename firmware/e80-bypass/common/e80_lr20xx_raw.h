@@ -331,8 +331,12 @@ static inline uint8_t rfFlrcBrCode(uint32_t kbps) {
 
 // SET_FLRC_MODULATION_PARAMS 0x0248 {br_bw, (cr<<4)|bt} — proven bytes 0x25
 // (cr code 2, BT 1.0 == multi_radio_sweep.cpp:350)
+#ifndef E80_MOD_BYTE1
+#define E80_MOD_BYTE1 0x25
+#endif
+
 static inline void rfFlrcSetModParams(uint32_t kbps) {
-  uint8_t p[2] = { rfFlrcBrCode(kbps), 0x25 };
+  uint8_t p[2] = { rfFlrcBrCode(kbps), (uint8_t)E80_MOD_BYTE1 };
   rfWrite2(OC_FLRC_MOD_PARAMS, p, 2);
 }
 
@@ -344,8 +348,16 @@ static inline void rfFlrcSetSyncWord() {
 
 // SET_FLRC_PACKET_PARAMS 0x0249 — proven bytes {0x0C, 0x4C, lenHi, lenLo}
 // (multi_radio_sweep.cpp:358; layout == lr20xx_radio_flrc.c:192-205)
+#ifndef E80_PKT_BYTE0
+#define E80_PKT_BYTE0 0x0C
+#endif
+#ifndef E80_PKT_BYTE1
+#define E80_PKT_BYTE1 0x4C
+#endif
+
 static inline void rfFlrcSetPktParams(uint16_t payload_len) {
-  uint8_t p[4] = { 0x0C, 0x4C, (uint8_t)(payload_len >> 8), (uint8_t)(payload_len & 0xFF) };
+  uint8_t p[4] = { (uint8_t)E80_PKT_BYTE0, (uint8_t)E80_PKT_BYTE1,
+                   (uint8_t)(payload_len >> 8), (uint8_t)(payload_len & 0xFF) };
   rfWrite2(OC_FLRC_PKT_PARAMS, p, 4);
 }
 
