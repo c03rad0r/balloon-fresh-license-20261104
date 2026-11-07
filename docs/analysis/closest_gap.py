@@ -118,7 +118,10 @@ def main():
                 max(a[0], c[0]) + margin, max(a[1], c[1]) + margin)
         path, why = CR.route(f, a, c, NET, rbox, la, lc,
                              deadline_steps=400000, deadline_s=20.0)
-        ok = path is not None
+        # CONTRACT: a real route has at least 2 points. A 1-point "path" is the search returning
+        # its start cell unchanged -- it joins nothing, and treating it as ROUTABLE is how a
+        # degenerate result gets mistaken for a finding.
+        ok = path is not None and len(path) >= 2
         print('  A=(%.4f,%.4f) la=%s  C=(%.4f,%.4f) lc=%s' % (
             a[0] / UM, a[1] / UM, la, c[0] / UM, c[1] / UM, lc))
         print('  gap %-4d-%4d  %.4f mm  %-5s->%-5s  %s %s' % (
