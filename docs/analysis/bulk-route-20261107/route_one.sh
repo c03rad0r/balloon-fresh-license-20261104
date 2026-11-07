@@ -40,6 +40,12 @@ if [ ! -f "$W/routed.kicad_pcb" ]; then
 fi
 
 # native DRC on the routed board (its own .kicad_pro/.kicad_dru sit beside it)
+# BOTH boards get their own DRC. Using a hardcoded baseline was a real defect: the proof once
+# compared a 32-open routed board against the 35-open batch-A file and reported "35 -> 32,
+# ACCEPTED" for a route that had closed NOTHING (measured: 128 segments added, opens 32 -> 32,
+# violations unchanged). The baseline must be the board this batch actually started from.
+timeout 900 kicad-cli pcb drc --format json --severity-all --units mm \
+        --output "$W/before-drc.json" "$W/board.kicad_pcb" 2>&1 | grep -viE "debug" | tail -1
 timeout 900 kicad-cli pcb drc --format json --severity-all --units mm \
         --output "$W/drc.json" "$W/routed.kicad_pcb" 2>&1 | grep -viE "debug" | tail -2
 
@@ -50,7 +56,7 @@ $PY "$REPO/tracker/hardware/verify_via_in_pad.py" "$W/routed.kicad_pcb" \
 vrc=${PIPESTATUS[0]}
 
 $PY "$REPO/tracker/hardware/proof.py" "$W/board.kicad_pcb" "$W/routed.kicad_pcb" \
-    --drc-before "$HERE/batches/A/drc.json" --drc-after "$W/drc.json" \
+    --drc-before "$W/before-drc.json" --drc-after "$W/drc.json" \
     --pair "$SPEC" --regress-all --report "$W/proof.json" 2>&1 | grep -v "Debug:" | tail -12
 prc=${PIPESTATUS[0]}
 
