@@ -236,8 +236,18 @@ class World:
         body sits inside a pad: measured on the /EN canary, a via centred 0.05 mm outside U1.3's
         edge has a 0.25 mm disc overlap, the point test accepted it, and the shipped board
         carried a physical via-in-pad. kicad-cli cannot catch this -- KiCad has no via-in-pad
-        rule -- so nothing downstream would have failed. Every pad test below therefore uses
-        the distance from the pad RECT to the centre reduced by VIA_D/2.
+        rule -- so nothing downstream would have failed.
+
+        SCOPE OF THE FIX, stated precisely: the PAD test is the one that changed, from a
+        point-in-rect test to a rect-to-centre distance reduced by VIA_D/2. The track, hole,
+        edge and C10 terms already subtracted a radius and were left as they were; they are
+        restated with `r` for readability only. An earlier version of this docstring implied
+        all five rules were reworked, which overstated the change.
+
+        Holes belonging to THIS net are skipped: a net's own drill is its pad barrel, not
+        foreign copper. Before that fix every PTH pad was sealed by its own hole -- measured
+        on /EN, J_PROG.3 emitted no B.Cu leg in any cardinal direction, first blocker
+        "hole J_PROG" at 0.05 mm.
         """
         r = VIA_D / 2
         for p in self.pads:
