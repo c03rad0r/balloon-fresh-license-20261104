@@ -1,0 +1,18 @@
+{
+ "board": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/P3V3/board.kicad_pcb",
+ "pitch": 0.1,
+ "pairs": [
+  {
+   "spec": "+3V3:R_F1.1:J_PROG.2",
+   "net": "+3V3",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "astar": "",
+   "seconds": 53.59,
+   "segments": 9,
+   "vias": 2,
+   "length_mm": 17.7,
+   "result": "ROUTED"
+  }
+ ]
+}
