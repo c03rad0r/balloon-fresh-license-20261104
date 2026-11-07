@@ -114,7 +114,13 @@ def still_open_pairs(drc_path, board=None):
     return out
 
 
-def reachable(W, net, ra, rb, cache):
+def reachable(W, net, ra, rb, cache, grids):
+    """Is (ra, rb) in one connected free region on a shared copper layer?
+
+    The raster is per NET and cached: every pair on a net shares the same copper obstacles, so
+    rebuilding it per pair was the reason the first net-driven version ran >15 minutes on 13
+    pairs. One raster per net, many pairs.
+    """
     key = (net, ra, rb)
     if key in cache:
         return cache[key]
@@ -130,8 +136,11 @@ def reachable(W, net, ra, rb, cache):
         return None
     lay = shared[0]
     li = 0 if lay == R.F else 1
-    own = {(pa["ref"], pa["num"]), (pb["ref"], pb["num"])}
-    grid, nx, ny = R.build_raster(W, PITCH, net, [pa["rect"], pb["rect"]], own)
+    if net not in grids:
+        own = {(q["ref"], q["num"]) for q in W.pads if q["net"] == net}
+        rects = [q["rect"] for q in W.pads if q["net"] == net]
+        grids[net] = (*R.build_raster(W, PITCH, net, rects, own), own)
+    grid, nx, ny, own = grids[net]
     ox, oy = W.origin
 
     def cells(pad):
@@ -172,35 +181,80 @@ def reachable(W, net, ra, rb, cache):
     return res
 
 
+def net_pairs(drc_path, board, max_pads=20):
+    """Pairs to check, for every net a still-open record names.
 
-def net_pairs(drc_path, board):
-    """Every pad-to-pad pair on every net named in a still-open record.
+    TWO SOURCES, because neither alone is sufficient and I measured both failures:
 
-    Net-driven on purpose. The DRC's own pairing is unreliable for this question: it pairs a
-    pad with a TRACK for /SPI1_MISO, and a track's JSON "pos" is not an endpoint, so resolving
-    it back to a pad fails and the net silently drops out of the check. Enumerating the pads of
-    each still-open net from the board cannot lose a net that way.
+    A. The record's own two items, resolving a TRACK to the nearest pad of the same net. Cheap,
+       and it is the only workable source for GND (71 pads -> 2485 pairs).
+    B. Every pad pair on the net, for nets with <= max_pads pads. Needed because a record can
+       pair a PAD with a TRACK -- /SPI1_MISO does, in both its records -- and then source A
+       cannot form a pad pair at all and the net silently drops out of the check. That is
+       exactly how the first version reported "LOST: 1" while two nets had actually been cut.
+
+    The 20-pad cut is empirical, not principled: signal nets here have 2-16 pads, GND has 71.
+    Every pair is deduped, so a net appearing in both sources is checked once.
     """
-    nets = set()
     d = json.load(open(drc_path))
+    by_net = {}
+    for q in board.pads:
+        by_net.setdefault(q["net"], []).append(q)
+
+    def resolve(it, net):
+        desc = it["description"]
+        if " of " in desc and "Pad" in desc:
+            num = desc.split("Pad", 1)[1].strip().split()[0]
+            ref = desc.split(" of ", 1)[1].split()[0]
+            return f"{ref}.{num}"
+        pos = it.get("pos") or {}
+        x, y = pos.get("x"), pos.get("y")
+        if x is None:
+            return None
+        best, bd = None, 1e9
+        for q in by_net.get(net, []):
+            x0, y0, x1, y1 = q["rect"]
+            cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+            dd = ((cx - float(x)) ** 2 + (cy - float(y)) ** 2) ** 0.5
+            if dd < bd:
+                best, bd = f"{q['ref']}.{q['num']}", dd
+        return best if bd <= 3.0 else None
+
+    nets = set()
+    out, seen = [], set()
+
+    def add(net, e1, e2):
+        if not (e1 and e2) or e1 == e2:
+            return
+        key = (net, *sorted((e1, e2)))
+        if key in seen:
+            return
+        seen.add(key)
+        out.append(key)
+
     for u in d["unconnected_items"]:
-        for it in u["items"]:
+        items = u["items"]
+        if len(items) < 2:
+            continue
+        net = ""
+        for it in items:
             desc = it["description"]
             if "[" in desc and "]" in desc:
-                nets.add(desc.split("[")[1].split("]")[0])
-    out = []
+                net = desc.split("[")[1].split("]")[0]
+                break
+        if not net:
+            continue
+        nets.add(net)
+        add(net, resolve(items[0], net), resolve(items[1], net))     # source A
+
     for net in sorted(nets):
-        pads = [q for q in board.pads if q["net"] == net]
+        pads = by_net.get(net, [])
+        if not pads or len(pads) > max_pads:                          # source B, bounded
+            continue
         for k in range(len(pads)):
             for m in range(k + 1, len(pads)):
-                a, b = pads[k], pads[m]
-                ea, eb = f"{a['ref']}.{a['num']}", f"{b['ref']}.{b['num']}"
-                if ea == eb:
-                    continue
-                shared = [l for l in (a["layers"] or [R.F, R.B])
-                          if l in (b["layers"] or [R.F, R.B])]
-                if shared:
-                    out.append((net, ea, eb))
+                add(net, f"{pads[k]['ref']}.{pads[k]['num']}",
+                    f"{pads[m]['ref']}.{pads[m]['num']}")
     return out
 
 def main():
@@ -218,22 +272,22 @@ def main():
     pairs_a = net_pairs(a.drc_after, Wa)
     print(f"still-open records: before {len(pairs_b)}, after {len(pairs_a)}")
 
-    cb, ca = {}, {}
+    cb, ca, gb, ga = {}, {}, {}, {}
     lost, gained, skipped = [], [], 0
     for (net, ra, rb) in pairs_b:
-        b = reachable(Wb, net, ra, rb, cb)
+        b = reachable(Wb, net, ra, rb, cb, gb)
         if b is None:
             skipped += 1
             continue
         if not b:
             continue
-        aft = reachable(Wa, net, ra, rb, ca)
+        aft = reachable(Wa, net, ra, rb, ca, ga)
         if aft is False:
             lost.append((net, ra, rb))
     for (net, ra, rb) in pairs_a:
-        b = reachable(Wb, net, ra, rb, cb)
+        b = reachable(Wb, net, ra, rb, cb, gb)
         if b is False:
-            aft = reachable(Wa, net, ra, rb, ca)
+            aft = reachable(Wa, net, ra, rb, ca, ga)
             if aft is True:
                 gained.append((net, ra, rb))
 

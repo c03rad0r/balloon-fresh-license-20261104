@@ -22,7 +22,9 @@ spec = importlib.util.spec_from_file_location(
 R = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(R)
 
-W = R.World(os.path.join(HERE, "latest.kicad_pcb"))
+import sys
+BOARD = sys.argv[1] if len(sys.argv) > 1 else "latest.kicad_pcb"
+W = R.World(os.path.join(HERE, BOARD))
 PITCH = 0.1
 
 for net, ra, rb in (("/SPI1_MISO", "U3.3", "U_C.3"), ("/SPI1_MOSI", "U3.4", "U_C.4")):
