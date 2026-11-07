@@ -7470,7 +7470,7 @@
 		)
 		(fp_text user "ANT"
 			(at 9.6 9.2 0)
-			(layer "F.SilkS")
+			(layer "F.Fab")
 			(uuid "238cdf63-ddcc-407d-a2a2-8ee5efbac69f")
 			(effects
 				(font
@@ -7481,7 +7481,7 @@
 		)
 		(fp_text user "${REFERENCE}"
 			(at 0 -9.8 0)
-			(layer "F.SilkS")
+			(layer "F.Fab")
 			(uuid "a9d40fa2-004f-4e15-93bb-ff812bf97689")
 			(effects
 				(font

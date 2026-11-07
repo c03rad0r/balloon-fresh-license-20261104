@@ -1,0 +1,27 @@
+{
+  "before": {
+    "failing": 15,
+    "counts": {
+      "silk_over_copper": 1,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 4,
+      "unconnected_items": 18
+    },
+    "allowed": [
+      "silk_over_copper",
+      "unconnected_items"
+    ]
+  },
+  "after": {
+    "failing": 15,
+    "counts": {
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 4,
+      "unconnected_items": 18
+    },
+    "allowed": [
+      "unconnected_items"
+    ]
+  },
+  "name": "SILKTEXT"
+}
