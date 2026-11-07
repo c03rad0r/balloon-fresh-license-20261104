@@ -1,6 +1,6 @@
 # Bulk routing — hub v10, branch `pr/bulk-route-20261107`
 
-**Not orderable. No master merge.** Cumulative on this branch: **38 → 32 native opens.**
+**Not orderable. No master merge.** Cumulative on this branch: **38 → 28 native opens.**
 
 Input: O35 repair candidate `fe11ee72c1206fb0715a9cee701961b8a1de37c0c7aaef663172bcf7bf9264c9`
 at `pr/o35-ground-repair-20261106` `824df0ba`. All work in the isolated worktree
@@ -8,14 +8,24 @@ at `pr/o35-ground-repair-20261106` `824df0ba`. All work in the isolated worktree
 
 ## Per-batch numbers
 
+Rows are the actual chain: each batch starts from the previous accepted board. `before` is the
+input board's own DRC count. Two rows carry a correction — `U3IRQ` and `SPI1SCK_UC` were
+proved against a stale batch-A baseline, so their `proof.json` labels read `35 → 33` and
+`35 → 32` when their true inputs were 34 and 33. The deltas and the final count are unaffected;
+the cumulative 28 is confirmed by direct DRC on `latest.kicad_pcb`, not by those files.
+
 | batch | pair | opens | violations | via-in-pad Δ | broken |
 |---|---|---|---|---|---|
 | A | `/HUB_PV_P` `U_HUB_CVT.1→D_HUB1.1` · 21 seg / 2 via / 5.6 mm | | | | |
 | A | `/F33_VSENSE` `R_MON2.1→R_MON1.2` · 7 seg / 2 via / 13.1 mm | | | | |
 | A | `/HUB_PV_MID1` `D_HUB1.2→D_HUB2.1` · 19 seg / 2 via / 14.0 mm | **38 → 35** | 24 → 24 | **+4** | 0 |
 | D | `/F33_IRQ` `U2.18→U1.17` · 30 seg / 6 via / 61.6 mm | **35 → 34** | 24 → 24 | **+0** | 0 |
-| U3IRQ | `/U3_IRQ` `U3.15→U1.19` · 119 seg / 5 via / 52.0 mm | **35 → 33** | 24 → 24 | **+0** | 0 |
-| SPI1SCK | `/SPI1_SCK` `U3.5→U_C.5` · 16 seg / 2 via / 42.8 mm | **35 → 32** | 24 → 24 | **+0** | 0 |
+| U3IRQ | `/U3_IRQ` `U3.15→U1.19` · 119 seg / 5 via / 52.0 mm | **34 → 33** | 24 → 24 | **+0** | 0 |
+| SPI1SCK | `/SPI1_SCK` `U3.5→U_C.5` · 16 seg / 2 via / 42.8 mm | **33 → 32** | 24 → 24 | **+0** | 0 |
+| HUBPVP2 | `/HUB_PV_P` `D_HUB1.1→J_HUB_PV.1` · 28 seg / 2 via / 41.6 mm | **32 → 31** | 24 → 24 | **+0** | 0 |
+| HUBPVN2 | `/HUB_PV_N` `D_HUB2.2→J_HUB_PV.4` · 22 seg / 2 via / 52.7 mm | **31 → 30** | 24 → 24 | **+0** | 0 |
+| HUBPVMID3 | `/HUB_PV_MID1` `D_HUB2.1→J_HUB_PV.2` · 50 seg / 4 via / 43.8 mm | **30 → 29** | 24 → 24 | **+0** | 0 |
+| P3V3 | `+3V3` `R_F1.1→J_PROG.2` · 9 seg / 2 via / 17.7 mm | **29 → 28** | 24 → 24 | **+0** | 0 |
 
 Batch A predates the via-in-pad gate; its +4 is measured, not estimated — baseline carries
 **16** same-net via-in-pads, batch A carries **20**. Every batch after the gate was added shows
@@ -31,10 +41,13 @@ Board hashes: batch A `824b8a2a54df03a8b72b8472ce26b5ca9b68deb0d5023c84baa0c560e
 
 ## Nets closed
 
-`/HUB_PV_P`, `/F33_VSENSE`, `/HUB_PV_MID1` (batch A), `/F33_IRQ` (D), `/U3_IRQ` (U3IRQ),
-`/SPI1_SCK` (SPI1SCK_UC). Six nets.
+`/HUB_PV_P` ×2, `/HUB_PV_MID1` ×2, `/HUB_PV_N`, `/F33_VSENSE`, `/F33_IRQ`, `/U3_IRQ`,
+`/SPI1_SCK`, `+3V3`. **Ten records across nine nets.**
 
-## Attempted and UNROUTED — measured obstacle, not a verdict of impossibility
+## Attempted and UNROUTED — with the CORRECTED reason
+
+The sections below were written while I was still measuring single pads. Two of their
+conclusions were later refuted by `reachability.py` (free-space flood fill) and are marked.
 
 **`/EN` `U1.3 → J_PROG.3`** — a pocket. `U1.3` is F.Cu-only in a 0.82 mm pin field, boxed on all
 four sides: north 0.55 mm → `U1.4`, south 0.55 → `U1.2`, east 0.85 → `/SPI2_MISO`,
@@ -111,11 +124,21 @@ pre-`/SPI1_SCK` board (`9a9c6c12…`, 33 opens) all three SPI1 nets were solved 
 even with `/SPI1_SCK` absent. Sequencing was never the problem; reverting `/SPI1_SCK` would
 have cost a verified −3 opens and bought nothing.
 
-The real fix for these two is a **smaller via** (0.45/0.25 needs ~1.10 mm, which is exactly
-what the east corridor offers) or a placement nudge at `U_C` — both are rule/placement changes,
+~~The real fix for these two is a **smaller via** (0.45/0.25 needs ~1.10 mm, which is exactly
+what the east corridor offers) or a placement nudge at `U_C` — both are rule/placement changes,~~
+**CORRECTED: a smaller via does NOT fix these.** That was my inference while measuring single
+pads. `reachability.py` later found `U_C.3` and `U_C.4` **UNREACHABLE in free space** — no path
+exists at 0.1 mm pitch on either layer, via size irrelevant, and they failed identically from the
+pre-`/SPI1_SCK` board. Only the **placement nudge at `U_C`** remains a real option; both are
+rule/placement changes,
 not routing choices, so neither was taken unilaterally.
 
-**`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three. `U_HUB_CVT.3` is
+**`/HUB_PV_N` — LATER CLOSED, and it corrects the lesson below.** The `U_HUB_CVT.3` pocket is
+real, but routing from the OTHER island (`D_HUB2.2 → J_HUB_PV.4`) sidesteps it entirely and
+closed at 31 → 30. A net is not blocked because its tightest pad is. The measurement that
+follows is accurate; the conclusion I drew from it was not.
+
+~~**`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three.~~ `U_HUB_CVT.3` is
 F.Cu-only and boxed on **all eight** directions: 0° 0.65 → `U_HUB_CVT.17`; 90° **0.10** and
 270° **0.10** → `U_HUB_CVT.4` / `.2`; the four diagonals 0.15; 180° 0.60 → `GND`. Longest
 corridor **0.65 mm** against **1.25 mm** needed. **Shortfall 0.60 mm.** `J_HUB_PV.4` (PTH,
@@ -160,12 +183,35 @@ from the board's own `.kicad_dru`/`.kicad_pro`, never edited. No **foreign-net**
 `J_W` cavity (ADR-142). C10 frozen: candidate copper inside `x 8.00–11.20, y 41.00–44.20` is
 rejected, not merely avoided.
 
-## Remaining: 32 opens
+## Remaining: 28 opens — all classified by measurement
 
-11 are **two-face assembly lands** completed in assembly (ADR-120 R1) and 3 are **GND
-zone-anchor** records — 14 that are not missing copper. Still to attempt: `/HUB_PV_N`,
-`/HUB_PV_P`, `/HUB_PV_MID1` (remaining islands), `/SPI1_MISO`, `/SPI1_MOSI`, `/SPI1_SCK`,
-`/VSCAP`, `/W2_SOLAR_N`, `/W3_SOLAR_N`, `+3V3`, plus `/EN` and `/SPI2_SCK`.
+**18 are not missing copper**
+- 15 **two-face assembly lands**: `W1_SOLAR_N`, `W1_SOLAR_P`, `W2_SOLAR_N` ×4, `W3_SOLAR_N` ×4,
+  `CUT_SENSE_W1–W4`. These are SMD lands present on both faces with no barrel; they complete in
+  the wing-tab assembly (ADR-120 R1). Routing them would be wrong.
+- 3 **GND zone-anchor** records (zone-to-zone pairs), not copper gaps.
+
+**6 are free-space UNREACHABLE** — proven by `tracker/hardware/reachability.py`, which flood-fills
+the router's own raster with `via_ok` as the layer gate, so it measures connectivity rather than
+one pad's corridor:
+
+| net | pair | verdict |
+|---|---|---|
+| `/EN` | `U1.3→J_PROG.3` | UNREACHABLE |
+| `/SPI2_SCK` | `U1.4→U2.12` | UNREACHABLE |
+| `/SPI1_MISO` | `U3.3→U_C.3` | UNREACHABLE |
+| `/SPI1_MOSI` | `U3.4→U_C.4` | UNREACHABLE |
+| `/VSCAP` | `C_CAP1.1→R_BAL1.1` | UNREACHABLE |
+| `/F33_VSENSE` | `U1.21→R_MON1.2` | UNREACHABLE |
+
+**Every pair the precheck called REACHABLE is now routed** — `+3V3`, `/HUB_PV_N`,
+`/HUB_PV_MID1`. Nothing routable remains at this placement.
+
+Tightest object measured: `R_BAL1.1`, pad **0.54 × 0.64 mm**, 0.30 mm to `/SCAP_MID` on one
+side. A 0.20 mm track needs its centre 0.30 mm clear of foreign copper, so there is no legal exit.
+
+Closing these six needs **placement movement, pin reassignment, or accepted topology change** at
+`U1`, `U_C` and `R_BAL1`. All three touch a board under Astra CHANGES_REQUESTED, so none was done.
 
 Source acceptance (ERC/parity), the Astra C10 CHANGES_REQUESTED concerns, strict U_LORA1280
 silkscreen failures and stackup/process qualification all remain **open and unaccepted**.
