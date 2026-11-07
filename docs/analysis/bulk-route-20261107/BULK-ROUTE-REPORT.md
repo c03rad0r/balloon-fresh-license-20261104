@@ -49,6 +49,16 @@ boxed on **all eight** directions tested: 0° 0.85 → `/SPI2_MISO`; 90° **0.40
 **Shortfall 0.40 mm.** `U2.12` is clear past 3.0 mm in five of eight directions, so the block
 is entirely on the `U1` side. Same three escapes as `/EN`, same reason none was taken.
 
+**`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three. `U_HUB_CVT.3` is
+F.Cu-only and boxed on **all eight** directions: 0° 0.65 → `U_HUB_CVT.17`; 90° **0.10** and
+270° **0.10** → `U_HUB_CVT.4` / `.2`; the four diagonals 0.15; 180° 0.60 → `GND`. Longest
+corridor **0.65 mm** against **1.25 mm** needed. **Shortfall 0.60 mm.** `J_HUB_PV.4` (PTH,
+1.0 mm drill) is clear past 3.0 mm in six of eight directions, so the block is entirely at the
+converter pin.
+
+All three blocks share one shape — an F.Cu-only 0.2 mm pad inside a fine-pitch field with no
+room for a 0.6 mm via — so one decision covers all three, not three separate ones.
+
 ## Three predicate bugs, one class: search permitted what validation refused
 
 1. **Via centre vs disc.** `via_ok` tested the centre point, so a via 0.05 mm outside a pad
