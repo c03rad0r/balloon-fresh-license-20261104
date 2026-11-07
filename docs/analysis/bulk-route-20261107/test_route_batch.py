@@ -97,6 +97,50 @@ def main():
         if ok:
             fails.append(f"via_ok ACCEPTED via-in-pad at {p['ref']}.{p['num']}")
 
+    # ---- REJECT 3b: the /EN CANARY REGRESSION -- disc overlap, centre OUTSIDE the pad -----
+    # THIS is the control that was missing. The control above places the via at the pad CENTRE,
+    # which even a point-only test rejects. The defect that actually shipped put the via centre
+    # 0.05 mm OUTSIDE the pad edge: the centre is not in the rect, but the 0.600 mm disc
+    # overlaps the pad by 0.25 mm. Measured on the pushed /EN board at (10.2, 36.7) against
+    # U1.3, and invisible to kicad-cli because KiCad has no via-in-pad rule.
+    u13 = [p for p in W.pads if p["ref"] == "U1" and p["num"] == "3"]
+    if u13:
+        p = u13[0]
+        x0, y0, x1, y1 = p["rect"]
+        # 2-D sweep: a LINE is not enough, because the escape line can be blocked by other
+        # copper (measured: the straight-left line from U1.3 has no legal site within 1.45 mm),
+        # and a line-only assertion then fails for the wrong reason.
+        # Two things are asserted, and they are different:
+        #   (a) NO accepted site may have a disc that overlaps the pad -- the false-accept check,
+        #   (b) report the nearest legal site and its gap, or say plainly that none exists.
+        cx0, cy0 = (x0 + x1) / 2, (y0 + y1) / 2
+        step = 0.05
+        legal, overlap_accepted = [], []
+        n = int(2.5 / step)
+        for a in range(-n, n + 1):
+            for b in range(-n, n + 1):
+                cx, cy = cx0 + a * step, cy0 + b * step
+                ok, _why = W.via_ok(cx, cy, "/EN")
+                if not ok:
+                    continue
+                gap = R.seg_rect(cx, cy, cx, cy, p["rect"]) - R.VIA_D / 2
+                if gap < -R.EPS:
+                    overlap_accepted.append((round(cx, 3), round(cy, 3), round(gap, 3)))
+                else:
+                    legal.append((round(gap, 3), round(cx, 3), round(cy, 3), round(gap - R.CLEAR, 3)))
+        legal.sort(key=lambda t: -t[0])
+        print(f"REJECT-probe U1.3 disc-overlap: 2-D sweep r=2.5mm -> "
+              f"{len(legal)} legal sites, {len(overlap_accepted)} ACCEPTED with disc overlap")
+        if legal:
+            g, cx, cy, margin = legal[0]
+            print(f"   best legal: centre ({cx}, {cy}) gap_to_pad={g} mm "
+                  f"(clearance margin {margin} mm vs {R.CLEAR})")
+        else:
+            print("   NO legal via site within 2.5 mm of U1.3 -- this net must escape on "
+                  "F.Cu and change layers elsewhere, or not change layers at all")
+        if overlap_accepted:
+            fails.append(f"via_ok ACCEPTED a disc overlapping pad U1.3: {overlap_accepted[:4]}")
+
     # ---- REJECT 4: crossing a J_W cavity edge -------------------------------------------
     edges = [e for e in W.edge_segs if e[0] == "J_W2"]
     if edges:

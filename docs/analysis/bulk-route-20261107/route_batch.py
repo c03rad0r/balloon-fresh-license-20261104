@@ -222,13 +222,25 @@ class World:
         return True, ""
 
     def via_ok(self, x, y, net):
+        """Is a THROUGH via centred at (x, y) legal for this net?
+
+        THE TEST IS THE VIA DISC, NOT THE CENTRE POINT. A centre-only test passes a via whose
+        body sits inside a pad: measured on the /EN canary, a via centred 0.05 mm outside U1.3's
+        edge has a 0.25 mm disc overlap, the point test accepted it, and the shipped board
+        carried a physical via-in-pad. kicad-cli cannot catch this -- KiCad has no via-in-pad
+        rule -- so nothing downstream would have failed. Every pad test below therefore uses
+        the distance from the pad RECT to the centre reduced by VIA_D/2.
+        """
+        r = VIA_D / 2
         for p in self.pads:
             if p["npth"]:
                 continue
-            if p["rect"][0] <= x <= p["rect"][2] and p["rect"][1] <= y <= p["rect"][3]:
-                return False, ("via-in-pad " if p["net"] == net else "via-in-foreign-pad ") \
-                    + f"{p['ref']}.{p['num']}"
-            if p["net"] != net and seg_rect(x, y, x, y, p["rect"]) - VIA_D / 2 < CLEAR - EPS:
+            # disc-vs-rect distance; 0.0 means the disc touches the pad copper
+            d = seg_rect(x, y, x, y, p["rect"]) - r
+            if d < -EPS:
+                return False, (("via-in-pad " if p["net"] == net else "via-in-foreign-pad ")
+                               + f"{p['ref']}.{p['num']}")
+            if p["net"] != net and d < CLEAR - EPS:
                 return False, f"via clearance {p['ref']}.{p['num']}"
         for t in self.tracks:
             if t["net"] == net:
@@ -236,16 +248,16 @@ class World:
             # a through via is copper on EVERY copper layer, including In1/In2, so inner
             # tracks are obstacles for vias even though they are not for F/B traces.
             d = seg_pt(t["a"][0], t["a"][1], t["b"][0], t["b"][1], x, y) \
-                - VIA_D / 2 - t["w"] / 2
+                - r - t["w"] / 2
             if d < CLEAR - EPS:
                 return False, f"via clearance {t['net']}"
         for h in self.holes:
-            if math.hypot(x - h["x"], y - h["y"]) - VIA_D / 2 - h["d"] / 2 < HOLE_CLEAR - EPS:
+            if math.hypot(x - h["x"], y - h["y"]) - r - h["d"] / 2 < HOLE_CLEAR - EPS:
                 return False, f"via-hole {h['ref']}"
         for ref, x0, y0, x1, y1 in self.edge_segs:
-            if seg_pt(x0, y0, x1, y1, x, y) - VIA_D / 2 < EDGE_CLEAR - EPS:
+            if seg_pt(x0, y0, x1, y1, x, y) - r < EDGE_CLEAR - EPS:
                 return False, f"via edge ({ref})"
-        if self.freeze_c10 and seg_rect(x, y, x, y, C10_GUARD) < VIA_D / 2:
+        if self.freeze_c10 and seg_rect(x, y, x, y, C10_GUARD) < r:
             return False, "C10 frozen neighbourhood"
         return True, ""
 
