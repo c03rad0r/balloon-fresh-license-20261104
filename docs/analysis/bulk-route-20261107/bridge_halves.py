@@ -202,6 +202,21 @@ def main():
     p.SaveBoard(out, b2)
     print('refilled %d zone(s)' % len(list(b2.Zones())))
 
+    # The AFTER DRC must see the PROJECT rules, not KiCad's defaults. DRC resolves the ruleset
+    # from a same-stem .kicad_dru; without it an identical board scored 16 phantom
+    # copper_edge_clearance errors on pads the project explicitly allows on Edge.Cuts.
+    # fp-lib-table matters too: without it lib_footprint_issues jumps (library registration).
+    for ext in ('kicad_pro', 'kicad_dru'):
+        s = os.path.join(B, 'board.' + ext)
+        if os.path.exists(s):
+            subprocess.run(['cp', s, out.replace('.kicad_pcb', '.' + ext)], check=True)
+    ft = os.path.join(B, 'fp-lib-table')
+    if not os.path.exists(ft):
+        live_ft = os.path.join(ROOT, 'fp-lib-table')
+        if os.path.exists(live_ft):
+            subprocess.run(['cp', live_ft, ft], check=True)
+    print('sidecars staged onto the routed candidate')
+
     oa, va, ea = drc(out, os.path.join(B, 'drc.json'))
     print('\nnative opens: %d -> %d  (delta %+d)' % (ob, oa, oa - ob))
     print('violations: %d -> %d   errors: %d -> %d' % (vb, va, eb, ea))
