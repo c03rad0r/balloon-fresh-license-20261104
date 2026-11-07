@@ -78,6 +78,8 @@ So `/SPI1_MISO` did not fail on its own geometry: it failed on **congestion crea
 previous accepted route**. That is the expected cost of routing adjacently and it is not a
 reason to relax anything — it is a reason to sequence the SPI1 nets together rather than one at
 a time, or to route them in the opposite order.
+
+**`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three. `U_HUB_CVT.3` is
 F.Cu-only and boxed on **all eight** directions: 0° 0.65 → `U_HUB_CVT.17`; 90° **0.10** and
 270° **0.10** → `U_HUB_CVT.4` / `.2`; the four diagonals 0.15; 180° 0.60 → `GND`. Longest
 corridor **0.65 mm** against **1.25 mm** needed. **Shortfall 0.60 mm.** `J_HUB_PV.4` (PTH,
