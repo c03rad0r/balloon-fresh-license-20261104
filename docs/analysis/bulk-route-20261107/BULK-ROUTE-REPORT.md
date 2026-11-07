@@ -101,10 +101,19 @@ only >2 mm corridor, and `/SPI1_SCK` took it.
 
 **This is a self-inflicted order dependency, stated plainly.** `/SPI1_SCK` was accepted first
 and consumed the one >2 mm corridor at `U_C`. The two parallel SPI1 nets behind it now sit in a
-pocket whose best exit is 1.10–1.15 mm against 1.25 mm required. Reverting `/SPI1_SCK` and
-routing the three together might fit all three; that is a real option and it trades a verified
-−3 opens for a maybe. I did not take it unilaterally, because it discards working copper on a
-guess about a denser joint solve.
+pocket whose best exit is 1.10–1.15 mm against 1.25 mm required.
+
+**The revert experiment was run, and it refutes the order hypothesis.** From the verified
+pre-`/SPI1_SCK` board (`9a9c6c12…`, 33 opens) all three SPI1 nets were solved in ONE pass:
+`/SPI1_SCK` routed again identically (16 seg / 2 via / 42.8 mm), `/SPI1_MISO` **UNROUTED**
+(402.58 s), `/SPI1_MOSI` **UNROUTED** (407.32 s). So the two are blocked by their own geometry —
+`U_C.3`/`U_C.4` have no 1.25 mm corridor in any direction and `/U3_RESET_N` walls the west side
+even with `/SPI1_SCK` absent. Sequencing was never the problem; reverting `/SPI1_SCK` would
+have cost a verified −3 opens and bought nothing.
+
+The real fix for these two is a **smaller via** (0.45/0.25 needs ~1.10 mm, which is exactly
+what the east corridor offers) or a placement nudge at `U_C` — both are rule/placement changes,
+not routing choices, so neither was taken unilaterally.
 
 **`/HUB_PV_N` `U_HUB_CVT.3 → J_HUB_PV.4`** — the tightest of the three. `U_HUB_CVT.3` is
 F.Cu-only and boxed on **all eight** directions: 0° 0.65 → `U_HUB_CVT.17`; 90° **0.10** and
