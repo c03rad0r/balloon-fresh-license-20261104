@@ -144,7 +144,8 @@ class World:
                                                if b.IsLayerEnabled(l)],
                                     "uuid": t.m_Uuid.AsString()})
                 self.holes.append({"ref": "via", "x": p.x / UM, "y": p.y / UM,
-                                   "d": t.GetDrillValue() / UM, "npth": False})
+                                   "d": t.GetDrillValue() / UM, "npth": False,
+                                   "net": t.GetNetname() or "?"})
             elif isinstance(t, pcbnew.PCB_TRACK):
                 self.tracks.append({"net": t.GetNetname() or "?", "kind": "trace",
                                     "layer": t.GetLayer(),
@@ -157,7 +158,7 @@ class World:
                 self.holes.append({"ref": p["ref"],
                                    "x": (p["rect"][0] + p["rect"][2]) / 2,
                                    "y": (p["rect"][1] + p["rect"][3]) / 2,
-                                   "d": p["drill"], "npth": p["npth"]})
+                                   "d": p["drill"], "npth": p["npth"], "net": p["net"]})
     def _add_shape_edges(self, ref, g):
         """Decompose one Edge.Cuts graphic into SEGMENTS.
 
@@ -200,6 +201,13 @@ class World:
             if seg_seg(p0, p1, t["a"], t["b"]) - half - t["w"] / 2 < CLEAR - EPS:
                 return False, f"clearance {t['net']}"
         for h in self.holes:
+            # A hole that belongs to THIS net is the barrel of the net's own pad/via: copper
+            # reaching it is the pad, not a violation. Treating it as an obstacle sealed every
+            # through-hole pad's escape -- measured on /EN, J_PROG.3 could not emit a B.Cu leg
+            # in ANY of 12 directions, first block "hole J_PROG" at 0.05 mm, because the pad's
+            # own 1.0 mm drill was modelled as foreign copper.
+            if h.get("net") == net:
+                continue
             if seg_pt(p0[0], p0[1], p1[0], p1[1], h["x"], h["y"]) - half - h["d"] / 2 \
                     < HOLE_CLEAR - EPS:
                 return False, f"hole {h['ref']}"
@@ -252,6 +260,8 @@ class World:
             if d < CLEAR - EPS:
                 return False, f"via clearance {t['net']}"
         for h in self.holes:
+            if h.get("net") == net:
+                continue
             if math.hypot(x - h["x"], y - h["y"]) - r - h["d"] / 2 < HOLE_CLEAR - EPS:
                 return False, f"via-hole {h['ref']}"
         for ref, x0, y0, x1, y1 in self.edge_segs:
