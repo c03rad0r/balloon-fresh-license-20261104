@@ -1,0 +1,30 @@
+{
+ "board": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1PAIR2/board.kicad_pcb",
+ "pitch": 0.1,
+ "pairs": [
+  {
+   "spec": "/SPI1_MISO:U3.3:U_C.3",
+   "net": "/SPI1_MISO",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "astar": "",
+   "seconds": 108.22,
+   "segments": 9,
+   "vias": 2,
+   "length_mm": 37.0,
+   "result": "ROUTED"
+  },
+  {
+   "spec": "/SPI1_MOSI:U3.4:U_C.4",
+   "net": "/SPI1_MOSI",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "astar": "",
+   "seconds": 138.85,
+   "segments": 16,
+   "vias": 2,
+   "length_mm": 40.2,
+   "result": "ROUTED"
+  }
+ ]
+}
