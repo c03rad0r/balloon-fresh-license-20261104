@@ -13,7 +13,8 @@ C3/Pico/E80 boards so the 100-frame link qualification in
 
 | Endpoint | Good evidence | Fault |
 |---|---|---|
-| S3 `34:85` | firmware 0.4.10, LR2021 `chip=0x1801`, padded full-size TX | retain as reference |
+| S3 `34:85` | firmware 0.4.18, LR2021 `chip=0x1801`, padded full-size TX | retain as reference |
+| C3 `B0:A6` | firmware 0.5.8, LR2021 `chip=0x1801`, DIO9 TX/RX proven | qualified independent peer |
 | C3 `B0:A6` | USB protocol and LR2021 version work | E80-focused firmware is wrong for this carrier; RX = 0, TX times out |
 | C3 `88:56` | bridge protocol works | old 0.3.0 firmware, `chip=0x0000` |
 | C3 `70:AF` | USB/ROM responds | not running bridge firmware, no RF evidence collected |
@@ -62,7 +63,7 @@ Checklist:
 - [x] Carrier LF/HF RX path and PA selection without blindly applying E80 TCXO
       settings to the bare module.
 - [x] Fixed-size padded TX shared with E80, with host tests still passing (39/39).
-- [x] S3 firmware behavior/version remains 0.4.10.
+- [x] S3 firmware behavior/version remains 0.4.18.
 - [x] Build C3 image, flash `B0:A6` remotely with `usb_reset`, record version 0.5.0.
 - [x] Verify `HELLO chip=0x1801` and `CFG --band eu868` succeeds.
 - [x] Measure TX completion: C3 `tx=12 timeouts=0` after DIO9 fix, previously timed out every burst.
@@ -91,6 +92,91 @@ self-reception as a substitute.
 If DIO9 still does not assert while the radio transmits, TX is not validated by
 a printed `rssi=OK` or `CFG_ACK`. Inspect actual packet stats rather than
 retreating to self-reception guesses.
+
+## Phase 2b — half-duplex channel access (after working radios were proven)
+
+The independent C3↔S3 link now works at 128-byte air packets. Controlled PER
+measurements showed **100 accepted packets in each direction with zero host CRC
+failures**, but simultaneous FIPS control flows still collide. A common
+Crystal/TCXO is not a TDMA scheduler: per-frame sending uses host requests and
+host retransmission timers, so two radios can overlap.
+
+Implement best-effort **CSMA/CA before strict TDMA**:
+
+### Results already measured before this guard
+
+| Test | Result |
+|---|---|
+| C3→S3 at 128 bytes | 100/100 delivered, zero echo CRC failures |
+| S3→C3 at 128 bytes and gentler pacing | 100/100 delivered, zero echo CRC failures |
+| 160- and 192-byte air packets | bad host CRC; payload corruption persists beyond 128 bytes |
+| FMP peer initiation on one static initiator | inbound and outbound peers both connect |
+| End-to-end XK session | established on both ends after waiting |
+| IPv6 A→B | one packet reached after retries; reverse later achieved 4/5 with large RTT variance |
+| SSH | listener configured on FIPS address, but login has not finished reliably |
+
+Do not confuse stable full-size packet transmission with loss-free MAC. Repeated
+simultaneous FMP/FSP control messages still overlap, hence guard and guard-time
+measurements are required.
+
+- [x] Do not use `cfg`/`rssi=OK` or a self-packet as proof of interoperability.
+- [x] Prove 128-byte bidirectional exchange before changing media access.
+- [x] Keep one static initiator to avoid simultaneous initial handshake floods.
+- [x] Read pre-amble/sync/header events before committing to TX.
+- [x] Drain a completed RX before entering TX.
+- [x] Add a bounded 20 ms idle wait, followed by **8–16 ms** randomized guard
+      for bring-up; revisit latency only after collisions are measured.
+- [x] Use independent seeds on S3/C3, not a shared absolute UTC clock.
+- [x] Inspect progress bits with `GET_IRQ_STATUS` rather than adding them to the
+      DIO mask. `0x004C0060` produced S3 TX timeouts, so preserve the proven
+      completion-only mask `0x004C0000` and avoid optional-mask coupling.
+- [x] Expose `cca deferral`, `cca capped` and `cca guard_us` as host-visible
+      events rather than pretending there is always a free channel.
+- [x] Compare PER runs before and after introducing CCA: 100/100 proof
+      during radio qualification, then 20/20 current guarded round trips
+      in each direction with no unexplained TX timeouts.
+- [x] Check a static-initiator FIPS handshake forms without a retry storm.
+- [x] Require an established session on both ends before ping (verified on
+      2026-11-08).
+- [x] Re-measure directional ping RTT: **2/3 replies in both directions** at
+      a recent 128-byte / 8–16 ms-guard test, versus repeated 100% loss in
+      earlier traffic-sensitive runs.
+- [ ] Prove stable repeated dual-direction ping without continuing session
+      or packet-loss churn; current RTT is still variable and too high.
+- [ ] Complete SSH over FIPS. Client reached `SSH2_MSG_SERVICE_ACCEPT` before
+      remote closure, so listener and transport setup advanced, but login has
+      not completed.
+- [ ] Only consider fixed TDMA slots if carrier sense and jitter are insufficient.
+
+A future fixed-slot design should use host-relative `esp_timer_get_time()`
+slot origins and packet arrival times, not pretend the ESP32 and LR2021 crystals
+or NTP wall clocks provide one shared RF timebase.
+
+### Fixed-slot experiment result
+
+An optional `BR_CFG_EXT` frame now carries `local_id` and the host Unix epoch;
+hosts use it to assign 40 ms slots by `local_id & 1`. This is **disabled by
+default** in firmware because it did not improve delivery on the bench:
+
+- integration succeeded: `role=1/id=1` and `role=0/id=2`, sessions established;
+- one successful ping reply arrived at **159 ms** RTT, confirming slot timing
+  can remove most latency when a frame gets through;
+- delivery was still poor: one direction 1/3, the reverse 0/3, versus a better
+  2/3 in each direction with CSMA-only;
+- bridge logs still show real `bad crc32`/`bad magic`, so fixed slots alone are
+  not sufficient while RX handling and retry timing remain unverified.
+
+Decision: keep `LR2021_ENABLE_TDMA=0` for the usable build. Treat TDMA as an
+opt-in experiment until a run passes the 0%-loss ping gate. The optional
+extension is backward-compatible: older bridges ignore frame kind 11 and retain
+their previous behavior.
+
+- [x] Implement optional link-ID/epoch slot extension.
+- [x] Keep default build on the better-performing CSMA-only path.
+- [ ] Retest TDMA with RX pumping and with all background control traffic
+      characterized; only enable it if it beats CSMA on loss and latency.
+- [ ] Never describe theoretical 40/80 ms slots as achieved latency: the
+      measured successful RTT was 159 ms, while delivery remained incomplete.
 
 ## Phase 3 — clone only a proven C3 build
 

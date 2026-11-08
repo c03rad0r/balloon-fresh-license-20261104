@@ -15,7 +15,10 @@ idf_component_register(
 target_compile_options(${COMPONENT_LIB} PRIVATE
     -DLR2021_E80_COMPAT=1
     -DLR2021_PKT_BYTE0=0x1E
-    -DLR2021_PKT_BYTE1=0x7D)
+    -DLR2021_PKT_BYTE1=0x7D
+    # Fixed-slot turn-taking is retained as an experiment. It has not beaten
+    # the CSMA-only path in delivery tests, so it stays disabled by default.
+    -DLR2021_ENABLE_TDMA=0)
 
 if(IDF_TARGET STREQUAL "esp32c3")
     target_compile_options(${COMPONENT_LIB} PRIVATE -DLR2021_NICERF_C3=1)

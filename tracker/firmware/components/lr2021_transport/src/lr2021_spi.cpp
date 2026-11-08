@@ -428,7 +428,6 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
     err = step({0x02, 0x06, 0x03});                   // fallback = FS
     if (err != Lr2021Error::Ok) return err;
 
-    // RX_DONE bit18 | TX_DONE bit19 | CRC_ERROR bit22 => 0x004C0000.
     err = step({0x01, 0x15, 0x09, 0x00, 0x4C, 0x00, 0x00}); // DIO9 mask
     if (err != Lr2021Error::Ok) return err;
     err = cmd(Lr2021Opcodes::OP_CLR_TX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_TX_FIFO));
