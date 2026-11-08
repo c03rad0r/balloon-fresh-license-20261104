@@ -1,4 +1,4 @@
-# JLCPCB order settings — PARTIAL ASSEMBLY, board `766fa3aa`
+# JLCPCB order settings — PARTIAL ASSEMBLY, board `0602c7c8`
 
 Two orders in one upload: **bare PCB × 5** plus **assembly of 30 placements**. Settings for both,
 in the order the JLC quote page asks for them.

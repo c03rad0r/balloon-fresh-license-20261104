@@ -1,6 +1,6 @@
 # Partial assembly — 30 placements, 11 DNP, derived from the documented decision
 
-**2026-11-08, board `766fa3aa`.** Population applied as DNP attributes on the board itself.
+**2026-11-08, board `0602c7c8`. Population applied as DNP attributes on the board itself.
 
 ## Where the decision comes from
 
