@@ -1,0 +1,144 @@
+2026-11-08 14:37:25.716 INFO   Freerouting v2.5.0 (build-date: 2026-10-05)
+2026-11-08 14:37:26.084 INFO   Hardware: 8 CPU cores, 292 CPU score, 930 MB RAM
+2026-11-08 14:37:26.085 WARN   Deprecated settings path '-mp / --router.max_passes'; use '--router.autorouter.max_passes' instead. The old path will be removed in a future release.
+2026-11-08 14:37:26.086 WARN   Unknown settings property: analytics.enabled
+2026-11-08 14:37:26.091 WARN   GUI is disabled and you don't have a console available, so the only feedback from Freerouting is in the log.
+2026-11-08 14:37:27.037 WARN   Analytics tracking: first delivery failure in this window - /v1/analytics/identify - IOException: Server returned HTTP response code: 403 for URL: https://api.freerouting.app/v1/analytics/identify | Server response: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="…. Further failures will be aggregated and reported every 60 minutes.
+2026-11-08 14:37:27.154 WARN   Deprecated settings path 'router.max_passes'; use 'router.autorouter.max_passes' instead. The old path will be removed in a future release.
+2026-11-08 14:37:27.448 INFO   [1DC8EA\6B5377] Loading board file 'board-s1.dsn'...
+2026-11-08 14:37:28.312 INFO   Layer 'F.Cu' contains a power plane / large copper pour covering >=30% of the board; associated net(s) configured for plane routing.
+2026-11-08 14:37:28.313 INFO   Layer 'In1.Cu' contains a power plane / large copper pour covering >=30% of the board; associated net(s) configured for plane routing.
+2026-11-08 14:37:28.313 INFO   Layer 'In2.Cu' contains a power plane / large copper pour covering >=30% of the board; associated net(s) configured for plane routing.
+2026-11-08 14:37:28.313 INFO   Layer 'B.Cu' contains a power plane / large copper pour covering >=30% of the board; associated net(s) configured for plane routing.
+2026-11-08 14:37:28.314 WARN   DSN file 'board-s1.dsn' was loaded with 1 warning(s).
+2026-11-08 14:37:28.393 INFO   [1DC8EA\6B5377] Job '1DC8EA\6B5377' started at 2026-11-08T13:37:28.392993898Z.
+2026-11-08 14:37:30.777 WARN   Design Warning: Board has 82 pre-existing clearance violation(s) in the loaded design (before routing):
+  - 82 unfixable violation(s) (cannot be resolved by Freerouting):
+      * 82 fixed trace/via clearance violations (first 5 shown):
+          - FixedVia#4180 [net GND] <-> U_CUT3.3 [net /CUT_SENSE_W3]
+          - FixedVia#4179 [net GND] <-> FixedVia#4151 [net GND]
+          - FixedVia#4179 [net GND] <-> FixedVia#4151 [net GND]
+          - FixedVia#4179 [net GND] <-> FixedVia#4151 [net GND]
+          - FixedVia#4179 [net GND] <-> FixedVia#4151 [net GND]
+          ... and 77 more
+  - 0 potentially fixable violations
+Notice: Freerouting does not modify component placement, board outlines, or fixed items.
+Resolving these 82 unfixable violation(s) is the responsibility of the board author in their EDA tool (e.g. KiCad).
+2026-11-08 14:37:30.948 INFO   [1DC8EA\6B5377] Pipeline thread limits: autorouter pass is single-threaded, optimizer.max_threads=7.
+2026-11-08 14:37:33.971 INFO   [1DC8EA\6B5377] Fanout stage started on board 'ff5116eb3916a72f7942274f4bec5866' with 140 of 256 SMD pins needing fanout (62 already connected, 54 netless).
+2026-11-08 14:37:45.079 INFO   [1DC8EA\6B5377] Fanout pass #1 on board '754e056ad3aab9a3bb75cdad67404f7c' completed in 9.69 seconds with 104 SMD pins fanouted, 5 not routed, 0 insert errors, +5 extra vias (0 SMD pins still to check in pass, ripup costs=100).
+2026-11-08 14:38:01.283 WARN   BasicBoard.normalizeTraces: reached 2000 iterations for net '/F33_CS_N' — stopping to prevent hang. The board geometry for this net may be oscillating (split/combine cycle); traces are kept as-is and further normalization for this net is suppressed on this board candidate.
+2026-11-08 14:38:04.603 INFO   [1DC8EA\6B5377] Fanout pass #2 on board '513f46b268b488691ffb18056c0d4218' completed in 19.42 seconds with 81 SMD pins fanouted, 5 not routed, 0 insert errors, +2 extra vias (0 SMD pins still to check in pass, ripup costs=200).
+2026-11-08 14:38:10.081 INFO   [1DC8EA\6B5377] Fanout pass #3 on board '8b06a00ac3ecf776bb84d5824083191a' completed in 5.38 seconds with 78 SMD pins fanouted, 5 not routed, 0 insert errors, +0 extra vias (0 SMD pins still to check in pass, ripup costs=300).
+2026-11-08 14:38:15.332 INFO   [1DC8EA\6B5377] Fanout pass #4 on board '945fba8829655b8eeaeffc1cd2a03bad' completed in 5.14 seconds with 78 SMD pins fanouted, 5 not routed, 0 insert errors, +0 extra vias (0 SMD pins still to check in pass, ripup costs=400).
+2026-11-08 14:38:20.338 INFO   [1DC8EA\6B5377] Fanout pass #5 on board '7debcb92288b21e098a5ecc360d058c1' completed in 4.92 seconds with 78 SMD pins fanouted, 5 not routed, 0 insert errors, +0 extra vias (0 SMD pins still to check in pass, ripup costs=500).
+2026-11-08 14:38:25.234 INFO   [1DC8EA\6B5377] Fanout pass #6 on board '54bfa520af176e2903fbcb6c60442d7a' completed in 4.80 seconds with 78 SMD pins fanouted, 5 not routed, 0 insert errors, +0 extra vias (0 SMD pins still to check in pass, ripup costs=600).
+2026-11-08 14:38:25.234 INFO   Fanout stopped after 6 passes: no progress for 3 consecutive passes.
+2026-11-08 14:38:26.182 INFO   [1DC8EA\6B5377] Fanout stage completed: started with 202 total SMD pins, completed in 50.92 seconds, escaped pins: 123/202 (60.9%), using 53.35 total CPU seconds, 12.22 GB total allocated, and 181.2 MB peak heap usage.
+2026-11-08 14:38:29.355 INFO   [1DC8EA\6B5377] Auto-routing stage started on board '54bfa520af176e2903fbcb6c60442d7a' with baseline score 326.63 for 91 unrouted items.
+2026-11-08 14:39:23.075 INFO   [1DC8EA\6B5377] Auto-routing pass #1 on board '54bfa520af176e2903fbcb6c60442d7a' was completed in 52.52 seconds with score 634.18 (49 unrouted and 82 violations), using 111.03 CPU seconds and the job allocated 33.00 GB of memory so far.
+2026-11-08 14:40:00.521 INFO   [1DC8EA\6B5377] Auto-routing pass #2 on board 'ded65b8cc61dd14195cfec0e9ae14334' was completed in 36.15 seconds with score 634.18 (49 unrouted and 82 violations), using 148.64 CPU seconds and the job allocated 47.89 GB of memory so far.
+2026-11-08 14:40:52.231 INFO   [1DC8EA\6B5377] Auto-routing pass #3 on board '452823a7a622d53cf9396c6deeda597c' was completed in 50.46 seconds with score 634.18 (49 unrouted and 82 violations), using 199.09 CPU seconds and the job allocated 63.99 GB of memory so far.
+2026-11-08 14:41:44.427 INFO   [1DC8EA\6B5377] Auto-routing pass #4 on board '452823a7a622d53cf9396c6deeda597c' was completed in 51.95 seconds with score 648.92 (47 unrouted and 82 violations), using 250.63 CPU seconds and the job allocated 80.06 GB of memory so far.
+2026-11-08 14:42:20.815 INFO   [1DC8EA\6B5377] Auto-routing pass #5 on board '0aadd6a41a47d5b519604a7dd33691d0' was completed in 35.03 seconds with score 641.55 (48 unrouted and 82 violations), using 287.20 CPU seconds and the job allocated 94.24 GB of memory so far.
+2026-11-08 14:42:52.460 INFO   [1DC8EA\6B5377] Auto-routing pass #6 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 30.58 seconds with score 641.55 (48 unrouted and 82 violations), using 317.80 CPU seconds and the job allocated 108.36 GB of memory so far.
+2026-11-08 14:43:23.200 INFO   [1DC8EA\6B5377] Auto-routing pass #7 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 30.62 seconds with score 641.55 (48 unrouted and 82 violations), using 348.42 CPU seconds and the job allocated 122.67 GB of memory so far.
+2026-11-08 14:43:53.892 INFO   [1DC8EA\6B5377] Auto-routing pass #8 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 30.57 seconds with score 648.92 (47 unrouted and 82 violations), using 379.02 CPU seconds and the job allocated 136.92 GB of memory so far.
+2026-11-08 14:44:29.828 INFO   [1DC8EA\6B5377] Auto-routing pass #9 on board 'f34dbf2725997875b207f80ebab46037' was completed in 34.88 seconds with score 641.55 (48 unrouted and 82 violations), using 414.60 CPU seconds and the job allocated 151.60 GB of memory so far.
+2026-11-08 14:45:16.828 INFO   [1DC8EA\6B5377] Auto-routing pass #10 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 46.86 seconds with score 641.55 (48 unrouted and 82 violations), using 461.10 CPU seconds and the job allocated 166.94 GB of memory so far.
+2026-11-08 14:45:59.706 INFO   [1DC8EA\6B5377] Auto-routing pass #11 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 42.74 seconds with score 656.28 (46 unrouted and 82 violations), using 503.57 CPU seconds and the job allocated 181.86 GB of memory so far.
+2026-11-08 14:46:33.512 INFO   [1DC8EA\6B5377] Auto-routing pass #12 on board 'fd922a759389e1284eae9283f27e226e' was completed in 32.51 seconds with score 641.55 (48 unrouted and 82 violations), using 536.14 CPU seconds and the job allocated 195.63 GB of memory so far.
+2026-11-08 14:47:04.058 INFO   [1DC8EA\6B5377] Auto-routing pass #13 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 30.43 seconds with score 641.55 (48 unrouted and 82 violations), using 566.72 CPU seconds and the job allocated 209.87 GB of memory so far.
+2026-11-08 14:47:38.303 INFO   [1DC8EA\6B5377] Auto-routing pass #14 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 34.12 seconds with score 648.92 (47 unrouted and 82 violations), using 600.32 CPU seconds and the job allocated 224.05 GB of memory so far.
+2026-11-08 14:48:10.129 INFO   [1DC8EA\6B5377] Auto-routing pass #15 on board '7221d061371edd68d78c84cfcef6f094' was completed in 29.83 seconds with score 641.55 (48 unrouted and 82 violations), using 631.92 CPU seconds and the job allocated 238.28 GB of memory so far.
+2026-11-08 14:48:52.563 INFO   [1DC8EA\6B5377] Auto-routing pass #16 on board 'fd922a759389e1284eae9283f27e226e' was completed in 0.00 seconds with score 656.28 (46 unrouted and 82 violations), using 673.45 CPU seconds and the job allocated 253.39 GB of memory so far.
+2026-11-08 14:49:35.681 INFO   [1DC8EA\6B5377] Auto-routing pass #17 on board 'fd922a759389e1284eae9283f27e226e' was completed in 42.96 seconds with score 641.55 (48 unrouted and 82 violations), using 716.89 CPU seconds and the job allocated 268.26 GB of memory so far.
+2026-11-08 14:50:11.118 INFO   [1DC8EA\6B5377] Auto-routing pass #18 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 35.32 seconds with score 641.55 (48 unrouted and 82 violations), using 751.43 CPU seconds and the job allocated 282.39 GB of memory so far.
+2026-11-08 14:50:44.921 INFO   [1DC8EA\6B5377] Auto-routing pass #19 on board 'ae04d9d8f2d7139fca90c7d9b5e3cd3e' was completed in 33.67 seconds with score 641.55 (48 unrouted and 82 violations), using 784.98 CPU seconds and the job allocated 296.57 GB of memory so far.
+2026-11-08 14:51:21.257 INFO   [1DC8EA\6B5377] Auto-routing pass #20 on board 'fd922a759389e1284eae9283f27e226e' was completed in 0.00 seconds with score 656.28 (46 unrouted and 82 violations), using 820.56 CPU seconds and the job allocated 311.49 GB of memory so far.
+2026-11-08 14:51:48.782 INFO   [1DC8EA\6B5377] Auto-routing pass #21 on board 'fd922a759389e1284eae9283f27e226e' was completed in 27.42 seconds with score 641.55 (48 unrouted and 82 violations), using 848.15 CPU seconds and the job allocated 325.28 GB of memory so far.
+2026-11-08 14:51:48.967 INFO   [1DC8EA\6B5377] The router's best score (656.28) has not improved by more than 0.5 points since pass #11. Stopping the auto-router after 21 passes (46 items still unconnected).
+The following connections could not be routed -- please review your design (e.g. check pad clearances, trace width rules, and available routing space):
+  Net '+3V3' (1 unrouted connection):
+    - R_F1-1  ->  via
+  Net '/VSCAP' (1 unrouted connection):
+    - R_DIV1-1  ->  R_BAL1-1
+  Net '/CUT_SENSE_W3' (1 unrouted connection):
+    - J_W3-3@1  ->  J_W3-3
+  Net '/CUT_SENSE_W4' (1 unrouted connection):
+    - J_W4-3  ->  J_W4-3@1
+  Net '/F33_BUSY' (1 unrouted connection):
+    - via  ->  U2-14
+  Net '/F33_CS_N' (1 unrouted connection):
+    - U2-13  ->  U1-7
+  Net '/F33_IRQ' (1 unrouted connection):
+    - via  ->  U2-18
+  Net '/SPI2_MISO' (1 unrouted connection):
+    - U2-16  ->  U1-6
+  Net '/SPI2_MOSI' (1 unrouted connection):
+    - U1-5  ->  U2-15
+  Net '/F33_RESET_N' (1 unrouted connection):
+    - via  ->  U1-18
+  Net '/SPI2_SCK' (1 unrouted connection):
+    - U1-4  ->  U2-12
+  Net '/F33_VCC' (4 unrouted connections):
+    - U2-1  ->  via
+    - C_BULK-1  ->  R_MON1-1
+    - C_BULK-1  ->  J_VCC-2
+    - C_HF-1  ->  via
+  Net '/F33_VSENSE' (4 unrouted connections):
+    - via  ->  R_MON1-2
+    - R_MON2-1  ->  via
+    - C_MON-1  ->  R_MON1-2
+    - U1-21  ->  via
+  Net '/GNSS_VCC' (3 unrouted connections):
+    - C4-1  ->  R_F1-2
+    - U5-8  ->  via
+    - via  ->  R_F1-2
+  Net '/HUB_PV_MID1' (1 unrouted connection):
+    - D_HUB2-1  ->  via
+  Net '/HUB_PV_N' (1 unrouted connection):
+    - U_HUB_CVT-3  ->  via
+  Net '/HUB_PV_P' (2 unrouted connections):
+    - via  ->  U_HUB_CVT-1
+    - via  ->  D_HUB1-1
+  Net '/SCAP_ADC' (1 unrouted connection):
+    - R_DIV2-1  ->  R_DIV1-2
+  Net '/SCAP_MID' (1 unrouted connection):
+    - R_BAL1-2  ->  C_CAP1-2
+  Net '/SPI1_MISO' (4 unrouted connections):
+    - U_C-3  ->  via
+    - U3-3  ->  via
+    - U1-9  ->  U3-3
+    - U1-9  ->  U_LORA1280-5
+  Net '/SPI1_MOSI' (1 unrouted connection):
+    - via  ->  U_C-4
+  Net '/SPI1_SCK' (4 unrouted connections):
+    - via  ->  U_C-5
+    - via  ->  U3-5
+    - via  ->  via
+    - via  ->  via
+  Net '/U3_IRQ' (1 unrouted connection):
+    - via  ->  U3-15
+  Net '/U3_RESET_N' (1 unrouted connection):
+    - U3-14  ->  via
+  Net '/VTCXO_VNTC' (1 unrouted connection):
+    - U_C-13  ->  U3-13
+  Net '/W1_SOLAR_P' (1 unrouted connection):
+    - D_BP1-1  ->  via
+  Net '/W2_SOLAR_N' (2 unrouted connections):
+    - J_W3-1  ->  J_W3-1@1
+    - via  ->  via
+  Net '/W3_SOLAR_N' (3 unrouted connections):
+    - J_W4-1@1  ->  J_W4-1
+    - J_W3-4  ->  J_W3-4@1
+    - D_BP4-1  ->  via
+  Net '/EN' (1 unrouted connection):
+    - U1-3  ->  J_PROG-3
+  Net '/USB_DN' (1 unrouted connection):
+    - J_PROG-4  ->  via
+2026-11-08 14:51:53.530 INFO   [1DC8EA\6B5377] Auto-routing stage completed: started with 109 unrouted nets, completed in 861.70 seconds, final score: 656.28 (46 unrouted and 82 violations), using 852.12 total CPU seconds, 326.32 GB total allocated, and 249.7 MB peak heap usage.
+2026-11-08 14:51:54.412 INFO   [1DC8EA\6B5377] Skipping optimization stage: the board has 46 unrouted connection(s) (optimizer only runs on completely routed boards).
+2026-11-08 14:51:54.489 INFO   [1DC8EA\6B5377] Job '1DC8EA\6B5377' finished with state: COMPLETED (elapsed: 14 minutes 26.10 seconds, finished at UTC: 2026-11-08T13:51:54.488760717Z).
+2026-11-08 14:51:54.509 INFO   Saving output file '/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/freerouting/board.ses' (SES)...
+2026-11-08 14:51:54.514 INFO   Successfully saved output file '/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/freerouting/board.ses' (430011 bytes).
