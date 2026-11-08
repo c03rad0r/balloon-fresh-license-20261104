@@ -15,7 +15,8 @@ using them as FIPS transports.
 | Full-size 255-byte native-E80 → S3 frames | **verified: `flrc_rx valid=20 crc=0`** |
 | 64-byte payload delivery in each direction | **verified: 5/5 accepted by `echo` each way** |
 | FIPS Noise handshake between independent radios | **verified: authenticated, connected peers in two namespaces** |
-| Sustained, larger-payload bidirectional transfer | **not yet verified** |
+| Deterministic fixed-size TX padding | **implemented in firmware 0.4.10; 39/39 host tests pass** |
+| Sustained, larger-payload bidirectional transfer | **not yet verified; needs a second working S3** |
 | FIPS IPv6 ping | **fails so far; not claimed to work** |
 | SSH over the radios | **not yet verified** |
 
@@ -240,7 +241,7 @@ fips-lr2021ctl --serial "$PORT" status
 The reference adapter answered:
 
 ```text
-protocol=1 firmware=0.4.8 chip=0x1801 capabilities=0x0007
+protocol=1 firmware=0.4.10 chip=0x1801 capabilities=0x0007
 pong
 tx=0 rx=0 crc=0 drops=0 timeouts=0 resets=0
 ```
@@ -468,7 +469,9 @@ Measured status as of this guide's latest update:
 
 **Do not debug SSH before ping works.** Do not debug ping before both peers
 authenticate. Do not assume a correct `hello`, CFG ACK, or nonempty peer list
-alone proves SSH will work.
+alone proves SSH will work. The gated recovery sequence, 100-frame link test and
+deferred Wirehair/FEC evaluation are in
+`docs/IPV6-DATA-PLANE-PLAN.md`.
 
 ## 14. Shutdown and common failures
 

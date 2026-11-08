@@ -671,6 +671,38 @@ TEST(test_transport_handshake_sized_payload_single_packet) {
     return 1;
 }
 
+TEST(test_e80_tx_fifo_pads_short_payload) {
+    const uint8_t payload[] = {0xF1, 0x50, 0x10, 0xAB};
+    auto frame = lr2021_e80_build_tx_fifo(payload, sizeof(payload), 16);
+
+    CHECK_EQ(frame.size(), (size_t)(2 + 16));
+    CHECK_EQ(frame[0], 0x00);
+    CHECK_EQ(frame[1], 0x02);
+    CHECK(memcmp(frame.data() + 2, payload, sizeof(payload)) == 0);
+    for (size_t i = 2 + sizeof(payload); i < frame.size(); i++) {
+        CHECK_EQ(frame[i], 0x00);
+    }
+    return 1;
+}
+
+TEST(test_e80_tx_fifo_keeps_exact_length) {
+    std::vector<uint8_t> payload(255, 0x5A);
+    auto frame = lr2021_e80_build_tx_fifo(payload.data(), payload.size(), 255);
+
+    CHECK_EQ(frame.size(), (size_t)(2 + 255));
+    CHECK(memcmp(frame.data() + 2, payload.data(), payload.size()) == 0);
+    return 1;
+}
+
+TEST(test_e80_tx_fifo_does_not_truncate_longer_payload) {
+    std::vector<uint8_t> payload(20, 0xA5);
+    auto frame = lr2021_e80_build_tx_fifo(payload.data(), payload.size(), 12);
+
+    CHECK_EQ(frame.size(), (size_t)(2 + 20));
+    CHECK(memcmp(frame.data() + 2, payload.data(), payload.size()) == 0);
+    return 1;
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // Main
 // ═══════════════════════════════════════════════════════════════════
@@ -723,6 +755,11 @@ int main(void) {
     RUN(test_transport_recv_after_irq);
     RUN(test_transport_poll_irq_idle);
     RUN(test_transport_recv_no_data_times_out);
+
+    printf("\n[E80 TX FIFO framing]\n");
+    RUN(test_e80_tx_fifo_pads_short_payload);
+    RUN(test_e80_tx_fifo_keeps_exact_length);
+    RUN(test_e80_tx_fifo_does_not_truncate_longer_payload);
 
     printf("\n[Transport TX→RX loop]\n");
     RUN(test_transport_tx_to_rx_loop);

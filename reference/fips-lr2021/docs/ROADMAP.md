@@ -142,6 +142,21 @@ Measure, do not estimate.
 - [ ] SPI nodes at FLRC-2600 (2.4 GHz)
 - [ ] Real numbers replace the estimates in `DUAL-NODE-BRINGUP-PLAN.md`
 
+## Phase 6 — optional link FEC, including Wirehair (later)
+
+Do this only after the baseline link is stable enough that residual loss, not
+framing or session setup, is the limiting factor. Detailed gates live in
+`docs/IPV6-DATA-PLANE-PLAN.md`.
+
+- [ ] Measure ARQ-only loss/latency at 0, 1, 5, 10 and 20 percent erasure.
+- [ ] Prototype a hybrid ARQ + FEC data path for multi-packet/bulk messages.
+- [ ] Never FEC control frames, ACKs or the FIPS session handshake.
+- [ ] Give every coded symbol an outer ID and CRC before decoding.
+- [ ] Evaluate `catid/wirehair` (canonical C++), wrapped from the Rust host link.
+- [ ] Compare alternatives such as Reed–Solomon or RaptorQ for small blocks.
+- [ ] Reject FEC if collision rate, airtime or interactive latency worsens.
+- [ ] Record duty-cycle and memory/CPU costs before considering embedded use.
+
 ## Ordering rationale
 
 Phase 0 first because it can finish in an hour and validates the whole stack on

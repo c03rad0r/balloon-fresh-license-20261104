@@ -578,17 +578,21 @@ Lr2021Error EspIdfLr2021Radio::send_packet(const uint8_t* data, size_t len) {
     err = cmd(Lr2021Opcodes::OP_CLEAR_IRQ, sizeof(Lr2021Opcodes::OP_CLEAR_IRQ));
     if (err != Lr2021Error::Ok) return err;
 
-    // Write TX FIFO. The vendor HAL writes opcode + payload with no length
-    // byte; the old 2.4 GHz path's extra byte is retained only outside E80
-    // compatibility mode for existing users of this component.
+    // Write TX FIFO. The E80 path is fixed-length and must transmit exactly the
+    // configured payload length: explicitly zero-pad rather than leaking stale
+    // FIFO bytes into the radio packet.
     std::vector<uint8_t> buf;
+#if LR2021_E80_COMPAT
+    buf = lr2021_e80_build_tx_fifo(data, len, payload_length_);
+#else
+    // The vendor HAL writes opcode + payload with no length byte; the old
+    // 2.4 GHz path's extra byte is retained outside E80 compatibility mode.
     buf.reserve(len + 3);
     buf.insert(buf.end(), Lr2021Opcodes::OP_WRITE_TX_FIFO,
                Lr2021Opcodes::OP_WRITE_TX_FIFO + 2);
-#if !LR2021_E80_COMPAT
     buf.push_back((uint8_t)len);
-#endif
     buf.insert(buf.end(), data, data + len);
+#endif
     err = cmd(buf.data(), buf.size());
     if (err != Lr2021Error::Ok) return err;
 
