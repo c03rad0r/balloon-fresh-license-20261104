@@ -1,5 +1,22 @@
 # v10 partial-assembly plan — what JLCPCB places, what you hand-solder
 
+> **SUPERSEDED IN PART (2026-11-08).** The population decision below is still correct and was applied
+> to the board as DNP attributes — see `docs/fab/ASSEMBLY-PARTIAL.md` and
+> `docs/fab/BOM-ORDER-READY.md`. Three things in THIS document were wrong and are corrected there:
+>
+> 1. **`U_LORA1280` "needs LCSC"** — it is a NiceRF LoRa1280 castellated module, not an LCSC part.
+>    It is hand-fit, and no LCSC number exists to find. Same for `U3`/`U_C`.
+> 2. **`C10` "needs LCSC"** — `C10` and `C4` are both 10 µF 0402 (measured on the board), so the
+>    existing `C15525` covers both. No separate number is needed.
+> 3. **`U7` LCSC `C5142805` is CORRECT** — it is TPS7A0233**DBVR**. `C2887324` is the
+>    TPS7A0233**PDBVR** active-discharge variant and is a different part. Verified on LCSC.
+>
+> Also: Group E lists `J_HUB_PV` and `J_PROG` as "never placed", but both are ordinary 2.54 mm pin
+> headers that JLC does place — `C492404` (1x5) and `C492405` (1x6), both verified in stock. All 14
+> JLC lines now carry a sourced LCSC number.
+>
+> The DNP reasoning (barometer, supercaps, F33) and Groups B/C/D are unchanged and still stand.
+
 **2026-11-08, board `latest.kicad_pcb` (`322ade1e`), 49 footprints, 11 REAL opens.**
 
 Derived from the v9 locked split (`b8e1b7d6` — *"order BOMs for confirmed split — 10 boards,
