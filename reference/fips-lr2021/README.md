@@ -1,7 +1,10 @@
 # FIPS over LR2021 / FLRC — reference implementation
 
-**Status:** host-tested end-to-end through two virtual bridges; one E80 STM32 bridge verified on hardware; two-node RF pending.  
-**PR:** https://github.com/felixfelix-bot/balloon-fresh/pull/395
+**Status:** E80↔ESP32-S3 SPI bypass, two-way RF payload delivery and FIPS peer authentication verified on hardware; IPv6 ping and SSH remain open validation gates.
+
+**Latest hardware guide:** [`docs/E80-ESP32-S3-FIPS-ONBOARDING.md`](docs/E80-ESP32-S3-FIPS-ONBOARDING.md)
+
+**Merge:** https://github.com/felixfelix-bot/balloon-fresh/pull/475
 **Purpose:** keep the working LR2021 transport, bridge firmware, band configs and
 event runbook in one place, separate from the flight firmware.
 
@@ -16,9 +19,17 @@ RP2040 bridge firmware, configs and test scripts.
   no-soldering PER/FLRP runbook; its
   [implementation checklist](docs/SEEED-LR2021-EVK-IMPLEMENTATION-PLAN.md)
   separates host, hardware, RF and future FIPS status.
+- **Building the two-radio E80 + ESP32-S3 adapter?** Start with
+  [`docs/E80-ESP32-S3-FIPS-ONBOARDING.md`](docs/E80-ESP32-S3-FIPS-ONBOARDING.md)
+  for exact soldering, reset-jumper, flashing, FIPS setup and measured results.
+- **Planning the IPv6/data-plane fix?** `docs/IPV6-DATA-PLANE-PLAN.md` contains
+  the failure analysis, the 100-frame acceptance gate, and the deferred
+  Wirehair/FEC evaluation.
 - **No physical access?** `docs/FLASHING-WITHOUT-BUTTONS.md` — both ESP32 and
   RP2040 can be reflashed over USB with no button press.
 - **Picking up this work?** `docs/LEARNINGS.md` first, then `docs/OTA-PROOF-PLAN.md`.
+
+**Bench radio profiles are EU-only (`eu868` or `eu2400`), never `us915`.**
 
 ## What it does
 
@@ -61,39 +72,25 @@ cargo build --release -p fips-lr2021 --bins
 
 ## Quick start (two radios)
 
-Two bridge targets are supported:
+For the validated E80 SPI-bypass design, use **two E80 + ESP32-S3 adapters** and
+follow [`docs/E80-ESP32-S3-FIPS-ONBOARDING.md`](docs/E80-ESP32-S3-FIPS-ONBOARDING.md).
+It includes the required STM32 reset jumper, J2 pin map, build/flash commands,
+per-board RF checks and a runnable two-namespace FIPS configuration.
 
-- **E80 STM32** (`firmware/e80-stm32-bench` bridge mode): the actual event
-  hardware. Build/flash with `scripts/build-e80-bridge.sh` and
-  `scripts/flash-e80-bridge.sh`; enter bridge mode with
-  `fips-lr2021ctl bridge`. See `docs/E80-STM32-BRIDGE.md`.
-- **RP2040 + E80** (`firmware/rp2040-bridge`): the reference SPI-bypass target.
+Measured on `archipelago` on 2026-11-07:
 
-One E80 STM32 board was flashed and verified on 2026-11-02 (HELLO/CFG/STATUS).
-The second board is blocked on its SWD probe; see `docs/RESULTS.md`.
+- real LR2021 chip version `0x1801` through the S3 SPI bypass;
+- first S3 → native-E80 radio frames, 20 valid at about −49 dBm;
+- 20 full-size native-E80 → S3 frames with zero chip-CRC errors;
+- five valid 64-byte payloads delivered into the link layer in each direction;
+- Noise-authenticated FIPS peers in two isolated namespaces, both connected.
 
-1. Flash the bridge on both boards (see `docs/HARDWARE.md`).
-2. Connect both boards by USB.
-3. Configure both ends:
+IPv6 ping and SSH are not yet passing. Measure those as separate gates; never
+infer them from `HELLO_ACK`, a self-reception count or one-way RF reception.
 
-```bash
-# RP2040: /dev/ttyACM*
-fips-lr2021ctl --serial /dev/ttyACM0 cfg --band us915
-fips-lr2021ctl --serial /dev/ttyACM1 cfg --band us915
-
-# E80 STM32: /dev/ttyUSB*, 115200, once per reset
-fips-lr2021ctl --serial /dev/ttyUSB6 --baud 115200 bridge
-fips-lr2021ctl --serial /dev/ttyUSB6 --baud 115200 cfg --band us915
-
-fips-lr2021ctl --serial /dev/ttyACM0 status
-fips-lr2021ctl --serial /dev/ttyACM1 status
-```
-
-4. Start FIPS on both machines with the `transports.lr2021` block from
-   [`fips/configs/us915.yaml`](fips/configs/us915.yaml).
-5. Run `ping6` between the FIPS addresses, then `iperf3 -u`.
-
-The full procedure is in [`docs/DEMO-RUNBOOK.md`](docs/DEMO-RUNBOOK.md).
+The alternative RP2040 and native E80 STM32 bridge documents remain below as
+hardware-specific notes. Their older US-band examples are **not** instructions
+for this bench.
 
 ## Bands
 
@@ -127,10 +124,9 @@ per: sent=20 delivered=20 loss=0.0% elapsed=0.01s avg_rssi=-40.0 dBm
 mock end-to-end: PASS
 ```
 
-Run it with `tests/host/run_mock_e2e.sh`. Hardware evidence is **not claimed
-yet**. The current x280 host is unreachable;
-the hardware gate and exact commands are in
-[`docs/RESULTS.md`](docs/RESULTS.md).
+Run it with `tests/host/run_mock_e2e.sh`. Hardware evidence and reproduction
+commands are in [`docs/E80-ESP32-S3-FIPS-ONBOARDING.md`](docs/E80-ESP32-S3-FIPS-ONBOARDING.md);
+virtual end-to-end success is not a substitute for RF verification.
 
 ## Layout
 
@@ -140,6 +136,8 @@ the hardware gate and exact commands are in
 | `ARCHITECTURE.md` | design and data path |
 | `fips/` | fork pin, vendored diff, FIPS configs |
 | `firmware/rp2040-bridge/` | RP2040 + E80 bridge firmware |
+| `firmware/esp32-bridge/` | ESP32-S3 + E80 SPI-bypass firmware |
+| `docs/E80-ESP32-S3-FIPS-ONBOARDING.md` | end-to-end soldering, flashing, RF and FIPS guide |
 | `scripts/` | bootstrap, sync, build, flash, demo |
 | `tests/hardware/` | PER, ping, relay and soak scripts |
 | `docs/` | protocol, bands, hardware, runbook, results, bring-up findings |
@@ -149,6 +147,7 @@ the hardware gate and exact commands are in
 | `docs/FLASHING-WITHOUT-BUTTONS.md` | **flash ESP32 and RP2040 boards over USB, no button press** |
 | `docs/LEARNINGS.md` | every hard-won finding, so future sessions don't rediscover them |
 | `docs/OTA-PROOF-PLAN.md` | staged plan to prove an over-the-air frame |
+| `docs/IPV6-DATA-PLANE-PLAN.md` | IPv6 failure analysis, link acceptance gate and deferred Wirehair/FEC plan |
 
 ## Known limitations
 
@@ -157,5 +156,8 @@ the hardware gate and exact commands are in
 - 2.4 GHz needs the HF path verified on the actual E80 module; sub-GHz is the
   default.
 - The relay mode is single-relay only in this cut.
-- RP2040 flashing is BOOTSEL/picotool; pre-flash before travel. The ESP32
-  porting guide is in `docs/PORTING-ESP32.md`.
+- RP2040 can be flashed remotely using the 1200-baud touch; ESP32-C3/S3 use
+  esptool `usb_reset`. See `docs/FLASHING-WITHOUT-BUTTONS.md` before pressing
+  BOOTSEL or BOOT manually.
+- E80↔ESP32-S3 delivery and FIPS peers are proven; larger payloads, IPv6 ping
+  and SSH are still open, and are tracked in the onboarding guide.

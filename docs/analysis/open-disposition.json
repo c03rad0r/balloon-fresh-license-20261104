@@ -1,0 +1,276 @@
+{
+  "rows": [
+    {
+      "id": 0,
+      "net": "/CUT_SENSE_W1",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 3 [/CUT_SENSE_W1] of J_W1 on F.Cu",
+        "Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu"
+      ]
+    },
+    {
+      "id": 1,
+      "net": "/CUT_SENSE_W2",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 3 [/CUT_SENSE_W2] of J_W2 on F.Cu",
+        "Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu"
+      ]
+    },
+    {
+      "id": 2,
+      "net": "/CUT_SENSE_W3",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 3 [/CUT_SENSE_W3] of J_W3 on F.Cu",
+        "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu"
+      ]
+    },
+    {
+      "id": 3,
+      "net": "/CUT_SENSE_W4",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 3 [/CUT_SENSE_W4] of J_W4 on F.Cu",
+        "Pad 3 [/CUT_SENSE_W4] of J_W4 on B.Cu"
+      ]
+    },
+    {
+      "id": 4,
+      "net": "/SPI2_SCK",
+      "class": "unclassified",
+      "why": "Pattern not matched by the classifier.",
+      "action": "investigate",
+      "frozen": false,
+      "items": [
+        "Pad 4 [/SPI2_SCK] of U1 on F.Cu",
+        "Pad 12 [/SPI2_SCK] of U2 on F.Cu"
+      ]
+    },
+    {
+      "id": 5,
+      "net": "/F33_VSENSE",
+      "class": "cross-layer-transition",
+      "why": "Pad on one layer, track on another. Needs a plated transition (via) at or near the pad; measured: no legal 0.600/0.300 via site exists at frozen S1.",
+      "action": "drill-in-pad authorisation, or accept as exception",
+      "frozen": false,
+      "items": [
+        "Pad 21 [/F33_VSENSE] of U1 on F.Cu",
+        "Track [/F33_VSENSE] on B.Cu, length 3.8000 mm"
+      ]
+    },
+    {
+      "id": 6,
+      "net": "/SPI1_MOSI",
+      "class": "cross-layer-fragment",
+      "why": "Two track fragments on different layers. Needs a via joining them. Measured by probe: a bridge can be routed, but it did not reduce the open count (BRIDGE1: 22 -> 22), so this record is not the geometry the DRC is actually complaining about.",
+      "action": "drill-in-pad, or accept as exception",
+      "frozen": false,
+      "items": [
+        "Track [/SPI1_MOSI] on B.Cu, length 1.8000 mm",
+        "Track [/SPI1_MOSI] on F.Cu, length 16.6000 mm"
+      ]
+    },
+    {
+      "id": 7,
+      "net": "/SPI1_SCK",
+      "class": "same-layer-fragment",
+      "why": "Two track fragments on ONE layer. Purely a copper gap, needs no via at all.",
+      "action": "routable -- a plain bridge",
+      "frozen": false,
+      "items": [
+        "Track [/SPI1_SCK] on F.Cu, length 1.0500 mm",
+        "Track [/SPI1_SCK] on F.Cu, length 5.9000 mm"
+      ]
+    },
+    {
+      "id": 8,
+      "net": "/VSCAP",
+      "class": "zone-island",
+      "why": "Zone-to-zone record. A pour on one layer cannot connect to a pour on another without a via; DRC reports the pair. Fix = stitching via if the pour is isolated, or accept as a zone-connectivity record.",
+      "action": "stitching via (outside frozen region) or accept",
+      "frozen": false,
+      "items": [
+        "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0",
+        "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0"
+      ]
+    },
+    {
+      "id": 9,
+      "net": "/VSCAP",
+      "class": "cross-layer-transition",
+      "why": "Pad on one layer, track on another. Needs a plated transition (via) at or near the pad; measured: no legal 0.600/0.300 via site exists at frozen S1.",
+      "action": "drill-in-pad authorisation, or accept as exception",
+      "frozen": false,
+      "items": [
+        "Track [/VSCAP] on F.Cu, length 1.0687 mm",
+        "Pad 1 [/VSCAP] of R_BAL1 on F.Cu"
+      ]
+    },
+    {
+      "id": 10,
+      "net": "/W1_SOLAR_N",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu",
+        "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu"
+      ]
+    },
+    {
+      "id": 11,
+      "net": "/W1_SOLAR_N",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 1 [/W1_SOLAR_N] of J_W2 on B.Cu",
+        "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu"
+      ]
+    },
+    {
+      "id": 12,
+      "net": "/W1_SOLAR_P",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 1 [/W1_SOLAR_P] of J_W1 on F.Cu",
+        "Pad 1 [/W1_SOLAR_P] of J_W1 on B.Cu"
+      ]
+    },
+    {
+      "id": 13,
+      "net": "/W2_SOLAR_N",
+      "class": "cross-layer-fragment",
+      "why": "Two track fragments on different layers. Needs a via joining them. Measured by probe: a bridge can be routed, but it did not reduce the open count (BRIDGE1: 22 -> 22), so this record is not the geometry the DRC is actually complaining about.",
+      "action": "drill-in-pad, or accept as exception",
+      "frozen": false,
+      "items": [
+        "Track [/W2_SOLAR_N] on F.Cu, length 1.2000 mm",
+        "Track [/W2_SOLAR_N] on B.Cu, length 0.8485 mm"
+      ]
+    },
+    {
+      "id": 14,
+      "net": "/W2_SOLAR_N",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu",
+        "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu"
+      ]
+    },
+    {
+      "id": 15,
+      "net": "/W3_SOLAR_N",
+      "class": "assembly-land",
+      "why": "Same pad number on both faces of one connector: F.Cu and B.Cu copper with no barrel. These join when the wing tab is soldered. Routing or vias here is WRONG (WING_TAB_4P / ADR-120 R1).",
+      "action": "none -- completes in assembly, must be accepted as a documented exception",
+      "frozen": false,
+      "items": [
+        "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+        "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu"
+      ]
+    },
+    {
+      "id": 16,
+      "net": "/W3_SOLAR_N",
+      "class": "cross-layer-fragment",
+      "why": "Two track fragments on different layers. Needs a via joining them. Measured by probe: a bridge can be routed, but it did not reduce the open count (BRIDGE1: 22 -> 22), so this record is not the geometry the DRC is actually complaining about.",
+      "action": "drill-in-pad, or accept as exception",
+      "frozen": false,
+      "items": [
+        "Track [/W3_SOLAR_N] on B.Cu, length 0.8485 mm",
+        "Track [/W3_SOLAR_N] on F.Cu, length 0.9000 mm"
+      ]
+    },
+    {
+      "id": 17,
+      "net": "/W3_SOLAR_N",
+      "class": "cross-layer-transition",
+      "why": "Pad on one layer, track on another. Needs a plated transition (via) at or near the pad; measured: no legal 0.600/0.300 via site exists at frozen S1.",
+      "action": "drill-in-pad authorisation, or accept as exception",
+      "frozen": false,
+      "items": [
+        "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu",
+        "Track [/W3_SOLAR_N] on B.Cu, length 3.3004 mm"
+      ]
+    },
+    {
+      "id": 18,
+      "net": "GND",
+      "class": "zone-island",
+      "why": "Zone-to-zone record. A pour on one layer cannot connect to a pour on another without a via; DRC reports the pair. Fix = stitching via if the pour is isolated, or accept as a zone-connectivity record.",
+      "action": "stitching via (outside frozen region) or accept",
+      "frozen": false,
+      "items": [
+        "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+        "Zone 'GND_In1' [GND] on In1.Cu, priority 0"
+      ]
+    },
+    {
+      "id": 19,
+      "net": "GND",
+      "class": "zone-island",
+      "why": "Zone-to-zone record. A pour on one layer cannot connect to a pour on another without a via; DRC reports the pair. Fix = stitching via if the pour is isolated, or accept as a zone-connectivity record.",
+      "action": "stitching via (outside frozen region) or accept",
+      "frozen": false,
+      "items": [
+        "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+        "Zone 'GND_In1' [GND] on In1.Cu, priority 0"
+      ]
+    },
+    {
+      "id": 20,
+      "net": "GND",
+      "class": "zone-island",
+      "why": "Zone-to-zone record. A pour on one layer cannot connect to a pour on another without a via; DRC reports the pair. Fix = stitching via if the pour is isolated, or accept as a zone-connectivity record.",
+      "action": "stitching via (outside frozen region) or accept",
+      "frozen": false,
+      "items": [
+        "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+        "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+      ]
+    },
+    {
+      "id": 21,
+      "net": "/EN",
+      "class": "unclassified",
+      "why": "Pattern not matched by the classifier.",
+      "action": "investigate",
+      "frozen": false,
+      "items": [
+        "Pad 3 [/EN] of U1 on F.Cu",
+        "PTH pad 3 [/EN] of J_PROG"
+      ]
+    }
+  ],
+  "counts": {
+    "assembly-land": 9,
+    "unclassified": 2,
+    "cross-layer-transition": 3,
+    "cross-layer-fragment": 3,
+    "same-layer-fragment": 1,
+    "zone-island": 4
+  }
+}

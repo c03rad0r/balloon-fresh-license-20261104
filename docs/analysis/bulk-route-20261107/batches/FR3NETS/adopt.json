@@ -1,0 +1,27 @@
+{
+  "before": {
+    "failing": 16,
+    "counts": {
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 4,
+      "track_dangling": 1,
+      "unconnected_items": 15
+    },
+    "allowed": [
+      "unconnected_items"
+    ]
+  },
+  "after": {
+    "failing": 16,
+    "counts": {
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 4,
+      "track_dangling": 1,
+      "unconnected_items": 11
+    },
+    "allowed": [
+      "unconnected_items"
+    ]
+  },
+  "name": "FR3NETS"
+}

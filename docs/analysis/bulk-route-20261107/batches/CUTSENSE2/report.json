@@ -1,0 +1,28 @@
+{
+  "/CUT_SENSE_W1": {
+    "status": "NO PATH",
+    "reason": "search exhausted 424 steps",
+    "gap_mm": 0.0
+  },
+  "/CUT_SENSE_W2": {
+    "status": "ROUTED",
+    "gap_mm": 0.0,
+    "length_mm": 3.4,
+    "segments": 34,
+    "vias": 1
+  },
+  "/CUT_SENSE_W3": {
+    "status": "ROUTED",
+    "gap_mm": 0.0,
+    "length_mm": 3.4,
+    "segments": 34,
+    "vias": 1
+  },
+  "/CUT_SENSE_W4": {
+    "status": "ROUTED",
+    "gap_mm": 0.0,
+    "length_mm": 4.8,
+    "segments": 48,
+    "vias": 1
+  }
+}

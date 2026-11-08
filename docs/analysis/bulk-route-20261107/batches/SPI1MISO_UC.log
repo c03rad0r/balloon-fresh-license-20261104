@@ -1,0 +1,4 @@
+=== SPI1MISO_UC   from 44ca9d9e305c9b6d
+world: pads=301 tracks=1332 edges=16 holes=163 origin=(-0.05, -0.05) size=(72.1, 80.1)
+UNROUTED /SPI1_MISO:U3.3:U_C.3: no path on any layer pair (283.95s)
+SPI1MISO_UC: NOTHING WRITTEN -- tree untouched, latest.kicad_pcb unchanged

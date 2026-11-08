@@ -1,0 +1,6 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "balloon_flight")(type "KiCad")(uri "${KIPRJMOD}/schematics/flight_board/balloon_flight.pretty")(options "")(descr "Flight board footprints exported from the frozen PCB"))
+	(lib (name "Tracker_Mechanical")(type "KiCad")(uri "${KIPRJMOD}/footprints/tracker_mechanical.pretty")(options "")(descr "Repo-local mechanical footprints for the v9 hub/wing assembly; holds the real hub-side wing socket land set Wing_Tab_4P - ADR-046/ADR-048"))
+	(lib (name "balloon_flight_v9")(type "KiCad")(uri "${KIPRJMOD}/schematics/flight_board/v9_lib/balloon_flight_v9.pretty")(options "")(descr "v9 flight board footprints"))
+)

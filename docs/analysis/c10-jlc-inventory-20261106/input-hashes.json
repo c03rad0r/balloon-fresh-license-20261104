@@ -1,0 +1,10 @@
+{
+  "candidate/board.kicad_pcb": "b899ad04f1e61bd4693b52f9a5275b4a406d8dfc59b778138d598ce768b90fbd",
+  "candidate/board.kicad_pro": "01063b32bcba962ba2ee89fa5acbd55a96b006d78567a3037403b05965a75b02",
+  "candidate/board.kicad_dru": "b8b321bb182b0f63515a80186e3f92127ac1dbe3aa4ddf9b797168a2af9b39a7",
+  "candidate/drc.json": "ddaad0ac28faa63678a17ee73e22c82aac944e95498bc2f863ed971328f58a33",
+  "candidate/silk.json": "ac5722fd2fb1bd453cb558fb97d0058ab4b16e0ddd4550776b9e356f1d3040c8",
+  "candidate-geometry.json": "a367600e81b56dc49f3389bc9c6c81c9feab0878336464d27b308c62800082be",
+  "verification.json": "94ed1843876059f96fbd726bc1625b236d9921ebf46d5e37786753cc83445d35",
+  "prior-astra-review.md": "2c1603e8b89e9987a73a002ad449c56181e1c46429845254664db720db7f4357"
+}

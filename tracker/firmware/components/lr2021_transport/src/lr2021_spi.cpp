@@ -12,6 +12,10 @@
 
 #include "lr2021_spi.h"
 
+#ifndef LR2021_E80_COMPAT
+#define LR2021_E80_COMPAT 0
+#endif
+
 // ═══════════════════════════════════════════════════════════════════
 // MockLr2021Radio implementation
 // ═══════════════════════════════════════════════════════════════════
@@ -192,6 +196,45 @@ Lr2021Error EspIdfLr2021Radio::spi_read(const uint8_t* opcode, size_t opcode_len
     return Lr2021Error::Ok;
 }
 
+Lr2021Error EspIdfLr2021Radio::spi_read_radio(const uint8_t* opcode, size_t opcode_len,
+                                               uint8_t* buf, size_t buf_len) {
+    /* Semtech lr20xx_hal_read returns two leading status bytes before the
+     * command payload. Ask for those as well and strip them here; otherwise a
+     * GET_VERSION read looks like 07 21 01 18 instead of version 01 18. */
+    static uint8_t response[LR2021_MAX_PACKET + 8];
+    size_t wire_len = buf_len + 2;
+    if (wire_len > sizeof(response)) return Lr2021Error::PacketTooLong;
+    Lr2021Error err = spi_read(opcode, opcode_len, response, wire_len);
+    if (err != Lr2021Error::Ok) return err;
+    memcpy(buf, response + 2, buf_len);
+    return Lr2021Error::Ok;
+}
+
+Lr2021Error EspIdfLr2021Radio::direct_fifo_read(uint8_t* buf, size_t len) {
+    if (len > LR2021_MAX_PACKET) return Lr2021Error::PacketTooLong;
+    Lr2021Error err = wait_busy();
+    if (err != Lr2021Error::Ok) return err;
+
+    /* READ_RX_FIFO (0x0001) is not the ordinary command-read protocol: the
+     * opcode and response must share one CS frame and there are no dummy
+     * bytes between them. */
+    static uint8_t tx[LR2021_MAX_PACKET + 2];
+    static uint8_t rx[LR2021_MAX_PACKET + 2];
+    memset(tx, 0, sizeof(tx));
+    tx[0] = 0x00;
+    tx[1] = 0x01;
+
+    spi_transaction_t t = {};
+    t.length = (len + 2) * 8;
+    t.tx_buffer = tx;
+    t.rx_buffer = rx;
+    if (spi_device_polling_transmit(spi_dev_, &t) != ESP_OK) {
+        return Lr2021Error::SpiError;
+    }
+    memcpy(buf, rx + 2, len);
+    return Lr2021Error::Ok;
+}
+
 Lr2021Error EspIdfLr2021Radio::wait_busy() {
     for (uint32_t i = 0; i < LR2021_BUSY_TIMEOUT_ITER; i++) {
         if (gpio_get_level((gpio_num_t)LR2021_PIN_BUSY) == 0) {
@@ -209,9 +252,14 @@ bool EspIdfLr2021Radio::check_irq_pin() {
 }
 
 Lr2021Error EspIdfLr2021Radio::hardware_reset() {
-    // RST LOW 200us → HIGH, delay 50ms
+    // E80 demo reset requires a substantial low pulse; the 2.4 GHz carrier's
+    // shorter 200 us pulse is retained for the non-E80 build.
     gpio_set_level((gpio_num_t)LR2021_PIN_RST, 0);
+#if LR2021_E80_COMPAT
+    vTaskDelay(pdMS_TO_TICKS(20));
+#else
     esp_rom_delay_us(200);
+#endif
     gpio_set_level((gpio_num_t)LR2021_PIN_RST, 1);
     vTaskDelay(pdMS_TO_TICKS(50));
     return Lr2021Error::Ok;
@@ -241,8 +289,13 @@ uint8_t EspIdfLr2021Radio::bitrate_to_brbw(uint32_t bitrate_kbps) {
         case 2600: return 0x00;
         case 2080: return 0x01;
         case 1300: return 0x02;
+#if LR2021_E80_COMPAT
+        case 650:  return 0x04; // E80/Semtech: 650 kbps / 740 kHz
+        case 325:  return 0x06; // E80/Semtech: 325 kbps / 370 kHz
+#else
         case 650:  return 0x03;
         case 325:  return 0x04;
+#endif
         default:   return 0x00; // default to max
     }
 }
@@ -280,11 +333,98 @@ static void build_packet_params(const Lr2021Config& config, uint8_t params[4]) {
     params[3] = config.payload_length;
 }
 
+#ifndef LR2021_E80_COMPAT
+#define LR2021_E80_COMPAT 0
+#endif
+
 Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
     // Step 0: Hardware reset
     Lr2021Error err = hardware_reset();
     if (err != Lr2021Error::Ok) return err;
 
+#if LR2021_E80_COMPAT
+    /* E80-900MBL-02 / LR2021 sub-GHz path. These bytes and this ordering come
+     * from firmware/e80-stm32-bench and its vendored Semtech lr20xx driver,
+     * not from the 2.4 GHz NiceRF carrier defaults. In particular SET_RF_FREQ
+     * takes u32 Hz (not a 3-byte FRF), FLRC-650 is BR/BW 0x04 and the PA uses
+     * the short LF form. The long-form PA and FRF values are incompatible. */
+    payload_length_ = config.payload_length;
+    auto step = [&](std::initializer_list<uint8_t> bytes) -> Lr2021Error {
+        return cmd(bytes.begin(), bytes.size());
+    };
+
+    err = step({0x01, 0x11, 0x00, 0x00});             // CLEAR_ERRORS
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x01, 0x21, 0x02});                   // REG_MODE = DCDC
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x01, 0x20, 0x03, 0x00, 0x00, 0xFA, 0x00}); // TCXO 2.2 V
+    if (err != Lr2021Error::Ok) return err;
+    vTaskDelay(pdMS_TO_TICKS(5));
+    err = step({0x01, 0x18, 0x00});                   // LFCLK = RC
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x01, 0x22, 0x7F});                   // CALIBRATE all
+    if (err != Lr2021Error::Ok) return err;
+    vTaskDelay(pdMS_TO_TICKS(10));
+    err = step({0x01, 0x11, 0x00, 0x00});
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x01, 0x28, 0x01});                   // STANDBY_XOSC
+    if (err != Lr2021Error::Ok) return err;
+    vTaskDelay(pdMS_TO_TICKS(5));
+
+    err = step({0x01, 0x12, 0x08, 0x11});             // DIO8 = IRQ/pulldown
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x02, 0x07, 0x05});                   // PACKET_TYPE = FLRC
+    if (err != Lr2021Error::Ok) return err;
+
+    uint32_t hz = (uint32_t)(config.freq_mhz * 1000000.0f + 0.5f);
+    err = step({0x02, 0x00,
+                (uint8_t)(hz >> 24), (uint8_t)(hz >> 16),
+                (uint8_t)(hz >> 8), (uint8_t)hz});    // frequency in Hz
+    if (err != Lr2021Error::Ok) return err;
+
+    bool sub_ghz = config.freq_mhz < 1000.0f;
+    err = step({0x02, 0x01, (uint8_t)(sub_ghz ? 0x00 : 0x01), 0x00});
+    if (err != Lr2021Error::Ok) return err;
+
+    if (sub_ghz) {
+        err = step({0x02, 0x02, 0x00, 0x76, 0x10});   // LF PA, FSM/duty/slices
+    } else {
+        err = step({0x02, 0x02, 0x80, 0x00, 0x60, 0x07, 0x10});
+    }
+    if (err != Lr2021Error::Ok) return err;
+
+    // Values measured working on the E80 SPI bypass: 20 us PA ramp and FS
+    // fallback. Substituting the STM32 bridge's 304 us/RC pair regressed TX.
+    int power = (int)config.tx_power_dbm * 2;
+    if (power < 0) power = 0;
+    if (power > 44) power = 44;
+    err = step({0x02, 0x03, (uint8_t)power, 0x04});
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x02, 0x06, 0x03});                   // fallback = FS
+    if (err != Lr2021Error::Ok) return err;
+
+    err = step({0x02, 0x4C, 0x01,
+                config.sync_word[0], config.sync_word[1],
+                config.sync_word[2], config.sync_word[3]});
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x02, 0x48, bitrate_to_brbw(config.bitrate_kbps), 0x17});
+    if (err != Lr2021Error::Ok) return err;
+
+    uint8_t pkt_params[4];
+    build_packet_params(config, pkt_params);
+    err = step({0x02, 0x49, pkt_params[0], pkt_params[1],
+                pkt_params[2], pkt_params[3]});
+    if (err != Lr2021Error::Ok) return err;
+
+    // RX_DONE bit18 | TX_DONE bit19 | CRC_ERROR bit22 => 0x004C0000.
+    err = step({0x01, 0x15, 0x08, 0x00, 0x4C, 0x00, 0x00});
+    if (err != Lr2021Error::Ok) return err;
+    err = cmd(Lr2021Opcodes::OP_CLR_TX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_TX_FIFO));
+    if (err != Lr2021Error::Ok) return err;
+    err = cmd(Lr2021Opcodes::OP_CLR_RX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_RX_FIFO));
+    if (err != Lr2021Error::Ok) return err;
+    return cmd(Lr2021Opcodes::OP_CLEAR_IRQ, sizeof(Lr2021Opcodes::OP_CLEAR_IRQ));
+#else
     // Step 1: CLEAR_ERRORS
     err = cmd(Lr2021Opcodes::OP_CLEAR_ERRORS, sizeof(Lr2021Opcodes::OP_CLEAR_ERRORS));
     if (err != Lr2021Error::Ok) return err;
@@ -398,6 +538,7 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
     if (err != Lr2021Error::Ok) return err;
 
     return Lr2021Error::Ok;
+#endif
 }
 
 // ── Lr2021Radio interface implementation ───────────────────────────
@@ -437,14 +578,21 @@ Lr2021Error EspIdfLr2021Radio::send_packet(const uint8_t* data, size_t len) {
     err = cmd(Lr2021Opcodes::OP_CLEAR_IRQ, sizeof(Lr2021Opcodes::OP_CLEAR_IRQ));
     if (err != Lr2021Error::Ok) return err;
 
-    // Write TX FIFO: opcode + length byte + payload
-    // Batch into single SPI transaction for speed (2.44x faster per discovery)
+    // Write TX FIFO. The E80 path is fixed-length and must transmit exactly the
+    // configured payload length: explicitly zero-pad rather than leaking stale
+    // FIFO bytes into the radio packet.
     std::vector<uint8_t> buf;
+#if LR2021_E80_COMPAT
+    buf = lr2021_e80_build_tx_fifo(data, len, payload_length_);
+#else
+    // The vendor HAL writes opcode + payload with no length byte; the old
+    // 2.4 GHz path's extra byte is retained outside E80 compatibility mode.
     buf.reserve(len + 3);
     buf.insert(buf.end(), Lr2021Opcodes::OP_WRITE_TX_FIFO,
                Lr2021Opcodes::OP_WRITE_TX_FIFO + 2);
     buf.push_back((uint8_t)len);
     buf.insert(buf.end(), data, data + len);
+#endif
     err = cmd(buf.data(), buf.size());
     if (err != Lr2021Error::Ok) return err;
 
@@ -453,6 +601,30 @@ Lr2021Error EspIdfLr2021Radio::send_packet(const uint8_t* data, size_t len) {
 }
 
 Lr2021Error EspIdfLr2021Radio::read_packet(uint8_t* buf, size_t buf_len, PacketStatus& status) {
+#if LR2021_E80_COMPAT
+    /* FLRC GET_PKT_STATUS (0x024B): two-byte length, average/sync RSSI,
+     * flags. The legacy generic opcodes and get-rx-buffer-status layout do
+     * not apply to this modem. */
+    static const uint8_t get_status[] = {0x02, 0x4B};
+    uint8_t pkt_status[5] = {};
+    Lr2021Error err = spi_read_radio(get_status, 2, pkt_status, sizeof(pkt_status));
+    if (err != Lr2021Error::Ok) return err;
+
+    size_t length = ((size_t)pkt_status[0] << 8) | pkt_status[1];
+    if (length == 0) length = payload_length_;
+    size_t n = length < buf_len ? length : buf_len;
+    if (n != 0) {
+        err = direct_fifo_read(buf, n);
+        if (err != Lr2021Error::Ok) return err;
+    }
+
+    status = PacketStatus{};
+    status.length = n;
+    status.rssi_dbm = -(int16_t)pkt_status[2];
+    status.snr_db = 0;                    // FLRC does not report SNR here
+    status.crc_ok = true;                 // RX_DONE/CRC_ERROR decided by IRQ
+    return Lr2021Error::Ok;
+#else
     // Get RX buffer status: returns [status, length, offset]
     uint8_t status_buf[3] = {};
     Lr2021Error err = spi_read(Lr2021Opcodes::OP_GET_RX_BUFFER_STATUS, 2, status_buf, 3);
@@ -490,12 +662,19 @@ Lr2021Error EspIdfLr2021Radio::read_packet(uint8_t* buf, size_t buf_len, PacketS
     status.snr_db = 0;
     status.crc_ok = true; // checked via IRQ CRC_ERROR flag
     return Lr2021Error::Ok;
+#endif
 }
 
 Lr2021Error EspIdfLr2021Radio::get_irq_status(uint32_t& flags) {
+#if LR2021_E80_COMPAT
+    uint8_t irq_buf[4] = {};
+    Lr2021Error err = spi_read_radio(Lr2021Opcodes::OP_GET_IRQ_STATUS, 2,
+                                     irq_buf, sizeof(irq_buf));
+#else
     // Read 4 bytes of IRQ status (32-bit)
     uint8_t irq_buf[4] = {};
     Lr2021Error err = spi_read(Lr2021Opcodes::OP_GET_IRQ_STATUS, 2, irq_buf, 4);
+#endif
     if (err != Lr2021Error::Ok) return err;
 
     // Big-endian u32
@@ -523,14 +702,27 @@ Lr2021Error EspIdfLr2021Radio::sleep() {
     return cmd(Lr2021Opcodes::OP_SET_SLEEP, sizeof(Lr2021Opcodes::OP_SET_SLEEP));
 }
 
-#endif // __has_include(<driver/...>)
-#endif // defined(__has_include)
-
+Lr2021Error EspIdfLr2021Radio::get_flrc_rx_stats(uint16_t& packets,
+                                                   uint16_t& crc_errors,
+                                                   uint16_t& length_errors)
+{
+    static const uint8_t get_stats[] = {0x02, 0x4A};
+    uint8_t counters[6] = {};
+    Lr2021Error err = spi_read_radio(get_stats, 2, counters, sizeof(counters));
+    if (err != Lr2021Error::Ok) return err;
+    packets = ((uint16_t)counters[0] << 8) | counters[1];
+    crc_errors = ((uint16_t)counters[2] << 8) | counters[3];
+    length_errors = ((uint16_t)counters[4] << 8) | counters[5];
+    return Lr2021Error::Ok;
+}
 
 Lr2021Error EspIdfLr2021Radio::get_version(uint8_t out[4])
 {
     if (!spi_initialized_) {
         if (init_hardware() != ESP_OK) return Lr2021Error::SpiError;
     }
-    return spi_read(Lr2021Opcodes::OP_GET_VERSION, 2, out, 4);
+    return spi_read_radio(Lr2021Opcodes::OP_GET_VERSION, 2, out, 4);
 }
+
+#endif // __has_include(<driver/...>)
+#endif // defined(__has_include)

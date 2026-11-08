@@ -6,15 +6,38 @@ except where noted.
 
 ## Prerequisites for a manual SSH-over-FIPS test
 
-| # | Prerequisite | Status |
+**Current status on 2026-11-07:** the E80/ESP32-S3 bypass is validated through
+actual over-the-air traffic and bidirectional FIPS peer authentication. IPv6 ping
+and SSH remain open. The complete wiring/flashing instructions and current
+checklist are in `docs/E80-ESP32-S3-FIPS-ONBOARDING.md`; the older measurements
+below are kept as diagnostic history, not as the current state.
+
+| # | Prerequisite | Current status |
 |---|---|---|
-| 1 | Two radios exchange a frame over the air | **not demonstrated** |
-| 2 | FIPS peer addressing over `lr2021` (peer addr = 4-byte link id) | code exists, never exercised |
-| 3 | Two FIPS instances with TUN, matching radio config | not attempted |
-| 4 | FIPS handshake over the radio | blocked by 1 |
-| 5 | SSH over the FIPS IPv6 address | blocked by 1–4 |
+| 1 | Two radios exchange a frame over the air | **yes:** native E80 received 20 S3 frames; full-size return packets were CRC-clean |
+| 2 | FIPS peer addressing over `lr2021` | **yes:** decimal-string IDs round-trip, with regression tests |
+| 3 | Two FIPS instances with TUN, matching radio config | **yes:** two network namespaces |
+| 4 | FIPS handshake over the radio | **yes:** authenticated connected peers in both namespaces |
+| 5 | Larger packets and fragmented messages reliably delivered | **open** |
+| 6 | IPv6 ping over the FIPS interface | **open:** latest 0/3 in each direction |
+| 7 | SSH over the FIPS IPv6 address | **not tested yet; blocked by 5–6** |
+
+### Milestones measured on 2026-11-07
+
+- STM32 held in reset changes the S3's LR2021 read from all zeros to parsed
+  `01 18`, reported as `chip=0x1801`. This was necessary, not optional.
+- S3 → native E80: 20 valid frames near −49 dBm, the first cross-node frame
+  crossing in this workstream.
+- Native E80 → S3: 20 full-size packets with `flrc_rx valid=20 crc=0`.
+- Addressing both nodes correctly yields five 64-byte payload deliveries and
+  echoes in each direction.
+- Short packets may be marked chip-CRC-bad but still be usable; they are passed
+  to the host's independent link CRC rather than being blindly discarded.
+- FIPS Noise peers established both ways. This does **not** prove IP traffic.
 
 ## Three distinct problems, only one of which is interop
+
+The following problem list and tests record the state **before** those milestones.
 
 | # | Problem | Evidence | Nature |
 |---|---|---|---|

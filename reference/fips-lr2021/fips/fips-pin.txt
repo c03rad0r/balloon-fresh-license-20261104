@@ -1,7 +1,7 @@
 fork:          https://github.com/c03rad0r/fips.git
 branch:        balloon-lr2021
 upstream_base: 2ba790b2213386a7e6110d77ef5f6a10f8f564f6
-fork_commit:   155906366fab70abcf107d3b009015cdbb5a7ba1
-event_tag:     event-2026-11
-last_sync:     2026-11-02T22:38:56Z
+fork_commit:   66b538357147b8d3e2bd4e8b3398e59ba24655d2
+event_tag:     not moved; current work remains on balloon-lr2021
+last_sync:     2026-11-07T21:50:00Z
 sync_script:   scripts/sync-fips-fork.sh

@@ -1,0 +1,30 @@
+{
+  "before": {
+    "failing": 21,
+    "counts": {
+      "silk_over_copper": 3,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8,
+      "via_dangling": 2,
+      "unconnected_items": 22
+    },
+    "allowed": [
+      "silk_over_copper",
+      "unconnected_items"
+    ]
+  },
+  "after": {
+    "failing": 19,
+    "counts": {
+      "silk_over_copper": 3,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8,
+      "unconnected_items": 22
+    },
+    "allowed": [
+      "silk_over_copper",
+      "unconnected_items"
+    ]
+  },
+  "name": "DEADVIA"
+}

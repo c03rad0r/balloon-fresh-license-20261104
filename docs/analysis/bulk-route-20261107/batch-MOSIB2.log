@@ -1,0 +1,11 @@
+batch MOSIB2 from live: opens=16 viol=20 errors=0
+
+/SPI1_MOSI fragments:
+  frag0  14 segs   73.10 mm  layers ['F.Cu', 'B.Cu']
+  frag1  16 segs   40.20 mm  layers ['F.Cu', 'B.Cu']
+
+BRIDGING the two substantial halves: 26.800 mm
+  from (12.850, 42.250) to (12.750, 15.450)
+NO PATH in 0.4s: search exhausted 13386 steps
+batch MOSIB2: NOTHING ROUTED -- tree untouched
+rc=1

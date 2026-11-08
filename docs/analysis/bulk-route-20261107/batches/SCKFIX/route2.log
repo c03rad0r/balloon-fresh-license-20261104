@@ -1,0 +1,28 @@
+keep-out (34.85, 13.4, 36.4, 16.3)
+world: pads=301 tracks=1314 edges=16 holes=161 origin=(-0.05, -0.05) size=(72.1, 80.1)
+ROUTED /SPI1_SCK:U3.5:U_C.5: 16 seg / 2 via / 43.6 mm (255.35s)
+19:44:53: Debug: Adding duplicate image handler for 'PNG file'
+19:44:53: Debug: Adding duplicate image handler for 'JPEG file'
+19:44:53: Debug: Adding duplicate image handler for 'TIFF file'
+19:44:53: Debug: Adding duplicate image handler for 'GIF file'
+19:44:53: Debug: Adding duplicate image handler for 'PNM file'
+19:44:53: Debug: Adding duplicate image handler for 'PCX file'
+19:44:53: Debug: Adding duplicate image handler for 'IFF file'
+19:44:53: Debug: Adding duplicate image handler for 'Windows icon file'
+19:44:53: Debug: Adding duplicate image handler for 'Windows cursor file'
+19:44:53: Debug: Adding duplicate image handler for 'Windows animated cursor file'
+19:44:53: Debug: Adding duplicate image handler for 'TGA file'
+19:44:53: Debug: Adding duplicate image handler for 'XPM file'
+19:44:53: Debug: Adding duplicate image handler for 'PNG file'
+19:44:53: Debug: Adding duplicate image handler for 'JPEG file'
+19:44:53: Debug: Adding duplicate image handler for 'TIFF file'
+19:44:53: Debug: Adding duplicate image handler for 'GIF file'
+19:44:53: Debug: Adding duplicate image handler for 'PNM file'
+19:44:53: Debug: Adding duplicate image handler for 'PCX file'
+19:44:53: Debug: Adding duplicate image handler for 'IFF file'
+19:44:53: Debug: Adding duplicate image handler for 'Windows icon file'
+19:44:53: Debug: Adding duplicate image handler for 'Windows cursor file'
+19:44:53: Debug: Adding duplicate image handler for 'Windows animated cursor file'
+19:44:53: Debug: Adding duplicate image handler for 'TGA file'
+19:44:53: Debug: Adding duplicate image handler for 'XPM file'
+applied 1 net(s) -> routed.kicad_pcb; refilled 6 zone(s)

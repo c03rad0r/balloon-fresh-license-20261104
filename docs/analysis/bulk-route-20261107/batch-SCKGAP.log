@@ -1,0 +1,5 @@
+=== batch SCKGAP  from 0107fdbf8fe3e2e2
+world: pads=301 tracks=1512 edges=16 holes=185 origin=(-0.05, -0.05) size=(72.1, 80.1)
+UNROUTED /SPI1_SCK:U3.5:U_C.5: no path on any layer pair (304.78s)
+batch SCKGAP: NOTHING ROUTED (rc=1) -- tree untouched
+rc=2

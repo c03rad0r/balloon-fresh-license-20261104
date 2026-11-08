@@ -1,0 +1,51 @@
+{
+  "before": {
+    "/SPI1_MOSI": {
+      "found": true,
+      "reachable": true,
+      "cells_a": 862190,
+      "cells_b": 862190,
+      "capped": false
+    },
+    "/SPI1_MISO": {
+      "found": true,
+      "reachable": true,
+      "cells_a": 869511,
+      "cells_b": 869511,
+      "capped": false
+    },
+    "+3V3": {
+      "found": true,
+      "reachable": true,
+      "cells_a": 864329,
+      "cells_b": 864329,
+      "capped": false
+    }
+  },
+  "after": {
+    "/SPI1_MOSI": {
+      "found": true,
+      "reachable": true,
+      "cells_a": 859997,
+      "cells_b": 859997,
+      "capped": false
+    },
+    "/SPI1_MISO": {
+      "found": true,
+      "reachable": false,
+      "cells_a": 866163,
+      "cells_b": 341,
+      "capped": false
+    },
+    "+3V3": {
+      "found": true,
+      "reachable": true,
+      "cells_a": 859110,
+      "cells_b": 859110,
+      "capped": false
+    }
+  },
+  "lost": [
+    "/SPI1_MISO"
+  ]
+}

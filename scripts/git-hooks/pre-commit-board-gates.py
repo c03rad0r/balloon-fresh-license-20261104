@@ -187,6 +187,15 @@ GATES = [
     # that impossible: it refuses any board carrying a track within 0.50 mm of, or across,
     # a wing-socket cavity edge.
     ("check_socket_edge_tracks.py", []),
+    # ADR-143 (PROPOSED 2026-11-07): H/V lane discipline, assigned by STACK POSITION
+    # (F.Cu=H, In1.Cu=V, In2.Cu=H, B.Cu=V), never by KiCad layer ID -- on these boards every
+    # copper layer has an EVEN id (F=0, B=2, In1=4, In2=6), so an "odd/even layer number" rule
+    # assigns all four layers the same direction and is inert.
+    # REPORT-ONLY ON PURPOSE. Measured on the reference board: 50.5% conformance, i.e.
+    # indistinguishable from random. A blocking gate would refuse every commit on day one.
+    # Deliberately invoked WITHOUT --strict so it prints the figure and never blocks; strict
+    # mode is for a fresh layout (or a board that records a baseline). ADR-143 section 4.
+    ("check_hv_lanes.py", []),
     # SILK LEGIBILITY (2026-10-22). Operator: "please make sure that the silk screen is legible
     # and doesn't overlap with parts or other silk screens before you start routing the board.
     # Please make sure this is part of the quality gates that have git hooks and please make sure

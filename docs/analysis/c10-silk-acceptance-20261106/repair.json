@@ -1,0 +1,11 @@
+{
+  "scope": "C10 reference only; restore pre-whole-footprint-move text y",
+  "before_nm": [
+    8530000,
+    41420000
+  ],
+  "after_nm": [
+    8530000,
+    41200000
+  ]
+}

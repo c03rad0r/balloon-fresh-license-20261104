@@ -1,0 +1,23 @@
+{
+ "before": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1PAIR2/board.kicad_pcb",
+ "after": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1PAIR2/routed.kicad_pcb",
+ "regression_scope": "ALL NETS",
+ "opens_before": 29,
+ "opens_after": 26,
+ "retained_nonzone_nodes": 1734,
+ "broken_previously_connected_pairs": 0,
+ "pairs": [
+  {
+   "spec": "/SPI1_MISO:U3.3:U_C.3",
+   "connected_before": false,
+   "connected_after": true
+  },
+  {
+   "spec": "/SPI1_MOSI:U3.4:U_C.4",
+   "connected_before": false,
+   "connected_after": true
+  }
+ ],
+ "failures": [],
+ "verdict": "PASS"
+}

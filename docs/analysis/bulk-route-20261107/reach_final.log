@@ -1,0 +1,2 @@
+board latest.kicad_pcb  pads=301 tracks=3054
+/VSCAP:C_CAP1.1:R_BAL1.1: UNREACHABLE  cellsA=882 cellsB=43 compA=[1] compB=[]

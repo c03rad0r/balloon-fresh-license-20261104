@@ -197,6 +197,28 @@ namespace Lr2021Opcodes {
     constexpr size_t arr_len(const uint8_t (&)[N]) { return N; }
 }
 
+// ── E80 TX framing ─────────────────────────────────────────────────
+
+/// Build a vendor-format WRITE_TX_FIFO frame for the E80 path.
+///
+/// The E80 module is configured for fixed-length FLRC packets. Short writes
+/// leave the radio sending whatever follows in FIFO memory, which on this
+/// bench produced corrupted short frames. Pad explicitly with zeros through
+/// the configured packet length; the receiving host trims to the length in
+/// the FIPS link header before validating it.
+inline std::vector<uint8_t> lr2021_e80_build_tx_fifo(
+    const uint8_t* data, size_t len, size_t configured_len)
+{
+    if (len > LR2021_MAX_PACKET) len = LR2021_MAX_PACKET;
+    if (configured_len > LR2021_MAX_PACKET) configured_len = LR2021_MAX_PACKET;
+    size_t padded_len = len > configured_len ? len : configured_len;
+    std::vector<uint8_t> frame(2 + padded_len, 0);
+    frame[0] = Lr2021Opcodes::OP_WRITE_TX_FIFO[0];
+    frame[1] = Lr2021Opcodes::OP_WRITE_TX_FIFO[1];
+    if (len != 0) memcpy(frame.data() + 2, data, len);
+    return frame;
+}
+
 // ── Abstract Radio Interface ───────────────────────────────────────
 
 /**
@@ -348,15 +370,25 @@ public:
     /// Read the chip version (0x0101). Proves the SPI bus reaches the radio.
     Lr2021Error get_version(uint8_t out[4]);
 
+    /// FLRC cumulative RX counters (0x024A): valid, CRC error, length error.
+    Lr2021Error get_flrc_rx_stats(uint16_t& packets, uint16_t& crc_errors,
+                                  uint16_t& length_errors);
+
 private:
     // SPI/GPIO handles
     spi_device_handle_t spi_dev_;
     bool spi_initialized_;
     bool is_tx_;
+    uint8_t payload_length_ = 255;
 
     // SPI helper methods
     Lr2021Error spi_write(const uint8_t* data, size_t len);
     Lr2021Error spi_read(const uint8_t* opcode, size_t opcode_len, uint8_t* buf, size_t buf_len);
+    /// Vendor HAL read: opcode frame, then two status/dummy bytes, then payload.
+    Lr2021Error spi_read_radio(const uint8_t* opcode, size_t opcode_len,
+                               uint8_t* buf, size_t buf_len);
+    /// FLRC FIFO read: opcode and data in one continuous CS transaction.
+    Lr2021Error direct_fifo_read(uint8_t* buf, size_t len);
     Lr2021Error wait_busy();
     bool check_irq_pin();
     Lr2021Error hardware_reset();

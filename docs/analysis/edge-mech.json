@@ -1,0 +1,28 @@
+{
+  "live": [
+    22,
+    24,
+    0,
+    {}
+  ],
+  "roundtrip": [
+    22,
+    24,
+    0,
+    {}
+  ],
+  "settings_live": {
+    "m_CopperEdgeClearance": 0.5,
+    "m_HoleClearance": 0.25,
+    "m_MinClearance": 0.0,
+    "m_SilkClearance": 0.0,
+    "m_SolderMaskToCopperClearance": 0.0
+  },
+  "settings_rt": {
+    "m_CopperEdgeClearance": 0.5,
+    "m_HoleClearance": 0.25,
+    "m_MinClearance": 0.0,
+    "m_SilkClearance": 0.0,
+    "m_SolderMaskToCopperClearance": 0.0
+  }
+}

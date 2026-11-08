@@ -1,0 +1,23 @@
+{
+ "before": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SOLARPAIR/board.kicad_pcb",
+ "after": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SOLARPAIR/routed.kicad_pcb",
+ "regression_scope": "ALL NETS",
+ "opens_before": 25,
+ "opens_after": 22,
+ "retained_nonzone_nodes": 1779,
+ "broken_previously_connected_pairs": 0,
+ "pairs": [
+  {
+   "spec": "/W2_SOLAR_N:D_BP2.2:J_W2.4",
+   "connected_before": false,
+   "connected_after": true
+  },
+  {
+   "spec": "/W3_SOLAR_N:J_W4.1:D_BP4.1",
+   "connected_before": false,
+   "connected_after": true
+  }
+ ],
+ "failures": [],
+ "verdict": "PASS"
+}

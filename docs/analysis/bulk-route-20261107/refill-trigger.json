@@ -1,0 +1,34 @@
+{
+  "D_no_refill": {
+    "opens": 21,
+    "viol": 40,
+    "errors": 16,
+    "kinds": {
+      "copper_edge_clearance": 16
+    }
+  },
+  "E_refilled": {
+    "opens": 21,
+    "viol": 40,
+    "errors": 16,
+    "kinds": {
+      "copper_edge_clearance": 16
+    }
+  },
+  "zones_live": {
+    "GND@F.Cu": 4307.306492737582,
+    "+3V3@B.Cu": 10.2429148944195,
+    "GND@B.Cu": 88.8313866531185,
+    "/VSCAP@B.Cu": 4207.091852635752,
+    "GND@In1.Cu": 5473.607594226654,
+    "+3V3@In2.Cu": 5433.53093160885
+  },
+  "zones_bridge": {
+    "GND@F.Cu": 4140.078000151297,
+    "+3V3@B.Cu": 9.770635926811,
+    "GND@B.Cu": 79.0856752101755,
+    "/VSCAP@B.Cu": 3900.487443459106,
+    "GND@In1.Cu": 5350.882518172288,
+    "+3V3@In2.Cu": 5131.587779193496
+  }
+}

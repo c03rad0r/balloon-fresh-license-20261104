@@ -1,0 +1,20 @@
+{
+  "placed": [],
+  "skipped": [
+    {
+      "island": 0,
+      "layer": "F.Cu",
+      "reason": "frozen"
+    },
+    {
+      "island": 11,
+      "layer": "F.Cu",
+      "reason": "no legal site"
+    },
+    {
+      "island": 3,
+      "layer": "B.Cu",
+      "reason": "no legal site"
+    }
+  ]
+}

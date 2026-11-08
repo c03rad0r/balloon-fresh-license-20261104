@@ -1,0 +1,20 @@
+=== P3V3   from 2b63a3e91e9f2895
+world: pads=301 tracks=1440 edges=16 holes=171 origin=(-0.05, -0.05) size=(72.1, 80.1)
+ROUTED +3V3:R_F1.1:J_PROG.2: 9 seg / 2 via / 17.7 mm (53.59s)
+applied 1 net(s) -> /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/P3V3/routed.kicad_pcb; refilled 6 zone(s)
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/P3V3/before-drc.json
+Found 28 unconnected items
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/P3V3/drc.json
+  same-net via 10.25,20.945 d=0.6 overlaps U3.8 depth=0.2754 mm
+
+baseline /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/P3V3/board.kicad_pcb: vias=136 same-net=20 FOREIGN=0
+delta same-net via-in-pad vs baseline: +0
+
+VERDICT: PASS
+native opens: 29 -> 28  (delta -1)
+  pair +3V3:R_F1.1:J_PROG.2                         before=False after=True
+  retained non-zone items: 1741; previously-connected pairs broken: 0
+
+VERDICT: PASS
+P3V3: ACCEPTED  2b63a3e91e9f2895 -> 669ac850ac0992af
+        opens: see /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/P3V3/proof.json

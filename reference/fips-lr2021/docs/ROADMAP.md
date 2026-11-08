@@ -104,26 +104,32 @@ protocol in `reference/fips-lr2021/firmware/rp2040-bridge`, framing in
 - [x] Bridge protocol over USB-Serial/JTAG (`firmware/esp32-bridge`)
 - [x] `HELLO_ACK` / `PONG` / `STAT` answer on real hardware
 - [x] Flashing without a button (`esptool --before usb_reset`)
-- [ ] **Replace the radio layer with `tracker/.../lr2021_transport`**
-- [ ] `chip` reports a non-zero version
-- [ ] TX completes (`timeouts` stops incrementing)
-- [ ] `per`/`echo` against an E80
+- [x] **Replace the radio layer with `tracker/.../lr2021_transport`**
+- [x] `chip` reports a non-zero version
+- [x] TX completion measured through the IRQ status register (`timeouts=0`)
+- [x] `per`/`echo` against a native E80 (5/5 accepted payloads each way)
+- [x] Full-size 255-byte RX control (`valid=20 crc=0`)
+- [x] Document at `docs/E80-ESP32-S3-FIPS-ONBOARDING.md`
 
 Lessons to keep: the main-task stack needs 8 KB; large buffers must be static;
-this chip's IRQ status register is unusable, so poll the DIO pin; and the
-bitrate table is carrier-specific.
+do not gate E80 TX/RX solely on its DIO wire; parse and use FLRC FIFO/status
+opcodes instead of their generic predecessors; and the bitrate/packet tables
+are carrier-specific. Short-packet PHY CRC flags require host CRC verification,
+not unconditional frame discard.
 
 ## Phase 4 — FIPS peer addressing
 
-The real integration gap: no discoverable peers, `auto_connect` false, peers must
-be configured statically with the transport address equal to the 4-byte link id.
-That path has never been exercised.
+Peer addressing is explicit, textual and decimal. Config uses `addr: "1"` or
+`"2"` corresponding to `local_id`; both sides had to be converted the same way.
+Two isolated FIPS namespaces proved bidirectional peer authentication before
+IPv6 testing was attempted.
 
-- [ ] Determine how a peer transport address is encoded and matched
-- [ ] Documented config example (`local_id` ↔ peer address)
-- [ ] Handshake over `lr2021`
-- [ ] `ping6`
-- [ ] TCP (`iperf3 -t`)
+- [x] Determine how a peer transport address is encoded and matched
+- [x] Documented config example (`local_id` ↔ decimal-string peer address)
+- [x] Handshake over `lr2021` (authenticated, connected peers in both namespaces)
+- [ ] `ping6` — latest test was 0/3 in each direction
+- [ ] TCP (`iperf3 -t`) and interactive SSH
+- [ ] Larger-payload plus fragmented-message validation
 - [ ] Document MTU interaction: FIPS TUN 1280 vs link MTU 1400
 
 ## Phase 5 — throughput
@@ -135,6 +141,21 @@ Measure, do not estimate.
 - [ ] SPI nodes at FLRC-1300
 - [ ] SPI nodes at FLRC-2600 (2.4 GHz)
 - [ ] Real numbers replace the estimates in `DUAL-NODE-BRINGUP-PLAN.md`
+
+## Phase 6 — optional link FEC, including Wirehair (later)
+
+Do this only after the baseline link is stable enough that residual loss, not
+framing or session setup, is the limiting factor. Detailed gates live in
+`docs/IPV6-DATA-PLANE-PLAN.md`.
+
+- [ ] Measure ARQ-only loss/latency at 0, 1, 5, 10 and 20 percent erasure.
+- [ ] Prototype a hybrid ARQ + FEC data path for multi-packet/bulk messages.
+- [ ] Never FEC control frames, ACKs or the FIPS session handshake.
+- [ ] Give every coded symbol an outer ID and CRC before decoding.
+- [ ] Evaluate `catid/wirehair` (canonical C++), wrapped from the Rust host link.
+- [ ] Compare alternatives such as Reed–Solomon or RaptorQ for small blocks.
+- [ ] Reject FEC if collision rate, airtime or interactive latency worsens.
+- [ ] Record duty-cycle and memory/CPU costs before considering embedded use.
 
 ## Ordering rationale
 

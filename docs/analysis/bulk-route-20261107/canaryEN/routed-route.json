@@ -1,0 +1,419 @@
+{
+ "board": "board.kicad_pcb",
+ "rules": {
+  "clearance": 0.2,
+  "track": 0.2,
+  "via_d": 0.6,
+  "via_drill": 0.3,
+  "hole_clear": 0.25,
+  "hole_to_hole": 0.25,
+  "edge_keep": 0.6,
+  "source": "board.kicad_pro",
+  "dru_floors": {
+   "clearance": 0.2,
+   "track_width": 0.2,
+   "via_diameter": 0.6
+  }
+ },
+ "nets": {
+  "/EN": {
+   "islands_before": 2,
+   "notes": [],
+   "segs": 21,
+   "vias": 5,
+   "copper_mm": 44.6
+  }
+ },
+ "added": [
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    10.3,
+    36.7
+   ],
+   "to": [
+    10.2,
+    36.7
+   ],
+   "w": 0.2,
+   "len": 0.1,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    10.2,
+    36.7
+   ],
+   "to": [
+    10.2,
+    41.1
+   ],
+   "w": 0.2,
+   "len": 4.4,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    10.2,
+    41.1
+   ],
+   "to": [
+    13.3,
+    41.1
+   ],
+   "w": 0.2,
+   "len": 3.1,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    13.3,
+    41.1
+   ],
+   "to": [
+    13.3,
+    41.5
+   ],
+   "w": 0.2,
+   "len": 0.4,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.3,
+    41.5
+   ],
+   "to": [
+    13.3,
+    41.7
+   ],
+   "w": 0.2,
+   "len": 0.2,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.3,
+    41.7
+   ],
+   "to": [
+    13.8,
+    41.7
+   ],
+   "w": 0.2,
+   "len": 0.5,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.8,
+    41.7
+   ],
+   "to": [
+    13.8,
+    43.2
+   ],
+   "w": 0.2,
+   "len": 1.5,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.8,
+    43.2
+   ],
+   "to": [
+    13.7,
+    43.2
+   ],
+   "w": 0.2,
+   "len": 0.1,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.7,
+    43.2
+   ],
+   "to": [
+    13.7,
+    43.9
+   ],
+   "w": 0.2,
+   "len": 0.7,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.7,
+    43.9
+   ],
+   "to": [
+    13.6,
+    43.9
+   ],
+   "w": 0.2,
+   "len": 0.1,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.6,
+    43.9
+   ],
+   "to": [
+    13.6,
+    45.0
+   ],
+   "w": 0.2,
+   "len": 1.1,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.6,
+    45.0
+   ],
+   "to": [
+    13.3,
+    45.0
+   ],
+   "w": 0.2,
+   "len": 0.3,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.3,
+    45.0
+   ],
+   "to": [
+    13.3,
+    45.1
+   ],
+   "w": 0.2,
+   "len": 0.1,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    13.3,
+    45.1
+   ],
+   "to": [
+    13.3,
+    50.0
+   ],
+   "w": 0.2,
+   "len": 4.9,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    13.3,
+    50.0
+   ],
+   "to": [
+    13.1,
+    50.0
+   ],
+   "w": 0.2,
+   "len": 0.2,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.1,
+    50.0
+   ],
+   "to": [
+    13.1,
+    50.5
+   ],
+   "w": 0.2,
+   "len": 0.5,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    13.1,
+    50.5
+   ],
+   "to": [
+    18.7,
+    50.5
+   ],
+   "w": 0.2,
+   "len": 5.6,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "F.Cu",
+   "from": [
+    18.7,
+    50.5
+   ],
+   "to": [
+    18.7,
+    50.4
+   ],
+   "w": 0.2,
+   "len": 0.1,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    18.7,
+    50.4
+   ],
+   "to": [
+    18.7,
+    58.8
+   ],
+   "w": 0.2,
+   "len": 8.4,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    18.7,
+    58.8
+   ],
+   "to": [
+    30.1,
+    58.8
+   ],
+   "w": 0.2,
+   "len": 11.4,
+   "net": "/EN"
+  },
+  {
+   "kind": "track",
+   "layer": "B.Cu",
+   "from": [
+    30.1,
+    58.8
+   ],
+   "to": [
+    30.1,
+    59.7
+   ],
+   "w": 0.2,
+   "len": 0.9,
+   "net": "/EN"
+  },
+  {
+   "kind": "via",
+   "layer": "F.Cu-B.Cu",
+   "from": [
+    10.2,
+    36.7
+   ],
+   "to": [
+    10.2,
+    36.7
+   ],
+   "w": 0.6,
+   "len": 0.0,
+   "net": "/EN"
+  },
+  {
+   "kind": "via",
+   "layer": "F.Cu-B.Cu",
+   "from": [
+    13.3,
+    41.5
+   ],
+   "to": [
+    13.3,
+    41.5
+   ],
+   "w": 0.6,
+   "len": 0.0,
+   "net": "/EN"
+  },
+  {
+   "kind": "via",
+   "layer": "F.Cu-B.Cu",
+   "from": [
+    13.3,
+    45.1
+   ],
+   "to": [
+    13.3,
+    45.1
+   ],
+   "w": 0.6,
+   "len": 0.0,
+   "net": "/EN"
+  },
+  {
+   "kind": "via",
+   "layer": "F.Cu-B.Cu",
+   "from": [
+    13.1,
+    50.0
+   ],
+   "to": [
+    13.1,
+    50.0
+   ],
+   "w": 0.6,
+   "len": 0.0,
+   "net": "/EN"
+  },
+  {
+   "kind": "via",
+   "layer": "F.Cu-B.Cu",
+   "from": [
+    18.7,
+    50.4
+   ],
+   "to": [
+    18.7,
+    50.4
+   ],
+   "w": 0.6,
+   "len": 0.0,
+   "net": "/EN"
+  }
+ ]
+}

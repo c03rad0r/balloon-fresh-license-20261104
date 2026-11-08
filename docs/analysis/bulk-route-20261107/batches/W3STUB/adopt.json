@@ -1,0 +1,25 @@
+{
+  "before": {
+    "failing": 15,
+    "counts": {
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 4,
+      "unconnected_items": 18
+    },
+    "allowed": [
+      "unconnected_items"
+    ]
+  },
+  "after": {
+    "failing": 15,
+    "counts": {
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 4,
+      "unconnected_items": 17
+    },
+    "allowed": [
+      "unconnected_items"
+    ]
+  },
+  "name": "W3STUB"
+}
