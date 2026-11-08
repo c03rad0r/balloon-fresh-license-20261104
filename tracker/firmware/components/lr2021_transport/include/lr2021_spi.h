@@ -197,6 +197,28 @@ namespace Lr2021Opcodes {
     constexpr size_t arr_len(const uint8_t (&)[N]) { return N; }
 }
 
+// ── E80 TX framing ─────────────────────────────────────────────────
+
+/// Build a vendor-format WRITE_TX_FIFO frame for the E80 path.
+///
+/// The E80 module is configured for fixed-length FLRC packets. Short writes
+/// leave the radio sending whatever follows in FIFO memory, which on this
+/// bench produced corrupted short frames. Pad explicitly with zeros through
+/// the configured packet length; the receiving host trims to the length in
+/// the FIPS link header before validating it.
+inline std::vector<uint8_t> lr2021_e80_build_tx_fifo(
+    const uint8_t* data, size_t len, size_t configured_len)
+{
+    if (len > LR2021_MAX_PACKET) len = LR2021_MAX_PACKET;
+    if (configured_len > LR2021_MAX_PACKET) configured_len = LR2021_MAX_PACKET;
+    size_t padded_len = len > configured_len ? len : configured_len;
+    std::vector<uint8_t> frame(2 + padded_len, 0);
+    frame[0] = Lr2021Opcodes::OP_WRITE_TX_FIFO[0];
+    frame[1] = Lr2021Opcodes::OP_WRITE_TX_FIFO[1];
+    if (len != 0) memcpy(frame.data() + 2, data, len);
+    return frame;
+}
+
 // ── Abstract Radio Interface ───────────────────────────────────────
 
 /**

@@ -25,7 +25,7 @@
 #include "lr2021_spi.h"
 #include "bridge_protocol.h"
 
-static const uint8_t FW_VERSION[3] = {0, 4, 8};
+static const uint8_t FW_VERSION[3] = {0, 4, 10};
 static const uint16_t CAPS = 0x0007;
 
 #ifndef LR2021_E80_COMPAT
@@ -79,14 +79,14 @@ static bool radioApply(const CfgPayload &cfg)
     memcpy(gRadioCfg.sync_word, cfg.sync_word, 4);
 
     Lr2021Error err = Lr2021Error::WrongState;
-    for (int attempt = 1; attempt <= 3; attempt++) {
+    for (int attempt = 1; attempt <= 5; attempt++) {
         err = gRadio.init(gRadioCfg);
         if (err == Lr2021Error::Ok) break;
         char msg[48];
         snprintf(msg, sizeof(msg), "radio init attempt=%d err=%d",
                  attempt, (int)err);
         sendFrame(BR_EVT, (const uint8_t *)msg, (uint16_t)strlen(msg));
-        vTaskDelay(pdMS_TO_TICKS(20));
+        vTaskDelay(pdMS_TO_TICKS(100));
     }
     gLastInitMs = now_ms();
     gRadioOk = (err == Lr2021Error::Ok);

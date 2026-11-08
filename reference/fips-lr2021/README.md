@@ -17,6 +17,9 @@ RP2040 bridge firmware, configs and test scripts.
 - **Building the two-radio E80 + ESP32-S3 adapter?** Start with
   [`docs/E80-ESP32-S3-FIPS-ONBOARDING.md`](docs/E80-ESP32-S3-FIPS-ONBOARDING.md)
   for exact soldering, reset-jumper, flashing, FIPS setup and measured results.
+- **Planning the IPv6/data-plane fix?** `docs/IPV6-DATA-PLANE-PLAN.md` contains
+  the failure analysis, the 100-frame acceptance gate, and the deferred
+  Wirehair/FEC evaluation.
 - **No physical access?** `docs/FLASHING-WITHOUT-BUTTONS.md` — both ESP32 and
   RP2040 can be reflashed over USB with no button press.
 - **Picking up this work?** `docs/LEARNINGS.md` first, then `docs/OTA-PROOF-PLAN.md`.
@@ -137,6 +140,7 @@ virtual end-to-end success is not a substitute for RF verification.
 | `docs/FLASHING-WITHOUT-BUTTONS.md` | **flash ESP32 and RP2040 boards over USB, no button press** |
 | `docs/LEARNINGS.md` | every hard-won finding, so future sessions don't rediscover them |
 | `docs/OTA-PROOF-PLAN.md` | staged plan to prove an over-the-air frame |
+| `docs/IPV6-DATA-PLANE-PLAN.md` | IPv6 failure analysis, link acceptance gate and deferred Wirehair/FEC plan |
 
 ## Known limitations
 
