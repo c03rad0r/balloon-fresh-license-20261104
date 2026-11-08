@@ -29,24 +29,34 @@ separate CSV of DNP references would be another derived artefact free to drift.
 
 ## What gets assembled — 30 placements, 18 unique lines
 
+Split by whether JLC can place it. This matters more than any other split in this document: a JLC
+assembly order cannot place the NiceRF modules or the custom wing sockets.
+
+**JLC places 22 placements, 13 lines:**
+
 ```
-SS24                    D_SMA                 6   D_BP1..4, D_HUB1, D_HUB2
-WING_SOCKET_4P          Wing_Tab_4P           4   J_W1..J_W4
-10k                     R_0402                2   R_BAL1, R_BAL2
-10uF                    C_0402                2   C10, C4
-1M                      R_0402                2   R_DIV1, R_DIV2
-4.7M                    R_0402                2   R_MON1, R_MON2
-100R                    R_0402                1   R_F1
-100nF                   C_0402                1   C_HF
-100uF                   C_1206                1   C_BULK
-10nF                    C_0402                1   C_MON
-BAT54                   D_SOD-123             1   D1
-HUB_PV_PANEL_5P         1x05 P2.54            1   J_HUB_PV
-J_PROG                  1x06 P2.54            1   J_PROG
-LoRa1280                LoRa1280              1   U_LORA1280
-ESP32-S3-WROOM-1U       ESP32-S3-WROOM-1U     1   U1
-LoRa2021_Castellated    LoRa2021_Castellated  2   U3, U_C
-SOT-23-5                SOT-23-5              1   U7
+SS24                  D_SMA              6   D_BP1..4, D_HUB1, D_HUB2
+10k                   R_0402             2   R_BAL1, R_BAL2
+10uF                  C_0402             2   C10, C4
+1M                    R_0402             2   R_DIV1, R_DIV2
+4.7M                  R_0402             2   R_MON1, R_MON2
+100R                  R_0402             1   R_F1
+100nF                 C_0402             1   C_HF
+100uF                 C_1206             1   C_BULK
+10nF                  C_0402             1   C_MON
+BAT54                 D_SOD-123          1   D1
+HUB_PV_PANEL_5P       1x05 P2.54         1   J_HUB_PV
+J_PROG                1x06 P2.54         1   J_PROG
+ESP32-S3-WROOM-1U     ESP32-S3-WROOM-1U  1   U1
+```
+
+**Hand-fit 8 placements, 5 lines:**
+
+```
+WING_SOCKET_4P        Wing_Tab_4P        4   J_W1..J_W4   custom edge connector
+LoRa2021_Castellated  LoRa2021_...       2   U3, U_C      NiceRF module
+LoRa1280              LoRa1280           1   U_LORA1280   NiceRF module
+SOT-23-5              SOT-23-5           1   U7           no part identity yet
 ```
 
 **Side split: 24 top, 6 bottom.**

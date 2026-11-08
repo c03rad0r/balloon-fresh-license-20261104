@@ -320,6 +320,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
@@ -2448,6 +2449,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
@@ -4480,6 +4482,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
@@ -7686,6 +7689,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
@@ -8512,6 +8516,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
@@ -9361,6 +9366,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
@@ -9707,6 +9713,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
@@ -11464,6 +11471,7 @@
 				)
 			)
 		)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(pad "" np_thru_hole circle
 			(at 0 0)
 			(size 2.5 2.5)
