@@ -67,9 +67,17 @@ for this circuit*.** Specifically:
 - **`R_MON1`/`R_MON2` at 4.7 MΩ, 5 % (C11906 `RTT02475JTH`)** sit in the `F33_VSENSE` divider. A
   5 % part in a sense divider is a 5 % measurement; ADR-044 does not state a tolerance requirement.
   Worth a deliberate look, not an assumption.
-- **No tolerance, voltage rating or dielectric was checked** for the passives — only value and
-  package. JLC will substitute in-stock equivalents *only if* "parts substitution" is allowed on
-  the order, which should be left **off** for a first article.
+- **Ratings ARE now checked** — this caveat is partly superseded (2026-11-08). `audit_bom_specs.py`
+  read every part's LCSC page back and checked voltage rating, dielectric and tolerance against the
+  rail each part actually sits on. Full result and reasoning: **`docs/fab/CAP-VOLTAGE-AUDIT.md`**.
+  Summary: **no rating failures.** `VSCAP` is **bounded at 5.4 V** by construction (2 × 2.7 V cells
+  in series, `RESEARCH-five-parts.md:38`), so the 6.3 V passives sit at 86 % of rating — legal.
+  `C_BULK` was changed anyway to `C312983` (100 µF **10 V** X5R 1206, same footprint) because an X5R
+  at 86 % of rating loses 50–70 % of its capacitance to DC bias, and that part's job is charge
+  storage behind a ~1100 mA PA burst. `C10,C4` stays at 6.3 V because **10 µF at ≥10 V does not
+  exist in 0402** — the alternatives are 0603/0805, i.e. board changes (v11 item).
+  Still true and still worth checking: JLC will substitute in-stock equivalents *only if*
+  "parts substitution" is allowed on the order, which should be left **off** for a first article.
 
 ## Files
 
