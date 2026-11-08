@@ -13,8 +13,9 @@ using them as FIPS transports.
 | SPI bypass without STM32 contention | **verified; S3 controls and reads the LR2021 directly** |
 | First S3 → native-E80 frames | **verified: 20 valid frames at −46 to −49 dBm** |
 | Full-size 255-byte native-E80 → S3 frames | **verified: `flrc_rx valid=20 crc=0`** |
-| 64-byte payload delivery in each direction | **verified: 5/5 accepted by `echo` each way** |
+| 128-byte payload delivery in each direction | **verified: 100/100 accepted by `echo` each way at the measured RF ceiling** |
 | FIPS Noise handshake between independent radios | **verified: authenticated, connected peers in two namespaces** |
+| FIPS end-to-end session | **verified: initiator and responder established on both nodes** |
 | Deterministic fixed-size TX padding | **implemented in S3 0.4.18 / C3 0.5.8; 39/39 host tests pass** |
 | Sustained, larger-payload bidirectional transfer | **not yet verified; needs a second working S3** |
 | FIPS IPv6 ping | **fails so far; not claimed to work** |

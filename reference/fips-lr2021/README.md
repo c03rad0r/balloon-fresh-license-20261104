@@ -145,6 +145,8 @@ virtual end-to-end success is not a substitute for RF verification.
 | `docs/OTA-PROOF-PLAN.md` | staged plan to prove an over-the-air frame |
 | `docs/IPV6-DATA-PLANE-PLAN.md` | IPv6 failure analysis, link acceptance gate and deferred Wirehair/FEC plan |
 | `docs/CARRIER-RECOVERY-PLAN.md` | Other radio endpoint recovery, C3 DIO9 proof and half-duplex CSMA/CA checklist |
+| `tests/hardware/http-speed.sh` | FIPS-namespace HTTP goodput meter with a mandatory 0%-loss ping gate |
+| `tests/hardware/per.sh` | EU-868, 128-byte reciprocal PER/echo qualification |
 
 ## Known limitations
 

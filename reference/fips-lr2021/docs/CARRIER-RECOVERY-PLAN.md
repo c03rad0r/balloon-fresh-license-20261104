@@ -138,9 +138,11 @@ measurements are required.
 - [x] Check a static-initiator FIPS handshake forms without a retry storm.
 - [x] Require an established session on both ends before ping (verified on
       2026-11-08).
-- [x] Re-measure directional ping RTT: **2/3 replies in both directions** at
-      a recent 128-byte / 8–16 ms-guard test, versus repeated 100% loss in
-      earlier traffic-sensitive runs.
+- [x] Re-measure directional ping RTT: earlier CSMA-only runs reached
+      **2/3 replies in both directions**; the final default-build check was
+      **0/5 A→B and 3/5 B→A**, so this is not yet a passing gate.
+- [x] Confirm the HTTP benchmark refuses invalid data: it rejected a 1/3-ping
+      window with no speed result recorded.
 - [ ] Prove stable repeated dual-direction ping without continuing session
       or packet-loss churn; current RTT is still variable and too high.
 - [ ] Complete SSH over FIPS. Client reached `SSH2_MSG_SERVICE_ACCEPT` before

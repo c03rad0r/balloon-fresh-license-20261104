@@ -191,10 +191,10 @@ index 00000000..d41cd2f1
 +rand = "0.10"
 diff --git a/crates/fips-lr2021/src/bin/fips-lr2021ctl.rs b/crates/fips-lr2021/src/bin/fips-lr2021ctl.rs
 new file mode 100644
-index 00000000..c58372cf
+index 00000000..f995fe65
 --- /dev/null
 +++ b/crates/fips-lr2021/src/bin/fips-lr2021ctl.rs
-@@ -0,0 +1,455 @@
+@@ -0,0 +1,475 @@
 +//! `fips-lr2021ctl` — configure and exercise an LR2021 bridge.
 +
 +use std::io::{Read, Write};
@@ -260,6 +260,8 @@ index 00000000..c58372cf
 +        peer_id: u32,
 +        #[arg(long, default_value_t = 1000)]
 +        timeout_ms: u64,
++        #[arg(long)]
++        radio_payload: Option<u16>,
 +    },
 +    /// Run the link-layer responder: ACK received frames and print them.
 +    Echo {
@@ -267,6 +269,8 @@ index 00000000..c58372cf
 +        band: String,
 +        #[arg(long, default_value_t = 30)]
 +        seconds: u64,
++        #[arg(long)]
++        radio_payload: Option<u16>,
 +    },
 +}
 +
@@ -336,6 +340,7 @@ index 00000000..c58372cf
 +            size,
 +            peer_id,
 +            timeout_ms,
++            radio_payload,
 +        } => {
 +            let band = Band::parse(&band).ok_or_else(|| format!("unknown band '{band}'"))?;
 +            per(
@@ -346,12 +351,24 @@ index 00000000..c58372cf
 +                size,
 +                peer_id,
 +                timeout_ms,
++                radio_payload,
 +                sync.clone(),
 +            )
 +        }
-+        Command::Echo { band, seconds } => {
++        Command::Echo {
++            band,
++            seconds,
++            radio_payload,
++        } => {
 +            let band = Band::parse(&band).ok_or_else(|| format!("unknown band '{band}'"))?;
-+            echo(&args.serial, args.baud, band, seconds, sync.clone())
++            echo(
++                &args.serial,
++                args.baud,
++                band,
++                seconds,
++                radio_payload,
++                sync.clone(),
++            )
 +        }
 +    }
 +}
@@ -470,9 +487,8 @@ index 00000000..c58372cf
 +        sync_word: sync,
 +        ..Lr2021Config::default()
 +    };
-+    let (mut bridge, _) =
-+        fips_lr2021::open_device(&cfg.bridge_config()?, cfg.link_config()?)
-+            .map_err(|e| e.to_string())?;
++    let (mut bridge, _) = fips_lr2021::open_device(&cfg.bridge_config()?, cfg.link_config()?)
++        .map_err(|e| e.to_string())?;
 +    let deadline = Instant::now() + Duration::from_secs(seconds);
 +    let mut packets = 0u64;
 +    while Instant::now() < deadline {
@@ -504,12 +520,14 @@ index 00000000..c58372cf
 +    size: usize,
 +    peer_id: u32,
 +    timeout_ms: u64,
++    radio_payload: Option<u16>,
 +    sync: Option<String>,
 +) -> Result<(), String> {
 +    let cfg = Lr2021Config {
 +        port: Some(serial.to_string()),
 +        baud: Some(baud),
 +        band: Some(band),
++        radio_payload,
 +        sync_word: sync,
 +        ..Lr2021Config::default()
 +    };
@@ -587,12 +605,14 @@ index 00000000..c58372cf
 +    baud: u32,
 +    band: Band,
 +    seconds: u64,
++    radio_payload: Option<u16>,
 +    sync: Option<String>,
 +) -> Result<(), String> {
 +    let cfg = Lr2021Config {
 +        port: Some(serial.to_string()),
 +        baud: Some(baud),
 +        band: Some(band),
++        radio_payload,
 +        sync_word: sync,
 +        local_id: Some(2),
 +        ..Lr2021Config::default()
@@ -936,10 +956,10 @@ index 00000000..300d6454
 +}
 diff --git a/crates/fips-lr2021/src/bridge.rs b/crates/fips-lr2021/src/bridge.rs
 new file mode 100644
-index 00000000..35095217
+index 00000000..fc6aae1f
 --- /dev/null
 +++ b/crates/fips-lr2021/src/bridge.rs
-@@ -0,0 +1,461 @@
+@@ -0,0 +1,473 @@
 +//! Host↔bridge protocol over USB CDC.
 +//!
 +//! ```text
@@ -970,6 +990,7 @@ index 00000000..35095217
 +    Evt = 8,
 +    Ping = 9,
 +    Pong = 10,
++    CfgExt = 11,
 +}
 +
 +impl BridgeKind {
@@ -985,6 +1006,7 @@ index 00000000..35095217
 +            8 => Some(Self::Evt),
 +            9 => Some(Self::Ping),
 +            10 => Some(Self::Pong),
++            11 => Some(Self::CfgExt),
 +            _ => None,
 +        }
 +    }
@@ -1356,6 +1378,16 @@ index 00000000..35095217
 +    }
 +
 +    #[test]
++    fn cfg_ext_frame_roundtrips_through_decoder() {
++        let payload = [1u8, 0, 0, 0, 0x10, 0x20, 0, 0, 0, 0, 0, 0];
++        let mut decoder = BridgeDecoder::new();
++        let frames = decoder.push(&encode(BridgeKind::CfgExt, &payload));
++        assert_eq!(frames.len(), 1);
++        assert_eq!(frames[0].kind, BridgeKind::CfgExt);
++        assert_eq!(frames[0].payload, payload);
++    }
++
++    #[test]
 +    fn decodes_split_and_coalesced_frames() {
 +        let a = sample_frame(BridgeKind::Tx, b"hello");
 +        let b = sample_frame(BridgeKind::Ping, b"");
@@ -1403,10 +1435,10 @@ index 00000000..35095217
 +}
 diff --git a/crates/fips-lr2021/src/config.rs b/crates/fips-lr2021/src/config.rs
 new file mode 100644
-index 00000000..42be8819
+index 00000000..fa322970
 --- /dev/null
 +++ b/crates/fips-lr2021/src/config.rs
-@@ -0,0 +1,383 @@
+@@ -0,0 +1,388 @@
 +//! Band profiles and configuration types.
 +
 +use serde::{Deserialize, Serialize};
@@ -1601,6 +1633,9 @@ index 00000000..42be8819
 +    pub baud: u32,
 +    pub profile: RadioProfile,
 +    pub relay: bool,
++    /// FIPS link ID, also used by TDMA-capable ESP bridges as the slot role
++    /// (`local_id & 1`). Peers must use opposite parity (normally 1 and 2).
++    pub local_id: u32,
 +}
 +
 +impl Default for BridgeConfig {
@@ -1610,6 +1645,7 @@ index 00000000..42be8819
 +            baud: 2_000_000,
 +            profile: Band::Eu2400.default_profile(),
 +            relay: false,
++            local_id: 1,
 +        }
 +    }
 +}
@@ -1710,6 +1746,7 @@ index 00000000..42be8819
 +            baud: self.baud(),
 +            profile: self.profile()?,
 +            relay: self.relay(),
++            local_id: self.local_id(),
 +        })
 +    }
 +
@@ -1843,13 +1880,13 @@ index 00000000..f5da1c19
 +}
 diff --git a/crates/fips-lr2021/src/device.rs b/crates/fips-lr2021/src/device.rs
 new file mode 100644
-index 00000000..04f3864f
+index 00000000..3d0b4cd4
 --- /dev/null
 +++ b/crates/fips-lr2021/src/device.rs
-@@ -0,0 +1,155 @@
+@@ -0,0 +1,166 @@
 +//! Convenience wrapper for opening and configuring a bridge.
 +
-+use std::time::{Duration, Instant};
++use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 +
 +use crate::bridge::{
 +    BridgeError, BridgeKind, CfgAckPayload, CfgPayload, HelloAckPayload, RxPayload, SerialBridge,
@@ -1884,6 +1921,17 @@ index 00000000..04f3864f
 +            ack.protocol, BRIDGE_PROTOCOL_VERSION
 +        )));
 +    }
++
++    // Optional extension: older bridges ignore it. New bridges use the link ID
++    // for a TX slot and the host Unix epoch for a common slot phase.
++    let mut ext = Vec::with_capacity(12);
++    ext.extend_from_slice(&cfg.local_id.to_le_bytes());
++    let epoch_ms = SystemTime::now()
++        .duration_since(UNIX_EPOCH)
++        .map(|d| d.as_millis() as u64)
++        .unwrap_or(0);
++    ext.extend_from_slice(&epoch_ms.to_le_bytes());
++    bridge.write_frame(BridgeKind::CfgExt, &ext)?;
 +
 +    let payload = CfgPayload {
 +        profile: cfg.profile,
@@ -2968,10 +3016,10 @@ index d704df65..cfd33753 100644
          {
 diff --git a/src/transport/lr2021/mod.rs b/src/transport/lr2021/mod.rs
 new file mode 100644
-index 00000000..41397d41
+index 00000000..a1a1e18a
 --- /dev/null
 +++ b/src/transport/lr2021/mod.rs
-@@ -0,0 +1,311 @@
+@@ -0,0 +1,345 @@
 +//! LR2021/FLRC transport for FIPS.
 +//!
 +//! The host owns the link layer (fragmentation, reassembly, ACK/NACK and
@@ -3048,11 +3096,19 @@ index 00000000..41397d41
 +            .link_config()
 +            .map_err(TransportError::StartFailed)?;
 +
-+        let (reader, link) = fips_lr2021::open_device(&bridge_cfg, link_cfg)
++        let (reader, link) = fips_lr2021::open_device(&bridge_cfg, link_cfg.clone())
 +            .map_err(|e| TransportError::StartFailed(e.to_string()))?;
 +        let mut writer = reader
 +            .try_clone()
 +            .map_err(|e| TransportError::StartFailed(format!("serial clone: {e}")))?;
++
++        tracing::info!(
++            local_id = link_cfg.local_id,
++            payload = bridge_cfg.profile.radio_payload,
++            frequency = bridge_cfg.profile.frequency_hz,
++            bitrate = bridge_cfg.profile.bitrate_kbps,
++            "lr2021 transport started"
++        );
 +
 +        *self.link.lock().unwrap() = Some(link);
 +        let link = Arc::clone(&self.link);
@@ -3100,6 +3156,11 @@ index 00000000..41397d41
 +                    let Some(rx) = RxPayload::decode(&frame.payload) else {
 +                        continue;
 +                    };
++                    tracing::debug!(
++                        len = rx.data.len(),
++                        head = %hex_prefix(&rx.data),
++                        "lr2021 raw receive"
++                    );
 +                    let mut guard = reader_link.lock().unwrap();
 +                    let Some(link) = guard.as_mut() else {
 +                        continue;
@@ -3119,7 +3180,12 @@ index 00000000..41397d41
 +                                }
 +                            }
 +                        }
-+                        Err(e) => tracing::debug!(error = %e, "lr2021 rx drop"),
++                        Err(e) => tracing::debug!(
++                            error = %e,
++                            len = rx.data.len(),
++                            head = %hex_prefix(&rx.data),
++                            "lr2021 rx drop"
++                        ),
 +                    }
 +                }
 +            }
@@ -3193,6 +3259,7 @@ index 00000000..41397d41
 +            return Err(TransportError::NotStarted);
 +        }
 +        let dst = addr_to_id(addr)?;
++        tracing::debug!(dst, bytes = data.len(), "lr2021 send frame");
 +        let now = now_ms();
 +        let mut guard = self.link.lock().unwrap();
 +        let link = guard.as_mut().ok_or(TransportError::NotStarted)?;
@@ -3231,6 +3298,14 @@ index 00000000..41397d41
 +        .unwrap_or(0)
 +}
 +
++fn hex_prefix(data: &[u8]) -> String {
++    data.iter()
++        .take(12)
++        .map(|byte| format!("{byte:02x}"))
++        .collect::<Vec<_>>()
++        .join("")
++}
++
 +/// Peer addresses cross the YAML/API boundary as UTF-8 strings. Use the same
 +/// canonical decimal form in both directions; interpreting the ASCII bytes as
 +/// a little-endian integer made `addr: "2"` become link id 0x32.
@@ -3259,8 +3334,15 @@ index 00000000..41397d41
 +
 +#[cfg(test)]
 +mod tests {
-+    use super::{addr_to_id, id_to_addr};
++    use super::{addr_to_id, hex_prefix, id_to_addr};
 +    use crate::transport::TransportAddr;
++
++    #[test]
++    fn corrupt_frame_logs_include_prefix_without_full_payload() {
++        assert_eq!(hex_prefix(&[0xF1, 0x50, 0x10, 0x00, 0xAA]), "f1501000aa");
++        assert_eq!(hex_prefix(&[0u8; 20]), "000000000000000000000000");
++        assert_eq!(hex_prefix(&[]), "");
++    }
 +
 +    #[test]
 +    fn peer_addresses_round_trip_decimal_link_ids() {
