@@ -9,10 +9,14 @@ idf_component_register(
                  "../../rp2040-bridge/src"
     REQUIRES driver esp_timer)
 
-# Match the E80-900MBL-02 sub-GHz FLRC implementation in the vendored Semtech
-# driver and the already-flashed E80/RP2040 bridges. Keep the ordinary shared
-# driver defaults for the unrelated 2.4 GHz NiceRF carrier.
+# Keep the validated E80 air-format bytes for both carriers, but select their
+# electrical RF/IRQ implementation from the MCU/board target. Do not use the
+# ESP32-C3 NiceRF carrier as an E80-900MBL-02 radio.
 target_compile_options(${COMPONENT_LIB} PRIVATE
     -DLR2021_E80_COMPAT=1
     -DLR2021_PKT_BYTE0=0x1E
     -DLR2021_PKT_BYTE1=0x7D)
+
+if(IDF_TARGET STREQUAL "esp32c3")
+    target_compile_options(${COMPONENT_LIB} PRIVATE -DLR2021_NICERF_C3=1)
+endif()

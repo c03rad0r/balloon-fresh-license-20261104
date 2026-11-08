@@ -25,12 +25,20 @@
 #include "lr2021_spi.h"
 #include "bridge_protocol.h"
 
-static const uint8_t FW_VERSION[3] = {0, 4, 10};
-static const uint16_t CAPS = 0x0007;
-
 #ifndef LR2021_E80_COMPAT
 #define LR2021_E80_COMPAT 0
 #endif
+#ifndef LR2021_NICERF_C3
+#define LR2021_NICERF_C3 0
+#endif
+
+#if LR2021_NICERF_C3
+static const uint8_t FW_VERSION[3] = {0, 5, 0};
+#else
+static const uint8_t FW_VERSION[3] = {0, 4, 10};
+#endif
+static const uint16_t CAPS = 0x0007;
+
 #if LR2021_E80_COMPAT
 static constexpr uint32_t E80_IRQ_RX_DONE = 1UL << 18;
 static constexpr uint32_t E80_IRQ_TX_DONE = 1UL << 19;
@@ -120,7 +128,14 @@ static void txPacket(const uint8_t *data, size_t len)
     bool done = false;
     uint32_t start = now_ms();
     while ((now_ms() - start) < 60) {
-#if LR2021_E80_COMPAT
+#if LR2021_NICERF_C3
+        /* NiceRF's established carrier driver polls DIO9 because the status
+         * register is unreliable on this chip. */
+        if (lr2021_ok(gRadio.check_irq(asserted)) && asserted) {
+            done = true;
+            break;
+        }
+#elif LR2021_E80_COMPAT
         /* Poll the status register directly. This also works if DIO8 is not
          * routed to the host, and is the method used by the RP2040 bridge. */
         uint32_t irq = 0;
@@ -163,7 +178,11 @@ static void handleRx(void)
 {
     if (!gRadioOk) return;
 
-#if LR2021_E80_COMPAT
+#if LR2021_NICERF_C3
+    /* DIO9 is the reliable receive notification on this carrier. */
+    bool asserted = false;
+    if (!lr2021_ok(gRadio.check_irq(asserted)) || !asserted) return;
+#elif LR2021_E80_COMPAT
     uint32_t irq = 0;
     if (!lr2021_ok(gRadio.get_irq_status(irq))) return;
     if (!(irq & (E80_IRQ_RX_DONE | E80_IRQ_CRC_ERROR))) return;
@@ -172,7 +191,9 @@ static void handleRx(void)
     if (!lr2021_ok(gRadio.check_irq(asserted)) || !asserted) return;
 #endif
 
-#if LR2021_E80_COMPAT
+#if LR2021_NICERF_C3
+    bool phy_crc_error = false;
+#elif LR2021_E80_COMPAT
     bool phy_crc_error = (irq & E80_IRQ_CRC_ERROR) != 0;
     if (phy_crc_error) gCrc++;
     if (!(irq & E80_IRQ_RX_DONE) && !phy_crc_error) {
