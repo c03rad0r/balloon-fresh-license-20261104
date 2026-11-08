@@ -59,7 +59,7 @@ This is a partial assembly: the BOM is the complete population list - do not add
 
 ### Uploads
 
-- **BOM:** `asm-bom-jlc.csv` — **13 lines, 22 placements** (the JLC-placeable subset)
+- **BOM:** `asm-bom-jlc.csv` — **14 lines, 23 placements** (the JLC-placeable subset)
 - **CPL:** `asm-cpl-jlc.csv` — 30 rows, verified against `pcbnew` coordinates to <0.001 mm.
   JLC will match the 22 it places; the 8 hand-fit rows are ignored or flagged by JLC's uploader
   as "part not in BOM", which is the correct behaviour.
@@ -75,8 +75,8 @@ R_F1 R_MON1 R_MON2 U1 U3 U7 U_C U_LORA1280
 
 ## ⚠ The one thing blocking the assembly upload
 
-**`asm-bom-jlc.csv` has an empty `LCSC Part #` column.** All 18 lines need part numbers before JLC
-can price or build. This is deliberate — an unverified part number must never enter a paid order,
+**`asm-bom-jlc.csv` has 13 of 14 lines with an empty `LCSC Part #`.** `U7` → `C2887324` is filled
+and verified; the other 13 still need numbers before JLC can price or build. This is deliberate — an unverified part number must never enter a paid order,
 and `C5913567` (the F33) is already flagged `(check)` in the project's own docs.
 
 The 18 lines needing a number:
@@ -99,8 +99,24 @@ J_PROG        1x06 2.54     1   a pin header, stocked
 LoRa1280      LoRa1280      1   NiceRF module — NOT an LCSC part
 ESP32-S3-WROOM-1U            1   stocked (Espressif)
 LoRa2021_Castellated  ×2     2   NiceRF module — NOT an LCSC part
-SOT-23-5                     1   value is 'U7', not a part — needs identification
+SOT-23-5            U7       1   RESOLVED: TPS7A0233PDBVR, LCSC C2887324
 ```
+
+### `U7` is now filled in
+
+`U7` was recorded as "value is literally `U7`, no part identity". It is **TI TPS7A0233PDBVR**,
+LCSC **`C2887324`** — identified from ADR-047 §2.2, which documents it as the 3.3 V LDO on the
+`VSCAP → +3V3` path, and then **verified pin-for-pin** against TI's DBV datasheet:
+
+| pad | datasheet | board |
+|---|---|---|
+| 1 | IN | `/VSCAP` |
+| 2 | GND | `GND` |
+| 3 | EN | `/VSCAP` (tied to IN = always on) |
+| 4 | NC | no net |
+| 5 | OUT | `+3V3` |
+
+5 of 5. That is one line of the BOM fillable with a verified number.
 
 **Five of the 20 lines are not LCSC-stockable** — `WING_SOCKET_4P` (custom edge connector),
 `LoRa1280`, the two `LoRa2021_Castellated` modules (all NiceRF), and `U7` whose value field is
@@ -113,20 +129,21 @@ Measured, not estimated:
 
 | | lines | placements |
 |---|---|---|
-| **JLC can place** | **13** | **22** |
-| **must be hand-fitted** | **5** | **8** |
+| **JLC can place** | **14** | **23** |
+| **must be hand-fitted** | **4** | **7** |
 | **total** | **18** | **30** |
 
-**JLC can place 22:** the 6 SS24 diodes, the BAT54, 8 passive lines (12 placements), both pin
-headers, and the ESP32-S3-WROOM-1U.
+**JLC can place 23:** the 6 SS24 diodes, the BAT54, 8 passive lines (12 placements), both pin
+headers, the ESP32-S3-WROOM-1U, and **`U7`** — which turned out to be identified, not unknown
+(see below).
 
-**Hand-fit 8:** the 4 wing sockets, `U3` and `U_C` (LoRa2021), `U_LORA1280` (LoRa1280), and `U7`
-until it is identified.
+**Hand-fit 7:** the 4 wing sockets (custom edge connector), `U3` and `U_C` (LoRa2021), and
+`U_LORA1280` (LoRa1280). All three module classes are NiceRF parts JLC cannot stock.
 
 Two BOM files are therefore provided:
 
-- **`asm-bom-jlc.csv`** — 13 lines / 22 placements, upload this to JLC
-- **`asm-bom-jlc-handfit.csv`** — 5 lines / 8 placements, your hand-fit list
+- **`asm-bom-jlc.csv`** — 14 lines / 23 placements, upload this to JLC
+- **`asm-bom-jlc-handfit.csv`** — 4 lines / 7 placements, your hand-fit list
 
 Practical options, in order of cost:
 
