@@ -14,6 +14,11 @@ RP2040 bridge firmware, configs and test scripts.
 
 ## Start here
 
+- **Using the Semtech/Seeed LR2021 EVK?** Start with the
+  [`docs/SEEED-LR2021-EVK-FIPS-ONBOARDING.md`](docs/SEEED-LR2021-EVK-FIPS-ONBOARDING.md)
+  no-soldering PER/FLRP runbook; its
+  [implementation checklist](docs/SEEED-LR2021-EVK-IMPLEMENTATION-PLAN.md)
+  separates host, hardware, RF and future FIPS status.
 - **Building the two-radio E80 + ESP32-S3 adapter?** Start with
   [`docs/E80-ESP32-S3-FIPS-ONBOARDING.md`](docs/E80-ESP32-S3-FIPS-ONBOARDING.md)
   for exact soldering, reset-jumper, flashing, FIPS setup and measured results.
@@ -136,6 +141,8 @@ virtual end-to-end success is not a substitute for RF verification.
 | `scripts/` | bootstrap, sync, build, flash, demo |
 | `tests/hardware/` | PER, ping, relay and soak scripts |
 | `docs/` | protocol, bands, hardware, runbook, results, bring-up findings |
+| `docs/SEEED-LR2021-EVK-FIPS-ONBOARDING.md` | second-manual EVK onboarding: Semtech PER/FLRP and later FIPS gates |
+| `docs/SEEED-LR2021-EVK-IMPLEMENTATION-PLAN.md` | EVK implementation decisions, checklist and honest validation log |
 | `docs/BOARD-INVENTORY.md` | every bench LR2021 board: USB IDs, wiring, firmware state |
 | `docs/FLASHING-WITHOUT-BUTTONS.md` | **flash ESP32 and RP2040 boards over USB, no button press** |
 | `docs/LEARNINGS.md` | every hard-won finding, so future sessions don't rediscover them |
