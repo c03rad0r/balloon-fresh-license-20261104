@@ -34,7 +34,7 @@ CACHE = os.path.join(HERE, "board_cost_prices.json")
 BOM = [
     ("U1 ESP32-S3-WROOM-1U-N8R8", "U1", 1, "C2980300"),
     ("SS24", "D_BP1-4,D_HUB1-2", 6, "C50645"),
-    ("100uF 1206", "C_BULK", 1, "C15008"),
+    ("100uF 1206 10V", "C_BULK", 1, "C312983"),
     ("10uF 0402", "C10,C4", 2, "C15525"),
     ("100nF 0402", "C_HF", 1, "C1525"),
     ("10nF 0402", "C_MON", 1, "C15195"),
@@ -52,6 +52,19 @@ BOM = [
 # These are the 0402 passives and the two pin headers, which are their own generic lines.
 EXTENDED = {"C15525", "C1525", "C15195", "C25744", "C26083", "C25076", "C11906",
             "C492404", "C492405"}
+
+# Parts JLC cannot supply or place at all: bought elsewhere, soldered by hand. These are EXCLUDED
+# from the JLC component total (the assembler will never buy them) but shown, because they are a
+# real part of what the board costs the operator. Unit prices marked APPROX are NOT LCSC figures --
+# they are order-of-magnitude estimates and must be replaced with actual vendor quotes before they
+# are used for a purchase decision.
+HAND_FIT = [
+    ("WING_SOCKET_4P", "J_W1..J_W4", 4, "custom edge connector - a board feature, no part to buy",
+     0.00),
+    ("LoRa2021_Castellated", "U3,U_C", 2, "NiceRF module, not stocked at LCSC", 12.00),  # APPROX
+    ("LoRa1280", "U_LORA1280", 1, "NiceRF module, not stocked at LCSC", 11.00),          # APPROX
+]
+
 EXTENDED_FEE = 3.00          # USD per extended part number per order (JLC published order)
 
 JOINTS_PER_BOARD = 23        # 23 placements, one joint each for 2-pin parts; see BOM qty sum
@@ -87,8 +100,14 @@ def fetch(code):
     except Exception:
         return None
     pairs = {}
+    # RESTRICT to the first `productPriceList` array. Scanning the whole page catches the ladder
+    # blocks of the "alternatives / substitutes" products too, which produces nonsense ladders
+    # (measured: C1525 gave 0.2495 -> 0.02 -> 0.0036 across adjacent breaks, three different parts
+    # interleaved). The first array is the product on the page.
+    m = re.search(r'"productPriceList":(\[.*?\])\s*,\s*"', out, re.S)
+    body = m.group(1) if m else out
     for pm in re.finditer(
-            r'"ladder":(\d+),"productPrice":"[^"]*","usdPrice":([0-9.]+)', out):
+            r'"ladder":(\d+),"productPrice":"[^"]*","usdPrice":([0-9.]+)', body):
         pairs[int(pm.group(1))] = float(pm.group(2))
     return sorted([l, p] for l, p in pairs.items()) if pairs else None
 
