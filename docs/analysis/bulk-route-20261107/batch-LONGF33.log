@@ -1,0 +1,7 @@
+=== batch LONGF33  from a1d769d57ee6585d
+world: pads=301 tracks=1462 edges=16 holes=175 origin=(-0.05, -0.05) size=(72.1, 80.1)
+UNROUTED /SPI2_SCK:U1.4:U2.12: no path on any layer pair (46.17s)
+UNROUTED /F33_VSENSE:U1.21:R_MON2.1: no path on any layer pair (38.61s)
+UNROUTED /EN:U1.3:J_PROG.3: no path on any layer pair (43.73s)
+batch LONGF33: NOTHING ROUTED (rc=1) -- tree untouched
+rc=2

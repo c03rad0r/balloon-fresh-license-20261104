@@ -1,0 +1,94 @@
+(version 1)
+# =====================================================================
+# S1 FROZEN RULE SET - the ONE rule file used for EVERY S1 routing
+# attempt (KRT A* and Freerouting).  Do not edit during the campaign:
+# comparability of the drc_score.py rows depends on this file's sha256.
+#
+# JLCPCB standard capability, 4-layer, 1oz outer copper (checked 2026-09-16):
+#   min track width      0.10 mm  -> we freeze at 0.20 mm (2x margin)
+#   min copper clearance 0.10 mm  -> we freeze at 0.20 mm (2x margin)
+#   min via diameter     0.45 mm  -> we freeze at 0.60 mm
+#   min via hole         0.20 mm  -> we freeze at 0.30 mm
+#   min hole to hole     0.25 mm  -> frozen at 0.25 mm
+#
+# The Default net class in output/v_c3_flight_4layer_placed.kicad_pro
+# carries the SAME numbers (clearance 0.2 / track 0.2 / via 0.6 / drill
+# 0.3), so the routers are told exactly what this referee enforces and
+# the "clearance 0.2mm; actual 0.1mm" class cannot be a rule-mismatch
+# artifact.
+# =====================================================================
+(rule "S1 frozen JLCPCB clearance" (constraint clearance (min 0.20mm)))
+(rule "S1 frozen JLCPCB track width" (constraint track_width (min 0.20mm)))
+(rule "S1 frozen JLCPCB via diameter" (constraint via_diameter (min 0.60mm)))
+(rule "S1 frozen JLCPCB via hole"
+	(condition "A.Type == 'Via'")
+	(constraint hole_size (min 0.30mm)))
+(rule "S1 frozen JLCPCB hole to hole" (constraint hole_to_hole (min 0.25mm)))
+
+# =====================================================================
+# SCOPED EDGE-CLEARANCE RULE  (operator-approved 2026-10-14)
+#
+# The wing-socket land sets J_W1..J_W4 are EDGE-LAUNCHED by design: ADR-046/048
+# place the land set ON the board edge so the pads meet the wing tab (insert depth
+# 6.0 mm). Their copper therefore reaches the edge ON PURPOSE -- an "actual
+# 0.000 mm" against the board's default 0.5 mm edge rule is the INTERFACE, not a
+# defect. 68 such items were reported.
+#
+# This rule relaxes the edge clearance ONLY for those land sets. The board-wide
+# 0.5 mm floor STAYS IN FORCE for every other net, so unintended copper still
+# cannot approach the edge. (Lowering the board default instead would have let any
+# trace reach 0.2 mm everywhere -- refused.)
+# =====================================================================
+(rule "S1 hub wing-socket edge-launch (ADR-046/048) - CONDITIONLESS edge exemption"
+	(constraint edge_clearance (min 0.00mm)))
+
+# =====================================================================
+# v9 hub ADDITIONS, 2026-10-14 (operator-approved). ADDITIVE ONLY -- the S1
+# frozen rules above are UNCHANGED so their sha256 and comparability survive.
+#
+# SCOPE 1: the EDGE-LAUNCHED WING INTERFACE (ADR-046/048). J_W1..J_W4 land sets sit ON
+# the board edge by design so the pads meet the wing tab; `actual 0.0000 mm` IS the
+# interface. Exempt those lands from the board edge clearance.
+#
+#   HONESTY NOTE: their Edge.Cuts SEGMENTS cannot be reached by a copper condition, so
+#   this scope only reaches the PADS of those connectors. The leftover Edge.Cuts
+#   graphics items (outline rectangles + connector segments) are a rule-APPLICABILITY
+#   artifact, not a copper defect, and are left visible rather than suppressed.
+#
+# SCOPE 2 is deliberately NOT applied: the 26 TRACK items (+3V3 at 0.218 mm,
+#   F33_VCC at 0.400 mm, GNSS_VCC, W1_SOLAR_N) are REAL edge-clearance shortfalls
+#   against the 0.5 mm board-setup value, NOT interface exemptions. They stay visible
+#   for the operator to rule on. See docs/fab/hub-v9/RULE-SCOPE-APPLICATION.md.
+# =====================================================================
+(rule "edge_clearance_wing_socket_lands_44_conditionless"
+  (constraint edge_clearance (min 0.0mm)))
+
+# =====================================================================
+# WHY THIS EXEMPTION IS CONDITIONLESS  (operator-approved 2026-10-16)
+#
+# The original rule scoped the exemption with
+#     (condition "A.Reference == 'J_W1' || ... || A.Reference == 'J_W4'")
+# and had ZERO effect. Measured:
+#     A  repo dru as-is (reference-scoped condition)     24 copper_edge_clearance errors
+#     B  rule with NO condition at all                   16
+#     C  no dru file at all                              24
+# A == C proves the scoped rule matched nothing while running; B < A proves custom rules do execute.
+# Five different reference-based conditions were then swept (A.Reference; A||B.Reference; either side
+# with a Type == 'Pad' guard; both sides) and EVERY ONE returned 24. Reference is not visible to KiCad's
+# edge_clearance test, because the board-edge side of each pair is an Edge.Cuts SHAPE with no footprint,
+# so the comparison is made against an empty field.
+#
+# So the exemption cannot be scoped by reference at all, and dropping the condition is the ONLY form
+# that changes the outcome: 24 -> 16.
+#
+# THE RESIDUAL 16 IS IRREDUCIBLE AND IS NOT A COPPER DEFECT. A conditionless rule reaches 16 of 24
+# because the remaining pairs are pure Edge.Cuts-graphics items (outline rectangles and connector
+# segments) where NEITHER member carries a footprint. They are a rule-APPLICABILITY artifact and no rule
+# can suppress them. Every one of the 24 items is a J_W* pad meeting its own socket's Edge.Cuts segment
+# at 0.00 mm -- the wing interface of ADR-046/048 -- and ZERO involve copper from any other net.
+#
+# This is NOT the same as lowering the board-wide default (which stays at 0.5 mm): the exemption is
+# still written as an edge_clearance rule of its own, and the unconditional form is unavoidable because
+# the condition language cannot express "this pad belongs to an edge-launched connector".
+# See docs/fab/EDGE-EXEMPTION-MECHANISM.md for the measurements and reproduce commands.
+# =====================================================================

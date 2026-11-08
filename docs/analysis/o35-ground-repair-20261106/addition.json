@@ -1,0 +1,15 @@
+{
+  "track_uuid": "7c1ece7c-5e88-4c9a-8115-fa603bf4b476",
+  "existing_via_uuid": "ada07303-f780-4328-8252-828fab20734c",
+  "start": [
+    29,
+    6
+  ],
+  "end": [
+    31.040292,
+    6
+  ],
+  "width": 0.2,
+  "layer": "B.Cu",
+  "net": "GND"
+}

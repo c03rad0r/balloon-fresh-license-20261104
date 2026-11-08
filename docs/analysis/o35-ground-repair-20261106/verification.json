@@ -1,0 +1,10 @@
+{
+  "retained_nonpolygon_layer_nodes": 1834,
+  "lost_previously_connected_pairs": 0,
+  "target_connected": true,
+  "c10_power_ground_preserved": true,
+  "native_violation_identities_identical": true,
+  "opens_before": 39,
+  "opens_after": 38,
+  "candidate_sha256": "fe11ee72c1206fb0715a9cee701961b8a1de37c0c7aaef663172bcf7bf9264c9"
+}

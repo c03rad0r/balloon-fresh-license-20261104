@@ -1,0 +1,19 @@
+{
+ "board": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/F33V2/board.kicad_pcb",
+ "pitch": 0.1,
+ "pairs": [
+  {
+   "spec": "/F33_VSENSE:U1.21:U1.21",
+   "net": "/F33_VSENSE",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "astar": "",
+   "seconds": 70.1,
+   "segments": 0,
+   "vias": 0,
+   "length_mm": 0,
+   "result": "VALIDATOR REJECTED",
+   "reason": "no segments"
+  }
+ ]
+}

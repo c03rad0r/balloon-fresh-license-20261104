@@ -1,0 +1,20 @@
+=== HUBPVN2   from 37d70802c33b830c
+world: pads=301 tracks=1362 edges=16 holes=165 origin=(-0.05, -0.05) size=(72.1, 80.1)
+ROUTED /HUB_PV_N:D_HUB2.2:J_HUB_PV.4: 22 seg / 2 via / 52.7 mm (78.76s)
+applied 1 net(s) -> /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/HUBPVN2/routed.kicad_pcb; refilled 6 zone(s)
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/HUBPVN2/before-drc.json
+Found 30 unconnected items
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/HUBPVN2/drc.json
+  same-net via 10.25,20.945 d=0.6 overlaps U3.8 depth=0.2754 mm
+
+baseline /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/HUBPVN2/board.kicad_pcb: vias=130 same-net=20 FOREIGN=0
+delta same-net via-in-pad vs baseline: +0
+
+VERDICT: PASS
+native opens: 31 -> 30  (delta -1)
+  pair /HUB_PV_N:D_HUB2.2:J_HUB_PV.4                before=False after=True
+  retained non-zone items: 1663; previously-connected pairs broken: 0
+
+VERDICT: PASS
+HUBPVN2: ACCEPTED  37d70802c33b830c -> 2bde64186d4a7839
+        opens: see /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/HUBPVN2/proof.json

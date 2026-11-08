@@ -1,0 +1,75 @@
+rules: track needs 0.300 mm centre-to-copper, via needs 0.500 mm
+board: latest.kicad_pcb   pads=301
+
+/EN  U1.3  pad 1.50x0.90 mm  centre (11.050,36.430)  layers=[0] pth=False
+     0°  free  0.82 mm  short  0.00  clearance /SPI2_MISO
+    45°  free  0.75 mm  short  0.00  clearance U1.4
+    90°  free  0.53 mm  short  0.00  clearance U1.4
+   135°  free  0.75 mm  short  0.00  clearance U1.4
+   180°  free  1.12 mm  short  0.00  clearance /SPI2_MOSI
+   225°  free  0.75 mm  short  0.00  clearance U1.2
+   270°  free  0.53 mm  short  0.00  clearance U1.2
+   315°  free  0.75 mm  short  0.00  clearance U1.2
+   -> worst: 0° short by 0.000 mm (clearance /SPI2_MISO)
+   -> via escape would need 0.500 mm; worst free corridor is 0.300 mm
+
+/SPI2_SCK  U1.4  pad 1.50x0.90 mm  centre (11.050,37.700)  layers=[0] pth=False
+     0°  free  0.82 mm  short  0.00  clearance /SPI2_MISO
+    45°  free  0.75 mm  short  0.00  clearance U1.5
+    90°  free  0.38 mm  short  0.00  clearance /SPI2_MOSI
+   135°  free  0.50 mm  short  0.00  clearance /SPI2_MOSI
+   180°  free  0.85 mm  short  0.00  clearance /SPI2_MOSI
+   225°  free  0.75 mm  short  0.00  clearance U1.3
+   270°  free  0.53 mm  short  0.00  clearance U1.3
+   315°  free  0.75 mm  short  0.00  clearance U1.3
+   -> worst: 0° short by 0.000 mm (clearance /SPI2_MISO)
+   -> via escape would need 0.500 mm; worst free corridor is 0.300 mm
+
+/SPI1_MISO  U3.3  pad 2.00x0.70 mm  centre (10.995,14.120)  layers=[2] pth=False
+     0°  free  1.98 mm  short  0.00  clearance /F33_IRQ
+    45°  free  0.93 mm  short  0.00  clearance U3.4
+    90°  free  0.65 mm  short  0.00  clearance U3.4
+   135°  free  0.93 mm  short  0.00  clearance U3.4
+   180°  free  3.00 mm  short  0.00  clear
+   225°  free  0.55 mm  short  0.00  clearance GND
+   270°  free  0.65 mm  short  0.00  clearance U3.2
+   315°  free  0.93 mm  short  0.00  clearance U3.2
+   -> worst: 0° short by 0.000 mm (clearance /F33_IRQ)
+   -> via escape would need 0.500 mm; worst free corridor is 0.300 mm
+
+/SPI1_MOSI  U3.4  pad 2.00x0.70 mm  centre (10.995,15.410)  layers=[2] pth=False
+     0°  free  1.98 mm  short  0.00  clearance /F33_IRQ
+    45°  free  0.93 mm  short  0.00  clearance U3.5
+    90°  free  0.65 mm  short  0.00  clearance U3.5
+   135°  free  0.93 mm  short  0.00  clearance U3.5
+   180°  free  3.00 mm  short  0.00  clear
+   225°  free  0.93 mm  short  0.00  clearance U3.3
+   270°  free  0.65 mm  short  0.00  clearance U3.3
+   315°  free  0.93 mm  short  0.00  clearance U3.3
+   -> worst: 0° short by 0.000 mm (clearance /F33_IRQ)
+   -> via escape would need 0.500 mm; worst free corridor is 0.300 mm
+
+/VSCAP  R_BAL1.1  pad 0.54x0.64 mm  centre (40.490,43.500)  layers=[0] pth=False
+     0°  free  0.28 mm  short  0.03  clearance /SCAP_MID
+    45°  free  0.60 mm  short  0.00  clearance R_DIV2.1
+    90°  free  0.40 mm  short  0.00  clearance R_DIV2.1
+   135°  free  0.60 mm  short  0.00  clearance R_DIV2.1
+   180°  free  0.42 mm  short  0.00  clearance R_BAL2.2
+   225°  free  0.62 mm  short  0.00  clearance R_BAL2.2
+   270°  free  0.47 mm  short  0.00  clearance /SCAP_MID
+   315°  free  0.38 mm  short  0.00  clearance /SCAP_MID
+   -> worst: 0° short by 0.025 mm (clearance /SCAP_MID)
+   -> via escape would need 0.500 mm; worst free corridor is 0.275 mm
+
+/F33_VSENSE  U1.21  pad 0.90x1.50 mm  centre (20.435,51.650)  layers=[0] pth=False
+     0°  free  0.53 mm  short  0.00  clearance U1.22
+    45°  free  0.75 mm  short  0.00  clearance U1.22
+    90°  free  0.72 mm  short  0.00  clearance /U3_CS_N
+   135°  free  0.75 mm  short  0.00  clearance U1.20
+   180°  free  0.53 mm  short  0.00  clearance U1.20
+   225°  free  0.75 mm  short  0.00  clearance U1.20
+   270°  free  1.02 mm  short  0.00  clearance /SPI1_SCK
+   315°  free  0.75 mm  short  0.00  clearance U1.22
+   -> worst: 0° short by 0.000 mm (clearance U1.22)
+   -> via escape would need 0.500 mm; worst free corridor is 0.300 mm
+

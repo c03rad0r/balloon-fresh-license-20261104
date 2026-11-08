@@ -1,0 +1,15 @@
+{
+ "board": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/VSCAPBAL1T/board.kicad_pcb",
+ "pitch": 0.1,
+ "pairs": [
+  {
+   "spec": "/VSCAP:C_CAP1.1:R_BAL1.1",
+   "net": "/VSCAP",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "seconds": 121.17,
+   "result": "UNROUTED",
+   "reason": "no path on any layer pair"
+  }
+ ]
+}

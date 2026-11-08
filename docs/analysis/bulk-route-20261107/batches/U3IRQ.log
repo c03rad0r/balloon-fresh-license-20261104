@@ -1,0 +1,19 @@
+=== U3IRQ   from df6456c14b3498ec
+world: pads=301 tracks=1190 edges=16 holes=156 origin=(-0.05, -0.05) size=(72.1, 80.1)
+ROUTED /U3_IRQ:U3.15:U1.19: 119 seg / 5 via / 52.0 mm (469.2s)
+applied 1 net(s) -> /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/U3IRQ/routed.kicad_pcb; refilled 6 zone(s)
+Found 33 unconnected items
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/U3IRQ/drc.json
+  same-net via 10.25,20.945 d=0.6 overlaps U3.8 depth=0.2754 mm
+
+baseline /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/U3IRQ/board.kicad_pcb: vias=121 same-net=20 FOREIGN=0
+delta same-net via-in-pad vs baseline: +0
+
+VERDICT: PASS
+native opens: 35 -> 33  (delta -2)
+  pair /U3_IRQ:U3.15:U1.19                          before=False after=True
+  retained non-zone items: 1491; previously-connected pairs broken: 0
+
+VERDICT: PASS
+U3IRQ: ACCEPTED  df6456c14b3498ec -> 9a9c6c12edb72839
+        opens: see /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/U3IRQ/proof.json

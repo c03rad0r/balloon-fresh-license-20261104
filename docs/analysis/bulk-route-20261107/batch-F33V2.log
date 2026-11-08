@@ -1,0 +1,5 @@
+=== batch F33V2  from e00b98e70045265c
+world: pads=301 tracks=3054 edges=16 holes=193 origin=(-0.05, -0.05) size=(72.1, 80.1)
+REJECTED /F33_VSENSE:U1.21:U1.21: no segments
+batch F33V2: NOTHING ROUTED (rc=1) -- tree untouched
+rc=2

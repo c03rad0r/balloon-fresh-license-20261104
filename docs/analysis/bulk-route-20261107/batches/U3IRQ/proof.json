@@ -1,0 +1,18 @@
+{
+ "before": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/U3IRQ/board.kicad_pcb",
+ "after": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/U3IRQ/routed.kicad_pcb",
+ "regression_scope": "ALL NETS",
+ "opens_before": 35,
+ "opens_after": 33,
+ "retained_nonzone_nodes": 1491,
+ "broken_previously_connected_pairs": 0,
+ "pairs": [
+  {
+   "spec": "/U3_IRQ:U3.15:U1.19",
+   "connected_before": false,
+   "connected_after": true
+  }
+ ],
+ "failures": [],
+ "verdict": "PASS"
+}

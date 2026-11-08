@@ -1,0 +1,46 @@
+{
+  "removed": [
+    {
+      "x": 36.0,
+      "y": 40.0,
+      "land": 0.6,
+      "drill": 0.3
+    },
+    {
+      "x": 6.599999,
+      "y": 58.599675,
+      "land": 0.6,
+      "drill": 0.3
+    }
+  ],
+  "before": {
+    "failing": 21,
+    "counts": {
+      "silk_over_copper": 3,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8,
+      "via_dangling": 2,
+      "unconnected_items": 22
+    },
+    "allowed": [
+      "silk_over_copper",
+      "unconnected_items"
+    ]
+  },
+  "after": {
+    "failing": 19,
+    "counts": {
+      "copper_edge_clearance": 16,
+      "silk_over_copper": 3,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8,
+      "unconnected_items": 22
+    },
+    "allowed": [
+      "copper_edge_clearance",
+      "silk_over_copper",
+      "unconnected_items"
+    ]
+  },
+  "verdict": "PASS"
+}

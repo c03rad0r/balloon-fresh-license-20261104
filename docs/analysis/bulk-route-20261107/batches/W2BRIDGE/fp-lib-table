@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "tracker_mechanical")(type "KiCad")(uri "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/tracker/hardware/footprints/tracker_mechanical.pretty")(options "")(descr "project footprint library"))
+  (lib (name "balloon_flight_v10")(type "KiCad")(uri "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/tracker/hardware/schematics/flight_board/v10_lib/balloon_flight_v10.pretty")(options "")(descr "project footprint library"))
+)

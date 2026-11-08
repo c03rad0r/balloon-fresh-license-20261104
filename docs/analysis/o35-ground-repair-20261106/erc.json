@@ -1,0 +1,469 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-06T18:51:40+0100",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.9",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/973e9597-c5bd-56cd-89fb-9f0a09006ee6",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U5 Pin 8 [VCC, Power input, Line]",
+                            "pos": {
+                                "x": 0.254,
+                                "y": 0.3302
+                            },
+                            "uuid": "8fc91b35-cbed-536b-9a6e-eb3079d32d16"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U2 Pin 1 [VCC, Power input, Line]",
+                            "pos": {
+                                "x": 1.6764,
+                                "y": 0.4064
+                            },
+                            "uuid": "dd5f06c7-580a-56e4-801a-a3e3fd7bbd0b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'U_C_CS_N'",
+                            "pos": {
+                                "x": 3.1496,
+                                "y": 0.5334
+                            },
+                            "uuid": "0591323f-d6c6-5426-9808-8e15ee00901c"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'U_C_BUSY'",
+                            "pos": {
+                                "x": 3.1496,
+                                "y": 0.5588
+                            },
+                            "uuid": "b850800f-b1f1-55bc-a0bb-62c80256d252"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U_C Pin 6 [NSS, Input, Line]",
+                            "pos": {
+                                "x": 3.2004,
+                                "y": 0.5334
+                            },
+                            "uuid": "8479da52-7641-5ffd-945f-34e92732417a"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U_C Pin 14 [RESET, Input, Line]",
+                            "pos": {
+                                "x": 3.5052,
+                                "y": 0.508
+                            },
+                            "uuid": "85e5fc68-f5a2-5af5-adee-efa31964ffca"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'U_C_RESET_N'",
+                            "pos": {
+                                "x": 3.556,
+                                "y": 0.508
+                            },
+                            "uuid": "ad013240-75a0-5cb9-a38d-0072542fa73e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'U_C_IRQ'",
+                            "pos": {
+                                "x": 3.556,
+                                "y": 0.5334
+                            },
+                            "uuid": "6c4d1240-f150-578a-a4c0-93902973c040"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'IO0'",
+                            "pos": {
+                                "x": 5.2832,
+                                "y": 0.5842
+                            },
+                            "uuid": "caaf3cbb-140a-5c9f-9b5e-9f0678ae62e1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U6 [MS5611_BARO]",
+                            "pos": {
+                                "x": 0.3048,
+                                "y": 1.1176
+                            },
+                            "uuid": "8d35e4f9-b314-5039-aa19-4b682d6cced9"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U7 [TPS7A0233]",
+                            "pos": {
+                                "x": 0.3048,
+                                "y": 1.5748
+                            },
+                            "uuid": "1c699505-37f4-57ed-8a22-022ff01a9389"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U2 [F33_2G4]",
+                            "pos": {
+                                "x": 1.8288,
+                                "y": 0.508
+                            },
+                            "uuid": "cc3cd023-0db7-554f-9fa7-b64072a84323"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U3 [LR2021_BARE]",
+                            "pos": {
+                                "x": 2.5908,
+                                "y": 0.508
+                            },
+                            "uuid": "b4d58cc0-a7fb-5500-91a2-1e797266eeef"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U_C [LR2021_BARE]",
+                            "pos": {
+                                "x": 3.3528,
+                                "y": 0.508
+                            },
+                            "uuid": "b7bd349a-9585-5f22-92c0-3c2ccd465a4e"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'balloon_flight_v10'.",
+                    "items": [
+                        {
+                            "description": "Symbol U_LORA1280 [LoRa1280]",
+                            "pos": {
+                                "x": 4.1148,
+                                "y": 0.508
+                            },
+                            "uuid": "cc4beb3d-7d6e-55d7-90a8-7157bddc11d0"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U_LORA1280 [LoRa1280]",
+                            "pos": {
+                                "x": 4.1148,
+                                "y": 0.508
+                            },
+                            "uuid": "cc4beb3d-7d6e-55d7-90a8-7157bddc11d0"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'Tracker_Mechanical'.",
+                    "items": [
+                        {
+                            "description": "Symbol J_W1 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 0.508
+                            },
+                            "uuid": "1e646e1e-a316-553d-87bb-8cbe14f7e14f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol J_W1 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 0.508
+                            },
+                            "uuid": "1e646e1e-a316-553d-87bb-8cbe14f7e14f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'Tracker_Mechanical'.",
+                    "items": [
+                        {
+                            "description": "Symbol J_W2 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 0.8382
+                            },
+                            "uuid": "d5803a33-77cf-5111-9d52-2a27564f5352"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol J_W2 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 0.8382
+                            },
+                            "uuid": "d5803a33-77cf-5111-9d52-2a27564f5352"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'Tracker_Mechanical'.",
+                    "items": [
+                        {
+                            "description": "Symbol J_W3 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 1.1684
+                            },
+                            "uuid": "969708c6-68bd-51b0-84e2-f64a58740b5c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol J_W3 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 1.1684
+                            },
+                            "uuid": "969708c6-68bd-51b0-84e2-f64a58740b5c"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the footprint library 'Tracker_Mechanical'.",
+                    "items": [
+                        {
+                            "description": "Symbol J_W4 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 1.4986
+                            },
+                            "uuid": "9b7fca11-f7b4-586c-8e53-00781e41e67f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "footprint_link_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol J_W4 [WING_SOCKET_4P]",
+                            "pos": {
+                                "x": 5.9055,
+                                "y": 1.4986
+                            },
+                            "uuid": "9b7fca11-f7b4-586c-8e53-00781e41e67f"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U_HUB_CVT [HUB_CONVERTER]",
+                            "pos": {
+                                "x": 6.6675,
+                                "y": 0.508
+                            },
+                            "uuid": "7b181b9c-dfb8-556e-a5c8-e233606f9247"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol J_VCC [F33_VCC_SEL]",
+                            "pos": {
+                                "x": 7.4295,
+                                "y": 0.508
+                            },
+                            "uuid": "43922c8b-2bf1-58a4-bbc1-cf44a5b38c11"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U_CUT1 [CUT_CHANNEL]",
+                            "pos": {
+                                "x": 9.7282,
+                                "y": 0.508
+                            },
+                            "uuid": "db7269e9-8b19-5dbb-8098-f8de09e3f458"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U_CUT2 [CUT_CHANNEL]",
+                            "pos": {
+                                "x": 9.7282,
+                                "y": 0.8382
+                            },
+                            "uuid": "6d77c869-b94b-5d6a-ac68-16ca77c8f3b6"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U_CUT3 [CUT_CHANNEL]",
+                            "pos": {
+                                "x": 9.7282,
+                                "y": 1.1684
+                            },
+                            "uuid": "d088dcfb-c2c7-5902-bbcd-dfca02eaf22a"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                },
+                {
+                    "description": "The current configuration does not include the symbol library 'balloon_flight_v10'",
+                    "items": [
+                        {
+                            "description": "Symbol U_CUT4 [CUT_CHANNEL]",
+                            "pos": {
+                                "x": 9.7282,
+                                "y": 1.4986
+                            },
+                            "uuid": "3956d9e8-eb10-5b27-9d57-8af107f7c700"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_issues"
+                }
+            ]
+        }
+    ],
+    "source": "v10_flight.kicad_sch"
+}

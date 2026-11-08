@@ -1,0 +1,19 @@
+=== SPI1SCK2   from 44ca9d9e305c9b6d
+world: pads=301 tracks=1332 edges=16 holes=163 origin=(-0.05, -0.05) size=(72.1, 80.1)
+ROUTED /SPI1_SCK:U3.5:U_C.5: 128 seg / 0 via / 53.6 mm (142.6s)
+applied 1 net(s) -> /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1SCK2/routed.kicad_pcb; refilled 6 zone(s)
+Found 32 unconnected items
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1SCK2/drc.json
+  same-net via 10.25,20.945 d=0.6 overlaps U3.8 depth=0.2754 mm
+
+baseline /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1SCK2/board.kicad_pcb: vias=128 same-net=20 FOREIGN=0
+delta same-net via-in-pad vs baseline: +0
+
+VERDICT: PASS
+native opens: 35 -> 32  (delta -3)
+  pair /SPI1_SCK:U3.5:U_C.5                         before=True after=True
+  retained non-zone items: 1633; previously-connected pairs broken: 0
+
+VERDICT: PASS
+SPI1SCK2: ACCEPTED  44ca9d9e305c9b6d -> 479240e423ac01c6
+        opens: see /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1SCK2/proof.json

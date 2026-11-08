@@ -1,0 +1,17 @@
+=== batch SPI1PAIR2  from 29a2093c79236942
+world: pads=301 tracks=1433 edges=16 holes=171 origin=(-0.05, -0.05) size=(72.1, 80.1)
+ROUTED /SPI1_MISO:U3.3:U_C.3: 9 seg / 2 via / 37.0 mm (108.22s)
+ROUTED /SPI1_MOSI:U3.4:U_C.4: 16 seg / 2 via / 40.2 mm (138.85s)
+applied 2 net(s) -> /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1PAIR2/routed.kicad_pcb; refilled 6 zone(s)
+Found 29 unconnected items
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1PAIR2/before-drc.json
+Found 26 unconnected items
+Saved DRC Report to /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SPI1PAIR2/drc.json
+native opens: 29 -> 26  (delta -3)
+  pair /SPI1_MISO:U3.3:U_C.3                        before=False after=True
+  pair /SPI1_MOSI:U3.4:U_C.4                        before=False after=True
+  retained non-zone items: 1734; previously-connected pairs broken: 0
+
+VERDICT: PASS
+batch SPI1PAIR2: ACCEPTED -> latest.kicad_pcb a1d769d57ee6585d
+rc=0

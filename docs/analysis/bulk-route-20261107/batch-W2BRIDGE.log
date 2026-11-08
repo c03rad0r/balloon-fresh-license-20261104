@@ -1,0 +1,29 @@
+batch W2BRIDGE from live: opens=17 viol=19 errors=0
+
+/W2_SOLAR_N fragments:
+  frag0  18 segs   21.20 mm  layers ['F.Cu', 'B.Cu']
+  frag1   8 segs   12.52 mm  layers ['B.Cu']
+
+BRIDGING the two substantial halves: 41.450 mm
+  from (38.750, 72.750) to (67.300, 42.700)
+BRIDGED 50.36 mm, 451 seg, 2 via (2.1s)
+00:05:43: Debug: Adding duplicate image handler for 'PNG file'
+00:05:43: Debug: Adding duplicate image handler for 'JPEG file'
+00:05:43: Debug: Adding duplicate image handler for 'TIFF file'
+00:05:43: Debug: Adding duplicate image handler for 'GIF file'
+00:05:43: Debug: Adding duplicate image handler for 'PNM file'
+00:05:43: Debug: Adding duplicate image handler for 'PCX file'
+00:05:43: Debug: Adding duplicate image handler for 'IFF file'
+00:05:43: Debug: Adding duplicate image handler for 'Windows icon file'
+00:05:43: Debug: Adding duplicate image handler for 'Windows cursor file'
+00:05:43: Debug: Adding duplicate image handler for 'Windows animated cursor file'
+00:05:43: Debug: Adding duplicate image handler for 'TGA file'
+00:05:43: Debug: Adding duplicate image handler for 'XPM file'
+refilled 6 zone(s)
+sidecars staged onto the routed candidate
+
+native opens: 17 -> 16  (delta -1)
+violations: 19 -> 16   errors: 0 -> 0
+VERDICT: PASS
+batch W2BRIDGE: ACCEPTED -> latest.kicad_pcb
+rc=0

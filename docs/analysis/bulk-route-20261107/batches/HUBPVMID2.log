@@ -1,0 +1,4 @@
+=== HUBPVMID2   from 37d70802c33b830c
+world: pads=301 tracks=1362 edges=16 holes=165 origin=(-0.05, -0.05) size=(72.1, 80.1)
+UNROUTED /HUB_PV_MID1:D_HUB1.2:J_HUB_PV.2: no path on any layer pair (59.8s)
+HUBPVMID2: NOTHING WRITTEN -- tree untouched, latest.kicad_pcb unchanged

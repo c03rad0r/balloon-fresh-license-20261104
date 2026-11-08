@@ -1,0 +1,29 @@
+batch MOSIB4 from live: opens=16 viol=20 errors=0
+
+/SPI1_MOSI fragments:
+  frag0  14 segs   73.10 mm  layers ['F.Cu', 'B.Cu']
+  frag1  16 segs   40.20 mm  layers ['F.Cu', 'B.Cu']
+
+BRIDGING the two substantial halves: 26.800 mm (same layer B.Cu)
+  from (11.050, 42.250) to (10.950, 15.450)
+BRIDGED 28.91 mm, 272 seg, 2 via (0.5s)
+00:22:36: Debug: Adding duplicate image handler for 'PNG file'
+00:22:36: Debug: Adding duplicate image handler for 'JPEG file'
+00:22:36: Debug: Adding duplicate image handler for 'TIFF file'
+00:22:36: Debug: Adding duplicate image handler for 'GIF file'
+00:22:36: Debug: Adding duplicate image handler for 'PNM file'
+00:22:36: Debug: Adding duplicate image handler for 'PCX file'
+00:22:36: Debug: Adding duplicate image handler for 'IFF file'
+00:22:36: Debug: Adding duplicate image handler for 'Windows icon file'
+00:22:36: Debug: Adding duplicate image handler for 'Windows cursor file'
+00:22:36: Debug: Adding duplicate image handler for 'Windows animated cursor file'
+00:22:36: Debug: Adding duplicate image handler for 'TGA file'
+00:22:36: Debug: Adding duplicate image handler for 'XPM file'
+refilled 6 zone(s)
+sidecars staged onto the routed candidate
+
+native opens: 16 -> 15  (delta -1)
+violations: 20 -> 16   errors: 0 -> 0
+VERDICT: PASS
+batch MOSIB4: ACCEPTED -> latest.kicad_pcb
+rc=0
