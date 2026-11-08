@@ -77,9 +77,45 @@ The antipad-retreat hypothesis for why the second via did not connect was **test
 disproved**: `HitTestFilledArea` at the via site reads `True` before and after the refill, and
 8 of 24 land-perimeter samples sit on poured copper. The fill does not retreat.
 
-So the `VSCAP_BCu` zone genuinely does not reach `C_CAP1` pad 1, and the fix is not a bare via.
-It needs either a 0.200 mm track from the pad into the pour, or the pour extended to the pad —
-both real routing work at S1, neither of which I completed.
+## The VSCAP zone DOES overlap the pad — my "does not reach it" claim was wrong
+
+`HitTestFilledArea` at the pad **centre** returns `False` because the centre of a PTH pad is the
+**1.000 mm drill hole**, which is not filled copper. That is the right answer to a question I
+should not have been asking. Sampling the pad's own copper ring instead:
+
+```
+  inside pad ring r=0.60   pad copper True   pour True     <- fill and pad overlap
+  pad centre      r=0.00   pad copper True   pour False    <- the drill, correctly empty
+  pad edge        0 deg    pad copper False  pour True
+  corner          r=1.30   pad copper True   pour False
+```
+
+A radial scan of where the pad copper ends and the pour begins, in 24 directions, shows
+**span 0.000 at 0°, 90°, 180° and 270°** — along the pad's axes the pad copper and the pour are
+already touching. The pad is a 2.000 mm square, so its edge sits exactly where the fill begins.
+
+So the zone and the pad are in contact on B.Cu and there is **no gap to bridge**. My earlier
+statement that "the zone genuinely does not reach `C_CAP1` pad 1, and the fix needs a 0.200 mm
+track from the pad into the pour" was wrong, and the 0.050 mm stub it produced was the tell: a
+search that finds a 0.050 mm span has found no span at all.
+
+Why DRC still lists the pair is **not settled**. The remaining candidates are the pad's zone
+connection mode (thermal relief vs solid) and the pad being a 4-layer PTH whose other-layer
+copper is the part actually unconnected. That needs the pad's zone-connection setting and
+thermal spoke count inspected, which I did not reach.
+
+## A search that returns an absurdly short answer is reporting a flaw, not a solution
+
+Three geometry errors in a row on this one open, all caught by noticing that the number was too
+good to be true:
+
+1. via at r=0.750 mm — passed every copper check, failed hole-to-hole by 0.150 mm
+2. via at r=0.900 mm — fully legal, closed nothing
+3. track of length **0.050 mm** — "found" a bridge where pad and pour already touch
+
+A 0.050 mm track from a pad into a pour is not a bridge; it is the search starting outside the
+pad and stopping at the first filled point. When an optimisation returns something implausibly
+small, suspect the objective, not the board.
 
 ## Board state
 
