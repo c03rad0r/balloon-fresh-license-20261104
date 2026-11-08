@@ -37,6 +37,18 @@ def fix_clearance(mo):
 
 out = re.sub(r'\(clearance (\d+)', fix_clearance, txt)
 
+# ALSO FORCE TRACK WIDTH. This was missing on the first run and it silently produced sub-S1 copper:
+# KiCad's DSN export writes (width 150) in the rule block even though the netclass is 0.200 mm, and
+# freerouting honours the DSN, so it laid 0.150 mm tracks. The result was 6 track_width violations
+# that had to be repaired by hand afterwards (fr_widen.py). Patch it here so it cannot recur.
+def fix_width(mo):
+    val = int(mo.group(1))
+    if val < 200:
+        return mo.group(0).replace('(width %d' % val, '(width 200', 1)
+    return mo.group(0)
+
+out = re.sub(r'\(width (\d+)', fix_width, out)
+
 # Report the result
 m2 = re.search(r'\(rule\s*\n(.*?)\n\s*\)\n', out, re.S)
 print('\n=== rules AFTER ===')
