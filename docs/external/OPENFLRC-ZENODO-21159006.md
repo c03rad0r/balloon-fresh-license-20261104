@@ -25,12 +25,19 @@ it useful to us in our flight board?"*
 
 Target: an **ESP32-S3 + SX1280** FLRC node for remote scientific telemetry.
 
+**The architecture match is exact, not approximate.** Verified against the board file: our host
+is `U1` ESP32-S3-WROOM-1U, our 2.4 GHz radio is `U_LORA1280` (NiceRF SX1280 module), and both
+sides run **FLRC** in 2.4 GHz. Same MCU, same transceiver silicon, same mode. That is why their
+numbers are directly comparable to ours rather than merely suggestive — and also why their
+*hardware* is still not portable: we are KiCad 4-layer with castellation wings, they are EasyEDA
+2-layer.
+
 ## Is it useful to us — measured against our own tree
 
 | OpenFLRC | ours | verdict |
 |---|---|---|
 | SX1280 in **FLRC** mode | `firmware/esp32-c3-flrc`, `firmware/rp2040-flrc-max` | **same silicon, same mode** — directly comparable |
-| **ESP32-S3** host | U1 is ESP32-S3-WROOM-1U | same MCU family |
+| **ESP32-S3** host | U1 is **ESP32-S3-WROOM-1U** | **the exact MCU**, not merely the family |
 | 2.4 GHz | `LoRa1280` (NiceRF module) + `LoRa2021_Castellated` | same band |
 | Throughput benchmarks | `tools/flrc_512b_throughput_audit.py`, `sweep-config-flrc.json`, `data/walk-tests/` | **we have our own — compare, don't adopt** |
 | NanoVNA S-params, attenuation sweeps | no equivalent recorded for our 2.4 GHz path | **the genuinely new material** |
