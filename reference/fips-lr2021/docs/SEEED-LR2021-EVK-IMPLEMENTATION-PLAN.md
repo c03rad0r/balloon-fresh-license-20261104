@@ -1,7 +1,7 @@
 # Seeed LR2021 EVK onboarding — implementation plan and checklist
 
-**Status:** host implementation and all four sample builds complete; awaiting
-commit approval. Hardware measurements and FIPS-on-EVK are not verified.
+**Status:** PR #478 is open; host implementation and all four sample builds are
+complete. Hardware measurements and FIPS-on-EVK are not verified.
 **Target:** `reference/fips-lr2021/` in `felixfelix-bot/balloon-fresh`.
 **Last updated:** 2026-11-08
 
@@ -121,9 +121,9 @@ boards.
 - [ ] Rebase only with explicit approval; do not rewrite shared history.
 - [x] Review status and diff one final time.
 - [x] Commit only after explicit approval.
-- [ ] Push only after explicit approval.
-- [ ] Open the PR only after explicit approval, with host evidence and hardware
-      limitations stated accurately.
+- [x] Push only after explicit approval.
+- [x] Open PR only after explicit approval, with host evidence and hardware
+      limitations stated accurately: [#478](https://github.com/felixfelix-bot/balloon-fresh/pull/478).
 
 ## Validation log
 
@@ -146,3 +146,4 @@ boards.
 | 2026-11-08 | Post-build helper checks | `bash -n scripts/seeed-usp.sh`, preinstalled `shellcheck scripts/seeed-usp.sh` and `make -n` for setup plus all four build targets: PASS. Real setup/builds exposed no tracked implementation defect requiring a fix |
 | 2026-11-08 | Final lead review | PASS: independently reran `bash -n`, ShellCheck, all 11 `make -n` targets and all five missing-`PROBE`/`PORT` guards; checked executable mode, `git diff --check`, scoped status, validation-log artifact hashes and absence of old filenames. No unrelated or generated files are included |
 | 2026-11-08 | Hardware/Radio/FIPS | No probe, serial device or board accessed; no flash, RF, host-throughput or FIPS test performed; checklist bench/FIPS items remain open |
+| 2026-11-08 | Publication | After explicit approvals, pushed commit `2f26764eeb251356588acaa907d6482f5417861a` and opened upstream PR [#478](https://github.com/felixfelix-bot/balloon-fresh/pull/478). The PR has five scoped files and no CI checks registered at creation |
