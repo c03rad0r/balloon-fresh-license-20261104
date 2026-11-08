@@ -701,6 +701,41 @@ make the board. Please make sure its part of the git hooks and agents.md."*
     `schematic → ERC 0 violations → netlist → board → kicad-cli DRC 0 → 9 custom gates → render`.
     A board commit is legitimate only when every step BEFORE it is green. Rendering or routing
     ahead of a clean schematic is how connectivity gets invented.
+
+    **21a. DRC 0 means DRC 0 after pattern-derived exclusions, not 0 raw records.**
+    Measured 2026-11-08: `kicad-cli pcb drc` reports **11 `unconnected_items` records** on the
+    live board for **10 distinct pairs** (the F.Cu↔In1 GND pair is reported twice, once from each
+    side) and **5 genuine copper opens**. "DRC 0" as a raw record count is unsatisfiable by
+    construction on this board, for two reasons that are design, not defects:
+
+    * **Two-face wing lands.** Each pad number on `J_W1..J_W4` is backed by **two SMD pad objects**
+      on *disjoint* copper layers, identical bounding box, no barrel — measured **16 of 16** pads
+      across all four connectors. ADR-120 R1 says these complete in **assembly** via the two-face
+      tab, so no board copper can ever join them. Counting them makes this gate unreachable, and
+      the only way to satisfy it would be drawing copper across a wing-socket cavity, which §13a
+      forbids.
+    * **GND zone-to-zone records.** Three records are the stitcher's accounting between separate
+      ZONE objects on one net, not broken copper: **46 of 48** GND vias sit on filled copper on
+      F.Cu, B.Cu *and* In1.Cu (`ZONE.HitTestFilledArea`, which tests filled copper rather than
+      outline containment).
+
+    The exemption is therefore **a pattern derived from the board, never a hand-written list** —
+    a stale allowlist is how real defects hide. Implemented in
+    `tracker/hardware/check_unconnected_exclusions.py`, which:
+
+    * derives the two-face pattern itself (2+ objects, same footprint+number, identical bbox,
+      disjoint copper layers, none PTH);
+    * refuses to exclude a track/track pair unless the net's **component graph proves every
+      component reaches a same-net pad** — copper ending in mid-air is REAL and counts;
+    * **prints every exclusion and its reason on every run** — a silent exclusion is
+      indistinguishable from a bug;
+    * **requires `--expect-real N`** and exits non-zero without it. A gate that passes when the
+      caller omits an argument will eventually pass a broken board: verified by planting a
+      floating stub, which flipped REAL 5→6 and failed the gate.
+
+    Current authoritative count: **5 REAL opens** (`/EN`, `/SPI2_SCK`, `/F33_VSENSE`, `/VSCAP` at
+    R_BAL1, `/VSCAP` zone↔C_CAP1), all blocked by S1 pad geometry, with the four pad-local traps
+    being 2× stricter than JLCPCB's published 0.09 mm process minimum.
 22. **When a gate fires on correct input, the GATE is wrong — fix the gate, never the input.**
     Measured 2026-10-22: G3 flagged 8 `UNCONNECTED-(U1-IOxx-PADnn)` nets as "schematic nets
     missing from the board", while G4 (per-net pin sets) and G5 (registry agreement) both passed.

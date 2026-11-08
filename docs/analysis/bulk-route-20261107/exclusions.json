@@ -1,0 +1,112 @@
+{
+ "board": "DRCLIVE.kicad_pcb",
+ "drc": "drc-live.json",
+ "counts": {
+  "REAL": 5,
+  "TWO_FACE": 3,
+  "GND_ANCHOR": 2,
+  "DUPLICATE": 1
+ },
+ "real": 5,
+ "records": [
+  {
+   "n": 1,
+   "class": "REAL",
+   "why": "copper genuinely not connected",
+   "items": [
+    "Pad 4 [/SPI2_SCK] of U1 on F.Cu",
+    "Pad 12 [/SPI2_SCK] of U2 on F.Cu"
+   ]
+  },
+  {
+   "n": 2,
+   "class": "REAL",
+   "why": "copper genuinely not connected",
+   "items": [
+    "Pad 21 [/F33_VSENSE] of U1 on F.Cu",
+    "Track [/F33_VSENSE] on B.Cu, length 3.8000 mm"
+   ]
+  },
+  {
+   "n": 3,
+   "class": "REAL",
+   "why": "copper genuinely not connected",
+   "items": [
+    "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0",
+    "PTH pad 1 [/VSCAP] of C_CAP1"
+   ]
+  },
+  {
+   "n": 4,
+   "class": "REAL",
+   "why": "copper genuinely not connected",
+   "items": [
+    "Track [/VSCAP] on F.Cu, length 1.0687 mm",
+    "Pad 1 [/VSCAP] of R_BAL1 on F.Cu"
+   ]
+  },
+  {
+   "n": 5,
+   "class": "TWO_FACE",
+   "why": "tracks on B.Cu, and F.Cu, with no via between; same topology as the two-face lands",
+   "items": [
+    "Track [/W2_SOLAR_N] on B.Cu, length 0.1414 mm",
+    "Track [/W2_SOLAR_N] on F.Cu, length 1.2000 mm"
+   ]
+  },
+  {
+   "n": 6,
+   "class": "TWO_FACE",
+   "why": "J_W4.1 has 2 SMD objects on B.Cu,F.Cu, identical bbox, no PTH -> completes in assembly (ADR-120 R1)",
+   "items": [
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu"
+   ]
+  },
+  {
+   "n": 7,
+   "class": "TWO_FACE",
+   "why": "J_W3.4 has 2 SMD objects on B.Cu,F.Cu, identical bbox, no PTH -> completes in assembly (ADR-120 R1)",
+   "items": [
+    "Pad 4 [/W3_SOLAR_N] of J_W3 on B.Cu",
+    "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu"
+   ]
+  },
+  {
+   "n": 8,
+   "class": "GND_ANCHOR",
+   "why": "zone-to-zone inside the GND pour",
+   "items": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_In1' [GND] on In1.Cu, priority 0"
+   ]
+  },
+  {
+   "n": 9,
+   "class": "GND_ANCHOR",
+   "why": "zone-to-zone inside the GND pour",
+   "items": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_In1' [GND] on In1.Cu, priority 0"
+   ]
+  },
+  {
+   "n": 10,
+   "class": "DUPLICATE",
+   "why": "same pair as record 8, reversed",
+   "items": [
+    "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ]
+  },
+  {
+   "n": 11,
+   "class": "REAL",
+   "why": "copper genuinely not connected",
+   "items": [
+    "Pad 3 [/EN] of U1 on F.Cu",
+    "PTH pad 3 [/EN] of J_PROG"
+   ]
+  }
+ ]
+}
