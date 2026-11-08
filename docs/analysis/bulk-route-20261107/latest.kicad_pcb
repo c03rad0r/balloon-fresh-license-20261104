@@ -381,7 +381,7 @@
 				)
 			)
 		)
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -2.979646 -2.875)
 			(end -1.979646 -2.875)
@@ -2932,7 +2932,7 @@
 				)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -1.61 -1.61)
 			(end -1.135 -1.61)
@@ -3447,7 +3447,7 @@
 				)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -4.96 -5.16)
 			(end -4.96 -5.01)
@@ -5188,7 +5188,7 @@
 				)
 			)
 		)
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -2.979646 -2.875)
 			(end -1.979646 -2.875)
@@ -10059,7 +10059,7 @@
 				)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -1.65 2.6)
 			(end -1.65 2.1)
@@ -11525,7 +11525,7 @@
 				)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 19.5 -10.5)
 			(end 19.5 10.5)
@@ -12738,7 +12738,7 @@
 				(justify mirror)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 0.91 1.56)
 			(end 0.91 1.51)
@@ -13611,7 +13611,7 @@
 				(justify mirror)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -0.91 -1.56)
 			(end -0.91 -1.51)
@@ -14263,7 +14263,7 @@
 				(justify mirror)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -0.91 -1.56)
 			(end -0.91 -1.51)
@@ -14866,7 +14866,7 @@
 				(justify mirror)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -0.91 1.56)
 			(end 0.91 1.56)
