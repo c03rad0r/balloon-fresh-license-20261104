@@ -15,6 +15,12 @@
 #ifndef LR2021_E80_COMPAT
 #define LR2021_E80_COMPAT 0
 #endif
+#ifndef LR2021_NICERF_C3
+#define LR2021_NICERF_C3 0
+#endif
+#ifndef LR2021_NICERF_BRCODE_650
+#define LR2021_NICERF_BRCODE_650 0x04
+#endif
 
 // ═══════════════════════════════════════════════════════════════════
 // MockLr2021Radio implementation
@@ -255,8 +261,9 @@ Lr2021Error EspIdfLr2021Radio::hardware_reset() {
     // E80 demo reset requires a substantial low pulse; the 2.4 GHz carrier's
     // shorter 200 us pulse is retained for the non-E80 build.
     gpio_set_level((gpio_num_t)LR2021_PIN_RST, 0);
-#if LR2021_E80_COMPAT
-    vTaskDelay(pdMS_TO_TICKS(20));
+#if LR2021_NICERF_C3
+    vTaskDelay(pdMS_TO_TICKS(1));
+#elif LR2021_E80_COMPAT
 #else
     esp_rom_delay_us(200);
 #endif
@@ -290,8 +297,18 @@ uint8_t EspIdfLr2021Radio::bitrate_to_brbw(uint32_t bitrate_kbps) {
         case 2080: return 0x01;
         case 1300: return 0x02;
 #if LR2021_E80_COMPAT
-        case 650:  return 0x04; // E80/Semtech: 650 kbps / 740 kHz
-        case 325:  return 0x06; // E80/Semtech: 325 kbps / 370 kHz
+        case 650:
+#if LR2021_NICERF_C3
+            return LR2021_NICERF_BRCODE_650;
+#else
+            return 0x04; // E80/Semtech: 650 kbps / 740 kHz
+#endif
+        case 325:
+#if LR2021_NICERF_C3
+            return 0x04;
+#else
+            return 0x06; // E80/Semtech: 325 kbps / 370 kHz
+#endif
 #else
         case 650:  return 0x03;
         case 325:  return 0x04;
@@ -343,6 +360,82 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
     if (err != Lr2021Error::Ok) return err;
 
 #if LR2021_E80_COMPAT
+#if LR2021_NICERF_C3
+    /* NiceRF + ESP32-C3 carrier: electrical init only. Air-format values stay
+     * identical to the E80 path so an S3 can be used as an independent peer.
+     * The bare carrier established XOSC operation but not the E80's explicit
+     * external-TCXO settings, so leave its device-profile power control alone. */
+    payload_length_ = config.payload_length;
+    auto step = [&](std::initializer_list<uint8_t> bytes) -> Lr2021Error {
+        return cmd(bytes.begin(), bytes.size());
+    };
+
+    err = step({0x01, 0x11, 0x00, 0x00});             // CLEAR_ERRORS
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x01, 0x28, 0x01});                   // STANDBY_XOSC
+    if (err != Lr2021Error::Ok) return err;
+    vTaskDelay(pdMS_TO_TICKS(5));
+    err = step({0x02, 0x07, 0x05});                   // PACKET_TYPE = FLRC
+    if (err != Lr2021Error::Ok) return err;
+
+    uint32_t hz = (uint32_t)(config.freq_mhz * 1000000.0f + 0.5f);
+    err = step({0x02, 0x00,
+                (uint8_t)(hz >> 24), (uint8_t)(hz >> 16),
+                (uint8_t)(hz >> 8), (uint8_t)hz});    // frequency in Hz
+    if (err != Lr2021Error::Ok) return err;
+
+    bool sub_ghz = config.freq_mhz < 1000.0f;
+    err = step({0x02, 0x01, (uint8_t)(sub_ghz ? 0x00 : 0x01), 0x00});
+    if (err != Lr2021Error::Ok) return err;
+
+    uint16_t fe = (uint16_t)(hz / 4000000UL);
+    if (!sub_ghz) fe |= 0x8000;                       // HF-only flag
+    err = step({0x01, 0x23, (uint8_t)(fe >> 8), (uint8_t)fe,
+                0, 0, 0, 0, 0, 0});                  // CALIB_FRONT_END
+    if (err != Lr2021Error::Ok) return err;
+    vTaskDelay(pdMS_TO_TICKS(5));
+    err = step({0x01, 0x22, 0x5F});                   // carrier CALIBRATE
+    if (err != Lr2021Error::Ok) return err;
+    vTaskDelay(pdMS_TO_TICKS(5));
+
+    err = step({0x01, 0x12, 0x09, 0x11});             // DIO9 = IRQ/pulldown
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x02, 0x48, bitrate_to_brbw(config.bitrate_kbps), 0x17});
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x02, 0x4C, 0x01,
+                config.sync_word[0], config.sync_word[1],
+                config.sync_word[2], config.sync_word[3]});
+    if (err != Lr2021Error::Ok) return err;
+
+    uint8_t pkt_params[4];
+    build_packet_params(config, pkt_params);
+    err = step({0x02, 0x49, pkt_params[0], pkt_params[1],
+                pkt_params[2], pkt_params[3]});
+    if (err != Lr2021Error::Ok) return err;
+
+    if (sub_ghz) {
+        err = step({0x02, 0x02, 0x00, 0x76, 0x10});   // LF PA
+    } else {
+        err = step({0x02, 0x02, 0x80, 0x00, 0x60, 0x07, 0x10});
+    }
+    if (err != Lr2021Error::Ok) return err;
+
+    int power = (int)config.tx_power_dbm * 2;
+    if (power < 0) power = 0;
+    if (power > 44) power = 44;
+    err = step({0x02, 0x03, (uint8_t)power, 0x04});   // 20 us ramp
+    if (err != Lr2021Error::Ok) return err;
+    err = step({0x02, 0x06, 0x03});                   // fallback = FS
+    if (err != Lr2021Error::Ok) return err;
+
+    err = step({0x01, 0x15, 0x09, 0x00, 0x4C, 0x00, 0x00}); // DIO9 mask
+    if (err != Lr2021Error::Ok) return err;
+    err = cmd(Lr2021Opcodes::OP_CLR_TX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_TX_FIFO));
+    if (err != Lr2021Error::Ok) return err;
+    err = cmd(Lr2021Opcodes::OP_CLR_RX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_RX_FIFO));
+    if (err != Lr2021Error::Ok) return err;
+    return cmd(Lr2021Opcodes::OP_CLEAR_IRQ, sizeof(Lr2021Opcodes::OP_CLEAR_IRQ));
+#else
     /* E80-900MBL-02 / LR2021 sub-GHz path. These bytes and this ordering come
      * from firmware/e80-stm32-bench and its vendored Semtech lr20xx driver,
      * not from the 2.4 GHz NiceRF carrier defaults. In particular SET_RF_FREQ
@@ -424,6 +517,7 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
     err = cmd(Lr2021Opcodes::OP_CLR_RX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_RX_FIFO));
     if (err != Lr2021Error::Ok) return err;
     return cmd(Lr2021Opcodes::OP_CLEAR_IRQ, sizeof(Lr2021Opcodes::OP_CLEAR_IRQ));
+#endif // LR2021_NICERF_C3
 #else
     // Step 1: CLEAR_ERRORS
     err = cmd(Lr2021Opcodes::OP_CLEAR_ERRORS, sizeof(Lr2021Opcodes::OP_CLEAR_ERRORS));

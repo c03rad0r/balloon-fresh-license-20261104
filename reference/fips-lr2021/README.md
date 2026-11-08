@@ -25,6 +25,9 @@ RP2040 bridge firmware, configs and test scripts.
 - **Planning the IPv6/data-plane fix?** `docs/IPV6-DATA-PLANE-PLAN.md` contains
   the failure analysis, the 100-frame acceptance gate, and the deferred
   Wirehair/FEC evaluation.
+- **Repairing additional radio endpoints?** `docs/CARRIER-RECOVERY-PLAN.md` keeps
+  the C3/Pico/native recovery steps, measured bidirectional C3 proof and the
+  half-duplex CSMA/CA implementation checklist.
 - **No physical access?** `docs/FLASHING-WITHOUT-BUTTONS.md` — both ESP32 and
   RP2040 can be reflashed over USB with no button press.
 - **Picking up this work?** `docs/LEARNINGS.md` first, then `docs/OTA-PROOF-PLAN.md`.
@@ -148,6 +151,9 @@ virtual end-to-end success is not a substitute for RF verification.
 | `docs/LEARNINGS.md` | every hard-won finding, so future sessions don't rediscover them |
 | `docs/OTA-PROOF-PLAN.md` | staged plan to prove an over-the-air frame |
 | `docs/IPV6-DATA-PLANE-PLAN.md` | IPv6 failure analysis, link acceptance gate and deferred Wirehair/FEC plan |
+| `docs/CARRIER-RECOVERY-PLAN.md` | Other radio endpoint recovery, C3 DIO9 proof and half-duplex CSMA/CA checklist |
+| `tests/hardware/http-speed.sh` | FIPS-namespace HTTP goodput meter with a mandatory 0%-loss ping gate |
+| `tests/hardware/per.sh` | EU-868, 128-byte reciprocal PER/echo qualification |
 
 ## Known limitations
 

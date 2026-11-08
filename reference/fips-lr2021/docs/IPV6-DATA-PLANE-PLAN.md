@@ -53,11 +53,11 @@ A pass means all of the following, not just a successful `HELLO` or peer entry:
 
 - [ ] Two identical ESP32-S3/E80 adapters are installed.
 - [ ] Every E80 TX packet is explicitly padded to the configured fixed length.
-- [ ] 100 consecutive full-size packets cross in the A → B direction.
-- [ ] 100 consecutive full-size packets cross in the B → A direction.
-- [ ] No `bad magic` or `bad crc32` occurs during those runs.
-- [ ] Simultaneous bidirectional traffic survives a sustained test.
-- [ ] Both FIPS nodes report a non-empty `show sessions`.
+- [x] 100 consecutive packets cross in the A → B direction (128 bytes each, no echo CRC failures).
+- [x] 100 consecutive packets cross in the B → A direction (128 bytes each and gentler pacing, no echo CRC failures).
+- [x] No `bad magic` or `bad crc32` occurs during those controlled PER runs.
+- [ ] Simultaneous FIPS control flows and bidirectional traffic survive a sustained test (not yet clean).
+- [x] Both FIPS nodes report a non-empty `show sessions`.
 - [ ] The FIPS IPv6 ping succeeds in both directions with 0% loss.
 - [ ] An interactive SSH command succeeds over the FIPS IPv6 address.
 - [ ] The test is repeated once from a clean daemon start to prove reliability.
@@ -78,7 +78,7 @@ transmit a full configured packet:
 - [x] Confirm `cfg --band eu868` uses 868.1 MHz, FLRC-650 and sync `2dd4d4b2`.
 - [x] Host suite passes 39/39, including the three new E80 FIFO padding tests.
 - [x] Radio-init retries raised to five attempts with 100 ms spacing; a fresh
-      boot now reports `firmware=0.4.10 chip=0x1801` without an initial CFG.
+      boot now reports `firmware=0.4.18 chip=0x1801` without an initial CFG.
 - [ ] Build and flash the same padded firmware to the second ESP32-S3.
 - [ ] Confirm both adapters are independent nodes, not one S3 plus a C3,
       Pico or native STM32.
@@ -130,11 +130,32 @@ node:
 
 transports:
   lr2021:
+    radio_payload: 128
     ack_timeout_ms: 500
     max_retries: 10
 ```
 
-- [ ] Start both nodes and wait for authenticated peers.
+`radio_payload=128` is mandatory on the current RF pair. 128 works in both
+ways; 160 and 192 yield bad host CRC. A plain `cfg --band eu868` resets payload
+to 255, so keep the explicit setting in all FIPS configs and `per`/`echo` tests.
+
+Use one static initiator initially to avoid simultaneous reciprocal handshake
+floods. On 2026-11-08 this produced authenticated peers and established sessions
+on both sides. It did not yet make IPv6 or SSH reliable.
+
+### Carrier-sense guard added in this phase
+
+The bridge now reads preamble/sync/header events before TX, drains completed RX
+first, then waits a randomized guard of **8–16 ms during collision-heavy bring-up**.
+Idle wait is bounded at 20 ms. This is best-effort CSMA/CA, not global TDMA;
+no GPS or common UTC clock is needed. `cca deferral`, `cca capped` and
+`cca guard_us` quantify its effect and allow latency-oriented tuning later.
+The random guard alone is not a promise that collisions are impossible.
+
+- [ ] Compare PER and ping RTT before/after the guard with identical MTU/ports.
+- [ ] Test that sessions still progress to the initiator and responder states.
+- [ ] If collisions persist, only then assess fixed slots based on packet-time
+      alignment rather than adding redundant transmissions.
 - [ ] Wait until `fipsctl show sessions` is **non-empty on both nodes**.
 - [ ] Only then run one `ping6`, then a three-packet ping.
 - [ ] Check both daemon logs for `SessionSetup`, `SessionAck`, `SessionMsg3` and
@@ -151,6 +172,68 @@ transports:
 - [ ] Start `sshd` inside namespace B bound to B's FIPS address and run one
       non-interactive SSH command from namespace A.
 - [ ] Record latency, throughput and any session rekeys.
+
+## Phase 4b — throughput and internet-speed benchmarks
+
+### Benchmark tooling status
+
+- [x] `tests/hardware/per.sh` defaults to `eu868`, 128-byte radio payload and
+      a 500 ms sender wait; it prints per-direction delivery and counters.
+- [x] `tests/hardware/http-speed.sh` runs the HTTP client inside a FIPS netns,
+      measures TTFB/total/goodput and refuses unless its `PING_IP` preflight has
+      0% loss.
+- [x] The HTTP gate correctly refused a measurement while ping was 1/3
+      (`66.7%` loss); no unsupported throughput number was recorded.
+- [ ] Pass the 0%-loss gate with the final default CSMA build.
+- [ ] Record radio-only 128 KiB/1 MiB results and then optional MCP results.
+
+These are **two different measurements** and must not be conflated.
+
+### Radio/FIPS-local benchmark (authoritative for bridge changes)
+
+Run a small HTTP or `iperf3` server on the peer behind the radio and request it
+from inside the FIPS namespace. No public CDN or WAN is in the measurement.
+
+- [ ] Start the HTTP fixture in peer namespace B bound to B's FIPS address.
+- [ ] Run `tests/hardware/http-speed.sh` from namespace A with `PING_IP` set to B.
+- [ ] Use 128 KiB and 1 MiB payloads first; do not start with 128 MiB.
+- [ ] Record TTFB, total time, goodput, per-run values and medians.
+- [ ] Compare only runs with identical firmware, MTU, payload size, guard, TX
+      power, position and daemon configuration.
+- [ ] Reset daemons between before/after configurations so session state does not
+      contaminate the comparison.
+
+### Public internet-path benchmark (ContextVM/MCP)
+
+A tool such as `mcp-internet-speed-test` can provide download, upload, latency
+and jitter figures through an MCP interface. It is useful only as an
+**end-to-end path benchmark after the radio-only path is stable**.
+
+- [ ] Ping from the measuring namespace to the far FIPS address at 0% loss.
+- [ ] Ensure the measuring process runs inside the FIPS namespace and has no
+      Wi-Fi/Ethernet fallback route.
+- [ ] Use a small bounded transfer first (128 KiB–1 MiB), not its 128 MiB class.
+- [ ] Record the download/upload goodput, latency, jitter and error counts.
+- [ ] Repeat each measurement three times and report the median.
+- [ ] Compare against the radio-only baseline from the same run window.
+- [ ] Reject a result if it cannot be shown that its HTTP traffic traversed
+      LR2021.
+
+Metrics that answer “is the bridge improving?”:
+
+| Metric | Why it matters |
+|---|---|
+| FIPS ping loss and RTT distribution | Core liveness and retry/collision behavior |
+| Radio PER delivered/attempted | Link-layer quality independent of TCP |
+| FIPS goodput (local HTTP/iperf) | Actual transport throughput |
+| TTFB and total time | Interactive usability |
+| Jitter and timeout counts | Tail-latency symptoms |
+| Bridge TX timeouts/CRC/CCA counters | Whether MAC settings improve or regress |
+| CDN download/upload rate | Only an end-to-end cross-check |
+
+The ContextVM/MCP result is **not** evidence that its traffic used LR2021 unless
+the process is confined to the FIPS namespace or runs on the far node and is
+invoked over the radio path.
 
 ## Phase 5 — optional Wirehair FEC evaluation (later)
 

@@ -21,6 +21,7 @@ enum BridgeKind : uint8_t {
   BR_EVT = 8,
   BR_PING = 9,
   BR_PONG = 10,
+  BR_CFG_EXT = 11, // optional slot-role/clock extension; old bridges ignore it
 };
 
 struct BridgeFrame {
@@ -123,6 +124,25 @@ struct CfgPayload {
   bool relay = false;
   bool sub_ghz = true;
 };
+
+// Optional frame sent before BR_CFG by newer hosts. The node ID selects the
+// TX slot (id & 1); epoch_ms is the host's Unix time and establishes a shared
+// slot phase across machines. Old bridges ignore the unknown frame kind.
+struct CfgExtPayload {
+  uint32_t local_id = 0;
+  uint64_t epoch_ms = 0;
+};
+
+static inline bool cfgExtDecode(const uint8_t* p, uint16_t len, CfgExtPayload& out) {
+  if (len != 12) return false;
+  out.local_id = (uint32_t)p[0] | ((uint32_t)p[1] << 8) |
+                 ((uint32_t)p[2] << 16) | ((uint32_t)p[3] << 24);
+  out.epoch_ms = 0;
+  for (int i = 0; i < 8; i++) {
+    out.epoch_ms |= ((uint64_t)p[4 + i]) << (8 * i);
+  }
+  return true;
+}
 
 static inline bool cfgDecode(const uint8_t* p, uint16_t len, CfgPayload& out) {
   if (len != 15) return false;

@@ -25,17 +25,36 @@
 #include "lr2021_spi.h"
 #include "bridge_protocol.h"
 
-static const uint8_t FW_VERSION[3] = {0, 4, 10};
-static const uint16_t CAPS = 0x0007;
-
 #ifndef LR2021_E80_COMPAT
 #define LR2021_E80_COMPAT 0
 #endif
+#ifndef LR2021_NICERF_C3
+#define LR2021_NICERF_C3 0
+#endif
+#ifndef LR2021_ENABLE_TDMA
+#define LR2021_ENABLE_TDMA 0
+#endif
+
+#if LR2021_NICERF_C3
+static const uint8_t FW_VERSION[3] = {0, 5, 8};
+#else
+static const uint8_t FW_VERSION[3] = {0, 4, 18};
+#endif
+static const uint16_t CAPS = 0x0007;
+
 #if LR2021_E80_COMPAT
 static constexpr uint32_t E80_IRQ_RX_DONE = 1UL << 18;
 static constexpr uint32_t E80_IRQ_TX_DONE = 1UL << 19;
 static constexpr uint32_t E80_IRQ_CRC_ERROR = 1UL << 22;
+static constexpr uint32_t E80_RX_IN_PROGRESS =
+    (1UL << 5) | (1UL << 6); // LR20XX preamble / syncword-header valid
 #endif
+
+static uint32_t gCcaDeferrals, gCcaTimeouts, gCcaLastGuardUs;
+static bool gSlotConfigured;
+static uint8_t gSlotRole;
+static uint64_t gHostEpochOffsetMs;
+static uint32_t gSlotWaitMs;
 
 static EspIdfLr2021Radio gRadio;
 static Lr2021Config gRadioCfg;
@@ -48,6 +67,8 @@ static uint32_t gLastOkMs, gLastInitMs;
 static bool gRadioOk;
 
 static uint32_t now_ms(void) { return (uint32_t)(esp_timer_get_time() / 1000); }
+static uint64_t local_ms(void) { return (uint64_t)(esp_timer_get_time() / 1000); }
+static uint64_t wall_ms(void) { return local_ms() + gHostEpochOffsetMs; }
 
 static void sendFrame(uint8_t kind, const uint8_t *payload, uint16_t len)
 {
@@ -109,9 +130,98 @@ static bool radioApply(const CfgPayload &cfg)
     return gRadioOk;
 }
 
+static void handleRx(void);
+
+/* Best-effort CSMA/CA for one half-duplex radio per endpoint. The
+ * radio tells us about an incoming preamble/sync/header before a full packet
+ * arrives. Defer to that reception, then jitter our own TX so overlapping
+ * retries from two nodes do not occupy the same slots. If the status read
+ * fails, apply the guard anyway instead of permanently blocking the link. */
+static void channelGuard(void)
+{
+#if LR2021_E80_COMPAT
+    bool exceeded = true;
+    for (int iteration = 0; iteration < 20; iteration++) {
+        uint32_t irq = 0;
+        if (!lr2021_ok(gRadio.get_irq_status(irq))) break;
+        if (!(irq & (E80_RX_IN_PROGRESS | E80_IRQ_RX_DONE | E80_IRQ_CRC_ERROR))) {
+            exceeded = false;
+            break;
+        }
+
+        gCcaDeferrals++;
+        if (irq & (E80_IRQ_RX_DONE | E80_IRQ_CRC_ERROR)) {
+            /* Deliver a completed RX before entering TX. This also clears
+             * latched progress/complete bits before the next check. */
+            handleRx();
+        } else {
+            vTaskDelay(pdMS_TO_TICKS(1));
+        }
+    }
+    if (exceeded) gCcaTimeouts++;
+#else
+    vTaskDelay(pdMS_TO_TICKS(1));
+#endif
+
+    /* Fixed-slot fallback for a repeated two-node collision regime. The host
+     * epoch provides a common coarse phase; the LR2021 oscillator remains the
+     * only RF-timing clock. Opposite link-ID parity selects the 40 ms window. */
+    gSlotWaitMs = 0;
+    if (gSlotConfigured) {
+        constexpr uint64_t SLOT_MS = 40;
+        constexpr uint64_t CYCLE_MS = SLOT_MS * 2;
+        constexpr uint64_t EDGE_MS = 5;
+        uint64_t phase = wall_ms() % CYCLE_MS;
+        uint64_t start = (uint64_t)gSlotRole * SLOT_MS + EDGE_MS;
+        uint64_t wait = 0;
+        if (phase < start) {
+            wait = start - phase;
+        } else if (phase >= (uint64_t)gSlotRole * SLOT_MS + SLOT_MS - EDGE_MS) {
+            wait = CYCLE_MS - phase + start;
+        }
+        gSlotWaitMs = (uint32_t)wait;
+        /* Serve RX while waiting. Sleeping through another node's slot can
+         * otherwise leave RX_DONE latched and let the following TX clear it. */
+        for (uint32_t elapsed = 0; elapsed < gSlotWaitMs; elapsed++) {
+            handleRx();
+            vTaskDelay(pdMS_TO_TICKS(1));
+        }
+        uint32_t irq = 0;
+        if (lr2021_ok(gRadio.get_irq_status(irq)) &&
+            (irq & (E80_RX_IN_PROGRESS | E80_IRQ_RX_DONE | E80_IRQ_CRC_ERROR))) {
+            handleRx();
+            for (int drain = 0; drain < 8; drain++) {
+                if (!lr2021_ok(gRadio.get_irq_status(irq)) ||
+                    !(irq & E80_RX_IN_PROGRESS)) break;
+                vTaskDelay(pdMS_TO_TICKS(1));
+            }
+            handleRx();
+        }
+    }
+
+    /* Different seeds on S3 and C3 plus xorshift state prevent identical
+     * retry epochs. With fixed slots this is only a small intra-slot guard;
+     * without the extension keep the wider standalone CSMA guard. */
+    static uint32_t seed =
+#if LR2021_NICERF_C3
+        0xC3A1105Eu;
+#else
+        0x53B14A11u;
+#endif
+    seed ^= seed << 13;
+    seed ^= seed >> 17;
+    seed ^= seed << 5;
+    gCcaLastGuardUs = gSlotConfigured ? 500 + (seed % 1001)
+                                     : 8000 + (seed % 8001);
+    esp_rom_delay_us(gCcaLastGuardUs);
+}
+
 static void txPacket(const uint8_t *data, size_t len)
 {
     if (!gRadioOk || len == 0 || len > gCfg.radio_payload) return;
+
+    /* Take turns on the air before asking the radio to transmit. */
+    channelGuard();
 
     gRadio.send_packet(data, len);
     gTx++;
@@ -120,7 +230,14 @@ static void txPacket(const uint8_t *data, size_t len)
     bool done = false;
     uint32_t start = now_ms();
     while ((now_ms() - start) < 60) {
-#if LR2021_E80_COMPAT
+#if LR2021_NICERF_C3
+        /* NiceRF's established carrier driver polls DIO9 because the status
+         * register is unreliable on this chip. */
+        if (lr2021_ok(gRadio.check_irq(asserted)) && asserted) {
+            done = true;
+            break;
+        }
+#elif LR2021_E80_COMPAT
         /* Poll the status register directly. This also works if DIO8 is not
          * routed to the host, and is the method used by the RP2040 bridge. */
         uint32_t irq = 0;
@@ -163,7 +280,17 @@ static void handleRx(void)
 {
     if (!gRadioOk) return;
 
-#if LR2021_E80_COMPAT
+#if LR2021_NICERF_C3
+    /* DIO9 is the reliable receive notification on this carrier. */
+    bool asserted = false;
+    if (!lr2021_ok(gRadio.check_irq(asserted)) || !asserted) return;
+    /* Preamble/sync-enabled IRQs are a busy indication, not RX_DONE. Leave
+     * those events latched so channelGuard defers until the packet completes. */
+    uint32_t irq = 0;
+    if (lr2021_ok(gRadio.get_irq_status(irq)) &&
+        (irq & E80_RX_IN_PROGRESS) &&
+        !(irq & (E80_IRQ_RX_DONE | E80_IRQ_CRC_ERROR))) return;
+#elif LR2021_E80_COMPAT
     uint32_t irq = 0;
     if (!lr2021_ok(gRadio.get_irq_status(irq))) return;
     if (!(irq & (E80_IRQ_RX_DONE | E80_IRQ_CRC_ERROR))) return;
@@ -172,7 +299,9 @@ static void handleRx(void)
     if (!lr2021_ok(gRadio.check_irq(asserted)) || !asserted) return;
 #endif
 
-#if LR2021_E80_COMPAT
+#if LR2021_NICERF_C3
+    bool phy_crc_error = false;
+#elif LR2021_E80_COMPAT
     bool phy_crc_error = (irq & E80_IRQ_CRC_ERROR) != 0;
     if (phy_crc_error) gCrc++;
     if (!(irq & E80_IRQ_RX_DONE) && !phy_crc_error) {
@@ -238,6 +367,22 @@ static void handleFrame(const BridgeFrame &f)
 {
     switch (f.kind) {
     case BR_HELLO: handleHello(); break;
+    case BR_CFG_EXT: {
+        CfgExtPayload ext;
+        if (cfgExtDecode(f.payload, f.len, ext)) {
+            gSlotRole = (uint8_t)(ext.local_id & 1u);
+            gHostEpochOffsetMs = ext.epoch_ms - local_ms();
+#if LR2021_ENABLE_TDMA
+            gSlotConfigured = true;
+#endif
+            char msg[64];
+            snprintf(msg, sizeof(msg), "slot role=%u id=%lu epoch_ms=%llu",
+                     (unsigned)gSlotRole, (unsigned long)ext.local_id,
+                     (unsigned long long)ext.epoch_ms);
+            sendFrame(BR_EVT, (const uint8_t *)msg, (uint16_t)strlen(msg));
+        }
+        break;
+    }
     case BR_CFG:   handleCfg(f); break;
     case BR_TX:    txPacket(f.payload, f.len); break;
     case BR_PING:
@@ -252,6 +397,15 @@ static void handleFrame(const BridgeFrame &f)
                      (unsigned)packets, (unsigned)crc_errors,
                      (unsigned)length_errors, (int)e);
             sendFrame(BR_EVT, (const uint8_t *)msg, (uint16_t)strlen(msg));
+        }
+        {
+            char mm[96];
+            snprintf(mm, sizeof(mm),
+                     "cca deferral=%u capped=%u guard_us=%u slot_role=%u slot_wait_ms=%u",
+                     (unsigned)gCcaDeferrals, (unsigned)gCcaTimeouts,
+                     (unsigned)gCcaLastGuardUs, (unsigned)gSlotConfigured ? (unsigned)gSlotRole : 9,
+                     (unsigned)gSlotWaitMs);
+            sendFrame(BR_EVT, (const uint8_t *)mm, (uint16_t)strlen(mm));
         }
 #endif
         break;
@@ -270,7 +424,8 @@ extern "C" void app_main(void)
     gCfg.frequency_hz = 868100000UL;
     gCfg.bitrate_kbps = 650;
     gCfg.tx_power_dbm = 14;
-    gCfg.radio_payload = 255;
+    gCfg.radio_payload = 128; // Stable FIFO/data path on current S3/C3 bench.
+                              // 160/192 fails host link CRC on this RF pair.
     gCfg.relay = false;
     gCfg.sub_ghz = true;
     memcpy(gCfg.sync_word, "\x2D\xD4\xD4\xB2", 4);

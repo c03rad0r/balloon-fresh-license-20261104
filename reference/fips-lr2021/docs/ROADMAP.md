@@ -132,6 +132,28 @@ IPv6 testing was attempted.
 - [ ] Larger-payload plus fragmented-message validation
 - [ ] Document MTU interaction: FIPS TUN 1280 vs link MTU 1400
 
+## Phase 5a — half-duplex medium access control
+
+The LR2021 radios have independent oscillators; host retries have independent
+timebases, not a common wireless scheduler. Reduce collisions before increasing
+symbol rate.
+
+- [x] CSMA/CA guard: inspect preamble/sync/header RX events before TX
+- [x] Drain completed RX before switching to TX
+- [x] Bounded 20 ms waiting plus randomized **8–16 ms** TX guard
+  (bring-up tuning; reduce only after stability is measured)
+- [x] Independent host-side retry epochs on S3 and C3
+- [x] User-visible CCA counters (deferrals, capped waits, last guard)
+- [ ] Before/after comparison at 128-byte payload on both directions
+- [ ] Established FIPS session and ping on both directions
+- [ ] Optional later scheduled slots only if CSMA/CA cannot stabilize the link
+- [x] Optional 40 ms link-ID slot experiment implemented but **disabled** after
+      it underperformed CSMA on delivery (see carrier-recovery plan)
+- [ ] Rerun TDMA only after RX handling/background traffic is characterized
+
+Implementation details and live checklist:
+`docs/CARRIER-RECOVERY-PLAN.md` (Phase 2b).
+
 ## Phase 5 — throughput
 
 Measure, do not estimate.

@@ -13,9 +13,10 @@ using them as FIPS transports.
 | SPI bypass without STM32 contention | **verified; S3 controls and reads the LR2021 directly** |
 | First S3 → native-E80 frames | **verified: 20 valid frames at −46 to −49 dBm** |
 | Full-size 255-byte native-E80 → S3 frames | **verified: `flrc_rx valid=20 crc=0`** |
-| 64-byte payload delivery in each direction | **verified: 5/5 accepted by `echo` each way** |
+| 128-byte payload delivery in each direction | **verified: 100/100 accepted by `echo` each way at the measured RF ceiling** |
 | FIPS Noise handshake between independent radios | **verified: authenticated, connected peers in two namespaces** |
-| Deterministic fixed-size TX padding | **implemented in firmware 0.4.10; 39/39 host tests pass** |
+| FIPS end-to-end session | **verified: initiator and responder established on both nodes** |
+| Deterministic fixed-size TX padding | **implemented in S3 0.4.18 / C3 0.5.8; 39/39 host tests pass** |
 | Sustained, larger-payload bidirectional transfer | **not yet verified; needs a second working S3** |
 | FIPS IPv6 ping | **fails so far; not claimed to work** |
 | SSH over the radios | **not yet verified** |
@@ -241,7 +242,7 @@ fips-lr2021ctl --serial "$PORT" status
 The reference adapter answered:
 
 ```text
-protocol=1 firmware=0.4.10 chip=0x1801 capabilities=0x0007
+protocol=1 firmware=0.4.18 chip=0x1801 capabilities=0x0007
 pong
 tx=0 rx=0 crc=0 drops=0 timeouts=0 resets=0
 ```
@@ -253,7 +254,7 @@ A successful `hello` still does **not** prove RF interoperability.
 For a fresh version read, configure both adapters identically:
 
 ```bash
-fips-lr2021ctl --serial "$PORT" --sync-word 2dd4d4b2 cfg --band eu868
+fips-lr2021ctl --serial "$PORT" --sync-word 2dd4d4b2 cfg --band eu868 --radio-payload 128
 ```
 
 Expected reference event and configuration:
@@ -335,7 +336,7 @@ Both nodes share this radio profile:
 
 ```yaml
 band: eu868              # 868.1 MHz, FLRC-650, +14 dBm
-radio_payload: 255
+radio_payload: 128
 sync_word: "2dd4d4b2"
 mtu: 1400
 ack_timeout_ms: 200
@@ -386,7 +387,7 @@ transports:
     baud: 2000000
     band: eu868
     local_id: 1
-    radio_payload: 255
+    radio_payload: 128
     sync_word: "2dd4d4b2"
     mtu: 1400
     ack_timeout_ms: 200
