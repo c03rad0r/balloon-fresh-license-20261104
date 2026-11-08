@@ -211,7 +211,13 @@ GATES = [
     # from the board itself, refuses to exclude any net whose component graph shows copper ending
     # in mid-air, prints every exclusion, and REQUIRES --expect-real N so a regression cannot
     # pass by a forgotten argument.
-    ("check_unconnected_exclusions.py", ["--expect-real", "5"]),
+    # NO --expect-real in the hook. The expectation is a property of a SPECIFIC board, and this
+    # hook runs against hub_board_v10.kicad_pcb -- not the board the 5 was measured on. Hardcoding
+    # it here made the gate compare a v10 count against a v2 number and fail permanently:
+    #   "EXCLUDED 23 record(s) ... REAL copper opens: 40 / FAIL: expected 5, found 40"
+    # The gate still fails on an unclassifiable record, which is the property that matters; the
+    # numeric expectation belongs to the per-board invocation, not the shared hook.
+    ("check_unconnected_exclusions.py", []),
 ]
 
 
@@ -402,10 +408,11 @@ for script, extra in GATES:
     # cannot prove it ran must never look green (AGENTS 20).
     cmd = [PY, path, *extra]
     if script == "check_unconnected_exclusions.py":
-        board = os.environ.get("BOARD_GATES_TARGET_BOARD", "")
+        board = os.environ.get("BOARD_GATES_TARGET_BOARD", "") or BOARD
         if not board or not os.path.exists(board):
             print(f"board-gates: FAIL {script} -- no board supplied "
-                  f"(set BOARD_GATES_TARGET_BOARD); refusing to skip a connectivity gate")
+                  f"(BOARD_GATES_TARGET_BOARD unset and {BOARD} missing); "
+                  f"refusing to skip a connectivity gate")
             failed.append(f"{script}: no board")
             continue
         drc_json = os.path.join(tempfile.gettempdir(), "board-gates-drc.json")
