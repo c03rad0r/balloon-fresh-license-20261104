@@ -162,6 +162,7 @@ None.
 | 141 | `141-drill-minimum-020-fab-limit.md` | Drill minimum is 0.20 mm, set by the fab, not by us — removes 34 permanent `drill_out_of_range` violations | Accepted |
 | 142 | `142-wing-socket-edge-exemption-does-not-extend-to-tracks.md` | The wing-socket edge exemption stays pad-only: no `.kicad_dru` form reaches a track at the socket edge (measured, 7 forms), and those tracks cross a board edge — the remaining 3 pairs complete in assembly via the two-face tab | Accepted |
 | 143 | `143-hv-lane-discipline-by-stack-position.md` | H/V lane discipline assigned by STACK POSITION (F=H, In1=V, In2=H, B=V), never by layer ID — every copper id on these boards is even, so an odd/even rule is inert. Reference board measures 50.5 % conformance, so the gate ships REPORT-ONLY; strict mode is for fresh layouts | **Accepted** — applies to future routing; blocking only after this board is ordered |
+| 144 | `144-two-face-lands-and-gnd-anchors-excluded.md` | Two-face wing lands (16 pads, 2 SMD objects per number, disjoint layers, no barrel) and GND zone-anchor records are EXCLUDED from the unconnected count — derived from geometry, never a hand list; the remaining 5 REAL opens are not excused | **Accepted** |
 | ≥044 | *(reserved)* | next free: `scripts/adr_next_number.py` → 086 | — |
 
 ## Non-conforming filenames (not `NNN-description.md`)
