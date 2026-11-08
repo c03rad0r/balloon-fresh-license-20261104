@@ -179,5 +179,12 @@ fetch plus its compressed bytes:
 # list every member (267 entries) from the tail of the archive
 python3 docs/analysis/zenodo_extract.py --list
 # extract the members used above
-python3 docs/analysis/zenodo_extract.py --get README.md     'firmware\libraries\OpenFLRC_Library\src\OpenFLRC.cpp'     'measurements\phase1_dynamic_load\FLRC_2.4GHz\sx1280_throughput_data_v6.csv'
+python3 docs/analysis/zenodo_extract.py --get README.md \
+    'firmware\libraries\OpenFLRC_Library\src\OpenFLRC.cpp' \
+    'measurements\phase1_dynamic_load\FLRC_2.4GHz\sx1280_throughput_data_v6.csv'
 ```
+
+**Do not send a browser User-Agent for these range requests.** Measured: with a Chrome UA the CDN
+returns **763 bytes** for a 65536-byte range request (no EOCD present); without it, the same range
+returns all 65536 bytes with the EOCD at offset 65514. That single difference was the cause of
+three rounds of "no End-Of-Central-Directory found" — the archive was never the problem.
