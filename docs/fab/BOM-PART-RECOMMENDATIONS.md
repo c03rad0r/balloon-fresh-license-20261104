@@ -28,6 +28,13 @@ needs a deliberate decision.
 | `C_HF` | **CL05B104KO5NNNC** 100 nF 0402 (C1525) | **X7R**, **16 V**, ±10 % | **Good.** X7R is the correct class for decoupling, 16 V gives 3× on a 5.4 V rail |
 | `C_MON` | **CL05B103KB5NNNC** 10 nF 0402 (C15195) | **X7R**, **50 V**, ±10 % | **Good.** The low-leakage class matters here: it sits on `/F33_VSENSE`, a high-impedance sense node, so a leaky dielectric would corrupt the reading. X7R at 50 V is right |
 
+**Superseded by `docs/fab/CAP-VOLTAGE-AUDIT.md`, which is more careful than this section was.**
+That audit first called both parts failures under a blanket 1.5× derating, then corrected itself:
+5.4 V is a *construction bound* (2 × 2.7 V cells cannot exceed it), so 86 % utilisation is **legal**,
+not a violation. The reason to change `C_BULK` is DC-bias capacitance loss, not voltage rating — and
+it found the concrete replacement, `C312983` (10 V, same 1206 footprint, no board change).
+Read that document for the reasoning; the summary below is kept for the rail arithmetic only.
+
 **⚠ The 10 µF and 100 µF are both X5R at 6.3 V.** Rails:
 
 ```
@@ -41,9 +48,11 @@ DC bias, and a 6.3 V-rated part run at 5.4 V typically gives back **only about h
 capacitance**. The 100 µF bulk is there to hold up the F33's PA during TX bursts; delivering ~50 µF
 instead is a real functional difference.
 
-**Recommendation:** for `C_BULK`, **move to a 16 V X5R or X7R 1206 100 µF** (e.g. the 16 V part in the
-same CL31 family). It costs a few cents. `C10`/`C4` at 3.3 V are fine as they are — 6.3 V is a
-sensible 2× derating at that voltage.
+**Recommendation (per CAP-VOLTAGE-AUDIT.md):** `C_BULK` → **`C312983`**, muRata
+`GRM31CR61A107ME05L`, 100 µF, **10 V**, X5R, 1206. Same footprint, so no board change; 54 % of rating
+instead of 86 %, which is much further up the DC-bias curve. `C10`/`C4` **stay**: 10 µF at ≥10 V does
+not exist in 0402 (the audit checked C1856527, C19702, C15850, C181790 — the ≥10 V ones are 0603 or
+0805). Moving them is a v11 footprint change, not an order-time fix.
 
 **This is a change to a line that currently has a valid number**, so I have written it down rather
 than changed the BOM without asking.
@@ -104,8 +113,11 @@ now make it concrete.
 
 ## What I recommend changing, in priority order
 
-1. **`C_BULK` → a 16 V X5R/X7R 100 µF 1206.** It is run at 86 % of its voltage rating on a rail that
-   genuinely reaches 5.4 V, and X5R DC-bias derating will halve it. Cheapest, highest-value change.
+1. **`C_BULK` → `C312983`** (muRata GRM31CR61A107ME05L, 100 µF **10 V** X5R 1206, same footprint).
+   Not because 6.3 V is illegal — it is legal at 86 % of a bounded rail — but because X5R DC-bias at
+   86 % gives back 50–70 % of the nominal capacitance, and this part's whole job is storing charge
+   behind an ~1100 mA PA burst. Same cost class, no board change. **This is the one change worth
+   making before ordering.**
 2. **`R_MON1/2` → ±1 %.** A sense divider should not carry a 5 % tolerance.
 3. **Investigate `U7`'s 200 mA against the ESP32's 355 mA TX current.** Not a part swap — a
    question of whether that current path is real.
