@@ -536,6 +536,93 @@ def _seg_seg_dist(ax0, ay0, ax1, ay1, bx0, by0, bx1, by1, res=0.05):
     return best
 
 
+_REROUTE_BACKUP = {}
+_PAD_GROUPS = {}
+
+
+def _pad_components_of(board, netname):
+    """Group a net's pads by which existing piece of copper each already sits on.
+
+    Returns a list of pad-key lists, one list per copper component. Pads that share any copper --
+    a track, a via, or a filled zone reaching them -- land in the same group. This is the only
+    reliable way to ask "what still needs a track?": the pad list order says nothing about
+    connectivity. A net whose pads all share one component needs NO track; a net split into k
+    components needs exactly k-1, however many pads it has.
+    """
+    COPPER_L = [pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu]
+    objs = []
+    # ZONES FIRST. A filled zone is a conductor and it is frequently the thing that actually
+    # joins a net up: /VSCAP is carried by the B.Cu pour, so a pad/track-only union-find splits it
+    # into 11 islands that are electrically one net. (This is the third time this exact omission
+    # has produced a false "disconnected" verdict on this project -- a plane must be an object in
+    # the graph, or every zone-carried net lies.) A zone is modelled as one object that collides
+    # with any pad/track of the same net lying inside it, and zones of the same net touch each
+    # other where their outlines overlap.
+    zone_idx = []
+    for i in range(board.GetAreaCount()):
+        z = board.GetArea(i)
+        if (z.GetNetname() or "") != netname:
+            continue
+        zlays = set(z.GetLayerSet().Seq())
+        zone_idx.append(len(objs))
+        objs.append((zlays, z, None))
+    for t in board.GetTracks():
+        if (t.GetNetname() or "") != netname:
+            continue
+        lays = set(COPPER_L) if t.Type() == pcbnew.PCB_VIA_T else {t.GetLayer()}
+        objs.append((lays, t, None))
+    for fp in board.GetFootprints():
+        for pp in fp.Pads():
+            if (pp.GetNetname() or "") != netname:
+                continue
+            lays = {l for l in COPPER_L if pp.GetLayerSet().Contains(l)}
+            objs.append((lays, pp, (fp.GetReference(), pp.GetNumber())))
+    m = len(objs)
+    if not m:
+        return []
+    par = list(range(m))
+
+    def _find(a):
+        while par[a] != a:
+            par[a] = par[par[a]]
+            a = par[a]
+        return a
+
+    for i in range(m):
+        li, oi, _ = objs[i]
+        for j in range(i + 1, m):
+            lj, oj, _ = objs[j]
+            sh = li & lj
+            if not sh:
+                continue
+            hit = False
+            for lyr in sh:
+                try:
+                    s1 = oi.GetEffectiveShape(lyr)
+                    s2 = oj.GetEffectiveShape(lyr)
+                except Exception:
+                    continue
+                if s1 is None or s2 is None:
+                    continue
+                try:
+                    if pcbnew.SHAPE.Collide(s1, s2, 0):
+                        hit = True
+                        break
+                except Exception:
+                    continue
+            if hit:
+                ra, rb = _find(i), _find(j)
+                if ra != rb:
+                    par[ra] = rb
+    groups = {}
+    for i in range(m):
+        _, _, key = objs[i]
+        if key is None:
+            continue
+        groups.setdefault(_find(i), []).append(key)
+    return [g for g in groups.values() if g]
+
+
 def validate_plan(world, pitch, plan, own_keys, own_rects, code):
     """In-memory gate check on a planned route BEFORE any copper is written.
 
@@ -744,17 +831,41 @@ def main():
         # the gates caught it, but the router should never have produced it.
         #
         # A re-route must REPLACE the copper, so the old items are removed here before the pass.
+        #
+        # TWO MEASURED DEFECTS FIXED HERE (2026-11-09):
+        # (a) PCB_TRACK::Remove() invalidates the SWIG wrapper for the BOARD it removed from, so the
+        #     very next b.GetTracks() raised "'SwigPyObject' object has no attribute 'GetTracks'".
+        #     The old reload assigned the fresh board to a LOCAL while world["board"] kept the dead
+        #     reference, so the crash still happened -- after the partially-stripped board had
+        #     already been written to disk. Rebuilding the world is the only version that cannot
+        #     leave a dangling C++ pointer behind.
+        # (b) A FAILED re-route silently cost the net its copper: --nets /F33_VSENSE deleted 48
+        #     tracks, found no path, and saved the board with the net stripped. That turns "I could
+        #     not improve this" into "this net is now unwired", far worse than doing nothing. The
+        #     old copper is snapshotted here and RESTORED before saving for any net that fails.
+        global _REROUTE_BACKUP, _PAD_GROUPS
+        _REROUTE_BACKUP = {}
+        _PAD_GROUPS = {}
         removed = 0
         if reroute:
-            for t in list(b.GetTracks()):
-                if (t.GetNetname() or "") in reroute:
-                    b.Remove(t)
-                    removed += 1
+            # Read connectivity BEFORE removing anything: after the strip every pad is its own
+            # component and the real structure is unrecoverable.
+            for _n in reroute:
+                _PAD_GROUPS[_n] = _pad_components_of(b, _n)
+            doomed = [t for t in list(b.GetTracks()) if (t.GetNetname() or "") in reroute]
+            for t in doomed:
+                _REROUTE_BACKUP.setdefault(t.GetNetname(), []).append(t.Duplicate())
+            removed = len(doomed)
+            for t in doomed:
+                b.Remove(t)
             if removed:
                 print(f"B58: removed {removed} existing item(s) of {sorted(reroute)} before re-routing")
-                pcbnew.SaveBoard(args.board, b)
-                b = pcbnew.LoadBoard(args.board)
-                world["board"] = b
+        if removed:
+            pcbnew.SaveBoard(args.board, b)
+            world = load_world(args.board)
+            world["routed_segs"] = world.get("routed_segs") or []
+            world["routed_vias"] = world.get("routed_vias") or []
+            b = world["board"]
         for t in b.GetTracks():
             if reroute and t.GetNetname() in reroute:
                 continue  # this net is being re-routed -- its old copper must not block it
@@ -890,11 +1001,27 @@ def main():
         if len(uniq) < 2:
             continue
         keys = list(uniq.keys())
+        # CHOOSE THE PAIRS THAT ARE ACTUALLY UNCONNECTED, not just the dict order.
+        # Measured 2026-11-09: /F33_VSENSE has four pads in TWO copper components -- a 51-item
+        # island holding R_MON1.2 / R_MON2.1 / C_MON.1 (already joined) and U1.21 alone. Chaining
+        # `keys` in insertion order asked for R_MON2.1 -> R_MON1.2, a pair that ALREADY shares 51
+        # items of copper, so the search failed on its own occupied cells, the net was reported
+        # unrouted, and the single pair that genuinely needs a track was never attempted.
+        # One representative pad per component is enough: k components need exactly k-1 tracks.
+        groups = [[kk for kk in g if kk in uniq] for g in _PAD_GROUPS.get(name, [])]
+        groups = [g for g in groups if g]
+        if len(groups) > 1:
+            reps = [g[0] for g in groups]
+            pair_list = list(zip(reps[:-1], reps[1:]))
+            print(f"B59: {name} has {len(groups)} copper components -> routing "
+                  f"{[(a[0]+'.'+a[1], c[0]+'.'+c[1]) for a, c in pair_list]}")
+        else:
+            pair_list = list(zip(keys[:-1], keys[1:]))
         # route pads in sequence: first -> each subsequent (chain), which is what a
         # multi-pad net needs on a single layer pair
         ok_all = True
         plan = []
-        for a_key, c_key in zip(keys[:-1], keys[1:]):
+        for a_key, c_key in pair_list:
             (a_sides, a_rect) = uniq[a_key]
             (c_sides, c_rect) = uniq[c_key]
             # start on the START pad's own layer, finish on the GOAL pad's own layer.
@@ -1074,6 +1201,28 @@ def main():
     if nfps < args.expect_footprints:
         raise SystemExit(f"REFUSED: refusing to save a board with only {nfps} footprints "
                          f"(clobber guard -- expected >= {args.expect_footprints})")
+
+    # RESTORE THE COPPER OF ANY NET UNDER RE-ROUTE THAT DID NOT ROUTE.
+    # The strip above happens unconditionally; without this a failed search would SAVE the board
+    # with the net missing. Measured 2026-11-09 on /F33_VSENSE: 48 tracks deleted, no path found,
+    # board saved stripped. Restoring keeps "could not improve" from becoming "net destroyed".
+    routed_names = {n for n, _ in routed}
+    for netname, saved_items in (_REROUTE_BACKUP or {}).items():
+        if netname in routed_names:
+            continue                      # better copper replaced it; leave the old out
+        net = b.FindNet(netname)
+        if net is None:
+            b.Add(pcbnew.NETINFO_ITEM(b, netname))
+            net = b.FindNet(netname)
+        n_restored = 0
+        for t in saved_items:
+            dup = t.Duplicate()
+            dup.SetNet(net)
+            b.Add(dup)
+            n_restored += 1
+        print(f"RESTORED {n_restored} item(s) of unre-routed net {netname} "
+              f"(re-route failed; old copper kept rather than losing the net)")
+
     pcbnew.SaveBoard(args.board, b)
     print(f"saved {args.board}")
     return 0
