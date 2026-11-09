@@ -38,7 +38,8 @@ about 1.6 ms. Retries/backoff/queueing dominate.
 
 ## Phase 1 — duplicate-aware instrumentation
 
-- [ ] Count unique delivered sequences, not just attempts or echo frames.
+- [x] Count unique delivered sequences, not just attempts or echo frames
+      (`per.sh` now prints and enforces `unique_payloads`).
 - [x] Record bad-magic/CRC with frame length and 12-byte header prefix in host debug logs.
 - [ ] Record first differing byte for CRC-failed deterministic payloads.
 - [x] Capture send/receive and failed-frame events in the native transport debug log.
@@ -84,7 +85,8 @@ Decision rule:
 - [ ] Both FIPS peers connected and both XK sessions established.
 - [ ] 50/50 IPv6 replies each direction with sequential requests.
 - [ ] A second 50/50 run after at least one session rekey.
-- [ ] No ping-gate bypass in benchmark scripts.
+- [x] No ping-gate bypass in benchmark scripts (`ping-gate.sh` requires 0% in
+      both directions; `http-speed.sh` refuses without a 0%-loss preflight).
 
 Only then:
 
