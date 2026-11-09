@@ -26,7 +26,7 @@ Operator decisions this reflects:
 | Castellated holes | **YES** | 4 wing sockets are edge-launched |
 | Board colour / mask / silk | green / white / white | CHOICE |
 | Quantity | **10** | operator |
-| Assembly | **Both sides** — 19 top, 4 bottom | CORRECTED 2026-11-09: `D_BP1..D_BP4` are BOTTOM-side. This row previously said "Top side, economic PCBA / all placements are top", which is FALSE and would have produced a single-sided assembly order with four diodes missing. Counted from pcbnew on board `92ff3705`; see `make_cpl_from_board.py`, which prints the side split from the board. |
+| Assembly | **Double-sided PCBA** — 19 top, **4 bottom** | CORRECTED 2026-11-09: `D_BP1..D_BP4` are BOTTOM-side. This row previously said "Top side, economic PCBA / all placements are top", which is FALSE and would have produced a single-sided order with four diodes missing. Measured from `pcbnew` on the board of record: 19 not-flipped, 4 flipped. Ask JLC for a **double-sided** assembly quote. |
 
 ## BOM — what JLC places (14 lines, 23 placements)
 
