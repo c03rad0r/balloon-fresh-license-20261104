@@ -33,15 +33,23 @@ cp $B/assembly-partial/asm-cpl-jlc.csv   "$OUT/CPL.csv"
 ls -la "$OUT" "$OUT/gerbers"
 ```
 
-**What you should see:** `GERBERS.zip`, `BOM.csv`, `CPL.csv`, and 15 files in `gerbers/`
-(13 gerber layers + 2 drill files). The drill file must contain **196 holes**.
+**What you should see:** `GERBERS.zip`, `BOM.csv`, `CPL.csv`, and **28 files** in `gerbers/`
+— 20 gerbers, 6 `.gbr` documentation/adhesive/User layers, a `.gbrjob`, and `latest.drl`.
+This is exactly the set the committed `fab-11opens/` package contains, which was verified
+byte-identical to the board. Extra `User_*` layers are harmless; JLC ignores what it does not use.
 
 Sanity check the drill before uploading — this is the number that catches a stale export:
 
 ```bash
-grep -c '^X' "$OUT"/gerbers/*.drl | head
-# expect 196 total across the .drl files
+grep -c '^X' "$OUT"/gerbers/*.drl
+# expect exactly 196
+#   12 x 0.200 mm  (U1 thermal pad - NOT vias)
+#  161 x 0.300 mm  (all vias, 0.600 land, 0.150 annulus)
+#   15 x 1.000 mm
+#    8 x 2.500 mm  (NPTH mounting)
 ```
+
+If it is not 196, the export is stale or the board hash check above was skipped. Stop.
 
 ---
 
