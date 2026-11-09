@@ -31,7 +31,7 @@ delete them; they cost nothing and the job file references them.
 |---|---|---|
 | Base material | FR-4 | — |
 | Layers | **4** | board is 4-layer |
-| Dimensions | **72.10 × 80.10 mm** | measured from Edge.Cuts bounding box |
+| Dimensions | **72.00 × 80.00 mm** | centreline; the 72.10 × 80.10 bbox includes the 0.100 mm Edge.Cuts stroke | measured from Edge.Cuts bounding box |
 | Board thickness | **1.600 mm** | `GetBoardThickness()` = 1.600 mm |
 | Copper weight | **1 oz** outer / **0.5 oz** inner | S1 assumed the ≥4-layer 0.5/1 oz stack; all minimums quoted against it |
 | Surface finish | **HASL (lead-free)** | cheapest that meets the 0.13 mm via annulus; ENIG only needed for fine-pitch assembly, which this order is not |
@@ -97,3 +97,15 @@ Drill: 188 plated + 8 NPTH (mounting). Please do NOT normalise any drill size.
 Four 0.5 x 6.0 mm slots on the board edges are intentional (wing sockets) - Edge.Cuts.
 Do not panel in a way that puts the socket slots on a break-away edge.
 ```
+
+> **CORRECTION 2026-11-09 — the dimension above is the STROKE-INFLATED BBOX, not the order size.**
+> Registry entry: `docs/ssot/parameters.json` → `hub_v10_board_extent`.
+> Owner: `docs/analysis/FINDING-board-extent-centreline-vs-bbox.md`.
+>
+> The board has ONE `Edge.Cuts` `PCB_SHAPE` (`SHAPE_T_RECT`) with a **0.100 mm stroke**. Measured:
+> **centreline 72.000 × 80.000 mm**; stroke-inflated bbox **72.100 × 80.100 mm**, origin (−0.050, −0.050).
+> Both are correct measurements of different things. **Order 72.00 × 80.00**, and use **H = 80.000**
+> in a CPL transform — using 80.100 shifts every placement +0.100 mm in Y, which is a clean constant
+> offset and therefore survives mean-based sanity checks.
+>
+> Reproduce: `python3 tracker/hardware/tmp_probes/outline_extent.py`.
