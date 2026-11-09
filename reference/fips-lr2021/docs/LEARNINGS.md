@@ -119,7 +119,7 @@ Read `docs/E80-ESP32-S3-FIPS-ONBOARDING.md` before repeating any of this work.
 - Copying the STM32's 304 us ramp/STDBY_RC fallback, adding front-end calib,
   changing every TX packet length and enabling PRAM were tried individually;
   they regressed or did not fix this RF pair. The working E80 bypass build is
-  firmware 0.4.10. Do not stack these unvalidated modifications again.
+  firmware 0.4.21. Do not stack these unvalidated modifications again.
 - **Short TX packets must be explicitly zero-padded.** With fixed-length FLRC,
   writing fewer bytes than the configured packet length left the tail undefined.
   The current build pads through `payload_length` (tests in

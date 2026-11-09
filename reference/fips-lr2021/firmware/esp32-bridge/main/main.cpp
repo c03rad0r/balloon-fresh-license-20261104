@@ -36,9 +36,9 @@
 #endif
 
 #if LR2021_NICERF_C3
-static const uint8_t FW_VERSION[3] = {0, 5, 8};
+static const uint8_t FW_VERSION[3] = {0, 5, 11};
 #else
-static const uint8_t FW_VERSION[3] = {0, 4, 18};
+static const uint8_t FW_VERSION[3] = {0, 4, 21};
 #endif
 static const uint16_t CAPS = 0x0007;
 
@@ -438,7 +438,10 @@ extern "C" void app_main(void)
     uint32_t lastStat = now_ms();
 
     for (;;) {
-        int n = usb_serial_jtag_read_bytes(buf, sizeof(buf), pdMS_TO_TICKS(20));
+        /* Service radio RX on a ~1 ms cadence. A 128-byte FLRC frame occupies
+         * only ~1.6 ms of airtime; a 20 ms USB wait lets back-to-back FIPS
+         * frames overrun the single RX FIFO. */
+        int n = usb_serial_jtag_read_bytes(buf, sizeof(buf), pdMS_TO_TICKS(1));
         if (n > 0 && gDecoder.push(buf, (size_t)n)) {
             BridgeFrame f;
             while (gDecoder.next(f)) handleFrame(f);

@@ -191,10 +191,10 @@ index 00000000..d41cd2f1
 +rand = "0.10"
 diff --git a/crates/fips-lr2021/src/bin/fips-lr2021ctl.rs b/crates/fips-lr2021/src/bin/fips-lr2021ctl.rs
 new file mode 100644
-index 00000000..f995fe65
+index 00000000..1576b49b
 --- /dev/null
 +++ b/crates/fips-lr2021/src/bin/fips-lr2021ctl.rs
-@@ -0,0 +1,475 @@
+@@ -0,0 +1,490 @@
 +//! `fips-lr2021ctl` — configure and exercise an LR2021 bridge.
 +
 +use std::io::{Read, Write};
@@ -247,6 +247,8 @@ index 00000000..f995fe65
 +        band: String,
 +        #[arg(long, default_value_t = 10)]
 +        seconds: u64,
++        #[arg(long)]
++        radio_payload: Option<u16>,
 +    },
 +    /// Send a small PER burst and report delivery.
 +    Per {
@@ -330,9 +332,20 @@ index 00000000..f995fe65
 +            Ok(())
 +        }
 +        Command::Status => status(&args.serial, args.baud),
-+        Command::Monitor { band, seconds } => {
++        Command::Monitor {
++            band,
++            seconds,
++            radio_payload,
++        } => {
 +            let band = Band::parse(&band).ok_or_else(|| format!("unknown band '{band}'"))?;
-+            monitor(&args.serial, args.baud, band, seconds, sync.clone())
++            monitor(
++                &args.serial,
++                args.baud,
++                band,
++                seconds,
++                radio_payload,
++                sync.clone(),
++            )
 +        }
 +        Command::Per {
 +            band,
@@ -478,12 +491,14 @@ index 00000000..f995fe65
 +    baud: u32,
 +    band: Band,
 +    seconds: u64,
++    radio_payload: Option<u16>,
 +    sync: Option<String>,
 +) -> Result<(), String> {
 +    let cfg = Lr2021Config {
 +        port: Some(serial.to_string()),
 +        baud: Some(baud),
 +        band: Some(band),
++        radio_payload,
 +        sync_word: sync,
 +        ..Lr2021Config::default()
 +    };
