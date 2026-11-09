@@ -78,7 +78,7 @@ transmit a full configured packet:
 - [x] Confirm `cfg --band eu868` uses 868.1 MHz, FLRC-650 and sync `2dd4d4b2`.
 - [x] Host suite passes 39/39, including the three new E80 FIFO padding tests.
 - [x] Radio-init retries raised to five attempts with 100 ms spacing; a fresh
-      boot now reports `firmware=0.4.18 chip=0x1801` without an initial CFG.
+      boot now reports `firmware=0.4.21 chip=0x1801` without an initial CFG.
 - [ ] Build and flash the same padded firmware to the second ESP32-S3.
 - [ ] Confirm both adapters are independent nodes, not one S3 plus a C3,
       Pico or native STM32.

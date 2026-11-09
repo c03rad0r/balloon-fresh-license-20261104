@@ -16,7 +16,7 @@ using them as FIPS transports.
 | 128-byte payload delivery in each direction | **verified: 100/100 accepted by `echo` each way at the measured RF ceiling** |
 | FIPS Noise handshake between independent radios | **verified: authenticated, connected peers in two namespaces** |
 | FIPS end-to-end session | **verified: initiator and responder established on both nodes** |
-| Deterministic fixed-size TX padding | **implemented in S3 0.4.18 / C3 0.5.8; 39/39 host tests pass** |
+| Deterministic fixed-size TX padding | **implemented in S3 0.4.21 / C3 0.5.11; 39/39 host tests pass** |
 | Sustained, larger-payload bidirectional transfer | **not yet verified; needs a second working S3** |
 | FIPS IPv6 ping | **fails so far; not claimed to work** |
 | SSH over the radios | **not yet verified** |
@@ -242,7 +242,7 @@ fips-lr2021ctl --serial "$PORT" status
 The reference adapter answered:
 
 ```text
-protocol=1 firmware=0.4.18 chip=0x1801 capabilities=0x0007
+protocol=1 firmware=0.4.21 chip=0x1801 capabilities=0x0007
 pong
 tx=0 rx=0 crc=0 drops=0 timeouts=0 resets=0
 ```

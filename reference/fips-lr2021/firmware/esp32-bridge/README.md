@@ -37,8 +37,8 @@ docker run --rm \
   bash -lc 'idf.py set-target esp32s3 && idf.py build'
 ```
 
-The firmware version currently reported by the validated S3 image is **0.4.18**
-(NiceRF C3: **0.5.8**).
+The firmware version currently reported by the validated S3 image is **0.4.21**
+(NiceRF C3: **0.5.11**).
 The build must set the main task stack to 8192 bytes (see `sdkconfig.defaults`)
 because large protocol/radio buffer paths otherwise cause a boot loop.
 
@@ -85,7 +85,7 @@ fips-lr2021ctl --serial /dev/ttyACMx status
 Expected healthy version:
 
 ```text
-protocol=1 firmware=0.4.18 chip=0x1801 capabilities=0x0007
+protocol=1 firmware=0.4.21 chip=0x1801 capabilities=0x0007
 ```
 
 `status` also emits cumulative FLRC packet/CRC/length statistics on this E80

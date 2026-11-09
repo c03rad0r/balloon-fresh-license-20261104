@@ -5,7 +5,7 @@ SSH or ContextVM/MCP speed measurements.
 
 ## Current state
 
-- S3/E80 firmware: `0.4.18`; NiceRF C3: `0.5.8`; both report `chip=0x1801`.
+- S3/E80 firmware: `0.4.21`; NiceRF C3: `0.5.11`; both report `chip=0x1801`.
 - 128-byte air packets pass controlled PER: 100/100 in each direction.
 - FIPS Noise peers and both end-to-end XK sessions establish.
 - IPv6 ping is still unreliable. Best observed:
@@ -14,6 +14,27 @@ SSH or ContextVM/MCP speed measurements.
   - Optional TDMA slots: one reply at 159 ms but worse delivery, so disabled.
 - HTTP benchmark correctly refuses to run unless its ping preflight is 0% loss.
 - SSH has reached `SSH2_MSG_SERVICE_ACCEPT` but has not completed a remote command.
+
+## Results from the 2026-11-09 bench session
+
+- Switching both endpoints to `node.mmp.mode: minimal` and
+  `node.session_mmp.mode: minimal` sharply reduced background loss.
+- At 14 dBm with minimal MMP, one 20-packet run achieved **20/20 both ways**;
+  at 3 and 6 dBm the best was 19–20/20 one way and 20/20 the other.
+- A 50-packet gate at 14 dBm/minimal MMP still failed: **49/50 (2%)** one
+  direction, with nine raw `bad magic` drops logged across both ends. Missing
+  sequences included 1–4 (route warm-up) and later isolated packets.
+- `ack_timeout_ms=100, max_retries=15` produced 20/20 both ways in one run;
+  `50 ms` regressed one 50-packet run to 43/50. 100 ms is retained for testing.
+- Re-enabling the fixed-slot experiment under minimal MMP gave 55%/25% loss,
+  so TDMA is rejected again and stays disabled.
+- Shortening the bridge USB host wait from 20 ms to 1 ms did not by itself make
+  50-packet ping reliable; direct PER remained 20/20 but FIPS startup can still
+  fail to exchange Noise frames.
+- The repeated failure mode is **not** merely low RSSI: valid 128-byte frames
+  arrive around −42 dBm while `bad magic`/CRC spans occur in bursts. It is not
+  yet proven whether the remaining cause is RX FIFO sequencing, FIPS control
+  bursts, or incomplete bridge RX event handling.
 
 ## Why it is unreliable
 

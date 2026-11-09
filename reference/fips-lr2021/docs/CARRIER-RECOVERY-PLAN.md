@@ -13,8 +13,8 @@ C3/Pico/E80 boards so the 100-frame link qualification in
 
 | Endpoint | Good evidence | Fault |
 |---|---|---|
-| S3 `34:85` | firmware 0.4.18, LR2021 `chip=0x1801`, padded full-size TX | retain as reference |
-| C3 `B0:A6` | firmware 0.5.8, LR2021 `chip=0x1801`, DIO9 TX/RX proven | qualified independent peer |
+| S3 `34:85` | firmware 0.4.21, LR2021 `chip=0x1801`, padded full-size TX | retain as reference |
+| C3 `B0:A6` | firmware 0.5.11, LR2021 `chip=0x1801`, DIO9 TX/RX proven | qualified independent peer |
 | C3 `B0:A6` | USB protocol and LR2021 version work | E80-focused firmware is wrong for this carrier; RX = 0, TX times out |
 | C3 `88:56` | bridge protocol works | old 0.3.0 firmware, `chip=0x0000` |
 | C3 `70:AF` | USB/ROM responds | not running bridge firmware, no RF evidence collected |
@@ -63,7 +63,7 @@ Checklist:
 - [x] Carrier LF/HF RX path and PA selection without blindly applying E80 TCXO
       settings to the bare module.
 - [x] Fixed-size padded TX shared with E80, with host tests still passing (39/39).
-- [x] S3 firmware behavior/version remains 0.4.18.
+- [x] S3 firmware behavior/version remains 0.4.21.
 - [x] Build C3 image, flash `B0:A6` remotely with `usb_reset`, record version 0.5.0.
 - [x] Verify `HELLO chip=0x1801` and `CFG --band eu868` succeeds.
 - [x] Measure TX completion: C3 `tx=12 timeouts=0` after DIO9 fix, previously timed out every burst.
