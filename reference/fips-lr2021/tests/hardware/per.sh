@@ -68,18 +68,23 @@ echo_pid=""
 "$ctl" --serial "$b" --sync-word "$sync" status >"$receiver_after" 2>&1 || true
 
 accepted="$(grep -c 'echo rx len=' "$echo_log" || true)"
+unique="$(awk -F'data=' '/echo rx len=/{print substr($2,1,8)}' "$echo_log" | sort -u | wc -l)"
 bad="$(grep -cE 'bad magic|bad crc32' "$echo_log" || true)"
 per_line="$(grep -E '^per:' "$logdir/sender-per.log" | tail -1 || true)"
 
 echo "RESULT direction=$direction band=$band payload=$payload size=$size count=$count timeout_ms=$timeout_ms"
 echo "$per_line"
-echo "responder_accepted=$accepted responder_link_errors=$bad logs=$logdir"
+echo "responder_accepted=$accepted unique_payloads=$unique responder_link_errors=$bad logs=$logdir"
 echo "sender_before: $(tail -1 "$sender_before")"
 echo "sender_after:  $(tail -1 "$sender_after")"
 echo "receiver_after: $(tail -1 "$receiver_after")"
 
-if [ "$accepted" -ne "$count" ]; then
-  echo "FAIL: responder accepted $accepted of $count" >&2
+if [ "$accepted" -ne "$count" ] || [ "$unique" -ne "$count" ]; then
+  echo "FAIL: responder accepted $accepted/$count, unique payloads $unique/$count" >&2
   exit 1
 fi
-echo "PASS: responder accepted $count/$count"
+if [ "$bad" -ne 0 ]; then
+  echo "FAIL: $bad host link CRC/framing errors" >&2
+  exit 1
+fi
+echo "PASS: responder accepted $count/$count unique payloads"

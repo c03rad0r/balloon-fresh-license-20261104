@@ -149,6 +149,7 @@ virtual end-to-end success is not a substitute for RF verification.
 | `docs/CARRIER-RECOVERY-PLAN.md` | Other radio endpoint recovery, C3 DIO9 proof and half-duplex CSMA/CA checklist |
 | `docs/PING-RELIABILITY-PLAN.md` | Active duplicate-aware ping reliability flow-control checklist |
 | `tests/hardware/http-speed.sh` | FIPS-namespace HTTP goodput meter with a mandatory 0%-loss ping gate |
+| `tests/hardware/ping-gate.sh` | strict bidirectional 50/50 IPv6 gate; blocks benchmarking on any loss |
 | `tests/hardware/per.sh` | EU-868, 128-byte reciprocal PER/echo qualification |
 
 ## Known limitations

@@ -17,8 +17,24 @@ BAND=eu868 RADIO_PAYLOAD=128 ./per.sh 20
 
 `per.sh` starts the echo responder, sends a bounded burst, prints the link-layer
 delivery count and both device status counters, and fails unless every transmitted
-payload was accepted. To test the reverse direction, swap `SERIAL_A` and
-`SERIAL_B` and set `DIRECTION=B_TO_A`.
+payload was accepted **and every accepted payload was unique**. This prevents
+retransmissions from being mistaken for distinct successful frames. To test the
+reverse direction, swap `SERIAL_A` and `SERIAL_B` and set `DIRECTION=B_TO_A`.
+
+## Strict ping gate
+
+A successful one-way ping is not enough. Before any HTTP, SSH or ContextVM/MCP
+measurement, both directions must pass with 0% loss:
+
+```bash
+NETNS_A=fips-lr-a NETNS_B=fips-lr-b \
+IP_A=fd99:3df2:2781:3573:7113:64b4:f4e8:df04 \
+IP_B=fdf6:54a7:a4e3:59f:e36e:cd9e:d101:8c08 \
+COUNT=50 INTERVAL=2 ./ping-gate.sh
+```
+
+Use `REKEY_WAIT=130 ./ping-gate.sh` to repeat the gate after at least one rekey
+cycle. A nonzero result blocks benchmarking. Record the ping logs when it fails.
 
 For a sample of each direction:
 
