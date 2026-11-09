@@ -150,8 +150,21 @@ def test_b58_append_deletes_rerouted_nets_copper():
     """
     s = src()
     assert "B58" in s, "B58 comment block missing -- the delete-old-copper fix may be reverted"
-    assert re.search(r"if \(t\.GetNetname\(\) or \"\"\) in reroute:\n\s+b\.Remove\(t\)", s), (
-        "B58 regression: --append no longer REMOVES a re-routed net's existing copper"
+    # Accept EITHER shape. The claim that matters is semantic: a b.Remove(t) call, guarded by a
+    # membership test of the track's netname in `reroute`, inside the reroute block. Pinning one
+    # exact line layout made this test fail on a pure hoist refactor (2026-11-09: the loop was
+    # lifted out of the `if reroute:` line and a `removed` counter added, which is the same
+    # behaviour and a BETTER diagnostic) -- so the old regex reported a regression that did not
+    # exist. A source-agreement test must still fail on removal, not on reindentation.
+    pattern = (
+        r"if\s+reroute:[^\n]*\n"                       # the reroute block
+        r"(?:[^\n]*\n){0,6}?"                         # the loop may be hoisted into it
+        r"\s*if\s+\(t\.GetNetname\(\)\s+or\s+\"\"\)\s+in\s+reroute:\n"
+        r"\s*b\.Remove\(t\)"
+    )
+    assert re.search(pattern, s), (
+        "B58 regression: --append no longer REMOVES a re-routed net's existing copper "
+        "(no guarded b.Remove(t) found in the reroute block)"
     )
 
 
