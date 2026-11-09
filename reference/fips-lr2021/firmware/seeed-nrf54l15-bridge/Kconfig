@@ -1,0 +1,12 @@
+mainmenu "Seeed nRF54L15 bridge"
+
+config SEEED_BRIDGE_UART_BAUD
+    int "Host UART baud rate"
+    default 115200
+    range 9600 4000000
+    help
+      Baud rate used for the framed host protocol on UART20. This is not a
+      claim that every configured rate is supported by the UART path or by a
+      connected host.
+
+source "Kconfig.zephyr"

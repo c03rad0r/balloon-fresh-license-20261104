@@ -29,7 +29,7 @@ Usage: scripts/seeed-usp.sh COMMAND [ROLE]
 Commands:
   setup                         Create the local venv, checkout and Zephyr SDK.
   doctor                        Report host/workspace/probe/serial prerequisites.
-  build per-rx|per-tx|flrp-initiator|flrp-slave
+  build per-rx|per-tx|flrp-initiator|flrp-slave|bridge-loopback
   flash per-rx|per-tx|flrp-initiator|flrp-slave   (requires PROBE)
   monitor                       Open the stock UART console (requires PORT).
 
@@ -147,13 +147,21 @@ role_settings() {
             EXTRA_CFLAGS+=" -DFLRP_API_IS_LOW_FREQUENCY=${FLRP_LOW_FREQ:-true}"
             EXTRA_CFLAGS+=" -DFLRP_API_CRYPTO_ENABLED=${FLRP_CRYPTO:-true}"
             ;;
+        bridge-loopback)
+            BUILD_NAME=seeed-bridge-loopback
+            SAMPLE_REL=
+            ;;
         *)
-            die "Unknown role '$role'. Expected per-rx, per-tx, flrp-initiator or flrp-slave."
+            die "Unknown role '$role'. Expected per-rx, per-tx, flrp-initiator, flrp-slave or bridge-loopback."
             ;;
     esac
 
     BUILD_DIR="$WORKSPACE/build/$BUILD_NAME"
-    APP_DIR="$USP_DIR/$SAMPLE_REL"
+    if [[ "$role" == bridge-loopback ]]; then
+        APP_DIR="$REFERENCE_DIR/firmware/seeed-nrf54l15-bridge"
+    else
+        APP_DIR="$USP_DIR/$SAMPLE_REL"
+    fi
 }
 
 require_workspace() {

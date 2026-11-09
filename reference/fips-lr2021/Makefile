@@ -23,6 +23,7 @@ SEED_USP = SEED_USP_WORKSPACE="$(SEED_USP_WORKSPACE)" \
 .PHONY: seeed-per-flash-rx seeed-per-flash-tx
 .PHONY: seeed-flrp-build-initiator seeed-flrp-build-slave
 .PHONY: seeed-flrp-flash-initiator seeed-flrp-flash-slave seeed-monitor
+.PHONY: seeed-bridge-host-test seeed-bridge-loopback-build
 
 all: host-test mock-e2e build-e80
 
@@ -76,6 +77,12 @@ seeed-flrp-flash-slave:
 
 seeed-monitor:
 	PORT="$(PORT)" BAUD="$(BAUD)" $(SEED_USP) monitor
+
+seeed-bridge-host-test:
+	./tests/host/run_seeed_bridge_test.sh
+
+seeed-bridge-loopback-build:
+	$(SEED_USP) build bridge-loopback
 
 clean:
 	rm -rf build firmware/rp2040-bridge/.pio
