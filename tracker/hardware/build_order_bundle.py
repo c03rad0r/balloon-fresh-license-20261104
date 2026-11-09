@@ -1,32 +1,43 @@
 #!/usr/bin/env python3
 """build_order_bundle.py -- assemble the exact set of files to upload to JLCPCB.
 
+TWO VARIANTS, because which one you pick is a real cost decision and not a detail:
+
+  (default)      double-sided: 23 placements, 19 top + 4 bottom.
+                 JLCPCB offers double-sided placement ONLY on Standard PCBA, so this forfeits the
+                 cheaper Economic tier and takes the full Standard fee structure.
+
+  --top-only     single-sided: 19 placements, all top. D_BP1..D_BP4 (SS24, SMA) move to the hand-fit
+                 list instead. Keeps ECONOMIC PCBA -- a materially different price -- at the cost of
+                 four large, easily hand-soldered diodes.
+
+Both variants are written, each in its own directory with its own zip, so whichever is chosen can be
+uploaded without regenerating anything.
+
 WHY
 ---
 The current gerbers are geometrically identical to the board of record (proved by
-verify_gerbers_fresh.py) but live in a directory called `fab-11opens`, which names a board state
-that no longer exists. A human uploading files reads directory names. The name is a defect even
-though the bytes are fine.
+verify_gerbers_fresh.py) but live in a directory called `fab-11opens`, which names a board state that
+no longer exists. A human uploading files reads directory names. The name is a defect even though the
+bytes are fine.
 
-This writes docs/fab/v10-order/ containing ONLY what JLCPCB needs, with names that say what they
-are, plus a README stating the settings. It also zips the whole thing, because JLCPCB accepts a
-single archive and that removes a class of upload mistake (forgetting a layer).
+This writes ONLY what JLCPCB needs, with names that say what they are. It zips the whole thing,
+because JLCPCB accepts a single archive and that removes a class of upload mistake (forgetting a
+layer).
 
 DNP parts are NOT in the BOM or CPL: they were stripped from the board attributes upstream
-(set_assembly_attributes.py) and the exports are derived (export_fab_files.py). This script does
-not re-derive them; it copies the derived pair so there is exactly one source of truth.
+(set_assembly_attributes.py) and the exports are derived (export_fab_files.py). This script does not
+re-derive them; it copies the derived pair so there is exactly one source of truth.
 """
+import csv
 import os
 import shutil
-import subprocess
 import sys
 import zipfile
 
 WT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC_GERB = os.path.join(WT, 'docs/analysis/bulk-route-20261107/fab-11opens')
 SRC_ASM = os.path.join(WT, 'docs/analysis/bulk-route-20261107/assembly-generated')
-OUT = os.path.join(WT, 'docs/fab/v10-order')
-GERB = os.path.join(OUT, 'gerbers')
 
 # Layers JLCPCB needs for a 4-layer board. Deliberately a whitelist: a User_* or Adhesive layer in
 # the archive is harmless but confusing, and a MISSING copper layer is fatal.
@@ -46,95 +57,104 @@ NEEDED = {
     'board-job.gbrjob': 'job',
 }
 
+# The only bottom-side placements on this board.
+BOTTOM = {'D_BP1', 'D_BP2', 'D_BP3', 'D_BP4'}
 
-def main():
-    if os.path.isdir(GERB):
-        shutil.rmtree(GERB)
-    os.makedirs(GERB, exist_ok=True)
 
-    missing = []
-    copied = []
-    for name, what in NEEDED.items():
-        src = os.path.join(SRC_GERB, name)
-        if not os.path.exists(src):
-            missing.append((name, what))
-            continue
-        shutil.copy2(src, os.path.join(GERB, name))
-        copied.append((name, what, os.path.getsize(src)))
+def read_csv(p):
+    with open(p, newline='') as f:
+        return list(csv.DictReader(f))
 
+
+def write_csv(p, rows, fields):
+    with open(p, 'w', newline='') as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def designators(row):
+    for d in (row.get('Designator') or '').replace('"', '').split(','):
+        d = d.strip()
+        if d:
+            yield d
+
+
+def build(top_only):
+    name = 'top-only' if top_only else 'double-sided'
+    out = os.path.join(WT, 'docs/fab', f'v10-order-{name}')
+    gerb = os.path.join(out, 'gerbers')
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    os.makedirs(gerb, exist_ok=True)
+
+    missing = [(n, w) for n, w in NEEDED.items() if not os.path.exists(os.path.join(SRC_GERB, n))]
     if missing:
         print('MISSING REQUIRED FILES -- cannot build a valid order:')
         for n, w in missing:
             print(f'  {n:28s} ({w})')
         sys.exit(1)
+    for n in NEEDED:
+        shutil.copy2(os.path.join(SRC_GERB, n), os.path.join(gerb, n))
 
-    print(f'gerbers: {len(copied)} files')
-    for name, what, sz in sorted(copied, key=lambda r: r[1]):
-        print(f'  {what:14s} {name:28s} {sz:>9,d} B')
+    bom = read_csv(os.path.join(SRC_ASM, 'bom-jlc.csv'))
+    cpl = read_csv(os.path.join(SRC_ASM, 'cpl-jlc.csv'))
+    hand = read_csv(os.path.join(SRC_ASM, 'hand-fit.csv'))
 
-    # ---- assembly files
-    asm_files = [('bom-jlc.csv', 'BOM (JLC format)'),
-                 ('cpl-jlc.csv', 'CPL / pick-and-place'),
-                 ('hand-fit.csv', 'hand-fit list (NOT sent to JLC)')]
-    for name, what in asm_files:
-        src = os.path.join(SRC_ASM, name)
-        if not os.path.exists(src):
-            print(f'MISSING assembly file: {src}')
-            sys.exit(1)
+    if top_only:
+        new_bom = []
+        for r in bom:
+            keep = [d for d in designators(r) if d not in BOTTOM]
+            if not keep:
+                continue                      # the whole row was bottom parts
+            r = dict(r)
+            r['Designator'] = ','.join(keep)
+            r['Quantity'] = str(len(keep))
+            new_bom.append(r)
+        bom = new_bom
+        cpl = [r for r in cpl if r['Designator'].strip() not in BOTTOM]
+        hand.append({
+            'Designator': ','.join(sorted(BOTTOM)),
+            'Val': 'SS24',
+            'Package': 'D_SMA',
+            'Quantity': str(len(BOTTOM)),
+            'Note': 'bottom-side; hand-solder so the order stays on Economic PCBA',
+        })
 
-    # BOM and CPL go IN the upload; hand-fit does not.
-    for name in ('bom-jlc.csv', 'cpl-jlc.csv'):
-        shutil.copy2(os.path.join(SRC_ASM, name), os.path.join(OUT, name))
-    shutil.copy2(os.path.join(SRC_ASM, 'hand-fit.csv'), os.path.join(OUT, 'hand-fit-NOT-FOR-JLC.csv'))
-    print('\nassembly:')
-    for name, what in asm_files:
-        print(f'  {what}')
+    write_csv(os.path.join(out, 'bom-jlc.csv'), bom,
+              ['Comment', 'Designator', 'Footprint', 'Quantity', 'LCSC Part #'])
+    write_csv(os.path.join(out, 'cpl-jlc.csv'), cpl, list(cpl[0].keys()))
+    write_csv(os.path.join(out, 'hand-fit-NOT-FOR-JLC.csv'), hand, list(hand[0].keys()))
 
-    # ---- zip exactly what gets uploaded
-    zpath = os.path.join(OUT, 'v10-jlcpcb-upload.zip')
-    if os.path.exists(zpath):
-        os.remove(zpath)
+    zpath = os.path.join(out, 'v10-jlcpcb-upload.zip')
     with zipfile.ZipFile(zpath, 'w', zipfile.ZIP_DEFLATED) as z:
-        for name in NEEDED:
-            z.write(os.path.join(GERB, name), f'gerbers/{name}')
-        z.write(os.path.join(OUT, 'bom-jlc.csv'), 'bom-jlc.csv')
-        z.write(os.path.join(OUT, 'cpl-jlc.csv'), 'cpl-jlc.csv')
-    print(f'\nzip: {os.path.relpath(zpath, WT)}  '
-          f'{os.path.getsize(zpath):,d} B  ({len(NEEDED) + 2} entries)')
+        for n in NEEDED:
+            z.write(os.path.join(gerb, n), f'gerbers/{n}')
+        z.write(os.path.join(out, 'bom-jlc.csv'), 'bom-jlc.csv')
+        z.write(os.path.join(out, 'cpl-jlc.csv'), 'cpl-jlc.csv')
 
-    # ---- counts for the README, measured not remembered
-    import csv
-    bom = list(csv.DictReader(open(os.path.join(OUT, 'bom-jlc.csv'))))
-    cpl = [r for r in csv.DictReader(open(os.path.join(OUT, 'cpl-jlc.csv'))) if r]
-
-    # A BOM is GROUPED by part (one row per distinct part, designators comma-joined); a CPL is one
-    # row per PLACEMENT. So the row counts legitimately differ -- 14 part rows vs 23 placements.
-    # Comparing len(bom) to len(cpl) is a category error, not a check. Expand the designator lists
-    # and compare SETS, which is the real invariant.
-    def designators(rows):
-        out = set()
-        for r in rows:
-            for d in (r.get('Designator') or '').replace('"', '').split(','):
-                d = d.strip()
-                if d:
-                    out.add(d)
-        return out
-
-    bom_set = designators(bom)
+    # ---- the real invariant: designator SETS, not row counts
+    bom_set = {d for r in bom for d in designators(r)}
     cpl_set = {r['Designator'].strip() for r in cpl if r.get('Designator', '').strip()}
     top = sum(1 for r in cpl if r.get('Layer', '').lower().startswith('t'))
     bot = sum(1 for r in cpl if r.get('Layer', '').lower().startswith('b'))
-
-    print(f'\nbom: {len(bom)} part rows -> {len(bom_set)} designators')
-    print(f'cpl: {len(cpl)} placements ({top} top / {bot} bottom) -> {len(cpl_set)} designators')
+    print(f'\n=== {name}')
+    print(f'  bom: {len(bom)} part rows -> {len(bom_set)} designators')
+    print(f'  cpl: {len(cpl)} placements ({top} top / {bot} bottom) -> {len(cpl_set)} designators')
     if bom_set != cpl_set:
-        print('FAIL: BOM and CPL designator SETS differ -- run check_order_files.py')
-        print(f'  only in BOM: {sorted(bom_set - cpl_set)}')
-        print(f'  only in CPL: {sorted(cpl_set - bom_set)}')
+        print('  FAIL: BOM and CPL designator SETS differ')
+        print(f'    only in BOM: {sorted(bom_set - cpl_set)}')
+        print(f'    only in CPL: {sorted(cpl_set - bom_set)}')
         sys.exit(1)
-    print(f'  designator sets match: {len(cpl_set)} parts, {len(cpl)} placements')
-
+    if top_only and bot:
+        print(f'  FAIL: --top-only requested but {bot} bottom placement(s) remain')
+        sys.exit(1)
+    print(f'  sets match: {len(cpl_set)} parts, {len(cpl)} placements')
+    print(f'  zip: {os.path.relpath(zpath, WT)}  {os.path.getsize(zpath):,d} B')
+    return out
 
 
 if __name__ == '__main__':
-    main()
+    build('--top-only' in sys.argv)
+    if '--both' in sys.argv:
+        build('--top-only' not in sys.argv)

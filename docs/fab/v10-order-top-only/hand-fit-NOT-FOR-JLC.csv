@@ -1,0 +1,8 @@
+Designator,Val,Package,Quantity,Note
+U_LORA1280,LoRa1280,LoRa1280,1,"fitted by hand, not placed by JLC"
+U3,U3,LoRa2021_Castellated,1,"fitted by hand, not placed by JLC"
+"HW1,HW2,HW3,HW4",STRING_NPTH_D2.5,MountingHole_2.5mm,4,"fitted by hand, not placed by JLC"
+"H1,H2,H3,H4",TETHER_NPTH_D2.5,MountingHole_2.5mm,4,"fitted by hand, not placed by JLC"
+J_VCC,F33_VCC_SEL (VSCAP | +3V3),SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm,1,"fitted by hand, not placed by JLC"
+"J_W1,J_W2,J_W3,J_W4",WING_SOCKET_4P,Wing_Tab_4P,4,"fitted by hand, not placed by JLC"
+"D_BP1,D_BP2,D_BP3,D_BP4",SS24,D_SMA,4,bottom-side; hand-solder so the order stays on Economic PCBA
