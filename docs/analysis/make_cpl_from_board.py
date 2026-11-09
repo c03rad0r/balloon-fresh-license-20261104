@@ -28,12 +28,32 @@ BOARD = os.path.join(HERE, "bulk-route-20261107", "latest.kicad_pcb")
 OUT = os.path.join(HERE, "bulk-route-20261107", "assembly-partial", "asm-cpl-jlc.csv")
 
 b = pcbnew.LoadBoard(BOARD)
-bb = b.GetBoardEdgesBoundingBox()
-H = bb.GetHeight() / 1e6
-X0 = bb.GetLeft() / 1e6
-Y0 = bb.GetTop() / 1e6
+# ORIGIN FROM THE EDGE_CUTS CENTRELINE, NOT THE BOUNDING BOX.
+#
+# GetBoardEdgesBoundingBox() is inflated by half the Edge.Cuts line width on every side, so it
+# measures 72.10 x 80.10 while the outline the fab cuts is 72.00 x 80.00. JLCPCB's own Standard-PCBA
+# message confirms the real figure: it quotes "82*80mm" after adding two 5 mm edge rails on the
+# shorter sides -- 72 + 5 + 5 = 82, with the long side untouched at 80. A 0.10 mm inflation is
+# harmless on its own, but it shifts every coordinate by 0.050 mm and made this file disagree with
+# tracker/hardware/export_fab_files.py, which reads the centreline. Two generators, two answers,
+# and only one of them can be right.
+edge_xs, edge_ys = [], []
+for _d in b.GetDrawings():
+    if _d.GetLayer() == pcbnew.Edge_Cuts and _d.GetClass() == 'PCB_SHAPE':
+        for _p in (_d.GetStart(), _d.GetEnd()):
+            edge_xs.append(_p.x / 1e6)
+            edge_ys.append(_p.y / 1e6)
+if edge_xs:
+    X0, Y0 = min(edge_xs), min(edge_ys)
+    H = max(edge_ys) - min(edge_ys)
+else:                                    # no Edge.Cuts shapes: fall back to the bbox
+    bb = b.GetBoardEdgesBoundingBox()
+    H = bb.GetHeight() / 1e6
+    X0 = bb.GetLeft() / 1e6
+    Y0 = bb.GetTop() / 1e6
 
-print(f"board bbox x {X0:.3f}..{bb.GetRight()/1e6:.3f}  y {Y0:.3f}..{bb.GetBottom()/1e6:.3f}")
+print(f"board outline (centreline) x {X0:.3f}..{X0:+.3f}".replace(f"{X0:+.3f}", f"{max(edge_xs) if edge_xs else X0:.3f}")
+      + f"  y {Y0:.3f}..{(max(edge_ys) if edge_ys else Y0):.3f}")
 print(f"measured H = {H:.3f} mm   X0 = {X0:.3f}  Y0 = {Y0:.3f}")
 
 # Hand-fit parts: JLC has no LCSC part for these, so they must NOT appear in the placement file.
@@ -58,9 +78,30 @@ for fp in b.GetFootprints():
     if ref in HAND_FIT:
         skipped.append((ref, "hand-fit after delivery (no LCSC part)"))
         continue
-    pos = fp.GetPosition()
-    x = pcbnew.ToMM(pos.x)
-    y = pcbnew.ToMM(pos.y)
+    # CENTRE OF THE PAD ARRAY, NOT fp.GetPosition().
+    #
+    # Measured 2026-11-09: for KiCad's PinHeader footprints the anchor sits on PAD 1, not on the
+    # body. Emitting the anchor put J_HUB_PV 5.080 mm and J_PROG 6.350 mm away from the centre of
+    # their own pin arrays -- 2.0 and 2.5 pin pitches at 2.54 mm. JLCPCB rotates the part about the
+    # point it is given, so a header placed there does not land in its holes. U1 was 1.587 mm off
+    # and U7 0.227 mm off for the same reason.
+    #
+    # The existing round-trip check below could not catch this: it converts jx/jy BACK to
+    # fp.GetPosition(), which is the very number it started from. A transform that is
+    # self-consistent but off-centre passes it perfectly. That is why the error survived a
+    # "verified to <0.001 mm" claim -- the check verified the arithmetic, not the convention.
+    pads = list(fp.Pads())
+    if pads:
+        xs0 = [(q.GetPosition().x - q.GetSize().x / 2) for q in pads]
+        xs1 = [(q.GetPosition().x + q.GetSize().x / 2) for q in pads]
+        ys0 = [(q.GetPosition().y - q.GetSize().y / 2) for q in pads]
+        ys1 = [(q.GetPosition().y + q.GetSize().y / 2) for q in pads]
+        x = ((min(xs0) + max(xs1)) / 2) / 1e6
+        y = ((min(ys0) + max(ys1)) / 2) / 1e6
+    else:
+        pos = fp.GetPosition()
+        x = pcbnew.ToMM(pos.x)
+        y = pcbnew.ToMM(pos.y)
     jx = x - X0
     jy = H - (y - Y0)
     rot = fp.GetOrientationDegrees()
@@ -71,15 +112,37 @@ rows.sort(key=lambda r: r[0])
 
 # VERIFY: the round trip back to board coordinates must land on the footprint position.
 errors = []
+ANCHOR_NOTES = []
 for ref, value, pkg, jx, jy, rot, layer in rows:
     back_x = jx + X0
     back_y = (H - jy) + Y0
     fp = b.FindFootprintByReference(ref)
-    pos = fp.GetPosition()
-    dx = abs(back_x - pcbnew.ToMM(pos.x))
-    dy = abs(back_y - pcbnew.ToMM(pos.y))
+    # Verify against the PAD-ARRAY CENTRE, the same quantity that was emitted. Checking against
+    # fp.GetPosition() would re-introduce the blind spot: it compares the output to the input
+    # rather than to the thing the fab needs, so an off-centre anchor passes.
+    pads = list(fp.Pads())
+    if pads:
+        xs0 = [(q.GetPosition().x - q.GetSize().x / 2) for q in pads]
+        xs1 = [(q.GetPosition().x + q.GetSize().x / 2) for q in pads]
+        ys0 = [(q.GetPosition().y - q.GetSize().y / 2) for q in pads]
+        ys1 = [(q.GetPosition().y + q.GetSize().y / 2) for q in pads]
+        cx = ((min(xs0) + max(xs1)) / 2) / 1e6
+        cy = ((min(ys0) + max(ys1)) / 2) / 1e6
+    else:
+        pos = fp.GetPosition(); cx = pcbnew.ToMM(pos.x); cy = pcbnew.ToMM(pos.y)
+    dx = abs(back_x - cx)
+    dy = abs(back_y - cy)
     if dx > 0.001 or dy > 0.001:
         errors.append((ref, dx, dy))
+    # Note where the footprint anchor sits. This is INFORMATIONAL, not a failure: the emitted
+    # coordinate is the pad-array centre, which is what the fab needs regardless of where KiCad
+    # puts the anchor. It is printed because an anchor far from the centre is the signature of a
+    # footprint positioned by pin 1 rather than by its body -- the exact condition that made the
+    # previous version of this file wrong by 5.08 and 6.35 mm.
+    pos = fp.GetPosition()
+    off = ((pcbnew.ToMM(pos.x) - cx) ** 2 + (pcbnew.ToMM(pos.y) - cy) ** 2) ** 0.5
+    if off > 0.05:
+        ANCHOR_NOTES.append((ref, off, float(jx), float(jy), cx, cy))
 
 if errors:
     raise SystemExit(f"CPL transform FAILED verification for {len(errors)} part(s): {errors[:5]}")
@@ -92,6 +155,11 @@ with open(OUT, "w", newline="") as fh:
         w.writerow([ref, value, pkg, f"{jx:.4f}", f"{jy:.4f}", f"{rot:g}", layer])
 
 print(f"\nwrote {OUT} ({len(rows)} placements, all verified to <0.001 mm)")
+if ANCHOR_NOTES:
+    print(f"\n{len(ANCHOR_NOTES)} part(s) have their KiCad anchor away from the pad-array centre:")
+    for ref, off, jx, jy, cx, cy in ANCHOR_NOTES:
+        print(f"   {ref:<10} anchor {off:6.3f} mm from centre  ->  emitting centre "
+              f"({jx:.3f}, {jy:.3f}) instead of the anchor")
 print(f"skipped {len(skipped)}:")
 for ref, why in skipped:
     print(f"   {ref:<10} {why}")

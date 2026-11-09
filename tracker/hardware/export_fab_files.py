@@ -63,7 +63,23 @@ def main():
         ref = fp.GetReference()
         fpid = str(fp.GetFPID().GetLibItemName())
         val = fp.GetValue()
-        x, y = fp.GetPosition().x / MM, fp.GetPosition().y / MM
+        # CENTRE OF THE PAD ARRAY, not the footprint anchor.
+        # Measured 2026-11-09: KiCad puts a PinHeader's anchor on PAD 1. Emitting the anchor put
+        # J_HUB_PV 5.080 mm and J_PROG 6.350 mm from the centre of their own pin arrays -- 2.0 and
+        # 2.5 pitches at 2.54 mm -- so JLC would rotate the header about the wrong point and the
+        # pins would miss the holes. U1 was 1.587 mm off, U7 0.227 mm.
+        # The same fix is in docs/analysis/make_cpl_from_board.py; both generators had it, because
+        # both took the convenient number instead of the correct one.
+        _pads = list(fp.Pads())
+        if _pads:
+            _xs0 = [(q.GetPosition().x - q.GetSize().x / 2) for q in _pads]
+            _xs1 = [(q.GetPosition().x + q.GetSize().x / 2) for q in _pads]
+            _ys0 = [(q.GetPosition().y - q.GetSize().y / 2) for q in _pads]
+            _ys1 = [(q.GetPosition().y + q.GetSize().y / 2) for q in _pads]
+            x = ((min(_xs0) + max(_xs1)) / 2) / MM
+            y = ((min(_ys0) + max(_ys1)) / 2) / MM
+        else:
+            x, y = fp.GetPosition().x / MM, fp.GetPosition().y / MM
         side = 'Bottom' if fp.IsFlipped() else 'Top'
         row = dict(Designator=ref, Val=val, Package=fpid,
                    Mid_X=f'{x - X0:.4f}', Mid_Y=f'{H - (y - Y0):.4f}',
