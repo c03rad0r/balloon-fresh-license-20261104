@@ -12,8 +12,9 @@ Transform (per FINDING-cpl-coordinate-transform.md), all measured here, none har
 with H = Edge.Cuts bounding-box height. An earlier version of this project used H = 80.0 when the
 board is 80.100, which shifts every part by 0.1 mm -- plausible-looking and wrong.
 
-Only FITTED footprints are emitted: anything with IsDNP() or IsExcludedFromBOM() is skipped, because
-JLC would not place it. Both attributes are read from the board, never from a side list.
+Only JLC-PLACEABLE footprints are emitted: anything with IsDNP() / IsExcludedFromBOM() is skipped,
+and so is anything in HAND_FIT (wing sockets and the NiceRF radios have no LCSC part, so JLC cannot
+place them and would stall the order on a no-match). DNP comes from the board's own attributes.
 
 Run: /usr/bin/python3 docs/analysis/make_cpl_from_board.py
 """
@@ -35,6 +36,10 @@ Y0 = bb.GetTop() / 1e6
 print(f"board bbox x {X0:.3f}..{bb.GetRight()/1e6:.3f}  y {Y0:.3f}..{bb.GetBottom()/1e6:.3f}")
 print(f"measured H = {H:.3f} mm   X0 = {X0:.3f}  Y0 = {Y0:.3f}")
 
+# Hand-fit parts: JLC has no LCSC part for these, so they must NOT appear in the placement file.
+# Wing sockets are a board feature (nothing to buy); the radios are NiceRF modules.
+HAND_FIT = {"J_W1", "J_W2", "J_W3", "J_W4", "U3", "U_LORA1280", "U_C"}
+
 rows = []
 skipped = []
 for fp in b.GetFootprints():
@@ -49,6 +54,9 @@ for fp in b.GetFootprints():
         continue
     if dnp:
         skipped.append((ref, "DNP / excluded from BOM"))
+        continue
+    if ref in HAND_FIT:
+        skipped.append((ref, "hand-fit after delivery (no LCSC part)"))
         continue
     pos = fp.GetPosition()
     x = pcbnew.ToMM(pos.x)

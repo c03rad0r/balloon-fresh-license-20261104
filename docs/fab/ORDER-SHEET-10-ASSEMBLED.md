@@ -34,15 +34,23 @@ everything needed to place it.
 PTH 188 / NPTH 8. All annuli ≥ 0.150 mm against JLCPCB's 0.13 mm minimum.
 **Do not normalise the drill sizes.** The four edge slots are intentional wing sockets.
 
-## 2. Assembly — 29 placements, both sides
+## 2. Assembly — 23 placements, both sides
 
 BOM: `docs/analysis/bulk-route-20261107/assembly-partial/asm-bom-jlc.csv` — **14 lines**
-CPL: `docs/analysis/bulk-route-20261107/assembly-partial/asm-cpl-jlc.csv` — **29 rows**, every row
+CPL: `docs/analysis/bulk-route-20261107/assembly-partial/asm-cpl-jlc.csv` — **23 rows**, every row
 verified to <0.001 mm against pcbnew (`docs/analysis/make_cpl_from_board.py`).
 
-Side split **24 top / 5 bottom** (counted from the CPL `Layer` column, not estimated).
+Side split **19 top / 4 bottom** — the bottom-side parts are `D_BP1..D_BP4`. Counted from pcbnew,
+not estimated.
 
-**Standard PCBA, both sides.** Extended-part fee applies to 9 part numbers:
+> **Correction to earlier drafts.** I first wrote 29 placements / 24 top / 5 bottom. That was wrong:
+> it counted the six *hand-fit* parts (four wing sockets, `U3`, `U_LORA1280`), which JLC cannot place
+> because no LCSC part exists for them — putting them in the CPL would stall the order on a
+> no-match. `V10-JLCPCB-ORDER-SHEET-10BOARDS.md` on master also states "all placements are top",
+> which is **also wrong**: `D_BP1..4` are bottom-side. Both figures here are now counted from
+> pcbnew.
+
+**Standard PCBA, both sides.** Extended-part fee applies to **9** part numbers:
 
 | line | designators | qty | LCSC |
 |---|---|---|---|
@@ -65,7 +73,7 @@ Side split **24 top / 5 bottom** (counted from the CPL `Layer` column, not estim
 
 Read from the board's own `dnp` / `exclude_from_bom` attributes:
 
-`U_C` (LoRa2021 #2 — **ADR-145**, 2 usable GPIOs for 4 signals), `U2` (F33 2 W PA — unlawful at
+`U_C` (LoRa2021 #2 — ADR-145 v11 GPIO economy; 2 usable GPIOs for 4 signals), `U2` (F33 2 W PA — unlawful at
 10 mW ERP in DE), `U5` (GPS), `U6` (baro), `C_CAP1`, `C_CAP2` (supercaps — charged-handling hazard),
 `U_CUT1..4` (cut channel — electrically incomplete), `U_HUB_CVT`, `J_VCC` (solder jumper — the
 footprint is the part), plus `H1–H4` and `HW1–HW4` (mechanical).
@@ -109,7 +117,8 @@ needs 0.600 mm of channel; a flood fill from `U1.3` reaches only a 2.0 × 1.4 mm
 > Do not modify or normalise the drill sizes — the four 2.5 mm holes are mounting holes and the
 > 0.2 mm tool is a module thermal pad, not a via.
 > The four slots on the board edges are intentional wing-socket cavities — do not remove them.
-> Assembly: both sides, 29 placements. Component U_C is intentionally not fitted.
+> Assembly: both sides, 23 placements (19 top, 4 bottom). Component U_C is intentionally not
+> fitted. Four wing sockets and the two NiceRF radios are NOT in this order — they are hand-fit.
 
 ## 7. Cost
 
