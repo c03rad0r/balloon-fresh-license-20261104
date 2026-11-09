@@ -149,6 +149,41 @@ def prices():
     return cache
 
 
+def board_cost(q, px):
+    """THE canonical per-board cost at order quantity `q`. One function, so the renderers cannot
+    silently disagree.
+
+    Why this exists: three renderers (render_board_cost.py, render_board_cost_lines.py,
+    render_cost_curves.py) each re-derived the same arithmetic inline --
+    components + bare/q + (engineering + extended + joints*q)/q -- and one of them got the
+    hand-fit treatment different from the others. Nothing compared them, so a divergence would
+    have shown up only as two plots quietly telling different stories.
+
+    Returns a dict, never a bare float, so a caller cannot accidentally compare the JLC-only
+    number against the full-board number:
+        comp      components per board, from the real LCSC ladders
+        bare      bare PCB per board (amortised)
+        fees      JLC fees per board (engineering + extended + joints, amortised)
+        jlc       comp + bare + fees          <- what the assembler charges
+        hand_fit  NiceRF modules + wing sockets <- per-board, NEVER amortises
+        full      jlc + hand_fit              <- what a board actually costs the operator
+    """
+    px = px or {}
+    comp = 0.0
+    for _line, _des, qty, code in BOM:
+        up = unit_price(px.get(code), qty * q)
+        if up is None:
+            raise ValueError(f"no price ladder for {code}; refusing to total a partial BOM")
+        comp += up * qty
+    bare = bare_pcb(q) / q
+    fees = (ENGINEERING_FEE + len(EXTENDED) * EXTENDED_FEE
+            + JOINTS_PER_BOARD * JOINT_FEE * q) / q
+    hand_fit = sum(qty * est for _l, _d, qty, _n, est in HAND_FIT)
+    jlc = comp + bare + fees
+    return dict(q=q, comp=comp, bare=bare, fees=fees, jlc=jlc,
+                hand_fit=hand_fit, full=jlc + hand_fit)
+
+
 if __name__ == "__main__":
     print("fetching price ladders (cached to board_cost_prices.json)")
     px = prices()
