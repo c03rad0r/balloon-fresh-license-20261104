@@ -150,8 +150,34 @@ def test_b58_append_deletes_rerouted_nets_copper():
     """
     s = src()
     assert "B58" in s, "B58 comment block missing -- the delete-old-copper fix may be reverted"
-    assert re.search(r"if \(t\.GetNetname\(\) or \"\"\) in reroute:\n\s+b\.Remove\(t\)", s), (
-        "B58 regression: --append no longer REMOVES a re-routed net's existing copper"
+    # STRUCTURAL, not textual. This test has now broken twice on refactors that changed NO
+    # behaviour: first when the loop was hoisted out of the one-line `if reroute:` form and a
+    # `removed` counter added, then when the same strip became a `doomed` list. Both were
+    # improvements; both were reported as regressions. Pinning source SHAPE punishes good edits.
+    #
+    # The invariant that actually matters: inside a block guarded by `reroute`, some track whose
+    # netname is a member of `reroute` gets passed to b.Remove(...). Not the variable name, not the
+    # iteration construct, not the line breaks.
+    guarded_remove = re.compile(
+        r"GetNetname\(\)[^\n]*\bin\s+reroute"          # a track of a re-routed net is selected
+        r"|for\s+\w+\s+in\s+doomed"                     # ... or gathered into a doomed list
+    )
+    assert guarded_remove.search(s), (
+        "B58 regression: no selection of re-routed-net tracks found "
+        "(neither `GetNetname() ... in reroute` nor a `for ... in doomed` loop)"
+    )
+    assert re.search(r"b\.Remove\(\w+\)", s), (
+        "B58 regression: --append no longer REMOVES a re-routed net's existing copper "
+        "(no b.Remove(<track>) call found at all)"
+    )
+    # The two must be in the same vicinity -- otherwise the Remove could belong to some unrelated
+    # cleanup while the re-route silently kept its old copper.
+    span = re.search(
+        r"GetNetname\(\)[^\n]*\bin\s+reroute(?:(?!def\s).){0,1200}?b\.Remove\(\w+\)", s, re.S
+    )
+    assert span, (
+        "B58 regression: the b.Remove() call is not near the re-routed-net selection -- the strip "
+        "and the removal have drifted apart, which is how hidden-but-not-deleted copper returns"
     )
 
 
