@@ -153,6 +153,25 @@ behalf**, without asking first. This supersedes the previous habit of stopping a
 6. **This does NOT extend to:** placing a purchase order, spending money, publishing to a public host,
    rotating credentials, or rewriting git history. Those remain explicit-approval-only.
 
+### 1a. Ordering channel: JLCONE desktop, always
+
+Every JLCPCB order for this project is placed through the **JLCONE desktop app**
+(`https://jlcone.com/download`, or `brew install --cask jlcone`), never the website checkout.
+
+Measured from JLCPCB's own published terms (2026-11-09): the app applies a **random $1–$20 instant
+discount to every order at checkout**, credits a **$104 coupon pack** on install, and is now the
+**only** place the $2 PCB deal and the exclusive shipping rates exist. It is JLCPCB's own product —
+confirmed via `jlcpcb.com/help/article/jlcone-desktop-app`, their press release, and the Homebrew
+cask. Install only from `jlcone.com` or the cask; JLCPCB built the app partly *because* impersonating
+sites are common.
+
+**The files do not change.** JLCONE is an ordering front-end. Upload the same
+`v10-jlcpcb-upload.zip`; the same checksum verification and preview checks apply. Compare the
+**extracted `cpl-jlc.csv`** when re-verifying across rebuilds, because the zip container changes while
+the payload does not.
+
+Full record: `docs/fab/ORDERING-CHANNEL-JLCONE.md`.
+
 **Why this exists.** Measured 2026-10-18: the operator was asked to adjudicate a design fork ("move `U4` 2 mm
 or reassign pins") and answered from a summary that was **wrong three times over** — the direction was
 inverted, the move collided with `U1`, and the move would not have freed the pads at all because the
