@@ -465,14 +465,14 @@ Measured status as of this guide's latest update:
 - [x] 64-byte payload delivery, 5/5 each way
 - [x] Bidirectional FIPS peer authentication/connection
 - [ ] Repeated larger-payload and fragmented-packet validation
-- [ ] Bidirectional IPv6 ping (`0/3` each way in the latest run)
+- [ ] Bidirectional IPv6 ping (latest default run: A→B 0/5, B→A 3/5)
 - [ ] An interactive SSH connection over the FIPS IPv6 address
 
 **Do not debug SSH before ping works.** Do not debug ping before both peers
 authenticate. Do not assume a correct `hello`, CFG ACK, or nonempty peer list
-alone proves SSH will work. The gated recovery sequence, 100-frame link test and
-deferred Wirehair/FEC evaluation are in
-`docs/IPV6-DATA-PLANE-PLAN.md`.
+alone proves SSH will work. The active duplicate-aware reliability gates and
+transmission-ordering plan are in `docs/PING-RELIABILITY-PLAN.md`; broader
+session/tooling context remains in `docs/IPV6-DATA-PLANE-PLAN.md`.
 
 ## 14. Shutdown and common failures
 
