@@ -8221,6 +8221,7 @@
 			(at 8.75 8.1)
 			(size 1.5 0.9)
 			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 49 "/IO0")
 			(uuid "50a9f4e1-ba65-42ec-ac94-81bf0e747d57")
 		)
 		(pad "28" smd rect
