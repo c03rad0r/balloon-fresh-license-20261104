@@ -98,6 +98,19 @@ VERIFIED: all 30 rows match pcbnew footprint coordinates to <0.001 mm
 
 X range 0.00–72.00, Y range 0.10–80.10.
 
+> **CORRECTION 2026-11-09 — the dimension above is the STROKE-INFLATED BBOX, not the order size.**
+> Registry entry: `docs/ssot/parameters.json` → `hub_v10_board_extent`.
+> Owner: `docs/analysis/FINDING-board-extent-centreline-vs-bbox.md`.
+>
+> The board has ONE `Edge.Cuts` `PCB_SHAPE` (`SHAPE_T_RECT`) with a **0.100 mm stroke**. Measured:
+> **centreline 72.000 × 80.000 mm**; stroke-inflated bbox **72.100 × 80.100 mm**, origin (−0.050, −0.050).
+> Both are correct measurements of different things. **Order 72.00 × 80.00**, and use **H = 80.000**
+> in a CPL transform — using 80.100 shifts every placement +0.100 mm in Y, which is a clean constant
+> offset and therefore survives mean-based sanity checks.
+>
+> Reproduce: `python3 tracker/hardware/tmp_probes/outline_extent.py`.
+
+
 The CPL also excludes the 8 NPTH mounting holes. Without that, `kicad-cli pcb export pos` emits 38
 rows including `H1..H4`/`HW1..HW4`, which would ask the assembler to place eight parts that do not
 exist.

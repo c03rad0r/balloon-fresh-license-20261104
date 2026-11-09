@@ -9,7 +9,7 @@ in the order the JLC quote page asks for them.
 |---|---|---|
 | Base Material | FR-4 | — |
 | Layers | **4** | board is 4-layer |
-| Dimensions | **72.10 × 80.10 mm** | Edge.Cuts bounding box, measured |
+| Dimensions | **72.00 × 80.00 mm** | centreline; the 72.10 × 80.10 bbox includes the 0.100 mm Edge.Cuts stroke | Edge.Cuts bounding box, measured |
 | **PCB Thickness** | **1.600 mm** | `GetBoardThickness()` = 1.600 mm. The doc's "re-price at 0.8 mm" note was about a *quote* default, not the board — the board is 1.6 mm |
 | **Copper Weight** | **1 oz outer / 0.5 oz inner** | the stack S1's minimums were quoted against |
 | Min Trace/Spacing | **0.20 / 0.20 mm** | S1; nothing on the board needs finer |
@@ -163,3 +163,15 @@ unchanged.
 **Assumed, not verified:** JLC's *current* per-placement and setup fees (the analysis flags this as
 unmeasured); the stock status of each passive at JLC's library on the day of order; the `U7` part
 identity.
+
+> **CORRECTION 2026-11-09 — the dimension above is the STROKE-INFLATED BBOX, not the order size.**
+> Registry entry: `docs/ssot/parameters.json` → `hub_v10_board_extent`.
+> Owner: `docs/analysis/FINDING-board-extent-centreline-vs-bbox.md`.
+>
+> The board has ONE `Edge.Cuts` `PCB_SHAPE` (`SHAPE_T_RECT`) with a **0.100 mm stroke**. Measured:
+> **centreline 72.000 × 80.000 mm**; stroke-inflated bbox **72.100 × 80.100 mm**, origin (−0.050, −0.050).
+> Both are correct measurements of different things. **Order 72.00 × 80.00**, and use **H = 80.000**
+> in a CPL transform — using 80.100 shifts every placement +0.100 mm in Y, which is a clean constant
+> offset and therefore survives mean-based sanity checks.
+>
+> Reproduce: `python3 tracker/hardware/tmp_probes/outline_extent.py`.
