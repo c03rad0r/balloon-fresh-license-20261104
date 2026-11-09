@@ -152,7 +152,8 @@ symbol rate.
 - [ ] Rerun TDMA only after RX handling/background traffic is characterized
 
 Implementation details and live checklist:
-`docs/CARRIER-RECOVERY-PLAN.md` (Phase 2b).
+`docs/CARRIER-RECOVERY-PLAN.md` (Phase 2b) and
+`docs/PING-RELIABILITY-PLAN.md` (active reliability gates).
 
 ## Phase 5 — throughput
 
