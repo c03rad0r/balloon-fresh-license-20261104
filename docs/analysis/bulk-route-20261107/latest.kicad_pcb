@@ -11856,7 +11856,7 @@
 				(justify mirror)
 			)
 		)
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom dnp)
 		(fp_line
 			(start -9.905 7.49)
 			(end 9.905 7.49)
