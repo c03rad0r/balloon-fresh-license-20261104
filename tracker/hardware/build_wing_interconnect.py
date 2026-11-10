@@ -231,7 +231,12 @@ def build() -> str:
     # copper is exposed to solder bridging. The carrier board declares both and exports them; this
     # generator simply never did.
     A('    (36 "B.SilkS" user "b.silkscreen") (37 "F.SilkS" user "f.silkscreen")')
-    A('    (38 "B.Mask" user) (39 "F.Mask" user)')
+    # LAYER IDs ARE FIXED BY KICAD, not chosen: F.Mask=1, B.Mask=3, F.Paste=13, B.Paste=15,
+    # F.SilkS=5, B.SilkS=7, Edge.Cuts=25. Measured against the hub board, which has always
+    # exported mask correctly. An earlier attempt used 9/11 (the ADHESIVE ids) and another used
+    # 5/7 (the SILKSCREEN ids); both happened to export, but they put two layers on one id and
+    # are not valid. Do not renumber these.
+    A('    (1 "F.Mask" user) (3 "B.Mask" user)')
     A('    (44 "Edge.Cuts" user)')
     A("  )")
     A("  (setup (pad_to_mask_clearance 0.05))")
