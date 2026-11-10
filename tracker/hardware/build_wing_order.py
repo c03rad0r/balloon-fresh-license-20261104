@@ -41,6 +41,74 @@ OUTROOT = os.path.join(WT, 'docs/fab/wing-order')
 CARRIER = os.path.join(WT, 'tracker/hardware/wing_board/wing_board_v9.kicad_pcb')
 INTERCON = os.path.join(WT, 'tracker/hardware/wing_interconnect/wing_interconnect_v1.kicad_pcb')
 
+# ---------------------------------------------------------------------------
+# REPRODUCIBILITY
+#
+# KiCad stamps every gerber, drill file and the .gbrjob with the wall clock and
+# zipfile stamps every entry with the mtime.  Without normalisation a rebuild of
+# an unchanged board differs from the committed package in 11 of 12 files and the
+# only real change is a timestamp -- which makes "is the committed bundle still
+# the design?" unanswerable by hashing.  Every emitted stamp is therefore fixed
+# to the SOURCE COMMIT TIME of the board (deterministic per commit, and
+# meaningful: the package is the package of that commit).
+# ---------------------------------------------------------------------------
+
+
+def export_epoch():
+    """Canonical timestamp for emitted artefacts: SOURCE_DATE_EPOCH, else the
+    source board's last commit time, else a frozen constant."""
+    env = os.environ.get('SOURCE_DATE_EPOCH')
+    if env:
+        return int(env)
+    try:
+        out = subprocess.run(['git', 'log', '-1', '--format=%ct', '--', INTERCON],
+                             cwd=WT, capture_output=True, text=True)
+        if out.returncode == 0 and out.stdout.strip():
+            return int(out.stdout.strip())
+    except Exception:
+        pass
+    return 1762300000  # frozen fallback; only reached outside a git checkout
+
+STAMP_RE = [
+    (re.compile(r'(TF\.CreationDate,)[0-9T:+\-]+'), r'\g<1>{iso}'),
+    (re.compile(r'(date )[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9:]{8}'), r'\g<1>{nice}'),
+    (re.compile(r'(date )[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:]{8}[+\-][0-9]{4}'), r'\g<1>{iso}'),
+    (re.compile(r'("CreationDate": ") ?[0-9T:+\-]+'), r'\g<1>{iso}'),
+]
+# Every text extension kicad-cli emits, including the ones nothing uses for JLC,
+# because the carrier package is a full artwork set: the adhesive layers are
+# `.gta/.gba` and missing them left their CreationDate at build time, which is
+# why a full `--check` could not go byte-green. `.gbr` covers the documentation
+# layers KiCad names `<stem>-<Layer>.gbr`.
+TEXT_EXT = {'.gtl', '.gbl', '.gts', '.gbs', '.gto', '.gbo', '.gtp', '.gbp',
+            '.gta', '.gba', '.gm1', '.gbrjob', '.drl', '.gbr'}
+
+
+def normalise_stamps(path, epoch=None):
+    """Rewrite every wall-clock stamp in an exported text artefact to `epoch`."""
+    import datetime
+    epoch = export_epoch() if epoch is None else epoch
+    dt = datetime.datetime.fromtimestamp(epoch, datetime.timezone.utc)
+    iso = dt.strftime('%Y-%m-%dT%H:%M:%S+00:00')
+    nice = dt.strftime('%Y-%m-%d %H:%M:%S')
+    changed = False
+    for root, _dirs, files in os.walk(path):
+        for f in files:
+            if os.path.splitext(f)[1].lower() not in TEXT_EXT:
+                continue
+            full = os.path.join(root, f)
+            with open(full, errors='replace') as fh:
+                text = fh.read()
+            new = text
+            for rx, repl in STAMP_RE:
+                new = rx.sub(repl.format(iso=iso, nice=nice), new)
+            if new != text:
+                with open(full, 'w') as fh:
+                    fh.write(new)
+                changed = True
+    return changed
+
+
 # Parts JLCPCB can place. Everything else on these boards is either a bare land (solar cell,
 # wing tab, test pad) or deliberately unpopulated (V2 provisions).
 JLC_PARTS = {
@@ -56,21 +124,47 @@ NEEDED_2L = ['F_Cu.gtl', 'B_Cu.gbl', 'F_Mask.gts', 'B_Mask.gbs',
 
 
 def sha8(path):
-    import hashlib
     d = open(path, 'rb').read()
     h = hashlib.sha1(b'blob %d\0' % len(d))
     h.update(d)
     return h.hexdigest()[:8]
 
 
+def sha256(path):
+    return hashlib.sha256(open(path, 'rb').read()).hexdigest()
+
+
+def centreline_bbox(board):
+    """Edge.Cuts CENTRELINE extent, in mm.
+
+    GetBoardEdgesBoundingBox() inflates by the outline line width (0.1 mm), so it
+    reported 34.7 x 20.1 mm for a board whose drawn outline is 34.6 x 20.0 mm.
+    A fabricator quotes the centreline; measure the centreline.
+    """
+    import pcbnew
+    xs, ys = [], []
+    for d in board.GetDrawings():
+        if d.GetLayer() != pcbnew.Edge_Cuts:
+            continue
+        if not hasattr(d, 'GetStart'):
+            continue
+        for pt in (d.GetStart(), d.GetEnd()):
+            xs.append(pcbnew.ToMM(pt.x))
+            ys.append(pcbnew.ToMM(pt.y))
+    if not xs:
+        bb = board.GetBoardEdgesBoundingBox()
+        return pcbnew.ToMM(bb.GetWidth()), pcbnew.ToMM(bb.GetHeight())
+    return max(xs) - min(xs), max(ys) - min(ys)
+
+
 def board_meta(path):
     import pcbnew
     b = pcbnew.LoadBoard(path)
-    bb = b.GetBoardEdgesBoundingBox()
+    w, h = centreline_bbox(b)
     tracks = [t for t in b.GetTracks() if t.Type() != pcbnew.PCB_VIA_T]
     vias = [t for t in b.GetTracks() if t.Type() == pcbnew.PCB_VIA_T]
     return dict(
-        w=pcbnew.ToMM(bb.GetWidth()), h=pcbnew.ToMM(bb.GetHeight()),
+        w=w, h=h,
         fp=len(b.GetFootprints()), tracks=len(tracks), vias=len(vias),
         board=b,
     )
@@ -106,13 +200,34 @@ def export(board_path, outdir, name):
         return _export_native(export_path, outdir, name)
 
 
+JLC_LAYERS = ('F.Cu,B.Cu,F.Mask,B.Mask,F.Paste,B.Paste,'
+              'F.Silkscreen,B.Silkscreen,Edge.Cuts')
+
+
 def _export_native(board_path, outdir, name):
+    """Export gerbers + drill.
+
+    The layer list is package-specific and that difference is load-bearing:
+
+      * ``interconnect`` is the JLC upload package, so it gets the minimal
+        whitelist of layers JLC actually consumes.
+      * every other package (the ``carrier``) is a documentation/artwork set and
+        keeps the full layer table. Passing the JLC whitelist to it silently
+        stripped F/B_Fab, F/B_Courtyard, F/B_Adhesive, Margin and the User.*
+        layers that ``299e3790`` had deliberately restored, which made
+        ``--check`` fail on a full build with 'ARTWORK-IDENTICAL, BYTES DIFFER'
+        and 10 extra committed layers. Restoring the carrier's full layer set is
+        the fix; do not relax ``--check`` instead.
+    """
     os.makedirs(outdir, exist_ok=True)
-    g = subprocess.run(['kicad-cli', 'pcb', 'export', 'gerbers',
-                        '--no-x2', '--subtract-soldermask',
-                        '--layers', 'F.Cu,B.Cu,F.Mask,B.Mask,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,Edge.Cuts',
-                        '--output', outdir, board_path],
-                       capture_output=True, text=True)
+    cmd = ['kicad-cli', 'pcb', 'export', 'gerbers',
+           '--no-x2', '--subtract-soldermask']
+    if name == 'interconnect':
+        cmd += ['--layers', JLC_LAYERS]
+    # else: no --layers => kicad-cli exports every enabled layer, which is what
+    # the carrier package is supposed to contain.
+    cmd += ['--output', outdir, board_path]
+    g = subprocess.run(cmd, capture_output=True, text=True)
     if g.returncode != 0:
         raise SystemExit(f'gerber export failed for {name}:\n{g.stdout[-1500:]}{g.stderr[-1500:]}')
     d = subprocess.run(['kicad-cli', 'pcb', 'export', 'drill',
@@ -210,19 +325,29 @@ def write_cpl(path, board, H, parts):
     return rows
 
 
-def zipdir(src, dst):
+def zipdir(src, dst, epoch=None):
+    """Zip deterministically: sorted names, fixed per-entry mtime, no host paths."""
+    import time
+    epoch = export_epoch() if epoch is None else epoch
+    date_time = time.gmtime(epoch)[:6]
     with zipfile.ZipFile(dst, 'w', zipfile.ZIP_DEFLATED) as z:
         for root, _dirs, files in os.walk(src):
             for f in sorted(files):
                 full = os.path.join(root, f)
-                z.write(full, os.path.relpath(full, src))
+                arc = os.path.relpath(full, src)
+                info = zipfile.ZipInfo(arc, date_time=date_time)
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.external_attr = 0o644 << 16
+                with open(full, 'rb') as fh:
+                    z.writestr(info, fh.read())
 
 
-def build(name, board_path, parts, note):
+def build(name, board_path, parts, note, outroot=None):
+    outroot = outroot or OUTROOT
     if name == 'interconnect':
         import pcbnew
         verify_bypass_polarity(pcbnew.LoadBoard(board_path))
-    outdir = os.path.join(OUTROOT, name)
+    outdir = os.path.join(outroot, name)
     if os.path.isdir(outdir):
         shutil.rmtree(outdir)
     os.makedirs(outdir, exist_ok=True)
@@ -234,6 +359,7 @@ def build(name, board_path, parts, note):
           f"{meta['fp']} footprints  {meta['tracks']} tracks  {meta['vias']} vias")
 
     export(board_path, outdir, name)
+    normalise_stamps(outdir)
     drls = [f for f in os.listdir(outdir) if f.endswith('.drl')]
     if len(drls) != 1:
         raise SystemExit(f'{name}: expected 1 drill file, found {drls}')
@@ -266,20 +392,125 @@ def build(name, board_path, parts, note):
         if not any(stem.lower() in p.lower().replace('-', '_') for p in present):
             raise SystemExit(f'{name}: required layer {l} missing from the export')
 
-    zipdir(outdir, os.path.join(OUTROOT, f'{name}-jlcpcb-upload.zip'))
-    zp = os.path.join(OUTROOT, f'{name}-jlcpcb-upload.zip')
+    zipdir(outdir, os.path.join(outroot, f'{name}-jlcpcb-upload.zip'))
+    zp = os.path.join(outroot, f'{name}-jlcpcb-upload.zip')
     print(f"  zip: {zp}  {os.path.getsize(zp)} B")
     return dict(name=name, holes=len(holes), dia=dict(bydia), board=sha8(board_path), zip=zp)
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--verify-only', action='store_true')
-    ap.add_argument('--interconnect-only', action='store_true', help='Leave carrier artifacts untouched')
-    args = ap.parse_args()
+def provenance(outroot):
+    """Write/verify the source hashes the package was built from."""
+    files = {
+        'tracker/hardware/wing_interconnect/wing_interconnect_v1.kicad_pcb': INTERCON,
+        'tracker/hardware/wing_board/wing_board_v9.kicad_pcb': CARRIER,
+        'tracker/hardware/build_wing_order.py': os.path.abspath(__file__),
+    }
+    data = {rel: sha256(path) for rel, path in files.items()}
+    path = os.path.join(outroot, 'source-sha256.json')
+    with open(path, 'w') as fh:
+        fh.write('{\n')
+        items = sorted(data.items())
+        for i, (rel, h) in enumerate(items):
+            fh.write(f'  "{rel}": "{h}"' + (',\n' if i < len(items) - 1 else '\n'))
+        fh.write('}\n')
+    return data
 
+
+def package_hashes(outroot, name):
+    """sha256 of every file in the committed package, relative to outroot."""
+    out = {}
+    for root, _dirs, files in os.walk(os.path.join(outroot, name)):
+        for f in files:
+            full = os.path.join(root, f)
+            out[os.path.relpath(full, outroot)] = sha256(full)
+    zp = os.path.join(outroot, f'{name}-jlcpcb-upload.zip')
+    if os.path.exists(zp):
+        out[os.path.basename(zp)] = sha256(zp)
+    return out
+
+
+def check(args, names):
+    """--check: rebuild into a scratch dir and prove the COMMITTED package matches.
+
+    Writes nothing in docs/. Two verdicts, deliberately distinct:
+
+      byte-identical    every file matches by sha256 (the strong result)
+      artwork-identical the gerbers/drill describe the same features, but text
+                        stamps or the export layer LIST differ (a real but
+                        narrower defect: state it, do not call it green)
+
+    Exit 0 only on byte-identical for every requested board.
+    """
+    import tempfile
+    import importlib.util
+    _spec = importlib.util.spec_from_file_location(
+        'gerber_geom_diff', os.path.join(WT, 'tools', 'gerber_geom_diff.py'))
+    _mod = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(_mod)
+    geom_parse = _mod.parse
+    with tempfile.TemporaryDirectory() as scratch:
+        run_builds(args, names, outroot=scratch)
+        fresh = {}
+        for name in names:
+            fresh.update(package_hashes(scratch, name))
+        fresh['source-sha256.json'] = sha256(os.path.join(scratch, 'source-sha256.json'))
+        committed = {}
+        for name in names:
+            committed.update(package_hashes(OUTROOT, name))
+        sp = os.path.join(OUTROOT, 'source-sha256.json')
+        if os.path.exists(sp):
+            committed['source-sha256.json'] = sha256(sp)
+
+        only_fresh = sorted(set(fresh) - set(committed))
+        only_committed = sorted(set(committed) - set(fresh))
+        differing = sorted(k for k in set(fresh) & set(committed) if fresh[k] != committed[k])
+
+        print('\n=== reproducibility check ===')
+        print(f'  files compared: {len(set(fresh) & set(committed))}')
+        for k in only_fresh:
+            print(f'  MISSING from commit: {k}')
+        for k in only_committed:
+            print(f'  EXTRA in commit:     {k}')
+        for k in differing:
+            print(f'  DIFFERS:             {k}')
+
+        if not (only_fresh or only_committed or differing):
+            print('  VERDICT: REPRODUCIBLE — committed package is byte-identical to a fresh build')
+            print(f'  {len(fresh)} files matched by sha256')
+            return 0
+
+        # Second tier: is the ARTWORK the same?  A stamp-only or aperture-order
+        # difference is not "the package builds from a different board".
+        artwork_bad = []
+        ext = tuple('.gtl,.gbl,.gts,.gbs,.gto,.gbo,.gtp,.gbp,.gm1,.drl'.split(','))
+        for name in names:
+            fa, fb = os.path.join(scratch, name), os.path.join(OUTROOT, name)
+            if not os.path.isdir(fb):
+                artwork_bad.append(f'{name}: absent from commit')
+                continue
+            for f in sorted(set(os.listdir(fa)) | set(os.listdir(fb))):
+                if not f.endswith(ext):
+                    continue
+                pa, pb = os.path.join(fa, f), os.path.join(fb, f)
+                if not (os.path.exists(pa) and os.path.exists(pb)):
+                    artwork_bad.append(f'{name}/{f}: present on one side only')
+                elif geom_parse(pa) != geom_parse(pb):
+                    artwork_bad.append(f'{name}/{f}: ARTWORK DIFFERS')
+        if artwork_bad:
+            print('  VERDICT: STALE — the artwork itself changed:')
+            for line in artwork_bad:
+                print(f'    {line}')
+            return 1
+        print('  VERDICT: ARTWORK-IDENTICAL, BYTES DIFFER — the same features are drawn,')
+        print('           but text stamps or the exported layer LIST differ. Not green:')
+        print('           the committed package is not what this builder emits.')
+        return 1
+
+
+def run_builds(args, names, outroot=None):
+    outroot = outroot or OUTROOT
     results = []
-    if not args.interconnect_only:
+    if 'carrier' in names:
         results.append(build(
             'carrier', CARRIER, {},
             'Solar cell carrier. Six solar-cell solder lands: SC1-SC3 on the front face and\n'
@@ -288,14 +519,34 @@ def main():
             'The cells have no LCSC number, so this is ordered as a BARE PCB and the cells are\n'
             'soldered by hand -- which is the purpose of the board.\n\n'
             'Two nets are single-pad by design: `GND` (no plane on this board) and `RF_FEED`\n'
-            '(ADR-046 s2.4 V2 provision land).'))
-    results.append(build(
-        'interconnect', INTERCON, JLC_PARTS,
-        'Per-wing bypass interconnect. Three SS24 (SMA) diodes across the cell string:\n'
-        'SOLAR_P - SOLAR_MID1 - SOLAR_MID2 - SOLAR_N.\n\n'
-        'These are NOT duplicates of the hub D_BP1..4: the hub carries bypass BETWEEN wings\n'
-        '(W1_P..W1_N..W2_N..W3_N..GND) while this board carries PER-CELL bypass inside one wing.'))
+            '(ADR-046 s2.4 V2 provision land).', outroot=outroot))
+    if 'interconnect' in names:
+        results.append(build(
+            'interconnect', INTERCON, JLC_PARTS,
+            'Per-wing bypass interconnect. Three SS24 (SMA) diodes across the cell string:\n'
+            'SOLAR_P - SOLAR_MID1 - SOLAR_MID2 - SOLAR_N.\n\n'
+            'These are NOT duplicates of the hub D_BP1..4: the hub carries bypass BETWEEN wings\n'
+            '(W1_P..W1_N..W2_N..W3_N..GND) while this board carries PER-CELL bypass inside one wing.',
+            outroot=outroot))
+    provenance(outroot)
+    return results
 
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--verify-only', action='store_true',
+                    help='alias for --check (kept for existing callers)')
+    ap.add_argument('--check', action='store_true',
+                    help='rebuild to scratch and prove the committed package matches; writes nothing')
+    ap.add_argument('--interconnect-only', action='store_true', help='Leave carrier artifacts untouched')
+    ap.add_argument('--out', help='write the package here instead of docs/fab/wing-order')
+    args = ap.parse_args()
+
+    names = ['interconnect'] if args.interconnect_only else ['carrier', 'interconnect']
+    if args.check or args.verify_only:
+        return check(args, names)
+
+    results = run_builds(args, names, outroot=args.out)
     print("\n=== summary ===")
     for r in results:
         print(f"  {r['name']:<14} board {r['board']}  {r['holes']} holes  {os.path.basename(r['zip'])}")

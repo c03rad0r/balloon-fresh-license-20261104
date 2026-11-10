@@ -56,5 +56,44 @@ class PolarityTest(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, ref + ': bypass polarity'):
                     wing.verify_bypass_polarity(board)
 
+class ReproducibilityTest(unittest.TestCase):
+    """The package must be a function of the source, not of the wall clock.
+
+    Without stamp normalisation two builds of an unchanged board differ in 11 of
+    12 files (CreationDate only), so hashing cannot answer "is the committed
+    bundle still the design?".  Both directions are asserted: two builds agree,
+    and the no-normalisation control does NOT agree (so the test can fail).
+    """
+
+    def _build_twice(self):
+        import tempfile
+        from pathlib import Path
+        hashes = []
+        for _ in range(2):
+            with tempfile.TemporaryDirectory() as directory:
+                wing.build('interconnect', wing.INTERCON, wing.JLC_PARTS, 'x', outroot=directory)
+                hashes.append({p.name: wing.sha256(str(p))
+                               for p in sorted(Path(directory, 'interconnect').iterdir())})
+        return hashes
+
+    def test_two_builds_are_byte_identical(self):
+        a, b = self._build_twice()
+        self.assertTrue(a, 'build emitted nothing')
+        self.assertEqual(a, b, 'rebuild of an unchanged board changed the package')
+
+    def test_stamp_normalisation_is_what_makes_it_reproducible(self):
+        original = wing.normalise_stamps
+        wing.normalise_stamps = lambda *a, **k: False   # the control: no normalisation
+        try:
+            a, b = self._build_twice()
+        finally:
+            wing.normalise_stamps = original
+        differ = [k for k in a if a.get(k) != b.get(k)]
+        self.assertTrue(differ, 'control failed to differ: the test cannot detect a wall-clock stamp')
+
+    def test_committed_package_matches_fresh_build(self):
+        self.assertEqual(0, wing.check(None, ['interconnect']),
+                         'docs/fab/wing-order is stale against the current source')
+
 if __name__ == '__main__':
     unittest.main()
