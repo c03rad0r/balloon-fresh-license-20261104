@@ -1,0 +1,307 @@
+{
+  "_comment": [
+    "v11 ANALOG-SENSE CHANNEL MAP -- the single machine-readable source for the",
+    "ADS1115 channel/address assignment (ADR-148) and for the divider values.",
+    "Read by tracker/hardware/build_v11_sch.py (generator) and by",
+    "tracker/hardware/test_v11_scap_adc.py (assertions + negative controls).",
+    "NO BOARD EXISTS for v11; this describes the SCHEMATIC, not routed copper."
+  ],
+  "adc": {
+    "part": "ADS1115IDGS",
+    "lcsc": "C37593",
+    "package": "VSSOP-10",
+    "datasheet": "TI SBAS444E (revised December 2024)",
+    "vdd_v": 3.3,
+    "vdd_nominal_note": "+3V3 from TPS7A02 (U7). SBAS444E s5.3 operating range 2..5.5 V.",
+    "fsr_v": 4.096,
+    "pga_code": 1,
+    "lsb_uv": 125.0,
+    "lsb_note": "SBAS444E Table 7-1: FSR +/-4.096 V -> LSB 125 uV (16-bit, 2^15 codes per polarity).",
+    "abs_max_pin_above_vdd_v": 0.3,
+    "abs_max_pin_current_ma": 10.0,
+    "abs_max_pin_current_note": "SBAS444E s5.1 'Input current, continuous, any pin except power supply pins' -10..10 mA. s9.1.3 repeats 10 mA and calls it a stress rating, not a functional target.",
+    "fsr_choice_note": [
+      "FSR +/-2.048 V leaves only ~29 LSB of headroom above the documented cold-Voc fault",
+      "(2.10 V at the pin) and no margin for the estimate being wrong. FSR +/-6.144 V cannot",
+      "deliver full scale at VDD = 3.3 V (SBAS444E s7.3.3 footnote 1 and its worked example).",
+      "+/-4.096 V at VDD 3.3 V measures 0..3.3 V single-ended with LSB 125 uV, matching the",
+      "datasheet's own VDD=3.3 V / FSR=+/-4.096 V example."
+    ]
+  },
+  "voltage_envelope": {
+    "source_document": "docs/analysis/wing-electrical.md s5.1 (reproduced in docs/analysis/array-power-architecture.md s2 and docs/analysis/mppt-charge-path-specification.md s2)",
+    "vsolar_p_cold_voc_v": 9.58,
+    "vsolar_p_cold_voc_basis": "12 cells x V_OC,cell(-60 C); V_OC,cell = 0.62 V + (-2.1 mV/C/cell)(-85 C) = 0.7985 V",
+    "vsolar_p_25c_voc_v": 7.44,
+    "vscap_rated_max_v": 5.4,
+    "vscap_rated_max_basis": "2 x 2.7 V supercap in series (ADR-006)",
+    "vscap_post_bat54_cold_voc_v": 9.28,
+    "vscap_post_bat54_basis": "9.58 V - 0.3 V BAT54 forward drop (wing-electrical s5.1). There is NO clamp in the accepted design (ADR-047 s7.3, wing-electrical s5.2), so this is a reachable node voltage, not a hypothetical.",
+    "qualification": "ESTIMATE, NOT MEASUREMENT. Both coefficients (V_OC(25 C)=0.62 V, -2.1 mV/(C.cell)) are TODO(unverified) in wing-electrical s5.1; the cell datasheet is not in this repo. The DIVIDER IS SIZED TO SURVIVE THE ESTIMATE BEING WRONG by 50 %."
+  },
+  "devices": [
+    {
+      "ref": "U_ADC1",
+      "function": "cut-sense currents (v11 scope item 3)",
+      "addr_pin": "GND",
+      "addr": 72,
+      "addr_hex": "0x48",
+      "addr_basis": "SBAS444E Table 7-2: ADDR->GND = 1001000b",
+      "wired_in_this_revision": false,
+      "wired_note": [
+        "RESERVED, NOT WIRED. The cut-sense element is a 10 mOhm series shunt that",
+        "belongs to v11 item 3 (real cut driver), which is out of this change's scope.",
+        "ADS1115 input power-sequence qualification is also BLOCKED - see",
+        "docs/analysis/OPEN-25-CUTTER-ADC-SEQUENCE.md. Per SBAS444E s9.1.4 every",
+        "unused analog input is tied to GND, which is what the registry does. The",
+        "CHANNEL ALLOCATION is pinned here so item 3 cannot silently choose another."
+      ],
+      "channels": {
+        "AIN0": {
+          "net": "GND",
+          "pin": "4",
+          "reserved_for": "/CUT_SENSE_W1",
+          "reserved_slot": "CUT_SENSE_W1"
+        },
+        "AIN1": {
+          "net": "GND",
+          "pin": "5",
+          "reserved_for": "/CUT_SENSE_W2",
+          "reserved_slot": "CUT_SENSE_W2"
+        },
+        "AIN2": {
+          "net": "GND",
+          "pin": "6",
+          "reserved_for": "/CUT_SENSE_W3",
+          "reserved_slot": "CUT_SENSE_W3"
+        },
+        "AIN3": {
+          "net": "GND",
+          "pin": "7",
+          "reserved_for": "/CUT_SENSE_W4",
+          "reserved_slot": "CUT_SENSE_W4"
+        }
+      }
+    },
+    {
+      "ref": "U_ADC2",
+      "function": "rail telemetry (/VSCAP + three solar stack taps)",
+      "addr_pin": "VDD",
+      "addr": 73,
+      "addr_hex": "0x49",
+      "addr_basis": "SBAS444E Table 7-2: ADDR->VDD = 1001001b",
+      "wired_in_this_revision": true,
+      "channels": {
+        "AIN0": {
+          "net": "/SCAP_ADC",
+          "pin": "4",
+          "measures": "/VSCAP",
+          "divider": "D_VSCAP",
+          "reserved_slot": "VSCAP"
+        },
+        "AIN1": {
+          "net": "/W1_SOLAR_SENSE",
+          "pin": "5",
+          "measures": "/W1_SOLAR_P",
+          "divider": "D_W1",
+          "reserved_slot": "W1"
+        },
+        "AIN2": {
+          "net": "/W2_SOLAR_SENSE",
+          "pin": "6",
+          "measures": "/W1_SOLAR_N",
+          "divider": "D_W2",
+          "reserved_slot": "W2"
+        },
+        "AIN3": {
+          "net": "/W3_SOLAR_SENSE",
+          "pin": "7",
+          "measures": "/W2_SOLAR_N",
+          "divider": "D_W3",
+          "reserved_slot": "W3"
+        }
+      }
+    }
+  ],
+  "dividers": [
+    {
+      "id": "D_VSCAP",
+      "source_net": "/VSCAP",
+      "divider_net": "/SCAP_DIV",
+      "sense_net": "/SCAP_ADC",
+      "r_top_ref": "R_DIV1",
+      "r_top_ohm": 2200000,
+      "r_bot_ref": "R_DIV2",
+      "r_bot_ohm": 620000,
+      "r_prot_ref": "R_PROT1",
+      "r_prot_ohm": 10000,
+      "c_ref": "C_DIV1",
+      "c_f": 1e-08,
+      "max_source_v": 9.28,
+      "max_source_basis": "vscap_post_bat54_cold_voc_v -- the documented UNCLAMPED over-voltage path (no clamp exists in the accepted design)",
+      "replaces": "v10 R_DIV1/R_DIV2 = 1 M / 1 M (ratio 0.5000)",
+      "why_changed": [
+        "A 0.5 ratio puts 4.64 V on the ADS1115 pin at the documented 9.28 V fault.",
+        "SBAS444E s5.1 absolute maximum is VDD+0.3 = 3.6 V, so the inherited divider would",
+        "destroy the ADC in exactly the fault the board exists to observe."
+      ],
+      "night_budget": "1.915 uA / 10.34 uW at 5.4 V (v10's 1M/1M was 2.70 uA / 14.58 uW per ADR-047 s6)",
+      "r_thevenin_ohm": 483687.9,
+      "z_source_ohm": 493687.9,
+      "loading_error_pct": 3.186
+    },
+    {
+      "id": "D_W1",
+      "source_net": "/W1_SOLAR_P",
+      "divider_net": "/W1_SOLAR_DIV",
+      "sense_net": "/W1_SOLAR_SENSE",
+      "r_top_ref": "R_SOL1",
+      "r_top_ohm": 220000,
+      "r_bot_ref": "R_SOL2",
+      "r_bot_ohm": 62000,
+      "r_prot_ref": "R_PROT2",
+      "r_prot_ohm": 10000,
+      "c_ref": "C_SOL1",
+      "c_f": 1e-08,
+      "max_source_v": 9.58,
+      "max_source_basis": "vsolar_p_cold_voc_v",
+      "r_thevenin_ohm": 48368.8,
+      "z_source_ohm": 58368.8,
+      "loading_error_pct": 0.388
+    },
+    {
+      "id": "D_W2",
+      "source_net": "/W1_SOLAR_N",
+      "divider_net": "/W2_SOLAR_DIV",
+      "sense_net": "/W2_SOLAR_SENSE",
+      "r_top_ref": "R_SOL3",
+      "r_top_ohm": 220000,
+      "r_bot_ref": "R_SOL4",
+      "r_bot_ohm": 62000,
+      "r_prot_ref": "R_PROT3",
+      "r_prot_ohm": 10000,
+      "c_ref": "C_SOL2",
+      "c_f": 1e-08,
+      "max_source_v": 9.58,
+      "max_source_basis": "same string, 9-cell tap -- sized for the FULL 12-cell cold Voc (conservative)",
+      "r_thevenin_ohm": 48368.8,
+      "z_source_ohm": 58368.8,
+      "loading_error_pct": 0.388
+    },
+    {
+      "id": "D_W3",
+      "source_net": "/W2_SOLAR_N",
+      "divider_net": "/W3_SOLAR_DIV",
+      "sense_net": "/W3_SOLAR_SENSE",
+      "r_top_ref": "R_SOL5",
+      "r_top_ohm": 220000,
+      "r_bot_ref": "R_SOL6",
+      "r_bot_ohm": 62000,
+      "r_prot_ref": "R_PROT4",
+      "r_prot_ohm": 10000,
+      "c_ref": "C_SOL3",
+      "c_f": 1e-08,
+      "max_source_v": 9.58,
+      "max_source_basis": "same string, 6-cell tap -- sized for the FULL 12-cell cold Voc (conservative)",
+      "r_thevenin_ohm": 48368.8,
+      "z_source_ohm": 58368.8,
+      "loading_error_pct": 0.388
+    }
+  ],
+  "stack_note": [
+    "The four wings are in SERIES (registry: J_W1.4=/W1_SOLAR_N=J_W2.1; J_W2.4=/W2_SOLAR_N=J_W3.1;",
+    "J_W3.4=/W3_SOLAR_N=J_W4.1; J_W4.4=GND). Only THREE independent nodes exist and all three are",
+    "measured: /W1_SOLAR_P (12 cells above GND), /W1_SOLAR_N (9), /W2_SOLAR_N (6).",
+    "Wing voltages 1-3 are DIFFERENCES of adjacent measured nodes.",
+    "LIMITATION, stated not hidden: wing 4's own terminal voltage is NOT directly measurable --",
+    "its positive node is /W3_SOLAR_N, which is measured, but subtracting GND yields the WHOLE",
+    "string, not wing 4. ADR-148 spent all eight channels (4 cut + VSCAP + 3 solar); there is no spare."
+  ],
+  "i2c": {
+    "bus_nets": [
+      "/I2C_SCL",
+      "/I2C_SDA"
+    ],
+    "pullups": {
+      "R_PU1": 4700,
+      "R_PU2": 4700,
+      "to": "+3V3"
+    },
+    "pullup_finding": [
+      "MEASURED on hub_board_v10.kicad_pcb: the I2C bus has NO pull-up resistors at all.",
+      "The only pads on /I2C_SCL and /I2C_SDA are U1.38/U1.39 and U6.7/U6.8. ADR-145",
+      "justified the expander with 'the bus already exists and is already routed' -",
+      "routed yes, but with no pull-ups the bus cannot function beyond the ESP32-S3's",
+      "weak (~45 kOhm) internal pull-ups. Adding two more devices to it requires real",
+      "pull-ups, so v11 adds them. Idle current is zero (both lines high, no DC path);",
+      "they only draw during traffic, which is not a night-budget item."
+    ]
+  },
+  "address_collisions": [
+    {
+      "device": "U6 MS5611-01BA",
+      "addrs": [
+        118,
+        119
+      ],
+      "addr_hex": [
+        "0x76",
+        "0x77"
+      ],
+      "basis": "SDO/CSB pin strap. Either strap is clear of the ADS1115's 0x48-0x4B block."
+    },
+    {
+      "device": "MCP23017 (ADR-145, NOT fitted in this revision)",
+      "addrs": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "addr_hex": [
+        "0x20-0x27"
+      ],
+      "basis": "A0-A2. Clear of 0x48-0x4B."
+    }
+  ],
+  "protection": {
+    "r_prot_ohm": 10000,
+    "r_prot_footprint": "Resistor_SMD:R_0402_1005Metric",
+    "c_filt_nf": 10,
+    "clamp_voltage_assumed_v": 3.6,
+    "max_pin_current_ma": 10.0,
+    "absmax_note": "SBAS444E s5.1: analog input AINx max = VDD+0.3 = 3.6 V at VDD 3.3 V; continuous input current on any non-supply pin is +/-10 mA.",
+    "dissipation_limit_mw": 62.5,
+    "dissipation_basis": "1/16 W (62.5 mW) continuous for a standard 0402 thick-film chip resistor.",
+    "engagement_source_v": 16.38,
+    "max_source_v_binding": 150.3,
+    "binding_constraint": "R_top dissipation (0402, 62.5 mW)",
+    "margin_x": 15.7,
+    "pin_current_at_binding_ma": 2.95,
+    "note": "Two independent limits, the tighter one quoted. Pin current reaches 10 mA only at 471 V source, by which point R_top (220k, 0402) is dissipating 614 mW and has long since failed. R_top dissipation therefore binds first, at 150.3 V = 15.7x the documented 9.58 V cold Voc. Below 16.38 V source the tap is under the 3.6 V absolute maximum and the pin current is zero, so the clamp is not even conducting."
+  },
+  "address_collisions_note": [
+    "U_ADC1 (0x48) and U_ADC2 (0x49) are listed under 'devices', not here; this list is",
+    "OTHER traffic on the same bus. ADS1115 offers four addresses (0x48-0x4B) via",
+    "ADDR->GND/VDD/SDA/SCL (SBAS444E Table 7-2), so two more are available later."
+  ],
+  "i2c_pullups": {
+    "refs": [
+      "R_PU1",
+      "R_PU2"
+    ],
+    "ohm": 4700,
+    "to": "+3V3",
+    "basis": "SBAS444E s9.1.6: 1k to 10k typ, one set per bus; four devices max. Bus has U1(ESP32-S3), U6(MS5611), U_ADC1, U_ADC2 = 4 loads.",
+    "why_added": "hub_board_v10.kicad_pcb has NO pull-up resistors on /I2C_SCL or /I2C_SDA; verified via pcbnew. ADR-145 assumed the bus was usable as-is."
+  },
+  "input_impedance_basis": {
+    "value_ohm": 15000000.0,
+    "type": "differential, FSR=+/-4.096V, TYP",
+    "citation": "SBAS444E s5.5 Electrical Characteristics - the 15 MOhm figure is TYP, not guaranteed."
+  }
+}
