@@ -1,5 +1,8 @@
 # Base station: logical pin-map prerequisite repairs (NOT layout-ready)
 
+**Supply continuation:** [fixed-5-V logical correction and remaining blockers](5v-supply.md).
+Earlier regulator-voltage/startup findings below are historical; no PCB readiness implied.
+
 **Continuation:** [RP2040 package-pin correction and current blockers](rp2040-pinmap.md).
 The report below records the earlier regulator-only milestone; its RP2040 mapping failure
 and stale netlist-test path are repaired by that continuation, not the PCB or supply design.

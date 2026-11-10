@@ -23,8 +23,8 @@
   header, or a supersede pointer inside a committed record), this index says
   `UNRESOLVED - needs an operator decision`. It never guesses.
 
-Generated from `docs/adr/`: **122** distinct
-numbers, **122** numbered files, **1** non-conforming filenames.
+Generated from `docs/adr/`: **134** distinct
+numbers, **134** numbered files, **1** non-conforming filenames.
 
 ## Collisions
 
@@ -119,6 +119,7 @@ None.
 | 083 | `083-2g4-reflector-production-ku-offset-dish.md` | The 2.4 GHz reflector is a BOUGHT production Ku offset dish (new or used), never a hand-built one | Proposed — an engineering recommendation with sourced prices and a computed |
 | 084 | `084-ground-station-automatic-level-control.md` | Automatic level control at the gateway: AGC on the 433 receive chain, telemetry-driven attenuation on the 2.4 GHz uplink | Accepted by operator |
 | 085 | `085-wing-slot-placement-rule.md` | Wing-socket slot placement on a 70 × 70 mm hub: rotations derive from the footprint datum, and every slot must reach its own edge | Proposed — the *defect and the rule* are measured; the text is not |
+| 086 | `086-base-station-fixed-5v-correction.md` | Base-station fixed 5 V source correction | Proposed |
 | 100 | `100-tollgate-over-fips-mesh-udp.md` | TollGate Payment Messages Transport Over FIPS Mesh UDP | ACCEPTED |
 | 101 | `101-lr2021-only-ban-sx1280.md` | REVISED — LR2021 SPI Protocol Clarification | SUPERSEDED by ADR-020 |
 | 102 | `102-version-tagging-policy.md` | Version Tagging Policy — Tag on Progress Without Regressions | Accepted |
@@ -156,18 +157,18 @@ None.
 | 135 | `135-wing-interconnect-schematic.md` | The wing interconnect has a schematic, and forward-generation is the direction of truth for a board that has no netlist | Accepted |
 | 136 | `136-flight-wing-interface-two-land-and-routing-sequence.md` | The flight wing interface is TWO lands; cut-sense is deferred DNP; routing is sequenced AFTER the interface | Accepted |
 | 137 | `137-no-rf-on-hub-antenna-at-module.md` | No RF on the hub: antennas connect at the radio module, never on our PCB | Accepted |
-| 138 | `138-e28-ranging-capability-unproven-flight-gate.md` | The E28-2G4M27SX's ranging capability is UNPROVEN; the flight is gated on it | Accepted |
-| 139 | `139-v10-2g4-site-non-pa-sx1280-recommendation.md` | v10's 2.4 GHz site should be a NON-PA SX1280 module; the 27 dBm class is where ranging dies | Proposed |
-| 140 | `140-placement-approval-requires-route-trial.md` | Placement is approved on legality, never on routability; a route-completion trial now gates sign-off | Accepted — **D3 CLOSED 2026-10-30** (9/9, clearance 0) |
-| 141 | `141-drill-minimum-020-fab-limit.md` | Drill minimum is 0.20 mm, set by the fab, not by us — removes 34 permanent `drill_out_of_range` violations | Accepted |
-| 142 | `142-wing-socket-edge-exemption-does-not-extend-to-tracks.md` | The wing-socket edge exemption stays pad-only: no `.kicad_dru` form reaches a track at the socket edge (measured, 7 forms), and those tracks cross a board edge — the remaining 3 pairs complete in assembly via the two-face tab | Accepted |
-| 143 | `143-hv-lane-discipline-by-stack-position.md` | H/V lane discipline assigned by STACK POSITION (F=H, In1=V, In2=H, B=V), never by layer ID — every copper id on these boards is even, so an odd/even rule is inert. Reference board measures 50.5 % conformance, so the gate ships REPORT-ONLY; strict mode is for fresh layouts | **Accepted** — applies to future routing; blocking only after this board is ordered |
-| 144 | `144-two-face-lands-and-gnd-anchors-excluded.md` | Two-face wing lands (16 pads, 2 SMD objects per number, disjoint layers, no barrel) and GND zone-anchor records are EXCLUDED from the unconnected count — derived from geometry, never a hand list; the remaining 5 REAL opens are not excused | **Accepted** |
-| 145 | `145-v11-gpio-economy.md` | v11 pin economy, three measures deferred from v10: shared RESET/BUSY with individual CS (saves 2 GPIOs per extra radio, zero parts), CS on a 3-to-8 decoder (`C52145496`, saves 1 now and scales to 8 devices), and an I2C GPIO expander needing 0 new MCU pins. Not applied to v10 because the binding constraint is escape geometry, not pin budget — U_C's control pads span 19.8 mm on OPPOSITE faces, 17 mm from routed I2C | **Proposed for v11** — recorded so the idea is not lost |
-| 146 | `146-v11-wing-bypass-diodes-to-top.md` | Move `D_BP1..D_BP4` (SS24/SMA wing bypass) to the TOP side on v11. On v10 all four are B.Cu-only, which forces either 2 x $25 double-sided Standard PCBA setup or hand-soldering four SMA joints. Flipping on v10 is not viable: the pads are B.Cu-only, so it needs 8 fresh top-side connections, two of them ~10 mm of trunk across two poured signal layers. The four sites already have ZERO top-side footprints within 6 mm, so v11 places and routes them at layout time and assembly becomes single-sided. | **Proposed for v11** — recorded so the idea is not lost. **Also recorded here rather than as a separate number** (this branch): `/SCAP_ADC` has **two pads and no MCU pin**, so firmware cannot read the storage rail and ADR-006/ADR-036's low-voltage TX abort does not exist on v10; and no solar-input divider exists at all (`/W1_SOLAR_P` touches only `D1`, `D_BP1`, `J_W1`). Both deferred to v11. |
-| 147 | `147-no-merge-pressure-rig-into-base-station.md` | Do NOT merge the pressure rig into the base station. Measured: the base station's MCU is an **RP2040**, not an ESP32, so "share the same ESP32-S3" is not available; and it is a 433 MHz RX front end with two BPFs, a masthead LNA feed and bias tees, while the rig is a 330 mA WiFi transmitter and a 0.5 mbar/h instrument — the two designs in the project that most need to be apart. The cost goal is met without merging: JLCPCB supports many different PCBs in **one cart, one payment, one shipment**. Castellated break-off wings rejected (extra cost for castellations AND for multiple designs in one panel, edge rails collide with edge-launched features, no PCBA setup saving, worse debug cost). S3 module hand-fit rejected: the 3.90 x 3.90 mm GND thermal pad has no accessible edge and needs hot air. Pressure-only rig ACCEPTED with no release valve — pump-OFF is the safe direction, so one low-side FET with a gate pull-down is the whole interlock. | **Accepted 2026-11-10** |
-| 148 | `148-ads1115-analog-sense-and-rail-telemetry.md` | Two `ADS1115IDGSR` (`C37593`, VSSOP-10, 16-bit, 4-channel, I2C, $1.4015) on the existing I2C bus give EIGHT analog channels for ZERO new MCU pins. Closes `OPEN-25` (cut-sense pin, open since ADR-068) and the `/SCAP_ADC` dead end, and frees GPIO3 (pad 15) so the strapping-pin risk disappears. Measured constraint: of 7 free U1 pads only pad 15 (GPIO3) is ADC-capable -- 16/26 no ADC, 28/29/30 dead under N8R8 octal PSRAM, 35 no ADC -- so the entire analog budget was ONE channel against eight needs. **The cut sense must be a 10 mohm series SHUNT, not a voltage divider**: a divider measures the pad voltage, which is ~5.4 V whether or not the wire is intact, and cannot see a cut. Shunt gives 24.8 mV at 2.48 A, 0.062 W, 0.19 % pulse impact. Detection is by current COLLAPSE to ~0 (~248 LSB at PGA16), NOT by a delta, because nichrome 80 published Ct peaks ~500 C then goes NEGATIVE. | **Accepted 2026-11-10** |
-| ≥044 | *(reserved)* | next free: `scripts/adr_next_number.py` → 086 | — |
+| 138 | `138-e28-ranging-capability-unproven-flight-gate.md` | The E28-2G4M27SX's ranging capability is UNPROVEN; the flight is gated on it | Accepted — this is a gate, not a part change. The part decision stays open until |
+| 139 | `139-v10-2g4-site-non-pa-sx1280-recommendation.md` | v10's 2.4 GHz site should be a NON-PA SX1280 module; the 27 dBm class is where ranging dies | Accepted — operator decision 2026-10-26. Part: `LoRa1280` |
+| 140 | `140-placement-approval-requires-route-trial.md` | Placement is approved on legality, never on routability; that is the defect | Accepted — process change, effective immediately |
+| 141 | `141-drill-minimum-020-fab-limit.md` | Drill minimum is 0.20 mm, set by the fab, not by us | Accepted |
+| 142 | `142-wing-socket-edge-exemption-does-not-extend-to-tracks.md` | The wing-socket edge exemption does NOT extend to tracks, and must not | ACCEPTED — operator decision 2026-11-03 |
+| 143 | `143-hv-lane-discipline-by-stack-position.md` | H/V lane discipline: direction assigned by STACK POSITION, never by layer ID | ACCEPTED — operator decision 2026-11-07: *"Don't make it a blocking gate for this |
+| 144 | `144-two-face-lands-and-gnd-anchors-excluded.md` | Two-face wing lands and GND zone anchors are excluded from the unconnected count | ACCEPTED — operator decision 2026-11-08: *"sounds good, lets go with these |
+| 145 | `145-v11-gpio-economy.md` | v11 GPIO economy: three pin-saving measures, deferred from v10 | PROPOSED for v11. Not applied to v10. Operator directive 2026-11-09: *"put all |
+| 146 | `146-v11-wing-bypass-diodes-to-top.md` | v11: move the four wing bypass diodes `D_BP1..D_BP4` to the top side | PROPOSED for v11. Not applied to v10. Operator directive 2026-11-09: *"lets move the |
+| 147 | `147-no-merge-pressure-rig-into-base-station.md` | Do not merge the pressure rig into the base station; order separate boards in one basket | ACCEPTED · 2026-11-10 · supersedes the assumption that the base station carries an ESP32 |
+| 148 | `148-ads1115-analog-sense-and-rail-telemetry.md` | One ADS1115 resolves `OPEN-25` and the `/SCAP_ADC` orphan, with zero new MCU pins | ACCEPTED · 2026-11-10 · closes `OPEN-25` |
+| ≥044 | *(reserved)* | next free: `scripts/adr_next_number.py` → 087 | — |
 
 ## Non-conforming filenames (not `NNN-description.md`)
 

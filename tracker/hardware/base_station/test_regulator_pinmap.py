@@ -9,7 +9,7 @@ from pathlib import Path
 import unittest
 
 HERE = Path(__file__).resolve().parent
-EXPECTED = {'1': 'GND', '2': 'VIN_GS_PROT', '3': 'REG_EN', '4': 'GND',
+EXPECTED = {'1': 'GND', '2': 'VIN_GS_PROT', '3': 'VIN_GS_PROT', '4': 'GND',
             '5': 'GND', '6': '+5V_PCBA', '7': 'REG_SW', '8': 'REG_PG', '9': 'GND'}
 
 
