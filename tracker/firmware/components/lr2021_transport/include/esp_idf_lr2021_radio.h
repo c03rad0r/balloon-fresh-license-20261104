@@ -98,7 +98,7 @@ private:
     spi_device_handle_t spi_;     ///< ESP-IDF SPI device handle
     Lr2021PinConfig      pins_;   ///< Pin configuration
     bool                 initialized_;  ///< init() has been called
-    uint8_t              payload_len_;  ///< Fixed FLRC payload length (from config)
+    uint16_t             payload_len_;  ///< Fixed FLRC payload length (from config)
 
     // ── SPI operations (proven patterns from main.cpp) ──
 

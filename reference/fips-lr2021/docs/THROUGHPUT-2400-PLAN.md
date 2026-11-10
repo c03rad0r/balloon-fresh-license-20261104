@@ -42,24 +42,32 @@ and explicit reconciliation against the baseline, including HF carrier support.
 
 ## Stage A — preserve validated work
 
-- [ ] PR the validated reference work into `felixfelix-bot/balloon-fresh` default
-      `master`; wait for required CI, merge only when green.
-- [ ] PR `balloon-lr2021` into the fork `c03rad0r/fips` default `master`; merge
-      only when green. No action against `jmcorgan/fips`.
-- [ ] Confirm the committed pin and vendored patch match the validated host.
-- [ ] Preserve the non-secret evidence archive at
+- [x] PR #544 merged the validated reference work into
+      `felixfelix-bot/balloon-fresh` default `master` (`ca8fbead`), with
+      host-tests, pcb-pipeline and test all green.
+- [x] PR #1 merged `balloon-lr2021` into fork `c03rad0r/fips` default `master`
+      (`482ee781`). No upstream `jmcorgan/fips` action; that repository has no
+      configured checks, so the recorded local 25+4 host suites were required.
+- [x] Committed pin and vendored patch match validated host `8155e5ff`.
+- [x] Non-secret evidence remains at
       `/home/archipelago/fips-results/2026-11-10/`.
 
 ## Stage B — make 511 bytes safe
 
-- [ ] Replace the 255-byte ESP32 RX and USB payload buffers with an explicit
-      511-byte-capable bounded representation.
-- [ ] Test 255-, 256-, 511-, and over-limit inputs, including exact payload
+- [x] Replace the 255-byte ESP32 RX and USB payload buffers with a bounded
+      511-byte-capable representation.
+- [x] Test 255-, 256-, 511-, and over-limit inputs, including payload
       preservation, zero padding and host USB framing.
-- [ ] Confirm LR2021 radio configuration and `CfgAckPayload` handles 511 without
-      narrowing/truncation in the actual driver.
-- [ ] Run all host tests and both ESP-IDF target builds.
-- [ ] Obtain required orchestrator flash approval and device ownership/locks.
+- [x] Confirm LR2021 configuration uses a 16-bit FLRC length field without
+      narrowing; bridge CFG metadata already carries an unsigned 16-bit size.
+- [x] Run all host tests and both ESP-IDF target builds
+      (42/42 driver tests, 27/27 FIPS LR2021 tests, 4/4 native transport tests;
+      both images link). The broader legacy `make test-unit` run is 93 passed,
+      one unrelated dependency failure because `mbedtls/sha256.h` is absent from
+      the host environment; this is not recorded as a green full-suite run.
+- [ ] Obtain required orchestrator flash approval and device ownership/locks
+      (**REQUESTED 2026-11-10 in `docs/coordination/FLASH-QUEUE.md`; no flash has
+      occurred**).
 - [ ] Stop daemon serial users before any bridge probe/flash; use by-id devices,
       not guessed `/dev/ttyACM*` numbers.
 - [ ] Flash versioned S3/C3 images and record hashes/HELLO responses.

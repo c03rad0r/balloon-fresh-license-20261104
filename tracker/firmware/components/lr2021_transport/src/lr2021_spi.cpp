@@ -343,11 +343,13 @@ static void build_packet_params(const Lr2021Config& config, uint8_t params[4]) {
 #else
     uint8_t byte1 = (1u << 6) | (1u << 3) | (1u << 2) | crc_byte;
 #endif
-    // Byte 2-3: payloadLen big-endian (upper byte 0 for ≤255)
+    // Bytes 2-3: payloadLen big-endian, full FLRC u16 range (6..511).
     params[0] = byte0;
     params[1] = byte1;
-    params[2] = 0x00;
-    params[3] = config.payload_length;
+    uint8_t payload_be[2];
+    lr2021_flrc_encode_payload_length(config.payload_length, payload_be);
+    params[2] = payload_be[0];
+    params[3] = payload_be[1];
 }
 
 #ifndef LR2021_E80_COMPAT

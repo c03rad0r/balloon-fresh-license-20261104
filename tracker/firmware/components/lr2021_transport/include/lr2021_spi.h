@@ -61,8 +61,8 @@
 /// SPI clock frequency (20 MHz max verified per speed-tests)
 #define LR2021_SPI_FREQ_HZ    20000000U
 
-/// Maximum FLRC payload per packet (proven baseline: 255 bytes at 2600 kbps)
-#define LR2021_MAX_PACKET     255u
+/// Maximum FLRC payload per packet (16-bit FLRC field: 6..511 bytes)
+#define LR2021_MAX_PACKET     511u
 
 /// Busy pin poll timeout (iterations)
 #define LR2021_BUSY_TIMEOUT_ITER  100000U
@@ -96,7 +96,7 @@ struct Lr2021Config {
     int8_t   tx_power_dbm;    ///< TX power in dBm (range: -18 to +12)
     uint8_t  sync_word[4];    ///< Sync word bytes (must match on TX and RX)
     bool     crc_enabled;     ///< Enable CRC (recommended)
-    uint8_t  payload_length;  ///< Maximum payload length per packet (FLRC: max 255)
+    uint16_t payload_length;  ///< Fixed packet length per packet (FLRC: 6..511)
 
     /// Default config — proven baseline from balloon-range-tests Track 1
     Lr2021Config()
@@ -195,6 +195,14 @@ namespace Lr2021Opcodes {
     /// Helper: get array length (compile-time)
     template <size_t N>
     constexpr size_t arr_len(const uint8_t (&)[N]) { return N; }
+}
+
+// ── FLRC packet-length encoding ─────────────────────────────────────
+
+/// Encode the big-endian 16-bit FLRC payloadLen packet-params field.
+inline void lr2021_flrc_encode_payload_length(uint16_t length, uint8_t out[2]) {
+    out[0] = (uint8_t)(length >> 8);
+    out[1] = (uint8_t)length;
 }
 
 // ── E80 TX framing ─────────────────────────────────────────────────
@@ -379,7 +387,7 @@ private:
     spi_device_handle_t spi_dev_;
     bool spi_initialized_;
     bool is_tx_;
-    uint8_t payload_length_ = 255;
+    uint16_t payload_length_ = 255;
 
     // SPI helper methods
     Lr2021Error spi_write(const uint8_t* data, size_t len);

@@ -30,6 +30,8 @@ RP2040 bridge firmware, configs and test scripts.
 - **Repairing additional radio endpoints?** `docs/CARRIER-RECOVERY-PLAN.md` keeps
   the C3/Pico/native recovery steps, measured bidirectional C3 proof and the
   half-duplex CSMA/CA implementation checklist.
+- **Maximizing EU 2.4 GHz throughput?** `docs/THROUGHPUT-2400-PLAN.md` tracks
+  the gated 511-byte qualification, pacing sweep and HTTP comparison.
 - **Persistent fleet reachability?** `docs/ARCHIPELAGO-FIPS-ONBOARDING.md`
   records the node's actual global-FIPS state, public identity and private
   Hermes onboarding checklist. It is separate from the radio test namespaces.
@@ -161,6 +163,7 @@ virtual end-to-end success is not a substitute for RF verification.
 | `docs/IPV6-DATA-PLANE-PLAN.md` | IPv6 failure analysis, link acceptance gate and deferred Wirehair/FEC plan |
 | `docs/CARRIER-RECOVERY-PLAN.md` | Other radio endpoint recovery, C3 DIO9 proof and half-duplex CSMA/CA checklist |
 | `docs/PING-RELIABILITY-PLAN.md` | Active duplicate-aware ping reliability flow-control checklist |
+| `docs/THROUGHPUT-2400-PLAN.md` | EU 2.4 GHz / 511-byte bounded-buffer qualification and throughput sweep |
 | `docs/ARCHIPELAGO-FIPS-ONBOARDING.md` | Global-host private-Hermes identity, version and persistent reachability checklist |
 | `tests/hardware/http-speed.sh` | FIPS-namespace HTTP goodput meter with a mandatory 0%-loss ping gate |
 | `tests/hardware/ping-gate.sh` | strict bidirectional 50/50 IPv6 gate; blocks benchmarking on any loss |

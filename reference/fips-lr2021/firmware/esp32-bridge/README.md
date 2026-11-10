@@ -37,8 +37,14 @@ docker run --rm \
   bash -lc 'idf.py set-target esp32s3 && idf.py build'
 ```
 
-The firmware version currently reported by the validated S3 image is **0.4.22**
-(NiceRF C3: **0.5.12**).
+The firmware version reported by the validated **868 MHz baseline** S3 image is
+**0.4.22** (NiceRF C3: **0.5.12**).
+
+The `throughput-2400` branch builds experimental S3 **0.4.23** and C3 **0.5.13**
+images with bounded 511-byte RX/SPI buffers and a 16-bit FLRC packet length.
+Those images are **built but not yet flashed or RF-qualified**: flash approval is
+pending in `docs/coordination/FLASH-QUEUE.md`, and no 511-byte/2.4 GHz throughput
+claim applies to the baseline firmware.
 The build must set the main task stack to 8192 bytes (see `sdkconfig.defaults`)
 because large protocol/radio buffer paths otherwise cause a boot loop.
 

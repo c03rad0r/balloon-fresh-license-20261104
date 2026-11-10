@@ -694,6 +694,50 @@ TEST(test_e80_tx_fifo_keeps_exact_length) {
     return 1;
 }
 
+TEST(test_flrc_payload_length_is_16bit_big_endian) {
+    uint8_t out[2] = {0xAA, 0xAA};
+    lr2021_flrc_encode_payload_length(511, out);
+    CHECK_EQ(out[0], 0x01);
+    CHECK_EQ(out[1], 0xFF);
+
+    Lr2021Config cfg;
+    cfg.payload_length = 511;
+    CHECK_EQ(cfg.payload_length, (uint16_t)511);
+    return 1;
+}
+
+TEST(test_e80_tx_fifo_exact_256_and_padded_511) {
+    std::vector<uint8_t> payload(256, 0xA6);
+    auto exact = lr2021_e80_build_tx_fifo(payload.data(), payload.size(), 256);
+    CHECK_EQ(exact.size(), (size_t)(2 + 256));
+    CHECK(memcmp(exact.data() + 2, payload.data(), payload.size()) == 0);
+
+    auto padded = lr2021_e80_build_tx_fifo(payload.data(), payload.size(), 511);
+    CHECK_EQ(padded.size(), (size_t)(2 + 511));
+    CHECK(memcmp(padded.data() + 2, payload.data(), payload.size()) == 0);
+    for (size_t i = 2 + payload.size(); i < padded.size(); i++) {
+        CHECK_EQ(padded[i], 0x00);
+    }
+    return 1;
+}
+
+TEST(test_e80_tx_fifo_bound_511_and_mock_rx) {
+    std::vector<uint8_t> payload(512, 0x5B);
+    auto bounded = lr2021_e80_build_tx_fifo(payload.data(), payload.size(), 512);
+    CHECK_EQ(bounded.size(), (size_t)(2 + LR2021_MAX_PACKET));
+    CHECK(memcmp(bounded.data() + 2, payload.data(), LR2021_MAX_PACKET) == 0);
+
+    MockLr2021Radio radio;
+    std::vector<uint8_t> full(LR2021_MAX_PACKET, 0xC7);
+    radio.load_rx_packet(full.data(), full.size());
+    uint8_t received[LR2021_MAX_PACKET] = {0};
+    PacketStatus status;
+    CHECK(lr2021_ok(radio.read_packet(received, sizeof(received), status)));
+    CHECK_EQ(status.length, LR2021_MAX_PACKET);
+    CHECK(memcmp(received, full.data(), full.size()) == 0);
+    return 1;
+}
+
 TEST(test_e80_tx_fifo_does_not_truncate_longer_payload) {
     std::vector<uint8_t> payload(20, 0xA5);
     auto frame = lr2021_e80_build_tx_fifo(payload.data(), payload.size(), 12);
@@ -759,6 +803,9 @@ int main(void) {
     printf("\n[E80 TX FIFO framing]\n");
     RUN(test_e80_tx_fifo_pads_short_payload);
     RUN(test_e80_tx_fifo_keeps_exact_length);
+    RUN(test_flrc_payload_length_is_16bit_big_endian);
+    RUN(test_e80_tx_fifo_exact_256_and_padded_511);
+    RUN(test_e80_tx_fifo_bound_511_and_mock_rx);
     RUN(test_e80_tx_fifo_does_not_truncate_longer_payload);
 
     printf("\n[Transport TX→RX loop]\n");
