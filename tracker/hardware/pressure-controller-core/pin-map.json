@@ -1,0 +1,307 @@
+{
+  "U1": {
+    "3": {
+      "name": "EN",
+      "net": "EN",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "27": {
+      "name": "IO0",
+      "net": "BOOT",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "39": {
+      "name": "IO1",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "38": {
+      "name": "IO2",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "15": {
+      "name": "IO3",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "4": {
+      "name": "IO4",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "5": {
+      "name": "IO5",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "6": {
+      "name": "IO6",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "7": {
+      "name": "IO7",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "12": {
+      "name": "IO8",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "17": {
+      "name": "IO9",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "18": {
+      "name": "IO10",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "19": {
+      "name": "IO11",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "20": {
+      "name": "IO12",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "21": {
+      "name": "IO13",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "22": {
+      "name": "IO14",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "8": {
+      "name": "IO15",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "9": {
+      "name": "IO16",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "2": {
+      "name": "3V3",
+      "net": "+3V3",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "1": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "40": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "41": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "37": {
+      "name": "TXD0",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "36": {
+      "name": "RXD0",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "10": {
+      "name": "IO17",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "11": {
+      "name": "IO18",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "13": {
+      "name": "USB_D-",
+      "net": "USB_DN_BOUNDARY",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "14": {
+      "name": "USB_D+",
+      "net": "USB_DP_BOUNDARY",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "23": {
+      "name": "IO21",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "28": {
+      "name": "IO35",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "29": {
+      "name": "IO36",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "30": {
+      "name": "IO37",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "31": {
+      "name": "IO38",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "32": {
+      "name": "IO39",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "33": {
+      "name": "IO40",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "34": {
+      "name": "IO41",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "35": {
+      "name": "IO42",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "26": {
+      "name": "IO45",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "16": {
+      "name": "IO46",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "24": {
+      "name": "IO47",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "25": {
+      "name": "IO48",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    }
+  },
+  "R1": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "EN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R2": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "BOOT",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "C1": {
+    "1": {
+      "name": "~",
+      "net": "EN",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "C2": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "C3": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "SW1": {
+    "1": {
+      "name": "1",
+      "net": "EN",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    },
+    "2": {
+      "name": "2",
+      "net": "GND",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    }
+  },
+  "SW2": {
+    "1": {
+      "name": "1",
+      "net": "BOOT",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    },
+    "2": {
+      "name": "2",
+      "net": "GND",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    }
+  },
+  "#FLG01": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": ""
+    }
+  },
+  "#FLG02": {
+    "1": {
+      "name": "~",
+      "net": "GND",
+      "footprint": ""
+    }
+  }
+}

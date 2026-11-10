@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-10T11:37:09+0100",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.9",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/72f8aa07-d395-5b39-b000-9213e11906a3",
+            "violations": [
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'USB_DN_BOUNDARY'",
+                            "pos": {
+                                "x": 1.1557,
+                                "y": 0.7747
+                            },
+                            "uuid": "4554c621-fd67-5338-a192-1f95b7e56100"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'USB_DP_BOUNDARY'",
+                            "pos": {
+                                "x": 1.1557,
+                                "y": 0.8001
+                            },
+                            "uuid": "63f950b5-8876-537a-b27b-8cc6c1ce3ec1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                }
+            ]
+        }
+    ],
+    "source": "core.kicad_sch"
+}

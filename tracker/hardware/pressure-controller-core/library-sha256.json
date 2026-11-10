@@ -1,0 +1,10 @@
+{
+  "RF_Module:ESP32-S3-WROOM-1": "b7f7c0eb5ecd56a08d127f464d0b0ffb5dc5e2b685bb493de1d731654e57bbd3",
+  "RF_Module.kicad_sym": "ac32f2efe1f048a9975d0fd9a54ea1cbed1a17a4c96c8ceb7dbec1947aa2fb59",
+  "Resistor_SMD:R_0603_1608Metric": "32e6f926b4be772aeabae6060210133fbf78854a3fe12ca7011b4916ed49f134",
+  "Device.kicad_sym": "bf466eecad72ed640dd9a279bce4741c1fcf3d0eecfb07e933c945f7a64744ae",
+  "Capacitor_SMD:C_0603_1608Metric": "86a101f1dbc512aa9a73532f4b837db141edd5bded65094b0d13dca3fc3f6c68",
+  "Button_Switch_SMD:SW_SPST_TL3342": "5529a38017a0115b81f9762ded4c845a9d51abbe807690996e39b10e3de22423",
+  "Switch.kicad_sym": "a93607f7bb68bce50996f458d7be86e1e187ac661877548a5119f8b890748fef",
+  "power.kicad_sym": "541c49bdad55134b5f6379e80c6d18f165c1d9e98ca7df36ad6ec2a316a6d11b"
+}
