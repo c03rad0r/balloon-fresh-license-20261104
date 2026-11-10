@@ -1,0 +1,11 @@
+{
+  "removed_in_copy_only": {
+    "tracks_and_vias": 5,
+    "copper_zones": 2
+  },
+  "remaining": {
+    "tracks_and_vias": 0,
+    "copper_zones": 0
+  },
+  "source_sha256": "3d422fa0323c5d56c3916a3a80849f2069540dac461164e33223db3c398fbc8f"
+}
