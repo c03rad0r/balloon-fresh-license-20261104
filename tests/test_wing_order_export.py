@@ -39,5 +39,22 @@ class OriginTest(unittest.TestCase):
             self.assertAlmostEqual(float(rows['D1']['Mid Y']), -7.75)
             self.assertAlmostEqual(float(rows['D2']['Mid Y']), -6)
 
+class PolarityTest(unittest.TestCase):
+    def test_native_bypass_polarity(self):
+        import pcbnew
+        wing.verify_bypass_polarity(pcbnew.LoadBoard(wing.INTERCON))
+
+    def test_each_reversed_diode_fails(self):
+        import pcbnew
+        for ref in ('D1', 'D2', 'D3'):
+            with self.subTest(ref=ref):
+                board = pcbnew.LoadBoard(wing.INTERCON)
+                pads = {p.GetNumber(): p for p in board.FindFootprintByReference(ref).Pads()}
+                k, a = pads['1'].GetNet(), pads['2'].GetNet()
+                pads['1'].SetNet(a)
+                pads['2'].SetNet(k)
+                with self.assertRaisesRegex(ValueError, ref + ': bypass polarity'):
+                    wing.verify_bypass_polarity(board)
+
 if __name__ == '__main__':
     unittest.main()

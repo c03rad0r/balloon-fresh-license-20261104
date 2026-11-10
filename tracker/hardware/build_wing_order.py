@@ -166,6 +166,20 @@ def write_bom(path, parts):
             w.writerow([comment, desig, fp, qty, lcsc])
 
 
+def verify_bypass_polarity(board):
+    """KiCad pad 1 is K: MDD SS24's banded terminal must land here.
+
+    This verifies board topology, not JLC's independent zero-angle model.
+    """
+    chain = ('SOLAR_P', 'SOLAR_MID1', 'SOLAR_MID2', 'SOLAR_N')
+    for i, ref in enumerate(('D1', 'D2', 'D3')):
+        fp = board.FindFootprintByReference(ref)
+        pads = {} if fp is None else {p.GetNumber(): p.GetNetname() for p in fp.Pads()}
+        expected = {'1': chain[i], '2': chain[i + 1]}
+        if pads != expected:
+            raise ValueError(f'{ref}: bypass polarity: expected K/pad1, A/pad2 {expected}, got {pads}')
+
+
 def write_cpl(path, board, H, parts):
     """Use KiCad's absolute-origin placement export, matching Gerber and drill.
 
@@ -205,6 +219,9 @@ def zipdir(src, dst):
 
 
 def build(name, board_path, parts, note):
+    if name == 'interconnect':
+        import pcbnew
+        verify_bypass_polarity(pcbnew.LoadBoard(board_path))
     outdir = os.path.join(OUTROOT, name)
     if os.path.isdir(outdir):
         shutil.rmtree(outdir)
