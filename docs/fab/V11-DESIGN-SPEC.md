@@ -16,7 +16,7 @@ v10 ever had. Treating it as an afternoon's edit would produce a board that look
 | # | change | parts added | copper added | blocked by |
 |---|---|---|---|---|
 | 1 | ADR-146: `D_BP1..4` to the top face | 0 | 8 pad connections (3 sites easy, 1 needs new trunk) | nothing |
-| 2 | `/SCAP_ADC` to an ADC-capable pin | 0 | 1 net, ~28.6 mm | pin budget (see §2) |
+| 2 | `/SCAP_ADC` + cut sense + solar dividers via I²C ADC | **2 × ADS1115** | I²C taps + 8 analog nets | **resolved (ADR-148)** |
 | 3 | Real cut driver at `U_CUT1..4` | 4 × (latch + FET + Rg + Rsense) | 4 sub-circuits | schematic |
 | 4 | ADR-145: GPIO expander for `U_C` | 1 × MCP23017 | I2C tap + 2 traces | schematic |
 | 5 | Full re-route | — | — | 1–4 |
@@ -73,10 +73,17 @@ Distance from the divider midpoint to `U1.15` is **28.6 mm** on a board with two
 poured. v10 could not close a 43.7 mm run or a 1.35 mm neck under those conditions; 28.6 mm is the
 same class of problem.
 
-**v11 must do one of:**
-- give `/SCAP_ADC` its own short path to an ADC pin at layout time (preferred), or
-- adopt ADR-145's expander and use one of its analog-capable inputs, or
-- accept no rail telemetry and probe on the bench.
+**RESOLVED by ADR-148.** Two `ADS1115IDGSR` (`C37593`) on the existing I²C bus give **eight** analog
+channels for **zero** new MCU pins:
+
+- `U_ADC1` @ `0x48` — `AIN0..3` = cut current on wings 1–4, via 10 mΩ series shunts
+- `U_ADC2` @ `0x49` — `AIN0` = `/VSCAP`, `AIN1..3` = W1/W2/W3 solar dividers
+
+This also closes `OPEN-25`, and **frees GPIO3 (pad 15)** — which no longer has to be the ADC, so the
+strapping-pin risk is avoided entirely. See ADR-148.
+
+The cut sense is a **shunt**, not a voltage divider: a divider measures the pad voltage, which is ~5.4 V
+whether or not the wire is intact, and therefore cannot see a cut. Current is the signal.
 
 **Recommendation: add dividers for the three solar inputs too**, not just `/VSCAP`. A board whose
 purpose is validating the power path should be able to report it.
