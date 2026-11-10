@@ -1,5 +1,5 @@
 {
-  "tracker/hardware/build_wing_order.py": "20d4616a74195dfe689fb92078f3e183c40bb20b28a400adc41a98b78e90d8f9",
+  "tracker/hardware/build_wing_order.py": "d8cda7fc5654c9161933ca409f40d63720979b1264211286d32b8d277c38d244",
   "tracker/hardware/wing_board/wing_board_v9.kicad_pcb": "34f103774bfba921eacbac99a9a73dc0fd2f28a680cf6f665e9556ba55fcd2fa",
   "tracker/hardware/wing_interconnect/wing_interconnect_v1.kicad_pcb": "c05d5d5aa601b57c305574320fdeb8a98e1fcf8ada87b03cb0ed9998df1f0b0d"
 }

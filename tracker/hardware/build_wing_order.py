@@ -55,19 +55,20 @@ INTERCON = os.path.join(WT, 'tracker/hardware/wing_interconnect/wing_interconnec
 
 
 def export_epoch():
-    """Canonical timestamp for emitted artefacts: SOURCE_DATE_EPOCH, else the
-    source board's last commit time, else a frozen constant."""
+    """Canonical timestamp for emitted artefacts: SOURCE_DATE_EPOCH, else a
+    FIXED constant.
+
+    This must not depend on git history. A git-derived epoch made the package
+    reproducible on one machine and stale on another: `git log -1 -- <board>`
+    returned a different commit time in a local worktree than in CI's checkout,
+    so the same builder emitted different bytes and the committed package could
+    never satisfy the reproducibility gate in both places at once. A constant
+    derived from nothing is the only value that is identical everywhere.
+    """
     env = os.environ.get('SOURCE_DATE_EPOCH')
     if env:
         return int(env)
-    try:
-        out = subprocess.run(['git', 'log', '-1', '--format=%ct', '--', INTERCON],
-                             cwd=WT, capture_output=True, text=True)
-        if out.returncode == 0 and out.stdout.strip():
-            return int(out.stdout.strip())
-    except Exception:
-        pass
-    return 1762300000  # frozen fallback; only reached outside a git checkout
+    return 1762300000  # 2025-11-04T23:46:40Z, frozen on purpose: see above
 
 STAMP_RE = [
     (re.compile(r'(TF\.CreationDate,)[0-9T:+\-]+'), r'\g<1>{iso}'),
