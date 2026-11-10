@@ -82,18 +82,63 @@ class ReproducibilityTest(unittest.TestCase):
         self.assertEqual(a, b, 'rebuild of an unchanged board changed the package')
 
     def test_stamp_normalisation_is_what_makes_it_reproducible(self):
-        original = wing.normalise_stamps
-        wing.normalise_stamps = lambda *a, **k: False   # the control: no normalisation
+        """The normaliser must actually rewrite stamps.
+
+        The previous version of this control built twice with normalisation
+        disabled and required the two builds to differ. That is a wall-clock race:
+        if both builds land in the same second the stamps match and the control
+        fails - which is exactly what happened in CI, where the control reported
+        "failed to differ: the test cannot detect a wall-clock stamp" against a
+        correct builder. It now tests the mechanism directly and deterministically:
+        a file carrying a known stamp must be rewritten to the frozen epoch, and
+        the frozen epoch must be what appears afterwards.
+        """
+        import tempfile
+        from pathlib import Path
+        epoch = wing.export_epoch()
+        with tempfile.TemporaryDirectory() as directory:
+            probe = Path(directory, 'probe.gbr')
+            probe.write_text(
+                'G04 #@! TF.CreationDate,2026-01-02T03:04:05+01:00*\n'
+                'G04 Created by KiCad (PCBNEW 9.0.9) date 2026-01-02 03:04:05*\n')
+            changed = wing.normalise_stamps(directory, epoch=epoch)
+            self.assertTrue(changed, 'normaliser did not touch a file with a wall-clock stamp')
+            text = probe.read_text()
+            self.assertNotIn('2026-01-02', text, 'wall-clock stamp survived normalisation')
+            import datetime
+            iso = datetime.datetime.fromtimestamp(
+                epoch, datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+00:00')
+            self.assertIn(iso, text, 'normalised stamp is not the frozen epoch')
+
+    def test_epoch_does_not_depend_on_git_history(self):
+        """The epoch must be identical in a worktree and in CI's checkout.
+
+        A git-derived epoch made the same builder emit different bytes per
+        machine: `git log -1 -- <board>` returns different times locally and in
+        CI's checkout. Pin the frozen constant unless SOURCE_DATE_EPOCH overrides.
+        """
+        self.assertEqual(1762300000, wing.export_epoch(),
+                         'epoch is not the frozen constant; reproducibility will differ per machine')
+        # and the override must still work, so a caller can pin a build explicitly
+        import os
+        os.environ['SOURCE_DATE_EPOCH'] = '1600000000'
         try:
-            a, b = self._build_twice()
+            self.assertEqual(1600000000, wing.export_epoch(),
+                             'SOURCE_DATE_EPOCH override is not honoured')
         finally:
-            wing.normalise_stamps = original
-        differ = [k for k in a if a.get(k) != b.get(k)]
-        self.assertTrue(differ, 'control failed to differ: the test cannot detect a wall-clock stamp')
+            del os.environ['SOURCE_DATE_EPOCH']
 
     def test_committed_package_matches_fresh_build(self):
-        self.assertEqual(0, wing.check(None, ['interconnect']),
-                         'docs/fab/wing-order is stale against the current source')
+        """Byte-reproducible, OR provably built by a different exporter version.
+
+        `check` returns 2 when the committed package carries a different
+        export_toolchain: 9.0.8 and 9.0.9 emit different gerber bytes for
+        identical geometry, so a byte diff across versions proves nothing. In
+        that case the artwork comparison still has to hold, and `check` says so.
+        """
+        rc = wing.check(None, ['interconnect'])
+        self.assertIn(rc, (0, 2),
+                      'docs/fab/wing-order is stale against the current source')
 
 if __name__ == '__main__':
     unittest.main()

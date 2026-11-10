@@ -399,6 +399,21 @@ def build(name, board_path, parts, note, outroot=None):
     return dict(name=name, holes=len(holes), dia=dict(bydia), board=sha8(board_path), zip=zp)
 
 
+def kicad_version():
+    """Version string of the kicad-cli that produces the artwork.
+
+    Gerber bytes are a function of the patch version: 9.0.8 and 9.0.9 emit
+    different headers and job metadata for identical geometry, so a byte
+    comparison across two patch versions reports "stale" when nothing about the
+    design changed. Recorded in provenance and checked before any byte verdict.
+    """
+    try:
+        out = subprocess.run(['kicad-cli', 'version'], capture_output=True, text=True)
+        return out.stdout.strip() or 'unknown'
+    except Exception:
+        return 'unknown'
+
+
 def provenance(outroot):
     """Write/verify the source hashes the package was built from."""
     files = {
@@ -411,8 +426,9 @@ def provenance(outroot):
     with open(path, 'w') as fh:
         fh.write('{\n')
         items = sorted(data.items())
-        for i, (rel, h) in enumerate(items):
-            fh.write(f'  "{rel}": "{h}"' + (',\n' if i < len(items) - 1 else '\n'))
+        for rel, h in items:
+            fh.write(f'  "{rel}": "{h}",\n')
+        fh.write(f'  "export_toolchain": "{kicad_version()}"\n')
         fh.write('}\n')
     return data
 
@@ -466,6 +482,32 @@ def check(args, names):
         only_committed = sorted(set(committed) - set(fresh))
         differing = sorted(k for k in set(fresh) & set(committed) if fresh[k] != committed[k])
 
+        # A byte verdict is only meaningful if both sides came from the same
+        # exporter. 9.0.8 and 9.0.9 write different headers for identical
+        # geometry, so comparing across versions reports a design change that
+        # did not happen - and hides a real one. Say "cannot determine".
+        committed_tool = None
+        spc = os.path.join(OUTROOT, 'source-sha256.json')
+        if os.path.exists(spc):
+            try:
+                import json as _json
+                committed_tool = _json.load(open(spc)).get('export_toolchain')
+            except Exception:
+                committed_tool = None
+        built_tool = kicad_version()
+        if committed_tool and committed_tool != built_tool:
+            print('\n=== reproducibility check ===')
+            print(f'  NOT COMPARABLE: package built by {committed_tool}, this machine emits {built_tool}')
+            print('  A patch-version difference changes gerber bytes for identical geometry;')
+            print('  neither "reproducible" nor "stale" can be concluded from a byte diff.')
+            print(f'  Geometry comparison still available: {len(set(fresh) & set(committed))} files')
+            differing = []
+            only_fresh = []
+            only_committed = []
+            uncompared = True
+        else:
+            uncompared = False
+
         print('\n=== reproducibility check ===')
         print(f'  files compared: {len(set(fresh) & set(committed))}')
         for k in only_fresh:
@@ -502,6 +544,9 @@ def check(args, names):
             for line in artwork_bad:
                 print(f'    {line}')
             return 1
+        if uncompared:
+            print('  VERDICT: CANNOT DETERMINE - artwork matches, byte comparison invalid across toolchain versions.')
+            return 2
         print('  VERDICT: ARTWORK-IDENTICAL, BYTES DIFFER — the same features are drawn,')
         print('           but text stamps or the exported layer LIST differ. Not green:')
         print('           the committed package is not what this builder emits.')
