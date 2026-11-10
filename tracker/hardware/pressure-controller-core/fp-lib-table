@@ -1,0 +1,1 @@
+(fp_lib_table (version 7) (lib (name "PressureSensor") (type "KiCad") (uri "${KIPRJMOD}/PressureSensor.pretty") (options "") (descr "TE recommended MS5611 lands; see FOOTPRINT-REPORT.md")))

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>/home/c08r4d0r/worktrees/pr-pressure-dual-ms5611/tracker/hardware/pressure-controller-core/core.kicad_sch</source>
-    <date>2026-11-10T14:03:57+0100</date>
+    <source>/home/c08r4d0r/worktrees/pr-ms5611-qualified-footprint/tracker/hardware/pressure-controller-core/core.kicad_sch</source>
+    <date>2026-11-10T16:08:15+0100</date>
     <tool>Eeschema 9.0.9-9.0.9~ubuntu24.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -34,7 +34,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -50,7 +50,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -66,7 +66,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -82,7 +82,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -98,7 +98,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -114,7 +114,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -130,7 +130,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -146,7 +146,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -162,7 +162,7 @@
       </fields>
       <libsource lib="Connector" part="USB_C_Receptacle_USB2.0_16P" description="USB 2.0-only 16P Type-C Receptacle connector"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="usb universal serial bus type-C USB2.0"/>
       <property name="ki_fp_filters" value="USB*C*Receptacle*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -178,7 +178,7 @@
       </fields>
       <libsource lib="Device" part="L" description="Inductor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="inductor choke coil reactor magnetic"/>
       <property name="ki_fp_filters" value="Choke_* *Coil* Inductor_* L_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -194,7 +194,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -210,7 +210,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -226,7 +226,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -242,7 +242,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -258,7 +258,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -274,7 +274,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -290,7 +290,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -306,7 +306,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -322,7 +322,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -338,7 +338,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -354,7 +354,7 @@
       </fields>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5b9d08a3-7b7d-5f21-bd94-885456ada59e</tstamps>
@@ -369,7 +369,7 @@
       </fields>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>71dbe3e7-eaac-5e6e-a372-19c81bc19285</tstamps>
@@ -384,7 +384,7 @@
       </fields>
       <libsource lib="RF_Module" part="ESP32-S3-WROOM-1" description="RF Module, ESP32-S3 SoC, Wi-Fi 802.11b/g/n, Bluetooth, BLE, 32-bit, 3.3V, onboard antenna, SMD"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="RF Radio BT ESP ESP32-S3 Espressif onboard PCB antenna"/>
       <property name="ki_fp_filters" value="ESP32?S3?WROOM?1*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -400,7 +400,7 @@
       </fields>
       <libsource lib="Regulator_Switching" part="TPS62160DSG" description="1A Step-Down Converter with DCS-Control, adjustable output, 3-17V input voltage, WSON-8"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="step-down dc-dc buck regulator"/>
       <property name="ki_fp_filters" value="WSON*EP*2x2mm*P0.5mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -408,11 +408,11 @@
     </comp>
     <comp ref="U3">
       <value>MS5611-01BA03</value>
-      <footprint>Package_LGA:LGA-8_3x5mm_P1.25mm</footprint>
+      <footprint>PressureSensor:MS5611-01BA03_TE_Recommended</footprint>
       <fields>
         <field name="PressureSource">P_INTERNAL_ABS</field>
         <field name="I2CAddress7bit">0x77</field>
-        <field name="Footprint">Package_LGA:LGA-8_3x5mm_P1.25mm</field>
+        <field name="Footprint">PressureSensor:MS5611-01BA03_TE_Recommended</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -420,7 +420,7 @@
       <property name="PressureSource" value="P_INTERNAL_ABS"/>
       <property name="I2CAddress7bit" value="0x77"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="pressure SPI I2C"/>
       <property name="ki_fp_filters" value="LGA*3x5mm*P1.25mm*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -428,11 +428,11 @@
     </comp>
     <comp ref="U4">
       <value>MS5611-01BA03</value>
-      <footprint>Package_LGA:LGA-8_3x5mm_P1.25mm</footprint>
+      <footprint>PressureSensor:MS5611-01BA03_TE_Recommended</footprint>
       <fields>
         <field name="PressureSource">P_AMBIENT_ABS</field>
         <field name="I2CAddress7bit">0x76</field>
-        <field name="Footprint">Package_LGA:LGA-8_3x5mm_P1.25mm</field>
+        <field name="Footprint">PressureSensor:MS5611-01BA03_TE_Recommended</field>
         <field name="Datasheet"/>
         <field name="Description"/>
       </fields>
@@ -440,7 +440,7 @@
       <property name="PressureSource" value="P_AMBIENT_ABS"/>
       <property name="I2CAddress7bit" value="0x76"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="pressure SPI I2C"/>
       <property name="ki_fp_filters" value="LGA*3x5mm*P1.25mm*"/>
       <sheetpath names="/" tstamps="/"/>

@@ -17,7 +17,7 @@ def check(path):
     for ref, csb, address, source in [('U3','GND',0x77,'P_INTERNAL_ABS'),('U4','+3V3',0x76,'P_AMBIENT_ABS')]:
         require(ref in comps, f'{ref} missing')
         require(comps[ref].findtext('value') == 'MS5611-01BA03', 'exact suffix')
-        require(comps[ref].findtext('footprint') == 'Package_LGA:LGA-8_3x5mm_P1.25mm', 'real footprint')
+        require(comps[ref].findtext('footprint') == 'PressureSensor:MS5611-01BA03_TE_Recommended', 'real footprint')
         for pin, net in {'1':'+3V3','2':'+3V3','3':'GND','4':csb,'5':csb,'7':'I2C_SDA','8':'I2C_SCL'}.items():
             require(nets.get((ref,pin)) == net, f'{ref}.{pin} must be {net}')
         require(nets.get((ref,'6'),'').startswith('unconnected'), 'SDO must be NC')
