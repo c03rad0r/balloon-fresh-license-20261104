@@ -1,0 +1,30 @@
+{
+  "references": 26,
+  "unique_endpoints": 125,
+  "tracks": 0,
+  "courtyard_overlaps": 0,
+  "pad_overlaps": 0,
+  "power_loop_mm": {
+    "CIN_to_VIN_mm": 2.35,
+    "CIN_to_PGND_mm": 3.4,
+    "SW_to_L_mm": 2.28,
+    "L_to_COUT_mm": 3.33,
+    "COUT_to_VOS_mm": 9.66,
+    "FB_divider_to_FB_mm": 4.91,
+    "sensor_to_inductor_mm": 49.68,
+    "sensor_to_S3shield_mm": 29.42
+  },
+  "antenna_keepout_mm": [
+    4,
+    -21.025,
+    52,
+    -6.75
+  ],
+  "sha256": {
+    "core.kicad_sch": "6fd10237092f8046982cd1ba71fb3568b5273cf7c16e0f6344d0ece9fc4804c5",
+    "library-sha256.json": "a2ebaea80a871f746909d2bdb4b22070d6ebff1cce505d93b7a47eaa39a04fb9",
+    "placement.py": "a28be386c48714af59ff236f3748599dcfd6772aebd8071c898ece62ac79dcb4",
+    "placement/core.xml": "ca7b689c697289d62ee1d29c2371893eb141ef29ddabbf64f8ddb04dd1ff2c08",
+    "placement/core-placement.kicad_pcb": "9ee4f157ae021c8fde5d6b95a7a98d8b6c3d91b6aa0b9b4703fc88a100ff23ed"
+  }
+}
