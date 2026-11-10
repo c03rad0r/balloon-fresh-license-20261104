@@ -12,6 +12,8 @@ Four **binding process rules** for v10 (and the default posture for later boards
 
 Parts are distributed over **both sides** of the board. The digital/harvest section occupies the front; the radio sites (ADR-119) occupy the back, away from digital noise. RF-module keep-out rules (e.g. E28 manual §4.1) apply on **both sides** at each module site.
 
+**Precedence (2026-11-10, operator-approved):** R1 states the *default to measure*, not an unconditional rule. The operative density rule is **`AGENTS.md` §1b Board density**: every placement milestone computes the smallest outline **both** single-sided and two-sided and adopts two-sided when it earns **≥10 % of board area**. Staying single-sided after a threshold win requires a **recorded operator decision** weighing assembly cost against the saved area — never an agent's shorthand. Measured counter-example that motivated this: on the 65 × 50 mm pressure-controller candidate, a 197.6 mm² "largest empty area" figure was read as proof that a second side would buy nothing; a two-sided placement then measured **52 × 46 mm, 26.4 % smaller**. "Is the single-sided board packed?" and "would a second side buy a smaller outline?" are different questions and only the second decides the board.
+
 ### R2 — Minimal outline
 
 The outline shrinks to the surface the two-sided placement needs. Legacy outlines (70×70 v9) are **not** constraints. The wing sockets (ADR-085: four edge seats) frame the outline shape. Measured first pass: **52×62 mm = 3224 mm², 34% smaller than v9** — subject to the R3 gate.

@@ -667,18 +667,16 @@ Rules:
 ## FLIGHT BOARD v10 — OPERATOR DIRECTIVES (2026-10-20) — BINDING
 ### ADR-118 (umbrella) · ADR-119 (radio sites) · ADR-120 (placement process + gates)
 
-1. **Two-sided population is the default — MEASURED, not assumed.** Parts go on both sides; the
-   outline shrinks to what the two-sided placement needs. The 70x70 v9 outline is not a v10
-   constraint.
-   **Precedence (added 2026-11-10):** the operative density rule is **§1b Board density** at the top
-   of this file. It requires every placement gate to compute the smallest outline **both**
-   single-sided and two-sided and to take the smaller one only when it earns **≥10 % of board area**.
-   Two-sided is the default **to measure** — never a default to assume, and never dismissible without
-   the measurement. Staying single-sided after the two-sided number clears the threshold is allowed
-   **only** as a recorded operator decision (see the pressure-controller exception in §1b), never as
-   an agent's shorthand. A reservation larger than the parts dominates the decision and must not be
-   shrunk to win area. ADR-120 R1's measured two-sided first pass and §1b are consistent: measure,
-   then choose.
+1. **Population sides: resolved by measurement, per `§1b Board density` (which governs).** Parts go
+   on both sides **when the two-sided placement earns ≥10 % of board area** against the best
+   single-sided fit; otherwise the board stays single-sided. Every placement gate computes **both**
+   outlines and reports both, with per-side occupancy. The 70x70 v9 outline is not a v10 constraint.
+   Two-sided is therefore the default **to measure**, never a default to assume — and never
+   dismissible without the measurement. After a threshold win, staying single-sided is permitted
+   **only** as a recorded operator decision weighing assembly cost against the saved area (see the
+   pressure-controller exception in §1b), never as an agent's shorthand. A reservation larger than the
+   parts dominates the decision and must not be shrunk to win area. ADR-120 R1's measured two-sided
+   first pass and §1b are consistent: measure, then choose.
 2. **Four RF sites:** LoRa2021F33 (HP) + TWO bare LoRa2021 LP + **E28-2G4M27SX module**
    (SX1280+PA+LNA+matching on-module; datasheet at `docs/modules/e28-2g4m27sx/`).
    The bare-chip SX1280 + self-built match network is ABANDONED (measured fatal scatter,
