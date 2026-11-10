@@ -1,4 +1,8 @@
-# Base station: regulator pin-map prerequisite repair (NOT layout-ready)
+# Base station: logical pin-map prerequisite repairs (NOT layout-ready)
+
+**Continuation:** [RP2040 package-pin correction and current blockers](rp2040-pinmap.md).
+The report below records the earlier regulator-only milestone; its RP2040 mapping failure
+and stale netlist-test path are repaired by that continuation, not the PCB or supply design.
 
 Base inspected: master `2449ad8a`; live PR list inspected before work (no active base-station repair identified). Artifact of record per ADR-147: `tracker/hardware/base_station/base_station_v1_placed_v2.kicad_pcb`. Read ADR-084, ADR-114, ADR-147 and D14 freeze. RF intent is unchanged: 433 RX only, VGA after LNA, second 433 BPF before detector, separate LNA/VGA/detector/MCU rails, no added 2.4 GHz PA.
 
