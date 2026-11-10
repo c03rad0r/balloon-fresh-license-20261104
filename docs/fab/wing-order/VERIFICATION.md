@@ -12,7 +12,7 @@ Interconnect Excellon has exactly two holes, both 0.400 mm. Carrier has eight 0.
 
 ## Blocking/unverified items
 
-- CPL remains unsafe: native absolute-origin positions (native-interconnect-pos.csv) are D1/D2/D3 X=14/22/30, Y=-6. Generated JLC CPL uses Y=14.1 (`GetBoardEdgesBoundingBox` height includes outline stroke). This is not a common-origin transform with the absolute-origin Gerber/drill exports. Do not upload the CPL unchanged. Repair/test the CPL generator in follow-up.
+- CPL origin repaired: JLC rows now come directly from native KiCad absolute-origin CSV (D1/D2/D3 X=14/22/30, Y=-6), matching absolute Gerber/drill coordinates. The outline height is no longer used. A native asymmetric-pad regression checks footprint datum (13.25,-7.75) despite displaced pad geometry and bogus height=999; this is not two handwritten transforms compared against each other.
 - C50645 datasheet pad-1 cathode and JLC rotation correspondence were NOT verified in this bounded pass.
 - Declared 0.4 mm assembly compatibility is NOT verified. Published bare-board thickness support does not prove assembly capability. Sources for next review: https://jlcpcb.com/capabilities/pcb-assembly and https://jlcpcb.com/resources/pcb-thickness (the latter says 0.4 mm only ENIG and cannot be panelized). Obtain assembly-specific capability/quote confirmation; do not change thickness silently.
 - No new DRC, schematic parity, independent spatial review or human fabrication preview was performed. This is an export repair, not manufacturing sign-off.
@@ -21,3 +21,26 @@ Interconnect Excellon has exactly two holes, both 0.400 mm. Carrier has eight 0.
 ## Decisions
 
 Preserve source copper/rules; enable paste and remove non-fitted paste only in a temporary native KiCad export copy. This repairs the missing assembly artifact without inventing footprint geometry. Explicit export layer list removes unrelated courtyard/adhesive/user layers from the upload. Both regenerated zips are review candidates only, NOT approved orders.
+
+## Scoped follow-up
+
+Carrier exports and carrier zip restored byte-for-byte to base 2449ad8a. The previous
+whole-package regeneration changed unrelated carrier artwork and export layer selection;
+that delta was not justified as part of the diode paste repair and is excluded. Original
+regenerated artifacts remain in commit fc2326cf. Use `--interconnect-only` for this repair.
+
+Executed `/usr/bin/python3 tests/test_wing_order_export.py`: 2 tests PASS, exit 0.
+Executed build with `--interconnect-only`: exit 0, six paste flashes covered by regression,
+two 0.400 mm drills, three native placement rows. Source PCB/rules untouched.
+
+Assembly capability checked against JLCPCB's assembly-specific table:
+http://www.jlcpcb.com/capabilities/pcb-assembly-capabilities
+Economic PCBA: 0.8–1.6 mm; Standard PCBA: 0.4–2.0 mm. Thus 0.4 mm is NOT economic
+assembly. Standard also lists minimum 70×70 mm, edge rails and fiducials required.
+**Manufacturer question / BLOCKED:** can this ~35×20 mm, 0.4 mm interconnect be
+accepted for Standard assembly with a suitable support carrier/rails, given published
+thin-board panel restrictions? Obtain written confirmation and an assembly quote.
+No thickness or copper changes are authorized by this evidence.
+
+C50645 datasheet and JLC cathode/rotation correspondence remain UNVERIFIED; no claim
+of assembly readiness or polarity approval. No merge or purchase performed.

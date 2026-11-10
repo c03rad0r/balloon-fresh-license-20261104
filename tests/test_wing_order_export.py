@@ -20,5 +20,24 @@ class ExportTest(unittest.TestCase):
             holes, tools = wing.parse_drill(str(next(Path(directory).glob('*.drl'))))
             self.assertEqual(len(holes), 2, 'both vias must be drilled')
 
+class OriginTest(unittest.TestCase):
+    def test_native_origin_and_asymmetric_pad_anchor(self):
+        import pcbnew
+        import csv
+        board = pcbnew.LoadBoard(wing.INTERCON)
+        # Asymmetric pad geometry must not silently move the placement datum.
+        fp = board.FindFootprintByReference('D1')
+        fp.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(13.25), pcbnew.FromMM(7.75)))
+        pad = next(iter(fp.Pads()))
+        pad.SetPosition(pcbnew.VECTOR2I(pcbnew.FromMM(10), pcbnew.FromMM(5)))
+        with tempfile.TemporaryDirectory() as directory:
+            out = Path(directory) / 'cpl.csv'
+            wing.write_cpl(str(out), board, 999, wing.JLC_PARTS)
+            with out.open() as fh:
+                rows = {r['Designator']: r for r in csv.DictReader(fh)}
+            self.assertAlmostEqual(float(rows['D1']['Mid X']), 13.25)
+            self.assertAlmostEqual(float(rows['D1']['Mid Y']), -7.75)
+            self.assertAlmostEqual(float(rows['D2']['Mid Y']), -6)
+
 if __name__ == '__main__':
     unittest.main()

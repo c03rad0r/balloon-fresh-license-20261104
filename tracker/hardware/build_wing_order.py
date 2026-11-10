@@ -167,37 +167,32 @@ def write_bom(path, parts):
 
 
 def write_cpl(path, board, H, parts):
-    """CPL from the PAD-ARRAY CENTRE, not the footprint anchor.
+    """Use KiCad's absolute-origin placement export, matching Gerber and drill.
 
-    Measured on the hub: KiCad puts a PinHeader anchor on pad 1, which put J_PROG 6.35 mm from
-    the centre of its own pin array -- 2.5 pitches. JLCPCB rotates about the point it is given.
-    These boards have no headers, but the same rule is applied so the generator cannot drift.
+    H is retained for API compatibility only; outline height is NOT an origin.
+    Footprint anchors are the native placement datum, not a guessed pad bbox.
     """
     import pcbnew
+    import tempfile
+    with tempfile.TemporaryDirectory() as scratch:
+        source = os.path.join(scratch, 'placement.kicad_pcb')
+        native = os.path.join(scratch, 'native.csv')
+        pcbnew.SaveBoard(source, board)
+        subprocess.run(['kicad-cli', 'pcb', 'export', 'pos', '--format', 'csv',
+                        '--units', 'mm', '--output', native, source], check=True,
+                       capture_output=True, text=True)
+        with open(native, newline='') as fh:
+            positions = {row['Ref']: row for row in csv.DictReader(fh)}
     rows = []
-    for ref in sorted(parts):
-        fp = board.FindFootprintByReference(ref)
-        if fp is None:
-            raise SystemExit(f'{ref} in JLC_PARTS but not on the board')
-        pads = list(fp.Pads())
-        if pads:
-            xs0 = [(p.GetPosition().x - p.GetSize().x / 2) for p in pads]
-            xs1 = [(p.GetPosition().x + p.GetSize().x / 2) for p in pads]
-            ys0 = [(p.GetPosition().y - p.GetSize().y / 2) for p in pads]
-            ys1 = [(p.GetPosition().y + p.GetSize().y / 2) for p in pads]
-            cx = ((min(xs0) + max(xs1)) / 2) / 1e6
-            cy = ((min(ys0) + max(ys1)) / 2) / 1e6
-        else:
-            q = fp.GetPosition()
-            cx, cy = q.x / 1e6, q.y / 1e6
-        rows.append((ref, fp.GetValue() or '', fp.GetFPID().GetLibItemName() or '',
-                     cx, H - cy, fp.GetOrientationDegrees(),
-                     'Bottom' if fp.IsFlipped() else 'Top'))
     with open(path, 'w', newline='') as fh:
-        w = csv.writer(fh)
-        w.writerow(['Designator', 'Val', 'Package', 'Mid X', 'Mid Y', 'Rotation', 'Layer'])
-        for ref, val, pkg, x, y, rot, lay in rows:
-            w.writerow([ref, val, pkg, f'{x:.4f}', f'{y:.4f}', f'{rot:g}', lay])
+        writer = csv.writer(fh)
+        writer.writerow(['Designator', 'Val', 'Package', 'Mid X', 'Mid Y', 'Rotation', 'Layer'])
+        for ref in sorted(parts):
+            row = positions[ref]
+            values = (ref, row['Val'], row['Package'], row['PosX'], row['PosY'],
+                      row['Rot'], 'Top' if row['Side'] == 'top' else 'Bottom')
+            writer.writerow(values)
+            rows.append(values)
     return rows
 
 
@@ -263,18 +258,20 @@ def build(name, board_path, parts, note):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--verify-only', action='store_true')
+    ap.add_argument('--interconnect-only', action='store_true', help='Leave carrier artifacts untouched')
     args = ap.parse_args()
 
     results = []
-    results.append(build(
-        'carrier', CARRIER, {},
-        'Solar cell carrier. Six solar-cell solder lands: SC1-SC3 on the front face and\n'
-        'SC4-SC6 on the back face at the same X centres (ADR-065 parallel string), so the\n'
-        'coincident bounding boxes are one cell seen from both sides, not a duplicated part.\n\n'
-        'The cells have no LCSC number, so this is ordered as a BARE PCB and the cells are\n'
-        'soldered by hand -- which is the purpose of the board.\n\n'
-        'Two nets are single-pad by design: `GND` (no plane on this board) and `RF_FEED`\n'
-        '(ADR-046 s2.4 V2 provision land).'))
+    if not args.interconnect_only:
+        results.append(build(
+            'carrier', CARRIER, {},
+            'Solar cell carrier. Six solar-cell solder lands: SC1-SC3 on the front face and\n'
+            'SC4-SC6 on the back face at the same X centres (ADR-065 parallel string), so the\n'
+            'coincident bounding boxes are one cell seen from both sides, not a duplicated part.\n\n'
+            'The cells have no LCSC number, so this is ordered as a BARE PCB and the cells are\n'
+            'soldered by hand -- which is the purpose of the board.\n\n'
+            'Two nets are single-pad by design: `GND` (no plane on this board) and `RF_FEED`\n'
+            '(ADR-046 s2.4 V2 provision land).'))
     results.append(build(
         'interconnect', INTERCON, JLC_PARTS,
         'Per-wing bypass interconnect. Three SS24 (SMA) diodes across the cell string:\n'

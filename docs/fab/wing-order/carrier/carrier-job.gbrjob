@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "9.0.9-9.0.9~ubuntu24.04.1"
     },
-    "CreationDate": "2026-11-10T11:14:58+01:00"
+    "CreationDate": "2026-11-10T00:14:38+01:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -42,6 +42,16 @@
       "FilePolarity": "Positive"
     },
     {
+      "Path": "wing_board_v9-F_Adhesive.gta",
+      "FileFunction": "Glue,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "wing_board_v9-B_Adhesive.gba",
+      "FileFunction": "Glue,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
       "Path": "wing_board_v9-F_Paste.gtp",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
@@ -72,8 +82,38 @@
       "FilePolarity": "Negative"
     },
     {
+      "Path": "wing_board_v9-User_Drawings.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "wing_board_v9-User_Comments.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "wing_board_v9-User_Eco1.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "wing_board_v9-User_Eco2.gbr",
+      "FileFunction": "Other,User",
+      "FilePolarity": "Positive"
+    },
+    {
       "Path": "wing_board_v9-Edge_Cuts.gm1",
       "FileFunction": "Profile",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "wing_board_v9-F_Fab.gbr",
+      "FileFunction": "AssemblyDrawing,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "wing_board_v9-B_Fab.gbr",
+      "FileFunction": "AssemblyDrawing,Bot",
       "FilePolarity": "Positive"
     }
   ],
