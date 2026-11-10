@@ -1,0 +1,929 @@
+{
+  "accepted": true,
+  "net": "/CC1",
+  "opens_before": 46,
+  "opens_after": 45,
+  "opens_by_net_before": {
+    "/+3V3": 19,
+    "/BOOT": 3,
+    "/BUCK_FB": 2,
+    "/CC1": 1,
+    "/CC2": 1,
+    "/EN": 4,
+    "/I2C_SCL": 3,
+    "/I2C_SDA": 3,
+    "/USB5V": 4,
+    "/USB_DN": 1,
+    "/USB_DN_CONN": 2,
+    "/USB_DP": 1,
+    "/USB_DP_CONN": 2
+  },
+  "opens_by_net_after": {
+    "/+3V3": 19,
+    "/BOOT": 3,
+    "/BUCK_FB": 2,
+    "/CC2": 1,
+    "/EN": 4,
+    "/I2C_SCL": 3,
+    "/I2C_SDA": 3,
+    "/USB5V": 4,
+    "/USB_DN": 1,
+    "/USB_DN_CONN": 2,
+    "/USB_DP": 1,
+    "/USB_DP_CONN": 2
+  },
+  "new_violation_records": [],
+  "prior_partition_splits": [],
+  "unintended_partition_changes": [],
+  "locked_objects_preserved": true,
+  "added_segments": 2,
+  "before_partitions": {
+    "/+3V3": [
+      [
+        "066f037f-44eb-50b4-86f2-ba0905755ba2"
+      ],
+      [
+        "1b9682c5-a390-54c0-8d80-ad08637e5c39"
+      ],
+      [
+        "1f7d4037-702c-545a-9a36-7a096d15abdd"
+      ],
+      [
+        "2301f084-3897-566e-8bed-32a2881e5a83"
+      ],
+      [
+        "4a84d7c6-77d1-56c3-8310-64f9ba809c3b"
+      ],
+      [
+        "544be75f-4089-59f6-b10e-738d5e7c526a"
+      ],
+      [
+        "54a4d039-6d20-5d21-9fcb-1380aca13104"
+      ],
+      [
+        "5d1ec2fc-d2f7-5ea3-8d4e-bff510982f82"
+      ],
+      [
+        "60eea170-bfff-500a-946f-7dae39673cfe"
+      ],
+      [
+        "77e341cc-5aa4-54e3-a25f-953ce0132b5a"
+      ],
+      [
+        "7f23d4ce-7184-592e-a815-271b85436254"
+      ],
+      [
+        "831a7881-a25a-512e-b9cb-71ac235ca57e"
+      ],
+      [
+        "94d74bf8-e0a2-5553-a04f-0e289cecbffa"
+      ],
+      [
+        "96c41c82-4474-5cc9-a677-bbbcfce0738b"
+      ],
+      [
+        "a3d09ee1-40ab-532d-a395-98a8276f0b89"
+      ],
+      [
+        "adc33803-5586-5b99-a827-71befb6c63e5"
+      ],
+      [
+        "b81e1e7a-a722-5ae3-bfc0-47fa2a5dfae7"
+      ],
+      [
+        "c504673a-ef00-5d88-bf26-12c1033dbf6c"
+      ],
+      [
+        "dba71064-a39e-5ff3-8885-55ad76846c3d"
+      ],
+      [
+        "fa3c5ade-59fd-5e45-993d-8958b91ebbb2"
+      ]
+    ],
+    "/BOOT": [
+      [
+        "15d4f312-02ec-5840-8ddb-376989b1381c"
+      ],
+      [
+        "751dde66-38a8-56e8-824e-26e613e66eea"
+      ],
+      [
+        "9773b68b-0bc3-56dc-b712-25b4aeabae68"
+      ],
+      [
+        "c0ad10f6-94b6-582f-82d9-b59f2f3a8886"
+      ]
+    ],
+    "/BUCK_FB": [
+      [
+        "415ca803-24b0-5f99-9cd3-b85ab83a4386"
+      ],
+      [
+        "631d4d48-d3de-5675-8260-73ad0523a884"
+      ],
+      [
+        "c6d86006-6ac4-5214-87df-1d7c097f03fb"
+      ]
+    ],
+    "/BUCK_SW": [
+      [
+        "92a91f7b-af49-530c-9d78-bc681452a308",
+        "f2dfe2d9-7038-5dff-adbe-64f2406e909b"
+      ]
+    ],
+    "/CC1": [
+      [
+        "528d3bf4-5f70-5b03-a01f-ea2765503b41"
+      ],
+      [
+        "7f556d79-51e5-5f74-a058-b2c6cdc2e8db"
+      ]
+    ],
+    "/CC2": [
+      [
+        "08721ed7-a862-5bfc-923f-da5f3694294f"
+      ],
+      [
+        "1f4347cf-7c26-56cc-848e-b6684a3c9de5"
+      ]
+    ],
+    "/EN": [
+      [
+        "35527214-60ea-52d7-945e-45bb884cf0f4"
+      ],
+      [
+        "49391fa2-ff5c-5eac-9700-fdf711f13ad5"
+      ],
+      [
+        "8db2830d-3d9e-5aa5-94c9-2d33f5706cea"
+      ],
+      [
+        "e17dec59-24b9-55fe-b4cb-7621b4b54660"
+      ],
+      [
+        "f6712f1a-7d2a-5591-92d4-806a6d3e1a5d"
+      ]
+    ],
+    "/GND": [
+      [
+        "0356d7a7-6f96-5cae-92df-7c36ca9b57a2",
+        "05e1e63f-5ccf-5093-adaf-6014ed750b5a",
+        "098c66bf-81d3-52bd-bc1a-e6ccc52e01d0",
+        "0c16f4b3-59f9-5add-8e51-36c815e4a30f",
+        "0c2376d9-65b6-50b0-b760-8a4341eb0942",
+        "131edb97-bbca-56f2-8db5-afa7c6669adc",
+        "1f97ebbc-3964-576b-8e4f-38ea222ad02f",
+        "22810e64-0444-5696-9f5b-88f0c380c9ed",
+        "2a65d91c-2bc7-5e07-9fa1-2ba172718cd8",
+        "38fdc8cd-c0b8-57df-b00f-76a92452fa1c",
+        "488731f1-f281-5482-ae03-c173cce96185",
+        "564aae68-132a-55b1-8cf4-459cc00b9528",
+        "566f6317-ca6f-5335-8138-32f526576e73",
+        "578d2d36-d778-5f48-86bf-e2d86ba86113",
+        "5cd36064-3c3a-5eec-b9b8-e91c63802d4b",
+        "613956ed-498c-5343-bd2d-38144e2a42c5",
+        "6681abcc-159c-5f9d-b02d-83ead8810fc5",
+        "6ccb144c-2ea3-5166-8417-1175ddd038d8",
+        "6cf2b461-26d1-5635-ae9b-a79fffb5fa83",
+        "70ca4bbd-2164-5a7b-ba9a-726b85f9e72b",
+        "75fb7956-97fa-54d1-bb5e-8ab24a129b56",
+        "7888414a-c5fa-5314-b612-9f657ef84e5d",
+        "7a842e9d-ab6f-55ec-9be9-a74f387dad59",
+        "7be899a9-76b0-580a-93d2-c8edce664938",
+        "7e12c7c2-752e-5687-a04a-148933529609",
+        "85593ecf-c335-5e18-9247-283301d50bd6",
+        "8d59e804-53d7-5c44-89fb-aed3eff83eec",
+        "949a9782-6889-5e18-891e-48c3c3c379a7",
+        "9517e905-8b83-516a-9dff-9233a7dc710c",
+        "98c6c1a0-3e00-5a80-84db-a9140263d316",
+        "98f762c6-2332-54a5-b051-907b34d3ce54",
+        "a58a43a1-eedf-5898-9fb7-09c2abd839f5",
+        "a6335c78-2908-58ea-bb49-25b564dd8609",
+        "b09b2291-13a8-51b2-8f13-8e290e4e5660",
+        "b36ef65a-e013-5c0d-b62a-06780af413dc",
+        "baf47650-775b-5b90-8ccd-9c502321d46c",
+        "c78249b7-076d-58e6-89c8-95bb69a18b9f",
+        "cfb589d1-44d0-586a-affa-a90047ae822a",
+        "d4145f19-0ca0-5c8a-963a-a09d147848a8",
+        "d499452d-2f0b-503f-be93-1744eb260a50",
+        "d4e27f4b-0e1e-57c0-9b2b-b7c0d861e124",
+        "e3ce9f7f-8b90-53a5-9ca6-280f309d8fae",
+        "e4bd9fa5-f2ea-54d0-9fd1-c84bed1fc329",
+        "e6b0bfa2-7d7c-511f-9023-7c7939ad063a",
+        "f13cdf52-1bc4-5030-8284-f6193f392cd7",
+        "f66d5ed5-83f5-591d-aa73-8b20546b43f0",
+        "fc22aa0b-f0e0-5831-ac04-916494af4a45",
+        "fd2fa5e2-30c6-5b30-b291-0e3cad1e45a5"
+      ]
+    ],
+    "/I2C_SCL": [
+      [
+        "379ccd6f-8264-59d1-8230-a647b17bd9a4"
+      ],
+      [
+        "7d09a803-5a15-592d-8d03-610050fdd878"
+      ],
+      [
+        "9c9a840b-b7ce-5e76-93e1-074f57998255"
+      ],
+      [
+        "b49f8b5e-a150-5c09-afaa-75292e9830bc"
+      ]
+    ],
+    "/I2C_SDA": [
+      [
+        "ad3ea02b-fff5-573c-9ae5-a9ffc930d0b7"
+      ],
+      [
+        "bc0a78bf-7b9d-5255-ae43-2a0f936b84b2"
+      ],
+      [
+        "c11d923c-2899-5efc-83ee-69173a8cfe98"
+      ],
+      [
+        "e9129f73-51ad-5166-b8c9-ecb46a17e615"
+      ]
+    ],
+    "/USB5V": [
+      [
+        "0a53a52b-e055-5f50-8bf8-f4bbaab6b052"
+      ],
+      [
+        "7f513f49-eccb-5bf2-8060-c2750574ac7b",
+        "c8507263-0225-5236-9ec5-a379a924a5ea"
+      ],
+      [
+        "cc1a92ac-2808-595a-b003-4f111966700f",
+        "f891b6d0-acbf-54b2-b0e9-b4292c08b022"
+      ],
+      [
+        "ccc2893e-a751-5256-8c3a-fc8be8689e92"
+      ],
+      [
+        "f2c2fd03-d49c-594e-8dac-a44afaf0b41b"
+      ]
+    ],
+    "/USB_DN": [
+      [
+        "30365c63-5a41-550e-93da-9bb8d86c7aff"
+      ],
+      [
+        "e240e3f8-bc6e-5614-bbbd-30f1a1535e7a"
+      ]
+    ],
+    "/USB_DN_CONN": [
+      [
+        "029d7ceb-b73d-5f65-8d46-a0bba722062a"
+      ],
+      [
+        "48ffe655-3691-596d-a6c8-adb4250399b9"
+      ],
+      [
+        "5005382d-df8e-5ffa-961d-6b0e23e12f29"
+      ]
+    ],
+    "/USB_DP": [
+      [
+        "636b0059-2820-55b8-8f76-31f962804316"
+      ],
+      [
+        "cf6451a4-2445-58a2-b09b-65d25c7edc29"
+      ]
+    ],
+    "/USB_DP_CONN": [
+      [
+        "4156c1d3-e321-5ab1-b8dc-efb89e76d652"
+      ],
+      [
+        "63b6848e-63ab-554c-97fe-32d1979c9817"
+      ],
+      [
+        "641ddd19-37fc-5dc7-8df1-8847be1db8d9"
+      ]
+    ],
+    "unconnected-(J1-SBU1-PadA8)": [
+      [
+        "2636f100-17e1-5f1d-8e72-fe8cf40f4670"
+      ]
+    ],
+    "unconnected-(J1-SBU2-PadB8)": [
+      [
+        "9842c8f2-5a35-556b-8d48-a9337cc7fcde"
+      ]
+    ],
+    "unconnected-(U1-IO1-Pad39)": [
+      [
+        "e2d9b9b4-8d69-53b0-8fde-286720e3ed6e"
+      ]
+    ],
+    "unconnected-(U1-IO10-Pad18)": [
+      [
+        "dab10d6c-c465-59b9-b721-8262587c6ba4"
+      ]
+    ],
+    "unconnected-(U1-IO11-Pad19)": [
+      [
+        "fd08c467-3be0-5378-a0f9-d7d8cbd640ec"
+      ]
+    ],
+    "unconnected-(U1-IO12-Pad20)": [
+      [
+        "6aaca780-1114-5345-b4d6-e5353862269d"
+      ]
+    ],
+    "unconnected-(U1-IO13-Pad21)": [
+      [
+        "2d549c59-c43a-5df0-90a0-273365eaf9d6"
+      ]
+    ],
+    "unconnected-(U1-IO14-Pad22)": [
+      [
+        "300fcc0f-9c3e-5177-b4b3-49d22c75620f"
+      ]
+    ],
+    "unconnected-(U1-IO15-Pad8)": [
+      [
+        "feace5d1-6a3a-50d2-aa0b-2763fc70aeea"
+      ]
+    ],
+    "unconnected-(U1-IO16-Pad9)": [
+      [
+        "e0a3ec55-038e-56b1-949c-96900baa5a0a"
+      ]
+    ],
+    "unconnected-(U1-IO17-Pad10)": [
+      [
+        "998cf3c2-f874-575b-838f-f049bc7d755b"
+      ]
+    ],
+    "unconnected-(U1-IO18-Pad11)": [
+      [
+        "c99d6d0d-022c-5132-b721-07b8d6a42b70"
+      ]
+    ],
+    "unconnected-(U1-IO2-Pad38)": [
+      [
+        "b888cb45-58e1-5b3c-acbe-a627e1ee455f"
+      ]
+    ],
+    "unconnected-(U1-IO21-Pad23)": [
+      [
+        "075ff81c-848f-5de5-9840-e10e3aaa4b0c"
+      ]
+    ],
+    "unconnected-(U1-IO3-Pad15)": [
+      [
+        "e1caa9a6-5015-5e81-9347-e4c867c5239d"
+      ]
+    ],
+    "unconnected-(U1-IO35-Pad28)": [
+      [
+        "6f13e11e-9f82-5bf9-8c2f-b81ea8b90895"
+      ]
+    ],
+    "unconnected-(U1-IO36-Pad29)": [
+      [
+        "d9f7f292-28be-53fe-80f5-80f09835f5d7"
+      ]
+    ],
+    "unconnected-(U1-IO37-Pad30)": [
+      [
+        "81fe6df4-53fc-595e-8a62-2c0c773e7b1c"
+      ]
+    ],
+    "unconnected-(U1-IO38-Pad31)": [
+      [
+        "b93a5c75-2dad-596a-b3b7-c3a7b366edd7"
+      ]
+    ],
+    "unconnected-(U1-IO39-Pad32)": [
+      [
+        "74a70826-09c7-539e-97a0-b22ebca1c3e5"
+      ]
+    ],
+    "unconnected-(U1-IO4-Pad4)": [
+      [
+        "289a3b07-ef10-5ae0-8cd2-5e09ae1f2e01"
+      ]
+    ],
+    "unconnected-(U1-IO40-Pad33)": [
+      [
+        "149f4616-9fd6-5942-8bd1-3b2e5cf5d184"
+      ]
+    ],
+    "unconnected-(U1-IO41-Pad34)": [
+      [
+        "7b18a2fe-16b3-5d7e-928b-5e594acdc9ef"
+      ]
+    ],
+    "unconnected-(U1-IO42-Pad35)": [
+      [
+        "0e2f242b-7389-5739-aeeb-26c8e51aad92"
+      ]
+    ],
+    "unconnected-(U1-IO45-Pad26)": [
+      [
+        "a1f7c55e-595b-592e-bdfb-a6877d446b49"
+      ]
+    ],
+    "unconnected-(U1-IO46-Pad16)": [
+      [
+        "a1c314ff-0fa4-54d1-bf92-ee749cc6408f"
+      ]
+    ],
+    "unconnected-(U1-IO47-Pad24)": [
+      [
+        "5fec010f-4ab0-571f-ba04-25a213fc6b7b"
+      ]
+    ],
+    "unconnected-(U1-IO48-Pad25)": [
+      [
+        "f4d15d5c-1c99-5e3e-a2ca-062436d61612"
+      ]
+    ],
+    "unconnected-(U1-IO5-Pad5)": [
+      [
+        "879c53e6-fe57-515e-8708-4b3e965625a0"
+      ]
+    ],
+    "unconnected-(U1-IO6-Pad6)": [
+      [
+        "d0680098-1e51-5d54-804b-af10123e2ccb"
+      ]
+    ],
+    "unconnected-(U1-IO7-Pad7)": [
+      [
+        "ddd7d4a9-7156-5f8e-bc5e-f7865303f24f"
+      ]
+    ],
+    "unconnected-(U1-RXD0-Pad36)": [
+      [
+        "2a4d5e04-acd1-5a04-afab-e8e4943ce364"
+      ]
+    ],
+    "unconnected-(U1-TXD0-Pad37)": [
+      [
+        "419a3b25-b35e-5aa1-bcac-dfad9a9b274f"
+      ]
+    ],
+    "unconnected-(U2-PG-Pad8)": [
+      [
+        "c78832f7-c0a9-5b93-9589-5548cf85a4e0"
+      ]
+    ],
+    "unconnected-(U3-SDO-Pad6)": [
+      [
+        "f15dedf6-2ca0-501b-8d5e-505dca1fd712"
+      ]
+    ],
+    "unconnected-(U4-SDO-Pad6)": [
+      [
+        "be0e1d49-7a9e-5a72-bb1e-739afd97959b"
+      ]
+    ]
+  },
+  "after_partitions": {
+    "/+3V3": [
+      [
+        "066f037f-44eb-50b4-86f2-ba0905755ba2"
+      ],
+      [
+        "1b9682c5-a390-54c0-8d80-ad08637e5c39"
+      ],
+      [
+        "1f7d4037-702c-545a-9a36-7a096d15abdd"
+      ],
+      [
+        "2301f084-3897-566e-8bed-32a2881e5a83"
+      ],
+      [
+        "4a84d7c6-77d1-56c3-8310-64f9ba809c3b"
+      ],
+      [
+        "544be75f-4089-59f6-b10e-738d5e7c526a"
+      ],
+      [
+        "54a4d039-6d20-5d21-9fcb-1380aca13104"
+      ],
+      [
+        "5d1ec2fc-d2f7-5ea3-8d4e-bff510982f82"
+      ],
+      [
+        "60eea170-bfff-500a-946f-7dae39673cfe"
+      ],
+      [
+        "77e341cc-5aa4-54e3-a25f-953ce0132b5a"
+      ],
+      [
+        "7f23d4ce-7184-592e-a815-271b85436254"
+      ],
+      [
+        "831a7881-a25a-512e-b9cb-71ac235ca57e"
+      ],
+      [
+        "94d74bf8-e0a2-5553-a04f-0e289cecbffa"
+      ],
+      [
+        "96c41c82-4474-5cc9-a677-bbbcfce0738b"
+      ],
+      [
+        "a3d09ee1-40ab-532d-a395-98a8276f0b89"
+      ],
+      [
+        "adc33803-5586-5b99-a827-71befb6c63e5"
+      ],
+      [
+        "b81e1e7a-a722-5ae3-bfc0-47fa2a5dfae7"
+      ],
+      [
+        "c504673a-ef00-5d88-bf26-12c1033dbf6c"
+      ],
+      [
+        "dba71064-a39e-5ff3-8885-55ad76846c3d"
+      ],
+      [
+        "fa3c5ade-59fd-5e45-993d-8958b91ebbb2"
+      ]
+    ],
+    "/BOOT": [
+      [
+        "15d4f312-02ec-5840-8ddb-376989b1381c"
+      ],
+      [
+        "751dde66-38a8-56e8-824e-26e613e66eea"
+      ],
+      [
+        "9773b68b-0bc3-56dc-b712-25b4aeabae68"
+      ],
+      [
+        "c0ad10f6-94b6-582f-82d9-b59f2f3a8886"
+      ]
+    ],
+    "/BUCK_FB": [
+      [
+        "415ca803-24b0-5f99-9cd3-b85ab83a4386"
+      ],
+      [
+        "631d4d48-d3de-5675-8260-73ad0523a884"
+      ],
+      [
+        "c6d86006-6ac4-5214-87df-1d7c097f03fb"
+      ]
+    ],
+    "/BUCK_SW": [
+      [
+        "92a91f7b-af49-530c-9d78-bc681452a308",
+        "f2dfe2d9-7038-5dff-adbe-64f2406e909b"
+      ]
+    ],
+    "/CC1": [
+      [
+        "528d3bf4-5f70-5b03-a01f-ea2765503b41",
+        "7f556d79-51e5-5f74-a058-b2c6cdc2e8db"
+      ]
+    ],
+    "/CC2": [
+      [
+        "08721ed7-a862-5bfc-923f-da5f3694294f"
+      ],
+      [
+        "1f4347cf-7c26-56cc-848e-b6684a3c9de5"
+      ]
+    ],
+    "/EN": [
+      [
+        "35527214-60ea-52d7-945e-45bb884cf0f4"
+      ],
+      [
+        "49391fa2-ff5c-5eac-9700-fdf711f13ad5"
+      ],
+      [
+        "8db2830d-3d9e-5aa5-94c9-2d33f5706cea"
+      ],
+      [
+        "e17dec59-24b9-55fe-b4cb-7621b4b54660"
+      ],
+      [
+        "f6712f1a-7d2a-5591-92d4-806a6d3e1a5d"
+      ]
+    ],
+    "/GND": [
+      [
+        "0356d7a7-6f96-5cae-92df-7c36ca9b57a2",
+        "05e1e63f-5ccf-5093-adaf-6014ed750b5a",
+        "098c66bf-81d3-52bd-bc1a-e6ccc52e01d0",
+        "0c16f4b3-59f9-5add-8e51-36c815e4a30f",
+        "0c2376d9-65b6-50b0-b760-8a4341eb0942",
+        "131edb97-bbca-56f2-8db5-afa7c6669adc",
+        "1f97ebbc-3964-576b-8e4f-38ea222ad02f",
+        "22810e64-0444-5696-9f5b-88f0c380c9ed",
+        "2a65d91c-2bc7-5e07-9fa1-2ba172718cd8",
+        "38fdc8cd-c0b8-57df-b00f-76a92452fa1c",
+        "488731f1-f281-5482-ae03-c173cce96185",
+        "564aae68-132a-55b1-8cf4-459cc00b9528",
+        "566f6317-ca6f-5335-8138-32f526576e73",
+        "578d2d36-d778-5f48-86bf-e2d86ba86113",
+        "5cd36064-3c3a-5eec-b9b8-e91c63802d4b",
+        "613956ed-498c-5343-bd2d-38144e2a42c5",
+        "6681abcc-159c-5f9d-b02d-83ead8810fc5",
+        "6ccb144c-2ea3-5166-8417-1175ddd038d8",
+        "6cf2b461-26d1-5635-ae9b-a79fffb5fa83",
+        "70ca4bbd-2164-5a7b-ba9a-726b85f9e72b",
+        "75fb7956-97fa-54d1-bb5e-8ab24a129b56",
+        "7888414a-c5fa-5314-b612-9f657ef84e5d",
+        "7a842e9d-ab6f-55ec-9be9-a74f387dad59",
+        "7be899a9-76b0-580a-93d2-c8edce664938",
+        "7e12c7c2-752e-5687-a04a-148933529609",
+        "85593ecf-c335-5e18-9247-283301d50bd6",
+        "8d59e804-53d7-5c44-89fb-aed3eff83eec",
+        "949a9782-6889-5e18-891e-48c3c3c379a7",
+        "9517e905-8b83-516a-9dff-9233a7dc710c",
+        "98c6c1a0-3e00-5a80-84db-a9140263d316",
+        "98f762c6-2332-54a5-b051-907b34d3ce54",
+        "a58a43a1-eedf-5898-9fb7-09c2abd839f5",
+        "a6335c78-2908-58ea-bb49-25b564dd8609",
+        "b09b2291-13a8-51b2-8f13-8e290e4e5660",
+        "b36ef65a-e013-5c0d-b62a-06780af413dc",
+        "baf47650-775b-5b90-8ccd-9c502321d46c",
+        "c78249b7-076d-58e6-89c8-95bb69a18b9f",
+        "cfb589d1-44d0-586a-affa-a90047ae822a",
+        "d4145f19-0ca0-5c8a-963a-a09d147848a8",
+        "d499452d-2f0b-503f-be93-1744eb260a50",
+        "d4e27f4b-0e1e-57c0-9b2b-b7c0d861e124",
+        "e3ce9f7f-8b90-53a5-9ca6-280f309d8fae",
+        "e4bd9fa5-f2ea-54d0-9fd1-c84bed1fc329",
+        "e6b0bfa2-7d7c-511f-9023-7c7939ad063a",
+        "f13cdf52-1bc4-5030-8284-f6193f392cd7",
+        "f66d5ed5-83f5-591d-aa73-8b20546b43f0",
+        "fc22aa0b-f0e0-5831-ac04-916494af4a45",
+        "fd2fa5e2-30c6-5b30-b291-0e3cad1e45a5"
+      ]
+    ],
+    "/I2C_SCL": [
+      [
+        "379ccd6f-8264-59d1-8230-a647b17bd9a4"
+      ],
+      [
+        "7d09a803-5a15-592d-8d03-610050fdd878"
+      ],
+      [
+        "9c9a840b-b7ce-5e76-93e1-074f57998255"
+      ],
+      [
+        "b49f8b5e-a150-5c09-afaa-75292e9830bc"
+      ]
+    ],
+    "/I2C_SDA": [
+      [
+        "ad3ea02b-fff5-573c-9ae5-a9ffc930d0b7"
+      ],
+      [
+        "bc0a78bf-7b9d-5255-ae43-2a0f936b84b2"
+      ],
+      [
+        "c11d923c-2899-5efc-83ee-69173a8cfe98"
+      ],
+      [
+        "e9129f73-51ad-5166-b8c9-ecb46a17e615"
+      ]
+    ],
+    "/USB5V": [
+      [
+        "0a53a52b-e055-5f50-8bf8-f4bbaab6b052"
+      ],
+      [
+        "7f513f49-eccb-5bf2-8060-c2750574ac7b",
+        "c8507263-0225-5236-9ec5-a379a924a5ea"
+      ],
+      [
+        "cc1a92ac-2808-595a-b003-4f111966700f",
+        "f891b6d0-acbf-54b2-b0e9-b4292c08b022"
+      ],
+      [
+        "ccc2893e-a751-5256-8c3a-fc8be8689e92"
+      ],
+      [
+        "f2c2fd03-d49c-594e-8dac-a44afaf0b41b"
+      ]
+    ],
+    "/USB_DN": [
+      [
+        "30365c63-5a41-550e-93da-9bb8d86c7aff"
+      ],
+      [
+        "e240e3f8-bc6e-5614-bbbd-30f1a1535e7a"
+      ]
+    ],
+    "/USB_DN_CONN": [
+      [
+        "029d7ceb-b73d-5f65-8d46-a0bba722062a"
+      ],
+      [
+        "48ffe655-3691-596d-a6c8-adb4250399b9"
+      ],
+      [
+        "5005382d-df8e-5ffa-961d-6b0e23e12f29"
+      ]
+    ],
+    "/USB_DP": [
+      [
+        "636b0059-2820-55b8-8f76-31f962804316"
+      ],
+      [
+        "cf6451a4-2445-58a2-b09b-65d25c7edc29"
+      ]
+    ],
+    "/USB_DP_CONN": [
+      [
+        "4156c1d3-e321-5ab1-b8dc-efb89e76d652"
+      ],
+      [
+        "63b6848e-63ab-554c-97fe-32d1979c9817"
+      ],
+      [
+        "641ddd19-37fc-5dc7-8df1-8847be1db8d9"
+      ]
+    ],
+    "unconnected-(J1-SBU1-PadA8)": [
+      [
+        "2636f100-17e1-5f1d-8e72-fe8cf40f4670"
+      ]
+    ],
+    "unconnected-(J1-SBU2-PadB8)": [
+      [
+        "9842c8f2-5a35-556b-8d48-a9337cc7fcde"
+      ]
+    ],
+    "unconnected-(U1-IO1-Pad39)": [
+      [
+        "e2d9b9b4-8d69-53b0-8fde-286720e3ed6e"
+      ]
+    ],
+    "unconnected-(U1-IO10-Pad18)": [
+      [
+        "dab10d6c-c465-59b9-b721-8262587c6ba4"
+      ]
+    ],
+    "unconnected-(U1-IO11-Pad19)": [
+      [
+        "fd08c467-3be0-5378-a0f9-d7d8cbd640ec"
+      ]
+    ],
+    "unconnected-(U1-IO12-Pad20)": [
+      [
+        "6aaca780-1114-5345-b4d6-e5353862269d"
+      ]
+    ],
+    "unconnected-(U1-IO13-Pad21)": [
+      [
+        "2d549c59-c43a-5df0-90a0-273365eaf9d6"
+      ]
+    ],
+    "unconnected-(U1-IO14-Pad22)": [
+      [
+        "300fcc0f-9c3e-5177-b4b3-49d22c75620f"
+      ]
+    ],
+    "unconnected-(U1-IO15-Pad8)": [
+      [
+        "feace5d1-6a3a-50d2-aa0b-2763fc70aeea"
+      ]
+    ],
+    "unconnected-(U1-IO16-Pad9)": [
+      [
+        "e0a3ec55-038e-56b1-949c-96900baa5a0a"
+      ]
+    ],
+    "unconnected-(U1-IO17-Pad10)": [
+      [
+        "998cf3c2-f874-575b-838f-f049bc7d755b"
+      ]
+    ],
+    "unconnected-(U1-IO18-Pad11)": [
+      [
+        "c99d6d0d-022c-5132-b721-07b8d6a42b70"
+      ]
+    ],
+    "unconnected-(U1-IO2-Pad38)": [
+      [
+        "b888cb45-58e1-5b3c-acbe-a627e1ee455f"
+      ]
+    ],
+    "unconnected-(U1-IO21-Pad23)": [
+      [
+        "075ff81c-848f-5de5-9840-e10e3aaa4b0c"
+      ]
+    ],
+    "unconnected-(U1-IO3-Pad15)": [
+      [
+        "e1caa9a6-5015-5e81-9347-e4c867c5239d"
+      ]
+    ],
+    "unconnected-(U1-IO35-Pad28)": [
+      [
+        "6f13e11e-9f82-5bf9-8c2f-b81ea8b90895"
+      ]
+    ],
+    "unconnected-(U1-IO36-Pad29)": [
+      [
+        "d9f7f292-28be-53fe-80f5-80f09835f5d7"
+      ]
+    ],
+    "unconnected-(U1-IO37-Pad30)": [
+      [
+        "81fe6df4-53fc-595e-8a62-2c0c773e7b1c"
+      ]
+    ],
+    "unconnected-(U1-IO38-Pad31)": [
+      [
+        "b93a5c75-2dad-596a-b3b7-c3a7b366edd7"
+      ]
+    ],
+    "unconnected-(U1-IO39-Pad32)": [
+      [
+        "74a70826-09c7-539e-97a0-b22ebca1c3e5"
+      ]
+    ],
+    "unconnected-(U1-IO4-Pad4)": [
+      [
+        "289a3b07-ef10-5ae0-8cd2-5e09ae1f2e01"
+      ]
+    ],
+    "unconnected-(U1-IO40-Pad33)": [
+      [
+        "149f4616-9fd6-5942-8bd1-3b2e5cf5d184"
+      ]
+    ],
+    "unconnected-(U1-IO41-Pad34)": [
+      [
+        "7b18a2fe-16b3-5d7e-928b-5e594acdc9ef"
+      ]
+    ],
+    "unconnected-(U1-IO42-Pad35)": [
+      [
+        "0e2f242b-7389-5739-aeeb-26c8e51aad92"
+      ]
+    ],
+    "unconnected-(U1-IO45-Pad26)": [
+      [
+        "a1f7c55e-595b-592e-bdfb-a6877d446b49"
+      ]
+    ],
+    "unconnected-(U1-IO46-Pad16)": [
+      [
+        "a1c314ff-0fa4-54d1-bf92-ee749cc6408f"
+      ]
+    ],
+    "unconnected-(U1-IO47-Pad24)": [
+      [
+        "5fec010f-4ab0-571f-ba04-25a213fc6b7b"
+      ]
+    ],
+    "unconnected-(U1-IO48-Pad25)": [
+      [
+        "f4d15d5c-1c99-5e3e-a2ca-062436d61612"
+      ]
+    ],
+    "unconnected-(U1-IO5-Pad5)": [
+      [
+        "879c53e6-fe57-515e-8708-4b3e965625a0"
+      ]
+    ],
+    "unconnected-(U1-IO6-Pad6)": [
+      [
+        "d0680098-1e51-5d54-804b-af10123e2ccb"
+      ]
+    ],
+    "unconnected-(U1-IO7-Pad7)": [
+      [
+        "ddd7d4a9-7156-5f8e-bc5e-f7865303f24f"
+      ]
+    ],
+    "unconnected-(U1-RXD0-Pad36)": [
+      [
+        "2a4d5e04-acd1-5a04-afab-e8e4943ce364"
+      ]
+    ],
+    "unconnected-(U1-TXD0-Pad37)": [
+      [
+        "419a3b25-b35e-5aa1-bcac-dfad9a9b274f"
+      ]
+    ],
+    "unconnected-(U2-PG-Pad8)": [
+      [
+        "c78832f7-c0a9-5b93-9589-5548cf85a4e0"
+      ]
+    ],
+    "unconnected-(U3-SDO-Pad6)": [
+      [
+        "f15dedf6-2ca0-501b-8d5e-505dca1fd712"
+      ]
+    ],
+    "unconnected-(U4-SDO-Pad6)": [
+      [
+        "be0e1d49-7a9e-5a72-bb1e-739afd97959b"
+      ]
+    ]
+  },
+  "sha256": "3c7d5702ee63f14e4ad815fbb02f0c0e3c2f3621d72d381d3f9e85a98d271a17"
+}

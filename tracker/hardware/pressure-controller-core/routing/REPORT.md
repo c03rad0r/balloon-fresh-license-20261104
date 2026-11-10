@@ -97,6 +97,58 @@ Direct GND pad-connect caveat remains: **no thermal or assembly approval**.
 
 placement/core-placement.kicad_pcb now equals batch3.kicad_pcb. Original unrouted placement
 proofs are historical; do NOT regenerate placement.py over the routed file. Routing-specific
-proofs and current renders are here: top.png/top.svg, bottom.png/bottom.svg, manifest.json.
+proofs and batch-labelled renders are here; top.png/top.svg and bottom.png/bottom.svg
+are historical (batch2), not the latest board. See manifest.json and the newest batch below.
 No flashing, purchases or actuation. No completed-controller, USB SI, regulator-current,
 sensor-thermal or fabrication-readiness claim.
+
+## Accepted batches 4 and 5 — independent CC terminations
+
+Clean ownership verified at exact ee571459ebfa9cd46e3b8aca993e3db2c892a675;
+PR #542 remote tip matched and no other routing/KiCad process was found.
+Fixed placement and bottom-first sequence preserved. No unsafe router or search used.
+
+| Batch | Net / endpoints | Native opens | Net opens | New violations |
+|---|---|---:|---:|---:|
+| 4 | /CC1: J1.A5 → R3.1 (5.1k 1%) | 46→45 | 1→0 | 0 |
+| 5 | /CC2: J1.B5 → R4.1 (5.1k 1%) | 45→44 | 1→0 | 0 |
+
+Each uses two 0.20 mm F.Cu segments, exiting the native connector pad bounding box
+horizontally with 0.30 mm margin before heading to its resistor. No vias or via-in-pad.
+A first straight-line CC1 candidate failed native clearance (0.0954 mm vs 0.20 mm)
+at J1.B8 and was not promoted; the bounded pad-exit construction passed.
+After every accepted batch: native refill, full native DRC, exact violation-record delta,
+physical polygon partitions (filled islands and holes included), immutable pre-existing
+objects/zone definitions/project checks. Zero shorts/clearances, zero prior partition
+splits, zero unintended partition changes on every non-target net. GND and BUCK_SW
+remain connected and their existing copper is unchanged. Only existing U1 library
+footprint mismatch remains. Copper fills regenerate; placement, netlist, keepouts and
+rules do not change. The physical graph is same-net partition evidence; cross-net
+short rejection is the complementary native DRC gate, not an inference from that graph.
+
+Illegal control `/CC1` through R3.2 GND is rejected despite reducing opens: native
+DRC reports two shorting_items and three solder_mask_bridge records (also intersects
+J1.B8). Exact records and rejected board retained under rejected-cc* / proofs/.
+Reproduce: `/usr/bin/python3 cc_batch.py` (fails closed before promotion).
+
+Remaining 44 native opens: /+3V3 19; /BOOT 3; /BUCK_FB 2; /EN 4;
+/I2C_SCL 3; /I2C_SDA 3; /USB5V 4; /USB_DN 1; /USB_DN_CONN 2;
+/USB_DP 1; /USB_DP_CONN 2. Per-net before/after and full physical partitions are in
+proofs/batch4-physical-native.json and proofs/batch5-physical-native.json.
+Current placement/core-placement.kicad_pcb equals batch5.kicad_pcb; renders are
+batch5-top.png/svg and batch5-bottom.png/svg. Historical renders remain labelled.
+
+### BUCK_SW power-layout warning — still unresolved
+
+The prior 2.28 mm × 0.20 mm U2.7→L1.1 segment is untouched and electrically closed,
+**not power-qualified**. TI TPS6216x datasheet SLVSAM2E (Rev. E, May 2017),
+[§11.1 Layout Guidelines, p26 and Figure 42](https://www.ti.com/lit/ds/symlink/tps62160.pdf),
+says switched-load-current paths should be “as short and wide as possible”, narrow
+traces should be avoided, and the SW→inductor→output capacitor→PGND loop area
+minimized. Input capacitor VIN/PGND paths also must be short and wide; sensitive
+FB/VOS wiring must stay away from SW. The part supports up to 1 A output (§1/§3),
+which is not evidence this 0.20 mm trace is suitable. TI gives no universal numeric
+minimum SW width here: review actual load plus inductor ripple/peak current, copper
+thickness, allowed rise/drop, and complete high-di/dt loop geometry before approval.
+This batch neither widens the switch path nor modifies placement; regulator-current,
+thermal/EMI and assembly qualification remain explicit open requirements.
