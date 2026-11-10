@@ -7,7 +7,7 @@ This roadmap owns pressure work only; no other board is cancelled or merged.
 
 | Milestone | Status | Artifact / dependency |
 |---|---|---|
-| Operator design decision | COMPLETE (accepted; master publication pending merge) | [ADR-087](../adr/087-prestretch-differential-pressure-qualification.md), ADR index; replaces H6 ambiguity with explicit ΔP, not a guessed number |
+| Operator design decision | COMPLETE (accepted; master publication pending merge) | [ADR-088](../adr/088-prestretch-differential-pressure-qualification.md), ADR index; replaces H6 ambiguity with explicit ΔP, not a guessed number |
 | Pressure contract + host pump-arm qualification validator | COMPLETE, host-tested only | `tools/balloon_pressure_test/pressure-contract.json`, `pressure_contract.py`, `test/test_pressure_contract.py`; unknown limits refuse; runtime integration still OPEN |
 | Dual MS5611 measurement chain | OPEN | S3 rig spec; pair identity, same-pressure offset record, independent manometer uncertainty/range/temperature validation; no automatic flight calibration transfer |
 | Independent relief and shutdown | OPEN, blocks actuation | physical relief-capacity and pump-off evidence for power loss, hang, stuck-on faults; no reliance on leakage or gate pull-down alone |
@@ -25,7 +25,9 @@ pressurize an unknown envelope to discover its limit under the old B1 instructio
 
 **Answer to:** *"Pre-stretching — protocol + firmware exist, board does not. What do you need
 me to do here? Is there anything you can do to make progress here? If so, please schedule it."*
-**Branch:** `analysis/prestretch-progress` · **No hardware test has been run.**
+**Historical work split, superseded for pressure work 2026-11-10. No hardware test has been run.**
+
+Current roadmap: [ROADMAP.md](ROADMAP.md). Canonical decision: [ADR-087](../adr/087-pressure-rig-differential-basis.md). Current authority: `DIFFERENTIAL-PRESSURE-BASIS.md` and revised B1. Absolute-vs-gauge ambiguity is RESOLVED: differential basis; numerical envelope limit UNKNOWN. Two MS5611 + S3 retained. Qualify measurement and independent passive relief/pump-off without a balloon, then qualify envelope batches separately. Old C3/valve tasks and combined trace-derived cutoff instructions below are archival, NOT executable work orders. No further user clarification of pressure units or sensor choice is required.
 
 ---
 
@@ -48,7 +50,7 @@ which additionally needs a cold soak the domestic freezer (−18 °C) cannot rea
 | H3 | **Confirm the valve fails closed** on power-pull (A6) | a physical measurement | blocks the safety case |
 | H4 | **Confirm ambient-vs-internal zero** (±2 mbar, B1) | physical | blocks trusting ΔP |
 | H5 | **Decide `dp_cutoff_mbar`** from the Part-C trace | a safety number; your call | blocks arming |
-| H6 | **Clarify Protocol §B.2 "1.05 bar"** — absolute or gauge? | only you know the intent | blocks anchoring any ceiling to it |
+| H6 | **RESOLVED:** differential basis approved; old target withdrawn | no clarification needed | envelope-specific limit still requires qualification |
 | H7 | **Source the lifting gas** (industrial He 4.6 for Yokohama; party He only for shakedown) | purchasing; and party He gave 0/9 circumnavigations | blocks any real flight |
 | H8 | **`S_crack` coupon test** — one real 0.21 mm cell, end-only over growing span, load to 1 g/2 g, load to crack | destructive, specimen-prep, cannot be simulated | blocks rib-pitch freeze |
 | H9 | **Provide a −55 °C cold soak** (or accept a documented −18 °C limitation) for the coupon | the freezer only reaches −18 °C | blocks the *cold* `S_crack` |
@@ -89,7 +91,7 @@ which additionally needs a cold soak the domestic freezer (−18 °C) cannot rea
 [HUMAN] Run bench session B1: electrical fail-safe checks A1-A7 (valve must fail closed)
 [HUMAN] B1 Part B/C: measure ambient zero (+/-2 mbar) and record DP-vs-circumference trace
 [HUMAN] Set dp_cutoff_mbar / dp_reset_mbar / max_fill_s from B1 Part C, patch Kconfig, commit
-[HUMAN] Clarify PRE-STRETCHING-PROTOCOL.md B.2 "inflate to 1.05 bar" - absolute or gauge?
+[RESOLVED] Pressure basis is differential; numerical envelope limit remains unqualified
 [HUMAN] Source industrial He 4.6 (long-duration) and party He (shakedown only)
 [HUMAN] Run S_crack coupon: one 0.21mm cell, end-only span to crack, record S_crack
 [HUMAN] Provide -55C cold soak for S_crack coupon (or accept documented -18C limitation)
@@ -105,8 +107,7 @@ which additionally needs a cold soak the domestic freezer (−18 °C) cannot rea
 ## 4. Proposed schedule
 
 1. **Now (done in this branch):** A1–A10 — all hardware-free work committed.
-2. **You, ~30 min:** confirm H6 ("1.05 bar" ambiguity) and H4's intent; source a
-   normally-closed valve and a second MS5611 (H7/H1 parts).
+2. **Superseded:** use revised B1 and gates M/S/E; no pressure-unit clarification or old valve sourcing task remains.
 3. **Next agent session:** A11–A14 (GPIO hal, its host test, the B1 reducer, MS5611 wiring doc)
    — all of it compiles and tests without hardware, so it is ready the moment the rig is built.
 4. **You, one bench session (B1, 3–4 h):** H1–H5. This *unblocks* the threshold numbers and
@@ -130,7 +131,7 @@ B1 is not a prerequisite for the coupon, and vice versa.
 
 ## 6. Open questions for you
 
-1. **Protocol §B.2 "inflate to 1.05 bar"** — absolute or gauge? (blocks anchoring any ceiling)
+1. **Resolved:** use internal-minus-ambient pressure; do not reuse the withdrawn absolute target.
 2. **Bench sensor** — confirm the rig moves to **MS5611** (flight part) and drops the "BMP280"
    wording, so calibrations transfer. `first-flight-checklist.md` item 13 still says BMP280 is
    "optional" — reconcile?

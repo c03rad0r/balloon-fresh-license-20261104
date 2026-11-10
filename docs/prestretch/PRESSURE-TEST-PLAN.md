@@ -1,6 +1,6 @@
 # Pressure Test Plan
 
-> **Safety correction — 2026-11-10, [ADR-087](../adr/087-prestretch-differential-pressure-qualification.md).**
+> **Safety correction — 2026-11-10, [ADR-088](../adr/088-prestretch-differential-pressure-qualification.md).**
 > The numerical pressure/pump instructions below are historical, NOT executable.
 > Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
 > Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
@@ -9,11 +9,9 @@
 > are mandatory: leakage and a GPIO pull-down alone are not safety protection.
 > Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
 > Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
-> override ADR-087. No bench session alone automatically qualifies an envelope.
+> override ADR-088. No bench session alone automatically qualifies an envelope.
 
-
-
-Detailed, actionable plan for electronic leak-rate testing of balloons using the BMP280 or MS5611 + ESP32-C3 rig.
+**Legacy test/firmware reference, NOT current fill authority.** `DIFFERENTIAL-PRESSURE-BASIS.md` supersedes single-sensor measurement, the ambiguous pressure target and automatic flight-readiness claims below. Current rig: ESP32-S3 plus two MS5611 sensors. The firmware output described below is not evidence that paired sampling/control is implemented. Use the new document’s raw/corrected paired-pressure log schema and qualification gates before balloon testing.
 
 ---
 
@@ -180,7 +178,7 @@ Run through this before every launch. A balloon must pass all items.
 
 **Balloon (DecoGlee):**
 - [ ] Inspected — no defects
-- [ ] Inflated to 1.05 bar
+- [ ] Gates M/S/E in `DIFFERENTIAL-PRESSURE-BASIS.md` passed; balloon-specific differential limit and approved fill procedure recorded (no universal pressure target)
 - [ ] Circumference recorded
 - [ ] Short leak test passed (< 0.5 mbar/h, or ≤ 2.0 with reserve)
 - [ ] Neck heat-sealed (setting "6", ~5 s, 2–3 seals + Kapton) — NO glue

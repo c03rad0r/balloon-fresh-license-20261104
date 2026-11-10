@@ -1,6 +1,6 @@
 # Pre-Stretch Bench Rig — Over-Pressure / Over-Inflation Interlock
 
-> **Safety correction — 2026-11-10, [ADR-087](adr/087-prestretch-differential-pressure-qualification.md).**
+> **Safety correction — 2026-11-10, [ADR-088](adr/088-prestretch-differential-pressure-qualification.md).**
 > The numerical pressure/pump instructions below are historical, NOT executable.
 > Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
 > Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
@@ -9,7 +9,7 @@
 > are mandatory: leakage and a GPIO pull-down alone are not safety protection.
 > Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
 > Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
-> override ADR-087. No bench session alone automatically qualifies an envelope.
+> override ADR-088. No bench session alone automatically qualifies an envelope.
 
 
 
@@ -18,10 +18,7 @@
 **Host proof:** `tools/balloon_pressure_test/test/test_interlock.c` (33 assertions, `make -C tools/balloon_pressure_test/test check`)
 **Related:** `docs/prestretch/PRE-STRETCHING-PROTOCOL.md` §C.2–C.3, `docs/prestretch/PRESSURE-TEST-PLAN.md`, `docs/STATUS-balloon-pre-stretching.md`
 
-> **Read this first.** This document designs a safety interlock. It does **not** contain a
-> validated pressure limit, because **no such number exists in this repo and no test has
-> been run.** Every threshold below is a **PLACEHOLDER**. The one measured action that
-> turns them into numbers is bench session **B1** (`docs/prestretch/PRESTRETCH-BENCH-SESSION-B1.md`).
+> **Read this first — updated 2026-11-10.** [Differential-pressure basis](prestretch/DIFFERENTIAL-PRESSURE-BASIS.md) supersedes the older measurement/calibration and valve assumptions here. B1 now qualifies measurement and independent pump-off/passive relief WITHOUT a balloon; separate envelope/batch qualification is required for operating limits. All thresholds below remain PLACEHOLDERS, not authority to inflate. Two MS5611 units require pair-specific calibration; a model match does not transfer calibration. Existing host tests demonstrate software logic only, not physical fail-safe protection.
 
 ---
 

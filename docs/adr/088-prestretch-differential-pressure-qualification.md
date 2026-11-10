@@ -1,7 +1,11 @@
-# ADR-087 — Differential-pressure basis and qualification before pump arm
+# ADR-088 — Differential-pressure basis and qualification before pump arm
 
-**Status: ACCEPTED — explicit operator decision, 2026-11-10.**
-Selected with `python3 scripts/adr_next_number.py` on live master (returned 87).
+**Status:** ACCEPTED — explicit operator decision, 2026-11-10.
+Originally allocated 087; concurrent PR #536 landed that number first. During the
+authorized merge reconciliation, `python3 scripts/adr_next_number.py` returned 88;
+this unmerged record and its references move to 088, preserving master’s ADR-087.
+This supplements [ADR-087](087-pressure-rig-differential-basis.md) with the
+fail-closed host qualification contract; both retain the same accepted design.
 Supersedes ADR-147 Decision 5 and its safety consequences, protocol §B.2's
 unsourced 1.05 bar instruction, and the rig spec's ≥100 kPa pump recommendation.
 Does not supersede the separate-board decision or change any board portfolio scope.
@@ -63,8 +67,9 @@ Yokohama stock, not justification for 1.05 bar, and not our MS5611 calibration.
 
 ## Delivery and acceptance boundaries
 
-The existing roadmap is `docs/prestretch/PRESTRETCH-WORK-SPLIT-AND-SCHEDULE.md`;
-its current-status addendum distinguishes this completed decision from outstanding
+The current roadmap is `docs/prestretch/ROADMAP.md`; the host-contract status
+addendum in `docs/prestretch/PRESTRETCH-WORK-SPLIT-AND-SCHEDULE.md` distinguishes
+this completed decision from outstanding
 hardware and qualification. The portfolio remains **flight hub, solar/wing
 interconnect, pressure rig, and base station**; a shared basket does not remove a board.
 Measurement-only logging, same-pressure sensor characterization and host tests may

@@ -1,4 +1,4 @@
-# Pressure qualification contract (ADR-087)
+# Pressure qualification contract (ADR-088)
 
 `tools/balloon_pressure_test/pressure-contract.json` is deliberately unqualified:
 all envelope numbers and evidence are null. No usable default pressure is shipped.

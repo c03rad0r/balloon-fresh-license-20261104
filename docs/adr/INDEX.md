@@ -23,8 +23,8 @@
   header, or a supersede pointer inside a committed record), this index says
   `UNRESOLVED - needs an operator decision`. It never guesses.
 
-Generated from `docs/adr/`: **134** distinct
-numbers, **134** numbered files, **1** non-conforming filenames.
+Generated from `docs/adr/`: **136** distinct
+numbers, **136** numbered files, **1** non-conforming filenames.
 
 ## Collisions
 
@@ -120,6 +120,8 @@ None.
 | 084 | `084-ground-station-automatic-level-control.md` | Automatic level control at the gateway: AGC on the 433 receive chain, telemetry-driven attenuation on the 2.4 GHz uplink | Accepted by operator |
 | 085 | `085-wing-slot-placement-rule.md` | Wing-socket slot placement on a 70 × 70 mm hub: rotations derive from the footprint datum, and every slot must reach its own edge | Proposed — the *defect and the rule* are measured; the text is not |
 | 086 | `086-base-station-fixed-5v-correction.md` | Base-station fixed 5 V source correction | Proposed |
+| 087 | `087-pressure-rig-differential-basis.md` | Differential-pressure rig basis and separate qualification gates | ACCEPTED — operator approved 2026-11-10. Implementation and physical qualification remain incomplete |
+| 088 | `088-prestretch-differential-pressure-qualification.md` | Differential-pressure basis and qualification before pump arm | ACCEPTED — explicit operator decision, 2026-11-10 |
 | 100 | `100-tollgate-over-fips-mesh-udp.md` | TollGate Payment Messages Transport Over FIPS Mesh UDP | ACCEPTED |
 | 101 | `101-lr2021-only-ban-sx1280.md` | REVISED — LR2021 SPI Protocol Clarification | SUPERSEDED by ADR-020 |
 | 102 | `102-version-tagging-policy.md` | Version Tagging Policy — Tag on Progress Without Regressions | Accepted |
@@ -168,8 +170,7 @@ None.
 | 146 | `146-v11-wing-bypass-diodes-to-top.md` | v11: move the four wing bypass diodes `D_BP1..D_BP4` to the top side | PROPOSED for v11. Not applied to v10. Operator directive 2026-11-09: *"lets move the |
 | 147 | `147-no-merge-pressure-rig-into-base-station.md` | Do not merge the pressure rig into the base station; order separate boards in one basket | ACCEPTED · 2026-11-10 · supersedes the assumption that the base station carries an ESP32 |
 | 148 | `148-ads1115-analog-sense-and-rail-telemetry.md` | One ADS1115 resolves `OPEN-25` and the `/SCAP_ADC` orphan, with zero new MCU pins | ACCEPTED · 2026-11-10 · closes `OPEN-25` |
-| 087 | `087-prestretch-differential-pressure-qualification.md` | Differential-pressure basis; dual MS5611 calibration; independent relief/shutdown; envelope qualification before pump arm | ACCEPTED — operator decision 2026-11-10 |
-| ≥044 | *(reserved)* | next free: `scripts/adr_next_number.py` → 088 | — |
+| ≥044 | *(reserved)* | next free: `scripts/adr_next_number.py` → 089 | — |
 
 ## Non-conforming filenames (not `NNN-description.md`)
 

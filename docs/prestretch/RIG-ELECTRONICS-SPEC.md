@@ -12,7 +12,7 @@
 > LOW/0x77, U4 ambient HIGH/0x76. That schematic milestone is not physical
 > qualification; this correction changes no copper or actuator authorization.
 
-> **Safety correction — 2026-11-10, [ADR-087](../adr/087-prestretch-differential-pressure-qualification.md).**
+> **Safety correction — 2026-11-10, [ADR-088](../adr/088-prestretch-differential-pressure-qualification.md).**
 > The numerical pressure/pump instructions below are historical, NOT executable.
 > Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
 > Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
@@ -21,7 +21,7 @@
 > are mandatory: leakage and a GPIO pull-down alone are not safety protection.
 > Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
 > Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
-> override ADR-087. No bench session alone automatically qualifies an envelope.
+> override ADR-088. No bench session alone automatically qualifies an envelope.
 
 
 
@@ -116,7 +116,7 @@ operator's option-1 wording, but it contradicts the repo's own settled design. M
 
 | option | parts | calibration transfers to flight? | verdict |
 |---|---|---|---|
-| **A** | **two MS5611** — one internal tap, one ambient | **YES** (same part as flight) | **recommended, and the design choice taken** |
+| **A** | **two MS5611** — one internal tap, one ambient | method reusable; each pair requires calibration | **design choice retained** |
 | B | one MS5611 internal + ground reference | partially | slower to separate ambient drift from real ΔP |
 | C | true differential (SDP810 / MPXV7002) | **NO** | different measurement chain, does not fly |
 | D | two BMP280 | ground only | superseded by A |
@@ -128,7 +128,7 @@ And `PRESTRETCH-BENCH-SESSION-B1.md` line 20 is explicit:
 
 **So the board carries TWO MS5611 footprints on one I²C bus** — one on the internal tap, one on an
 ambient port. That is the whole reason the measurement is worth anything: differencing two absolute
-readings from **the same part that flies** means the calibration transfers.
+readings from the same sensor model supports a common method, but **calibration does not transfer between individual units**. Qualify offset, span, temperature response and drift against an independent reference.
 
 Wiring:
 
@@ -152,7 +152,9 @@ trace clear of the regulator's switching node.
 **BMP280 is still worth one footprint** if a ground-only smoke test is wanted (option D), but it must
 not be the differential pair. If only one sensor footprint is affordable, make it **MS5611**.
 
-### 2. Pump driver — one actuator, fail-closed (NO valve, NO release valve)
+### 2. Pump driver — one controlled actuator PLUS independent passive relief
+
+**Current safety authority:** `DIFFERENTIAL-PRESSURE-BASIS.md`. It supersedes the historical leakage/pump-off assumptions immediately below. A stopped pump can leave trapped pressure; GPIO pull-down alone does not cover software hang or a shorted FET. Independent relief and verified fault shutdown are mandatory; legacy claims below are not acceptance evidence.
 
 **Revised 2026-11-10 per operator decision, recorded in ADR-147.** The original design had a
 normally-closed fill valve plus a pump, with a shared fault line. The operator's reasoning removes the
@@ -189,39 +191,9 @@ it: *"Pump (hand bulb or electric), ahead of the valve."* So the board's job is 
 not to carry one. What the board needs from the pump is an **electrical envelope**, and that we can fix
 by choosing a pump class.
 
-#### Recommended pump class — and the pressure requirement that decides it
+#### Pump selection — differential basis, numerical range not yet qualified
 
-**Class: 6 V DC micro diaphragm pump, blood-pressure-monitor type.** These are the most standardised,
-best-documented and cheapest pumps in this market, and the published figures cluster tightly:
-
-| figure | typical published value |
-|---|---|
-| rated voltage | 6.0 V DC (operating 4.0–7.2 V) |
-| current while pressurising | **≤ 380–450 mA** |
-| max pressure | 60–100 kPa (450–750 mmHg) |
-| flow | 2–3.5 L/min |
-| body | ~24–27 mm, 36–60 g |
-
-**The board must therefore switch ≥ 500 mA at 6 V** with margin. That fixes the driver.
-
-**But the pressure requirement is unresolved, and it is the one number to settle before buying.**
-
-`PRE-STRETCHING-PROTOCOL.md` line 46 says *"Inflate with the pump to **1.05 bar**"* without saying
-whether that is gauge or absolute:
-
-- **absolute** (1.05 bar abs vs ~1.013 bar ambient) → **ΔP ≈ 3.7 kPa** (37 mbar). Any pump in the
-  class above does this easily.
-- **gauge** (1.05 bar above ambient) → **ΔP ≈ 105 kPa**, which is **beyond** a 60 kPa BP pump and
-  needs the higher end of the class (≥ 100 kPa), or a different pump entirely.
-
-**Do not resolve this by assumption.** Protocol §C.3 records that confusing **0.31 mbar with 0.31 PSI**
-overpressured balloons and destroyed JR01–JR06 — a pump rated in the wrong unit is that same trap with
-a different label. **Measure the balloon's actual inflation differential in bench session B1** (the
-circumference→ΔP trace already specified) and pick the pump from the measured number.
-
-**Interim recommendation:** buy a pump rated **≥ 100 kPa (750 mmHg)** max pressure. It costs the same
-as a 60 kPa unit in this class, and it covers both interpretations of the 1.05 bar line. Buying the
-60 kPa part is the only choice that could strand the rig.
+`DIFFERENTIAL-PRESSURE-BASIS.md` supersedes the ambiguous pressure instruction and the recommendation to buy a >=100 kPa pump. Neither interpretation is an approved target. Select maximum pressure, flow, startup/stall current, duty cycle and supply against envelope qualification and measured relief capacity. Existing 6 V / 500 mA driver provisions are provisional, not proof a selected pump is supported. No purchase is authorised by this specification.
 
 #### The driver
 
@@ -264,7 +236,7 @@ should not manufacture it. Provide a **separate load supply input** with its own
 
 - **No mains switching.** A 12 V DC pump switched by a low-side FET is fine; putting mains on a 2-layer
   hobby board is the wrong risk. The pump itself stays a hand-wired chassis part.
-- **No release valve and no fill valve.** Deliberate — see §2 and ADR-147.
+- **No electrically controlled fill/release valve required**, but an independent passive pressure-relief path IS required; see `DIFFERENTIAL-PRESSURE-BASIS.md`.
 - **No load cells / heater.** Nothing in the protocol or the firmware references them. The control
   variable is **circumference**, measured with a tape — see the safety note below.
 - **No per-wing multiplexing.** This is a single-balloon bench rig.
@@ -334,8 +306,8 @@ interlock ceiling trips *well below any plausible burst*.
 
 | item | blocked by |
 |---|---|
-| **pump class** | resolved: 6 V BP-type micro diaphragm, board switches >=500 mA at 6 V |
-| **pressure requirement** | protocol line 46 "1.05 bar" does not say gauge or absolute — 37 mbar vs 105 kPa. **Measure in bench B1.** Buy a >=100 kPa pump to cover both. |
+| **pump class** | OPEN: select from qualified low-pressure range, relief capacity and measured startup/stall current |
+| **pressure basis** | RESOLVED: internal minus ambient, in Pa; numerical envelope limit UNKNOWN, gates M/S/E required |
 | regulator choice and bulk sizing | load current, and whether logic and load share a supply |
 | `dp_cutoff_mbar` (5 placeholder), `dp_reset_mbar` (2), `max_fill_s` (10800) | **Bench session B1** — measure ΔP vs circumference |
 
@@ -345,12 +317,10 @@ interlock ceiling trips *well below any plausible burst*.
 
 ## Recommended sequence
 
-1. **Buy a 6 V DC micro diaphragm pump rated >=100 kPa (>=750 mmHg)**, blood-pressure-monitor type.
-   Confirm from its datasheet that pressurising current is <=500 mA. It bolts to the chassis and plugs
-   into the board's 2-pin header; **JLCPCB cannot and should not place it** (§2).
+1. Qualify measurement and independent protection without a balloon; select the pump against the validated pressure/flow range, not the withdrawn high-pressure recommendation.
 2. Schematic: S3 module, 3.3 V regulator ≥ 500 mA, USB-C + native USB, EN/BOOT + auto-reset, I²C headers
    with pull-ups, single pump driver (low-side FET + gate pull-down), latched alarm with self-test sense,
-   separate load supply for the pump. **No valve of any kind.**
+   separate load supply for the pump. **Independent passive relief required.**
 3. Layout **2-layer**. Keep the regulator's switching node and the TX burst current away from the I²C
    sensor run — on this board the layout *is* the measurement.
 4. Order with **Standard PCBA** and let JLCPCB place the S3 module. The ESP32-S3-WROOM series is
@@ -358,4 +328,4 @@ interlock ceiling trips *well below any plausible burst*.
    the module's **3.90 x 3.90 mm (15.2 mm2) GND thermal pad** sits under the body with no accessible
    edge and needs hot air, so an iron cannot wet it. A partially-wetted thermal pad on an RF module
    gives intermittent resets under TX load. The pump stays hand-wired — it is a chassis part.
-5. **Bench session B1** sets the real thresholds before the rig touches a balloon.
+5. **Bench session B1** qualifies measurement/protection; separate envelope qualification establishes numerical operating limits. No placeholder thresholds authorise inflation.

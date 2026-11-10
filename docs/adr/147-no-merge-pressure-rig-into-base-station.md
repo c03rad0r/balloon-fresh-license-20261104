@@ -1,6 +1,6 @@
 # ADR-147 — Do not merge the pressure rig into the base station; order separate boards in one basket
 
-> **Safety correction — 2026-11-10, [ADR-087](087-prestretch-differential-pressure-qualification.md).**
+> **Safety correction — 2026-11-10, [ADR-088](088-prestretch-differential-pressure-qualification.md).**
 > The numerical pressure/pump instructions below are historical, NOT executable.
 > Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
 > Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
@@ -9,7 +9,7 @@
 > are mandatory: leakage and a GPIO pull-down alone are not safety protection.
 > Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
 > Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
-> override ADR-087. No bench session alone automatically qualifies an envelope.
+> override ADR-088. No bench session alone automatically qualifies an envelope.
 
 
 
@@ -120,7 +120,11 @@ TX load, or a module that works cold and drops out warm.
 part data, so Standard PCBA is required regardless; the incremental cost over Economic on a board this
 small is far below the cost of one bad reflow. Assembly tier: **Standard**.
 
-## Decision 5 — ACCEPT "pressure only, no release valve"
+## Decision 5 — SUPERSEDED: pump-only control is not complete pressure protection
+
+**Operator-approved correction, 2026-11-10:** [Differential pressure basis](../prestretch/DIFFERENTIAL-PRESSURE-BASIS.md) supersedes the safety reasoning in this section and corresponding consequences. Retain one electrically controlled pump, but require independent passive relief and a verified pump-off interlock. Natural leakage is not a safety mechanism; a pull-down does not stop firmware actively holding a GPIO high. The original rationale below is historical, NOT implementation authority. Other decisions remain unchanged.
+
+### Historical rationale (withdrawn)
 
 The operator's reasoning is sound and it simplifies the hardware:
 
