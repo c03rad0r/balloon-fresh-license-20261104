@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>/home/c08r4d0r/worktrees/pr-pressure-controller-core/tracker/hardware/pressure-controller-core/core.kicad_sch</source>
-    <date>2026-11-10T12:05:21+0100</date>
+    <source>/home/c08r4d0r/worktrees/pr-pressure-dual-ms5611/tracker/hardware/pressure-controller-core/core.kicad_sch</source>
+    <date>2026-11-10T14:03:57+0100</date>
     <tool>Eeschema 9.0.9-9.0.9~ubuntu24.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -34,7 +34,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -50,7 +50,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -66,7 +66,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -82,7 +82,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -98,7 +98,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -114,11 +114,43 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>208a62d1-dd53-52d0-8e99-01d73d2366e2</tstamps>
+    </comp>
+    <comp ref="C7">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e48eca2e-5d99-5e7a-b4b4-8533a2778fe3</tstamps>
+    </comp>
+    <comp ref="C8">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fd7f920d-955a-58a4-9502-4ee289173100</tstamps>
     </comp>
     <comp ref="J1">
       <value>GCT USB4105</value>
@@ -130,7 +162,7 @@
       </fields>
       <libsource lib="Connector" part="USB_C_Receptacle_USB2.0_16P" description="USB 2.0-only 16P Type-C Receptacle connector"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="usb universal serial bus type-C USB2.0"/>
       <property name="ki_fp_filters" value="USB*C*Receptacle*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -146,7 +178,7 @@
       </fields>
       <libsource lib="Device" part="L" description="Inductor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="inductor choke coil reactor magnetic"/>
       <property name="ki_fp_filters" value="Choke_* *Coil* Inductor_* L_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -162,7 +194,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -178,7 +210,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -194,7 +226,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -210,7 +242,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -226,7 +258,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -242,7 +274,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -258,7 +290,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -274,11 +306,43 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b5d36341-a953-51e0-87f3-da7cf1f20f40</tstamps>
+    </comp>
+    <comp ref="R9">
+      <value>4.7k</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9173e40c-9b1b-5692-820c-53eec22a1768</tstamps>
+    </comp>
+    <comp ref="R10">
+      <value>4.7k</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>de252eb5-2e37-5569-bbe3-5e61bdbe29dd</tstamps>
     </comp>
     <comp ref="SW1">
       <value>RESET</value>
@@ -290,7 +354,7 @@
       </fields>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5b9d08a3-7b7d-5f21-bd94-885456ada59e</tstamps>
@@ -305,7 +369,7 @@
       </fields>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>71dbe3e7-eaac-5e6e-a372-19c81bc19285</tstamps>
@@ -320,7 +384,7 @@
       </fields>
       <libsource lib="RF_Module" part="ESP32-S3-WROOM-1" description="RF Module, ESP32-S3 SoC, Wi-Fi 802.11b/g/n, Bluetooth, BLE, 32-bit, 3.3V, onboard antenna, SMD"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="RF Radio BT ESP ESP32-S3 Espressif onboard PCB antenna"/>
       <property name="ki_fp_filters" value="ESP32?S3?WROOM?1*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -336,11 +400,51 @@
       </fields>
       <libsource lib="Regulator_Switching" part="TPS62160DSG" description="1A Step-Down Converter with DCS-Control, adjustable output, 3-17V input voltage, WSON-8"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
       <property name="ki_keywords" value="step-down dc-dc buck regulator"/>
       <property name="ki_fp_filters" value="WSON*EP*2x2mm*P0.5mm*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>06842069-a889-5539-839f-9ccb59ff7f41</tstamps>
+    </comp>
+    <comp ref="U3">
+      <value>MS5611-01BA03</value>
+      <footprint>Package_LGA:LGA-8_3x5mm_P1.25mm</footprint>
+      <fields>
+        <field name="PressureSource">P_INTERNAL_ABS</field>
+        <field name="I2CAddress7bit">0x77</field>
+        <field name="Footprint">Package_LGA:LGA-8_3x5mm_P1.25mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Sensor_Pressure" part="MS5611-01BA" description="Barometric pressure sensor, 10cm resolution, 10 to 1200 mbar, I2C and SPI interface up to 20MHz, LGA-8"/>
+      <property name="PressureSource" value="P_INTERNAL_ABS"/>
+      <property name="I2CAddress7bit" value="0x77"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="ki_keywords" value="pressure SPI I2C"/>
+      <property name="ki_fp_filters" value="LGA*3x5mm*P1.25mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>75ba2374-3eb5-5ab0-96db-9b9c53b60d5a</tstamps>
+    </comp>
+    <comp ref="U4">
+      <value>MS5611-01BA03</value>
+      <footprint>Package_LGA:LGA-8_3x5mm_P1.25mm</footprint>
+      <fields>
+        <field name="PressureSource">P_AMBIENT_ABS</field>
+        <field name="I2CAddress7bit">0x76</field>
+        <field name="Footprint">Package_LGA:LGA-8_3x5mm_P1.25mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Sensor_Pressure" part="MS5611-01BA" description="Barometric pressure sensor, 10cm resolution, 10 to 1200 mbar, I2C and SPI interface up to 20MHz, LGA-8"/>
+      <property name="PressureSource" value="P_AMBIENT_ABS"/>
+      <property name="I2CAddress7bit" value="0x76"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="ki_keywords" value="pressure SPI I2C"/>
+      <property name="ki_fp_filters" value="LGA*3x5mm*P1.25mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a96ea851-df76-5acc-b126-87395c2d4f9c</tstamps>
     </comp>
   </components>
   <libparts>
@@ -516,6 +620,30 @@
         <pin num="9" name="PAD" type="power_in"/>
       </pins>
     </libpart>
+    <libpart lib="Sensor_Pressure" part="MS5611-01BA">
+      <description>Barometric pressure sensor, 10cm resolution, 10 to 1200 mbar, I2C and SPI interface up to 20MHz, LGA-8</description>
+      <docs>https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=MS5611-01BA03&amp;DocType=Data+Sheet&amp;DocLang=English</docs>
+      <footprints>
+        <fp>LGA*3x5mm*P1.25mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MS5611-01BA</field>
+        <field name="Footprint">Package_LGA:LGA-8_3x5mm_P1.25mm</field>
+        <field name="Datasheet">https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&amp;DocNm=MS5611-01BA03&amp;DocType=Data+Sheet&amp;DocLang=English</field>
+        <field name="Description">Barometric pressure sensor, 10cm resolution, 10 to 1200 mbar, I2C and SPI interface up to 20MHz, LGA-8</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="power_in"/>
+        <pin num="2" name="PS" type="input"/>
+        <pin num="3" name="GND" type="power_in"/>
+        <pin num="4" name="CSB" type="input"/>
+        <pin num="5" name="CSB" type="input"/>
+        <pin num="6" name="SDO" type="output"/>
+        <pin num="7" name="SDI/SDA" type="bidirectional"/>
+        <pin num="8" name="SCLK" type="input"/>
+      </pins>
+    </libpart>
     <libpart lib="Switch" part="SW_Push">
       <description>Push button switch, generic, two pins</description>
       <docs>~</docs>
@@ -545,6 +673,9 @@
     <library logical="Regulator_Switching">
       <uri>/usr/share/kicad/symbols//Regulator_Switching.kicad_sym</uri>
     </library>
+    <library logical="Sensor_Pressure">
+      <uri>/usr/share/kicad/symbols//Sensor_Pressure.kicad_sym</uri>
+    </library>
     <library logical="Switch">
       <uri>/usr/share/kicad/symbols//Switch.kicad_sym</uri>
     </library>
@@ -555,12 +686,22 @@
       <node ref="C3" pin="1" pintype="passive"/>
       <node ref="C5" pin="1" pintype="passive"/>
       <node ref="C6" pin="1" pintype="passive"/>
+      <node ref="C7" pin="1" pintype="passive"/>
+      <node ref="C8" pin="1" pintype="passive"/>
       <node ref="L1" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="R1" pin="1" pintype="passive"/>
+      <node ref="R10" pin="1" pintype="passive"/>
       <node ref="R2" pin="1" pintype="passive"/>
       <node ref="R7" pin="1" pintype="passive"/>
+      <node ref="R9" pin="1" pintype="passive"/>
       <node ref="U1" pin="2" pinfunction="3V3" pintype="power_in"/>
       <node ref="U2" pin="6" pinfunction="VOS" pintype="input"/>
+      <node ref="U3" pin="1" pinfunction="VDD" pintype="power_in"/>
+      <node ref="U3" pin="2" pinfunction="PS" pintype="input"/>
+      <node ref="U4" pin="1" pinfunction="VDD" pintype="power_in"/>
+      <node ref="U4" pin="2" pinfunction="PS" pintype="input"/>
+      <node ref="U4" pin="4" pinfunction="CSB" pintype="input"/>
+      <node ref="U4" pin="5" pinfunction="CSB" pintype="input"/>
     </net>
     <net code="2" name="/BOOT" class="Default">
       <node ref="R2" pin="2" pintype="passive"/>
@@ -597,6 +738,8 @@
       <node ref="C4" pin="2" pintype="passive"/>
       <node ref="C5" pin="2" pintype="passive"/>
       <node ref="C6" pin="2" pintype="passive"/>
+      <node ref="C7" pin="2" pintype="passive"/>
+      <node ref="C8" pin="2" pintype="passive"/>
       <node ref="J1" pin="A1" pinfunction="GND" pintype="passive"/>
       <node ref="J1" pin="A12" pinfunction="GND" pintype="passive"/>
       <node ref="J1" pin="B1" pinfunction="GND" pintype="passive"/>
@@ -613,8 +756,24 @@
       <node ref="U2" pin="1" pinfunction="PGND" pintype="power_in"/>
       <node ref="U2" pin="4" pinfunction="AGND" pintype="power_in"/>
       <node ref="U2" pin="9" pinfunction="PAD" pintype="power_in"/>
+      <node ref="U3" pin="3" pinfunction="GND" pintype="power_in"/>
+      <node ref="U3" pin="4" pinfunction="CSB" pintype="input"/>
+      <node ref="U3" pin="5" pinfunction="CSB" pintype="input"/>
+      <node ref="U4" pin="3" pinfunction="GND" pintype="power_in"/>
     </net>
-    <net code="9" name="/USB5V" class="Default">
+    <net code="9" name="/I2C_SCL" class="Default">
+      <node ref="R10" pin="2" pintype="passive"/>
+      <node ref="U1" pin="17" pinfunction="IO9" pintype="bidirectional"/>
+      <node ref="U3" pin="8" pinfunction="SCLK" pintype="input"/>
+      <node ref="U4" pin="8" pinfunction="SCLK" pintype="input"/>
+    </net>
+    <net code="10" name="/I2C_SDA" class="Default">
+      <node ref="R9" pin="2" pintype="passive"/>
+      <node ref="U1" pin="12" pinfunction="IO8" pintype="bidirectional"/>
+      <node ref="U3" pin="7" pinfunction="SDI/SDA" pintype="bidirectional"/>
+      <node ref="U4" pin="7" pinfunction="SDI/SDA" pintype="bidirectional"/>
+    </net>
+    <net code="11" name="/USB5V" class="Default">
       <node ref="C4" pin="1" pintype="passive"/>
       <node ref="J1" pin="A4" pinfunction="VBUS" pintype="passive"/>
       <node ref="J1" pin="A9" pinfunction="VBUS" pintype="passive"/>
@@ -623,56 +782,50 @@
       <node ref="U2" pin="2" pinfunction="VIN" pintype="power_in"/>
       <node ref="U2" pin="3" pinfunction="EN" pintype="input"/>
     </net>
-    <net code="10" name="/USB_DN" class="Default">
+    <net code="12" name="/USB_DN" class="Default">
       <node ref="R5" pin="2" pintype="passive"/>
       <node ref="U1" pin="13" pinfunction="USB_D-" pintype="bidirectional"/>
     </net>
-    <net code="11" name="/USB_DN_CONN" class="Default">
+    <net code="13" name="/USB_DN_CONN" class="Default">
       <node ref="J1" pin="A7" pinfunction="D-" pintype="bidirectional"/>
       <node ref="J1" pin="B7" pinfunction="D-" pintype="bidirectional"/>
       <node ref="R5" pin="1" pintype="passive"/>
     </net>
-    <net code="12" name="/USB_DP" class="Default">
+    <net code="14" name="/USB_DP" class="Default">
       <node ref="R6" pin="2" pintype="passive"/>
       <node ref="U1" pin="14" pinfunction="USB_D+" pintype="bidirectional"/>
     </net>
-    <net code="13" name="/USB_DP_CONN" class="Default">
+    <net code="15" name="/USB_DP_CONN" class="Default">
       <node ref="J1" pin="A6" pinfunction="D+" pintype="bidirectional"/>
       <node ref="J1" pin="B6" pinfunction="D+" pintype="bidirectional"/>
       <node ref="R6" pin="1" pintype="passive"/>
     </net>
-    <net code="14" name="unconnected-(J1-SBU1-PadA8)" class="Default">
+    <net code="16" name="unconnected-(J1-SBU1-PadA8)" class="Default">
       <node ref="J1" pin="A8" pinfunction="SBU1" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="15" name="unconnected-(J1-SBU2-PadB8)" class="Default">
+    <net code="17" name="unconnected-(J1-SBU2-PadB8)" class="Default">
       <node ref="J1" pin="B8" pinfunction="SBU2" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="16" name="unconnected-(U1-IO1-Pad39)" class="Default">
+    <net code="18" name="unconnected-(U1-IO1-Pad39)" class="Default">
       <node ref="U1" pin="39" pinfunction="IO1" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="17" name="unconnected-(U1-IO2-Pad38)" class="Default">
+    <net code="19" name="unconnected-(U1-IO2-Pad38)" class="Default">
       <node ref="U1" pin="38" pinfunction="IO2" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="18" name="unconnected-(U1-IO3-Pad15)" class="Default">
+    <net code="20" name="unconnected-(U1-IO3-Pad15)" class="Default">
       <node ref="U1" pin="15" pinfunction="IO3" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="19" name="unconnected-(U1-IO4-Pad4)" class="Default">
+    <net code="21" name="unconnected-(U1-IO4-Pad4)" class="Default">
       <node ref="U1" pin="4" pinfunction="IO4" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="20" name="unconnected-(U1-IO5-Pad5)" class="Default">
+    <net code="22" name="unconnected-(U1-IO5-Pad5)" class="Default">
       <node ref="U1" pin="5" pinfunction="IO5" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="21" name="unconnected-(U1-IO6-Pad6)" class="Default">
+    <net code="23" name="unconnected-(U1-IO6-Pad6)" class="Default">
       <node ref="U1" pin="6" pinfunction="IO6" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="22" name="unconnected-(U1-IO7-Pad7)" class="Default">
+    <net code="24" name="unconnected-(U1-IO7-Pad7)" class="Default">
       <node ref="U1" pin="7" pinfunction="IO7" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="23" name="unconnected-(U1-IO8-Pad12)" class="Default">
-      <node ref="U1" pin="12" pinfunction="IO8" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="24" name="unconnected-(U1-IO9-Pad17)" class="Default">
-      <node ref="U1" pin="17" pinfunction="IO9" pintype="bidirectional+no_connect"/>
     </net>
     <net code="25" name="unconnected-(U1-IO10-Pad18)" class="Default">
       <node ref="U1" pin="18" pinfunction="IO10" pintype="bidirectional+no_connect"/>
@@ -748,6 +901,12 @@
     </net>
     <net code="49" name="unconnected-(U2-PG-Pad8)" class="Default">
       <node ref="U2" pin="8" pinfunction="PG" pintype="open_collector+no_connect"/>
+    </net>
+    <net code="50" name="unconnected-(U3-SDO-Pad6)" class="Default">
+      <node ref="U3" pin="6" pinfunction="SDO" pintype="output+no_connect"/>
+    </net>
+    <net code="51" name="unconnected-(U4-SDO-Pad6)" class="Default">
+      <node ref="U4" pin="6" pinfunction="SDO" pintype="output+no_connect"/>
     </net>
   </nets>
 </export>

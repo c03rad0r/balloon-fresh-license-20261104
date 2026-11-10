@@ -37,7 +37,7 @@ def pins(sym):
 # USB-C dedicated rig supply: externally verified 5V/1.5A advertisement required.
 # Rd alone does NOT authorize this load. No PD negotiation/current detection here.
 # Motor supply remains absent/isolated. Buck follows TI SLVSAM2E.
-parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3':'EN','27':'BOOT','40':'GND','41':'GND','13':'USB_DN','14':'USB_DP'}),
+parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3':'EN','27':'BOOT','40':'GND','41':'GND','13':'USB_DN','14':'USB_DP','12':'I2C_SDA','17':'I2C_SCL'}),
  ('R1','Device','R',40,40,'10k',{'1':'+3V3','2':'EN'}),
  ('R2','Device','R',60,40,'10k',{'1':'+3V3','2':'BOOT'}),
  ('C1','Device','C',40,65,'1u',{'1':'EN','2':'GND'}),
@@ -61,6 +61,13 @@ parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3
  ('#FLG02','power','PWR_FLAG',170,115,None,{'1':'GND'}),
  # Passive L1 blocks KiCad power-driver propagation from U2 SW to the output.
  ('#FLG03','power','PWR_FLAG',250,165,None,{'1':'+3V3'})]
+parts += [
+ ('U3','Sensor_Pressure','MS5611-01BA',65,225,'MS5611-01BA03',{'1':'+3V3','2':'+3V3','3':'GND','4':'GND','5':'GND','7':'I2C_SDA','8':'I2C_SCL'}),
+ ('U4','Sensor_Pressure','MS5611-01BA',140,225,'MS5611-01BA03',{'1':'+3V3','2':'+3V3','3':'GND','4':'+3V3','5':'+3V3','7':'I2C_SDA','8':'I2C_SCL'}),
+ ('C7','Device','C',100,225,'100n',{'1':'+3V3','2':'GND'}),
+ ('C8','Device','C',175,225,'100n',{'1':'+3V3','2':'GND'}),
+ ('R9','Device','R',210,225,'4.7k',{'1':'+3V3','2':'I2C_SDA'}),
+ ('R10','Device','R',240,225,'4.7k',{'1':'+3V3','2':'I2C_SCL'})]
 footprints={'R':'Resistor_SMD:R_0603_1608Metric','C':'Capacitor_SMD:C_0603_1608Metric','SW_Push':'Button_Switch_SMD:SW_SPST_TL3342'}
 rootid=uid('sheet'); libdefs={}; objects=[]; mapping={}; provenance={}
 for ref,lib,name,x,y,value,nets in parts:
@@ -71,7 +78,7 @@ for ref,lib,name,x,y,value,nets in parts:
     if name=='USB_C_Receptacle_USB2.0_16P': fp='Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal'
     if ref in ('C4','C5','C6'): fp='Capacitor_SMD:C_1210_3225Metric'
     if ref=='L1': fp='Inductor_SMD:L_Coilcraft_XAL6030-XXX'
-    if name in ('ESP32-S3-WROOM-1','TPS62160DSG'): fp=raw(next(p for p in children(sym,'property') if raw(p[1])=='Footprint')[2])
+    if name in ('ESP32-S3-WROOM-1','TPS62160DSG','MS5611-01BA'): fp=raw(next(p for p in children(sym,'property') if raw(p[1])=='Footprint')[2])
     if fp:
         fl,fn=fp.split(':'); path=Path('/usr/share/kicad/footprints')/(fl+'.pretty')/(fn+'.kicad_mod')
         pads={raw(p[1]) for p in children(parse(path.read_text()),'pad') if raw(p[1])}
@@ -79,6 +86,9 @@ for ref,lib,name,x,y,value,nets in parts:
         assert pads==expected,(ref,pads,expected)
         provenance[fp]=hashlib.sha256(path.read_bytes()).hexdigest()
     props=' '.join(f'(property {q(k)} {q(v)} (at {x} {y+i*2.54} 0) (effects (font (size 1.27 1.27)){" (hide yes)" if k=="Footprint" else ""}))' for i,(k,v) in enumerate([('Reference',ref),('Value',value or name),('Footprint',fp)]))
+    if ref in ('U3','U4'):
+        source,address = ('P_INTERNAL_ABS','0x77') if ref=='U3' else ('P_AMBIENT_ABS','0x76')
+        props += f' (property "PressureSource" "{source}" (at {x} {y+12.7} 0) (effects (font (size 1.27 1.27)))) (property "I2CAddress7bit" "{address}" (at {x} {y+15.24} 0) (effects (font (size 1.27 1.27))))'
     objects.append(f'(symbol (lib_id {q(libid)}) (at {x} {y} 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid {uid(ref)}) {props} (instances (project "core" (path "/{rootid}" (reference {q(ref)}) (unit 1)))))')
     mapping[ref]={}
     for p in pins(sym):
@@ -88,7 +98,8 @@ for ref,lib,name,x,y,value,nets in parts:
             objects.append(f'(label {q(net)} (at {px} {py} 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid {uid(ref+num+"label")}))')
         else: objects.append(f'(no_connect (at {px} {py}) (uuid {uid(ref+num+"nc")}))')
     provenance[lib+'.kicad_sym']=hashlib.sha256((LIB/(lib+'.kicad_sym')).read_bytes()).hexdigest()
-text=f'(kicad_sch (version 20250114) (generator "eeschema") (uuid {rootid}) (paper "A4") (lib_symbols '+ ' '.join(libdefs.values())+') '+' '.join(objects)+')'
+objects.append(f'(text "DELTA_P = P_INTERNAL_ABS - P_AMBIENT_ABS; mbar; ACTUATION DISABLED" (at 130.81 260.35 0) (effects (font (size 1.27 1.27))) (uuid {uid("delta-domain")}))')
+text=f'(kicad_sch (version 20250114) (generator "eeschema") (uuid {rootid}) (paper "A3") (lib_symbols '+ ' '.join(libdefs.values())+') '+' '.join(objects)+')'
 (ROOT/'core.kicad_sch').write_text(text+'\n')
 (ROOT/'pin-map.json').write_text(json.dumps(mapping,indent=2)+'\n')
 (ROOT/'library-sha256.json').write_text(json.dumps(provenance,indent=2)+'\n')
