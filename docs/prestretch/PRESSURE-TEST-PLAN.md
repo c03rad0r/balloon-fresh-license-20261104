@@ -1,6 +1,6 @@
 # Pressure Test Plan
 
-Detailed, actionable plan for electronic leak-rate testing of balloons using the BMP280 or MS5611 + ESP32-C3 rig.
+**Legacy test/firmware reference, NOT current fill authority.** `DIFFERENTIAL-PRESSURE-BASIS.md` supersedes single-sensor measurement, the ambiguous pressure target and automatic flight-readiness claims below. Current rig: ESP32-S3 plus two MS5611 sensors. The firmware output described below is not evidence that paired sampling/control is implemented. Use the new document’s raw/corrected paired-pressure log schema and qualification gates before balloon testing.
 
 ---
 
@@ -167,7 +167,7 @@ Run through this before every launch. A balloon must pass all items.
 
 **Balloon (DecoGlee):**
 - [ ] Inspected — no defects
-- [ ] Inflated to 1.05 bar
+- [ ] Gates M/S/E in `DIFFERENTIAL-PRESSURE-BASIS.md` passed; balloon-specific differential limit and approved fill procedure recorded (no universal pressure target)
 - [ ] Circumference recorded
 - [ ] Short leak test passed (< 0.5 mbar/h, or ≤ 2.0 with reserve)
 - [ ] Neck heat-sealed (setting "6", ~5 s, 2–3 seals + Kapton) — NO glue

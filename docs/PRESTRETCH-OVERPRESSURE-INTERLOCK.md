@@ -5,10 +5,7 @@
 **Host proof:** `tools/balloon_pressure_test/test/test_interlock.c` (33 assertions, `make -C tools/balloon_pressure_test/test check`)
 **Related:** `docs/prestretch/PRE-STRETCHING-PROTOCOL.md` §C.2–C.3, `docs/prestretch/PRESSURE-TEST-PLAN.md`, `docs/STATUS-balloon-pre-stretching.md`
 
-> **Read this first.** This document designs a safety interlock. It does **not** contain a
-> validated pressure limit, because **no such number exists in this repo and no test has
-> been run.** Every threshold below is a **PLACEHOLDER**. The one measured action that
-> turns them into numbers is bench session **B1** (`docs/prestretch/PRESTRETCH-BENCH-SESSION-B1.md`).
+> **Read this first — updated 2026-11-10.** [Differential-pressure basis](prestretch/DIFFERENTIAL-PRESSURE-BASIS.md) supersedes the older measurement/calibration and valve assumptions here. B1 now qualifies measurement and independent pump-off/passive relief WITHOUT a balloon; separate envelope/batch qualification is required for operating limits. All thresholds below remain PLACEHOLDERS, not authority to inflate. Two MS5611 units require pair-specific calibration; a model match does not transfer calibration. Existing host tests demonstrate software logic only, not physical fail-safe protection.
 
 ---
 
