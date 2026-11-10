@@ -83,9 +83,35 @@ def export(board_path, outdir, name):
     (measured on the hub, 204 vs 0), because the mask subtraction is what knocks silk out
     around pads. A package built without it is a different artwork.
     """
+    # Native export ignores disabled layers, even when explicitly requested.
+    # Enable paste on an export-only copy; never alter source copper or rules.
+    import pcbnew
+    import tempfile
+    with tempfile.TemporaryDirectory() as scratch:
+        board = pcbnew.LoadBoard(board_path)
+        enabled = board.GetEnabledLayers()
+        enabled.AddLayer(pcbnew.F_Paste)
+        enabled.AddLayer(pcbnew.B_Paste)
+        board.SetEnabledLayers(enabled)
+        if name == 'interconnect':
+            for footprint in board.GetFootprints():
+                if footprint.GetReference() not in JLC_PARTS:
+                    for pad in footprint.Pads():
+                        layers = pad.GetLayerSet()
+                        layers.RemoveLayer(pcbnew.F_Paste)
+                        layers.RemoveLayer(pcbnew.B_Paste)
+                        pad.SetLayerSet(layers)
+        export_path = os.path.join(scratch, os.path.basename(board_path))
+        pcbnew.SaveBoard(export_path, board)
+        return _export_native(export_path, outdir, name)
+
+
+def _export_native(board_path, outdir, name):
     os.makedirs(outdir, exist_ok=True)
     g = subprocess.run(['kicad-cli', 'pcb', 'export', 'gerbers',
-                        '--no-x2', '--subtract-soldermask', '--output', outdir, board_path],
+                        '--no-x2', '--subtract-soldermask',
+                        '--layers', 'F.Cu,B.Cu,F.Mask,B.Mask,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,Edge.Cuts',
+                        '--output', outdir, board_path],
                        capture_output=True, text=True)
     if g.returncode != 0:
         raise SystemExit(f'gerber export failed for {name}:\n{g.stdout[-1500:]}{g.stderr[-1500:]}')

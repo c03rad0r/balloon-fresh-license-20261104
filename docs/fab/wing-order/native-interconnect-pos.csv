@@ -1,0 +1,8 @@
+Ref,Val,Package,PosX,PosY,Rot,Side
+"D1","D_SMA_Wing","D_SMA_Wing",14.000000,-6.000000,0.000000,top
+"D2","D_SMA_Wing","D_SMA_Wing",22.000000,-6.000000,0.000000,top
+"D3","D_SMA_Wing","D_SMA_Wing",30.000000,-6.000000,0.000000,top
+"J1","Tab_2P","Tab_2P",3.600000,-10.000000,0.000000,top
+"SC1","SolarTail_2P","SolarTail_2P",14.000000,-15.000000,0.000000,top
+"SC2","SolarTail_2P","SolarTail_2P",22.000000,-15.000000,0.000000,top
+"SC3","SolarTail_2P","SolarTail_2P",30.000000,-15.000000,0.000000,top

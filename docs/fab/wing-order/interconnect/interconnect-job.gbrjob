@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "9.0.9-9.0.9~ubuntu24.04.1"
     },
-    "CreationDate": "2026-11-10T05:43:14+01:00"
+    "CreationDate": "2026-11-10T11:14:58+01:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -42,6 +42,16 @@
       "FilePolarity": "Positive"
     },
     {
+      "Path": "wing_interconnect_v1-F_Paste.gtp",
+      "FileFunction": "SolderPaste,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "wing_interconnect_v1-B_Paste.gbp",
+      "FileFunction": "SolderPaste,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
       "Path": "wing_interconnect_v1-f_silkscreen.gto",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
@@ -73,6 +83,10 @@
       "Name": "Top Silk Screen"
     },
     {
+      "Type": "SolderPaste",
+      "Name": "Top Solder Paste"
+    },
+    {
       "Type": "SolderMask",
       "Thickness": 0.01,
       "Name": "Top Solder Mask"
@@ -98,6 +112,10 @@
       "Type": "SolderMask",
       "Thickness": 0.01,
       "Name": "Bottom Solder Mask"
+    },
+    {
+      "Type": "SolderPaste",
+      "Name": "Bottom Solder Paste"
     },
     {
       "Type": "Legend",
