@@ -6,5 +6,9 @@
   "Capacitor_SMD:C_0603_1608Metric": "86a101f1dbc512aa9a73532f4b837db141edd5bded65094b0d13dca3fc3f6c68",
   "Button_Switch_SMD:SW_SPST_TL3342": "5529a38017a0115b81f9762ded4c845a9d51abbe807690996e39b10e3de22423",
   "Switch.kicad_sym": "a93607f7bb68bce50996f458d7be86e1e187ac661877548a5119f8b890748fef",
+  "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal": "f350bfcd388f6081aa7570d5929d6d7fb9556adc3bb24b84d6482e0d5c320818",
+  "Connector.kicad_sym": "5c46ee679a6d5ef5d67115ce3f3217636385de49f316db649f44376861de31c9",
+  "Package_TO_SOT_SMD:SOT-23-5": "2a5c9e030fb192cd2393b5f95872fe796deb29ae7570c83050e19f7b78ceea71",
+  "Regulator_Linear.kicad_sym": "0668d6043b5213767a7f45ff376b06c1cb1edec1309cc6ce51e7a0e0cbecf3fc",
   "power.kicad_sym": "541c49bdad55134b5f6379e80c6d18f165c1d9e98ca7df36ad6ec2a316a6d11b"
 }

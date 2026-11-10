@@ -132,12 +132,12 @@
     },
     "13": {
       "name": "USB_D-",
-      "net": "USB_DN_BOUNDARY",
+      "net": "USB_DN",
       "footprint": "RF_Module:ESP32-S3-WROOM-1"
     },
     "14": {
       "name": "USB_D+",
-      "net": "USB_DP_BOUNDARY",
+      "net": "USB_DP",
       "footprint": "RF_Module:ESP32-S3-WROOM-1"
     },
     "23": {
@@ -290,10 +290,196 @@
       "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
     }
   },
-  "#FLG01": {
+  "J1": {
+    "S1": {
+      "name": "SHIELD",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A1": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A12": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B1": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B12": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A4": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A9": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B4": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B9": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A5": {
+      "name": "CC1",
+      "net": "CC1",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B5": {
+      "name": "CC2",
+      "net": "CC2",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A7": {
+      "name": "D-",
+      "net": "USB_DN_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B7": {
+      "name": "D-",
+      "net": "USB_DN_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A6": {
+      "name": "D+",
+      "net": "USB_DP_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B6": {
+      "name": "D+",
+      "net": "USB_DP_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A8": {
+      "name": "SBU1",
+      "net": null,
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B8": {
+      "name": "SBU2",
+      "net": null,
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    }
+  },
+  "R3": {
+    "1": {
+      "name": "~",
+      "net": "CC1",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R4": {
+    "1": {
+      "name": "~",
+      "net": "CC2",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R5": {
+    "1": {
+      "name": "~",
+      "net": "USB_DN_CONN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "USB_DN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R6": {
+    "1": {
+      "name": "~",
+      "net": "USB_DP_CONN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "USB_DP",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "U2": {
+    "1": {
+      "name": "VIN",
+      "net": "USB5V",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+    },
+    "3": {
+      "name": "EN",
+      "net": "USB5V",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+    },
+    "2": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+    },
+    "4": {
+      "name": "NC",
+      "net": null,
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+    },
+    "5": {
+      "name": "VOUT",
+      "net": "+3V3",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+    }
+  },
+  "C4": {
+    "1": {
+      "name": "~",
+      "net": "USB5V",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "C5": {
     "1": {
       "name": "~",
       "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "#FLG01": {
+    "1": {
+      "name": "~",
+      "net": "USB5V",
       "footprint": ""
     }
   },

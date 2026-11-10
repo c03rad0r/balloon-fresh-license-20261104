@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>/home/c08r4d0r/worktrees/pr-pressure-controller-core/tracker/hardware/pressure-controller-core/core.kicad_sch</source>
-    <date>2026-11-10T11:37:09+0100</date>
+    <date>2026-11-10T11:45:26+0100</date>
     <tool>Eeschema 9.0.9-9.0.9~ubuntu24.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -34,7 +34,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -50,7 +50,7 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -66,11 +66,59 @@
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="cap capacitor"/>
       <property name="ki_fp_filters" value="C_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>697f44ce-d215-582a-8f0b-a017eced6412</tstamps>
+    </comp>
+    <comp ref="C4">
+      <value>2.2u 10V X7R</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ad7ce7df-9fed-5a62-b696-bbb867f6f1f4</tstamps>
+    </comp>
+    <comp ref="C5">
+      <value>2.2u 10V X7R</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7d7bf5a6-6a48-51d4-b4de-bdca7dfd9eca</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>GCT USB4105</value>
+      <footprint>Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal</footprint>
+      <fields>
+        <field name="Footprint">Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Connector" part="USB_C_Receptacle_USB2.0_16P" description="USB 2.0-only 16P Type-C Receptacle connector"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="usb universal serial bus type-C USB2.0"/>
+      <property name="ki_fp_filters" value="USB*C*Receptacle*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>34f11dff-5823-5449-8e84-e568929da6be</tstamps>
     </comp>
     <comp ref="R1">
       <value>10k</value>
@@ -82,7 +130,7 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
@@ -98,11 +146,75 @@
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="R res resistor"/>
       <property name="ki_fp_filters" value="R_*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>44df7310-d3e1-5da8-b5ca-5443e4151f8d</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>5.1k 1%</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8d9c3605-db6c-5e0d-a7ef-673215852427</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>5.1k 1%</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a3962ca3-39e3-5968-90e8-24f8c0ce0f5d</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>22</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8ec8a1c4-4f89-595f-9fd2-fc9bca00e315</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>22</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a4037661-4c8f-5573-bf54-b666670d91e1</tstamps>
     </comp>
     <comp ref="SW1">
       <value>RESET</value>
@@ -114,7 +226,7 @@
       </fields>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5b9d08a3-7b7d-5f21-bd94-885456ada59e</tstamps>
@@ -129,7 +241,7 @@
       </fields>
       <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>71dbe3e7-eaac-5e6e-a372-19c81bc19285</tstamps>
@@ -144,14 +256,63 @@
       </fields>
       <libsource lib="RF_Module" part="ESP32-S3-WROOM-1" description="RF Module, ESP32-S3 SoC, Wi-Fi 802.11b/g/n, Bluetooth, BLE, 32-bit, 3.3V, onboard antenna, SMD"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="tracker/hardware/pressure-controller-core/core.kicad_sch"/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
       <property name="ki_keywords" value="RF Radio BT ESP ESP32-S3 Espressif onboard PCB antenna"/>
       <property name="ki_fp_filters" value="ESP32?S3?WROOM?1*"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>46ef416e-8d7f-5ca7-b5c4-5c4a03c90788</tstamps>
     </comp>
+    <comp ref="U2">
+      <value>AP2112K-3.3TRG1</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23-5</footprint>
+      <fields>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23-5</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Regulator_Linear" part="AP2112K-3.3" description="600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="core.kicad_sch"/>
+      <property name="ki_keywords" value="linear regulator ldo fixed positive"/>
+      <property name="ki_fp_filters" value="SOT?23?5*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>06842069-a889-5539-839f-9ccb59ff7f41</tstamps>
+    </comp>
   </components>
   <libparts>
+    <libpart lib="Connector" part="USB_C_Receptacle_USB2.0_16P">
+      <description>USB 2.0-only 16P Type-C Receptacle connector</description>
+      <docs>https://www.usb.org/sites/default/files/documents/usb_type-c.zip</docs>
+      <footprints>
+        <fp>USB*C*Receptacle*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">USB_C_Receptacle_USB2.0_16P</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">https://www.usb.org/sites/default/files/documents/usb_type-c.zip</field>
+        <field name="Description">USB 2.0-only 16P Type-C Receptacle connector</field>
+      </fields>
+      <pins>
+        <pin num="A1" name="GND" type="passive"/>
+        <pin num="A4" name="VBUS" type="passive"/>
+        <pin num="A5" name="CC1" type="bidirectional"/>
+        <pin num="A6" name="D+" type="bidirectional"/>
+        <pin num="A7" name="D-" type="bidirectional"/>
+        <pin num="A8" name="SBU1" type="bidirectional"/>
+        <pin num="A9" name="VBUS" type="passive"/>
+        <pin num="A12" name="GND" type="passive"/>
+        <pin num="B1" name="GND" type="passive"/>
+        <pin num="B4" name="VBUS" type="passive"/>
+        <pin num="B5" name="CC2" type="bidirectional"/>
+        <pin num="B6" name="D+" type="bidirectional"/>
+        <pin num="B7" name="D-" type="bidirectional"/>
+        <pin num="B8" name="SBU2" type="bidirectional"/>
+        <pin num="B9" name="VBUS" type="passive"/>
+        <pin num="B12" name="GND" type="passive"/>
+        <pin num="S1" name="SHIELD" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Device" part="C">
       <description>Unpolarized capacitor</description>
       <docs>~</docs>
@@ -245,6 +406,27 @@
         <pin num="41" name="GND" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Regulator_Linear" part="AP2112K-3.3">
+      <description>600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5</description>
+      <docs>https://www.diodes.com/assets/Datasheets/AP2112.pdf</docs>
+      <footprints>
+        <fp>SOT?23?5*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">AP2112K-3.3</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23-5</field>
+        <field name="Datasheet">https://www.diodes.com/assets/Datasheets/AP2112.pdf</field>
+        <field name="Description">600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VIN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="EN" type="input"/>
+        <pin num="4" name="NC" type="no_connect"/>
+        <pin num="5" name="VOUT" type="power_out"/>
+      </pins>
+    </libpart>
     <libpart lib="Switch" part="SW_Push">
       <description>Push button switch, generic, two pins</description>
       <docs>~</docs>
@@ -262,11 +444,17 @@
     </libpart>
   </libparts>
   <libraries>
+    <library logical="Connector">
+      <uri>/usr/share/kicad/symbols//Connector.kicad_sym</uri>
+    </library>
     <library logical="Device">
       <uri>/usr/share/kicad/symbols//Device.kicad_sym</uri>
     </library>
     <library logical="RF_Module">
       <uri>/usr/share/kicad/symbols//RF_Module.kicad_sym</uri>
+    </library>
+    <library logical="Regulator_Linear">
+      <uri>/usr/share/kicad/symbols//Regulator_Linear.kicad_sym</uri>
     </library>
     <library logical="Switch">
       <uri>/usr/share/kicad/symbols//Switch.kicad_sym</uri>
@@ -276,135 +464,185 @@
     <net code="1" name="/+3V3" class="Default">
       <node ref="C2" pin="1" pintype="passive"/>
       <node ref="C3" pin="1" pintype="passive"/>
+      <node ref="C5" pin="1" pintype="passive"/>
       <node ref="R1" pin="1" pintype="passive"/>
       <node ref="R2" pin="1" pintype="passive"/>
       <node ref="U1" pin="2" pinfunction="3V3" pintype="power_in"/>
+      <node ref="U2" pin="5" pinfunction="VOUT" pintype="power_out"/>
     </net>
     <net code="2" name="/BOOT" class="Default">
       <node ref="R2" pin="2" pintype="passive"/>
       <node ref="SW2" pin="1" pinfunction="1" pintype="passive"/>
       <node ref="U1" pin="27" pinfunction="IO0" pintype="bidirectional"/>
     </net>
-    <net code="3" name="/EN" class="Default">
+    <net code="3" name="/CC1" class="Default">
+      <node ref="J1" pin="A5" pinfunction="CC1" pintype="bidirectional"/>
+      <node ref="R3" pin="1" pintype="passive"/>
+    </net>
+    <net code="4" name="/CC2" class="Default">
+      <node ref="J1" pin="B5" pinfunction="CC2" pintype="bidirectional"/>
+      <node ref="R4" pin="1" pintype="passive"/>
+    </net>
+    <net code="5" name="/EN" class="Default">
       <node ref="C1" pin="1" pintype="passive"/>
       <node ref="R1" pin="2" pintype="passive"/>
       <node ref="SW1" pin="1" pinfunction="1" pintype="passive"/>
       <node ref="U1" pin="3" pinfunction="EN" pintype="input"/>
     </net>
-    <net code="4" name="/GND" class="Default">
+    <net code="6" name="/GND" class="Default">
       <node ref="C1" pin="2" pintype="passive"/>
       <node ref="C2" pin="2" pintype="passive"/>
       <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="C4" pin="2" pintype="passive"/>
+      <node ref="C5" pin="2" pintype="passive"/>
+      <node ref="J1" pin="A1" pinfunction="GND" pintype="passive"/>
+      <node ref="J1" pin="A12" pinfunction="GND" pintype="passive"/>
+      <node ref="J1" pin="B1" pinfunction="GND" pintype="passive"/>
+      <node ref="J1" pin="B12" pinfunction="GND" pintype="passive"/>
+      <node ref="J1" pin="S1" pinfunction="SHIELD" pintype="passive"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
       <node ref="SW1" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="SW2" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="U1" pin="1" pinfunction="GND" pintype="power_in"/>
       <node ref="U1" pin="40" pinfunction="GND" pintype="passive"/>
       <node ref="U1" pin="41" pinfunction="GND" pintype="passive"/>
+      <node ref="U2" pin="2" pinfunction="GND" pintype="power_in"/>
     </net>
-    <net code="5" name="/USB_DN_BOUNDARY" class="Default">
+    <net code="7" name="/USB5V" class="Default">
+      <node ref="C4" pin="1" pintype="passive"/>
+      <node ref="J1" pin="A4" pinfunction="VBUS" pintype="passive"/>
+      <node ref="J1" pin="A9" pinfunction="VBUS" pintype="passive"/>
+      <node ref="J1" pin="B4" pinfunction="VBUS" pintype="passive"/>
+      <node ref="J1" pin="B9" pinfunction="VBUS" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="VIN" pintype="power_in"/>
+      <node ref="U2" pin="3" pinfunction="EN" pintype="input"/>
+    </net>
+    <net code="8" name="/USB_DN" class="Default">
+      <node ref="R5" pin="2" pintype="passive"/>
       <node ref="U1" pin="13" pinfunction="USB_D-" pintype="bidirectional"/>
     </net>
-    <net code="6" name="/USB_DP_BOUNDARY" class="Default">
+    <net code="9" name="/USB_DN_CONN" class="Default">
+      <node ref="J1" pin="A7" pinfunction="D-" pintype="bidirectional"/>
+      <node ref="J1" pin="B7" pinfunction="D-" pintype="bidirectional"/>
+      <node ref="R5" pin="1" pintype="passive"/>
+    </net>
+    <net code="10" name="/USB_DP" class="Default">
+      <node ref="R6" pin="2" pintype="passive"/>
       <node ref="U1" pin="14" pinfunction="USB_D+" pintype="bidirectional"/>
     </net>
-    <net code="7" name="unconnected-(U1-IO1-Pad39)" class="Default">
+    <net code="11" name="/USB_DP_CONN" class="Default">
+      <node ref="J1" pin="A6" pinfunction="D+" pintype="bidirectional"/>
+      <node ref="J1" pin="B6" pinfunction="D+" pintype="bidirectional"/>
+      <node ref="R6" pin="1" pintype="passive"/>
+    </net>
+    <net code="12" name="unconnected-(J1-SBU1-PadA8)" class="Default">
+      <node ref="J1" pin="A8" pinfunction="SBU1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="13" name="unconnected-(J1-SBU2-PadB8)" class="Default">
+      <node ref="J1" pin="B8" pinfunction="SBU2" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="14" name="unconnected-(U1-IO1-Pad39)" class="Default">
       <node ref="U1" pin="39" pinfunction="IO1" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="8" name="unconnected-(U1-IO2-Pad38)" class="Default">
+    <net code="15" name="unconnected-(U1-IO2-Pad38)" class="Default">
       <node ref="U1" pin="38" pinfunction="IO2" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="9" name="unconnected-(U1-IO3-Pad15)" class="Default">
+    <net code="16" name="unconnected-(U1-IO3-Pad15)" class="Default">
       <node ref="U1" pin="15" pinfunction="IO3" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="10" name="unconnected-(U1-IO4-Pad4)" class="Default">
+    <net code="17" name="unconnected-(U1-IO4-Pad4)" class="Default">
       <node ref="U1" pin="4" pinfunction="IO4" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="11" name="unconnected-(U1-IO5-Pad5)" class="Default">
+    <net code="18" name="unconnected-(U1-IO5-Pad5)" class="Default">
       <node ref="U1" pin="5" pinfunction="IO5" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="12" name="unconnected-(U1-IO6-Pad6)" class="Default">
+    <net code="19" name="unconnected-(U1-IO6-Pad6)" class="Default">
       <node ref="U1" pin="6" pinfunction="IO6" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="13" name="unconnected-(U1-IO7-Pad7)" class="Default">
+    <net code="20" name="unconnected-(U1-IO7-Pad7)" class="Default">
       <node ref="U1" pin="7" pinfunction="IO7" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="14" name="unconnected-(U1-IO8-Pad12)" class="Default">
+    <net code="21" name="unconnected-(U1-IO8-Pad12)" class="Default">
       <node ref="U1" pin="12" pinfunction="IO8" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="15" name="unconnected-(U1-IO9-Pad17)" class="Default">
+    <net code="22" name="unconnected-(U1-IO9-Pad17)" class="Default">
       <node ref="U1" pin="17" pinfunction="IO9" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="16" name="unconnected-(U1-IO10-Pad18)" class="Default">
+    <net code="23" name="unconnected-(U1-IO10-Pad18)" class="Default">
       <node ref="U1" pin="18" pinfunction="IO10" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="17" name="unconnected-(U1-IO11-Pad19)" class="Default">
+    <net code="24" name="unconnected-(U1-IO11-Pad19)" class="Default">
       <node ref="U1" pin="19" pinfunction="IO11" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="18" name="unconnected-(U1-IO12-Pad20)" class="Default">
+    <net code="25" name="unconnected-(U1-IO12-Pad20)" class="Default">
       <node ref="U1" pin="20" pinfunction="IO12" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="19" name="unconnected-(U1-IO13-Pad21)" class="Default">
+    <net code="26" name="unconnected-(U1-IO13-Pad21)" class="Default">
       <node ref="U1" pin="21" pinfunction="IO13" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="20" name="unconnected-(U1-IO14-Pad22)" class="Default">
+    <net code="27" name="unconnected-(U1-IO14-Pad22)" class="Default">
       <node ref="U1" pin="22" pinfunction="IO14" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="21" name="unconnected-(U1-IO15-Pad8)" class="Default">
+    <net code="28" name="unconnected-(U1-IO15-Pad8)" class="Default">
       <node ref="U1" pin="8" pinfunction="IO15" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="22" name="unconnected-(U1-IO16-Pad9)" class="Default">
+    <net code="29" name="unconnected-(U1-IO16-Pad9)" class="Default">
       <node ref="U1" pin="9" pinfunction="IO16" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="23" name="unconnected-(U1-IO17-Pad10)" class="Default">
+    <net code="30" name="unconnected-(U1-IO17-Pad10)" class="Default">
       <node ref="U1" pin="10" pinfunction="IO17" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="24" name="unconnected-(U1-IO18-Pad11)" class="Default">
+    <net code="31" name="unconnected-(U1-IO18-Pad11)" class="Default">
       <node ref="U1" pin="11" pinfunction="IO18" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="25" name="unconnected-(U1-IO21-Pad23)" class="Default">
+    <net code="32" name="unconnected-(U1-IO21-Pad23)" class="Default">
       <node ref="U1" pin="23" pinfunction="IO21" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="26" name="unconnected-(U1-IO35-Pad28)" class="Default">
+    <net code="33" name="unconnected-(U1-IO35-Pad28)" class="Default">
       <node ref="U1" pin="28" pinfunction="IO35" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="27" name="unconnected-(U1-IO36-Pad29)" class="Default">
+    <net code="34" name="unconnected-(U1-IO36-Pad29)" class="Default">
       <node ref="U1" pin="29" pinfunction="IO36" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="28" name="unconnected-(U1-IO37-Pad30)" class="Default">
+    <net code="35" name="unconnected-(U1-IO37-Pad30)" class="Default">
       <node ref="U1" pin="30" pinfunction="IO37" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="29" name="unconnected-(U1-IO38-Pad31)" class="Default">
+    <net code="36" name="unconnected-(U1-IO38-Pad31)" class="Default">
       <node ref="U1" pin="31" pinfunction="IO38" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="30" name="unconnected-(U1-IO39-Pad32)" class="Default">
+    <net code="37" name="unconnected-(U1-IO39-Pad32)" class="Default">
       <node ref="U1" pin="32" pinfunction="IO39" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="31" name="unconnected-(U1-IO40-Pad33)" class="Default">
+    <net code="38" name="unconnected-(U1-IO40-Pad33)" class="Default">
       <node ref="U1" pin="33" pinfunction="IO40" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="32" name="unconnected-(U1-IO41-Pad34)" class="Default">
+    <net code="39" name="unconnected-(U1-IO41-Pad34)" class="Default">
       <node ref="U1" pin="34" pinfunction="IO41" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="33" name="unconnected-(U1-IO42-Pad35)" class="Default">
+    <net code="40" name="unconnected-(U1-IO42-Pad35)" class="Default">
       <node ref="U1" pin="35" pinfunction="IO42" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="34" name="unconnected-(U1-IO45-Pad26)" class="Default">
+    <net code="41" name="unconnected-(U1-IO45-Pad26)" class="Default">
       <node ref="U1" pin="26" pinfunction="IO45" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="35" name="unconnected-(U1-IO46-Pad16)" class="Default">
+    <net code="42" name="unconnected-(U1-IO46-Pad16)" class="Default">
       <node ref="U1" pin="16" pinfunction="IO46" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="36" name="unconnected-(U1-IO47-Pad24)" class="Default">
+    <net code="43" name="unconnected-(U1-IO47-Pad24)" class="Default">
       <node ref="U1" pin="24" pinfunction="IO47" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="37" name="unconnected-(U1-IO48-Pad25)" class="Default">
+    <net code="44" name="unconnected-(U1-IO48-Pad25)" class="Default">
       <node ref="U1" pin="25" pinfunction="IO48" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="38" name="unconnected-(U1-RXD0-Pad36)" class="Default">
+    <net code="45" name="unconnected-(U1-RXD0-Pad36)" class="Default">
       <node ref="U1" pin="36" pinfunction="RXD0" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="39" name="unconnected-(U1-TXD0-Pad37)" class="Default">
+    <net code="46" name="unconnected-(U1-TXD0-Pad37)" class="Default">
       <node ref="U1" pin="37" pinfunction="TXD0" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="47" name="unconnected-(U2-NC-Pad4)" class="Default">
+      <node ref="U2" pin="4" pinfunction="NC" pintype="no_connect"/>
     </net>
   </nets>
 </export>

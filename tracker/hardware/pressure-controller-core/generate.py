@@ -22,11 +22,17 @@ def q(s): return json.dumps(s)
 def uid(s): return str(uuid.uuid5(uuid.NAMESPACE_URL,'pressure-core/'+s))
 def load(lib,name):
     tree=parse((LIB/(lib+'.kicad_sym')).read_text())
-    return next(v for v in children(tree,'symbol') if raw(v[1])==name)
+    sym=next(v for v in children(tree,'symbol') if raw(v[1])==name)
+    if children(sym,'extends'):
+        base=load(lib,raw(one(sym,'extends')[1]))
+        for sub in children(base,'symbol'):
+            sub[1]=q(raw(sub[1]).replace(raw(base[1]),name,1)); sym.append(sub)
+        sym.remove(one(sym,'extends'))
+    return sym
 def pins(sym):
     return [p for s in children(sym,'symbol') for p in children(s,'pin')]
-# Supply and USB are boundary nets, NOT a claim of a completed power/USB block.
-parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3':'EN','27':'BOOT','40':'GND','41':'GND','13':'USB_DN_BOUNDARY','14':'USB_DP_BOUNDARY'}),
+# USB-C sink and LDO implemented; thermal qualification remains a release blocker.
+parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3':'EN','27':'BOOT','40':'GND','41':'GND','13':'USB_DN','14':'USB_DP'}),
  ('R1','Device','R',40,40,'10k',{'1':'+3V3','2':'EN'}),
  ('R2','Device','R',60,40,'10k',{'1':'+3V3','2':'BOOT'}),
  ('C1','Device','C',40,65,'1u',{'1':'EN','2':'GND'}),
@@ -34,7 +40,15 @@ parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3
  ('C3','Device','C',40,115,'100n',{'1':'+3V3','2':'GND'}),
  ('SW1','Switch','SW_Push',170,40,'RESET',{'1':'EN','2':'GND'}),
  ('SW2','Switch','SW_Push',170,65,'BOOT',{'1':'BOOT','2':'GND'}),
- ('#FLG01','power','PWR_FLAG',170,90,None,{'1':'+3V3'}),
+ ('J1','Connector','USB_C_Receptacle_USB2.0_16P',230,65,'GCT USB4105',dict.fromkeys(['S1','A1','A12','B1','B12'],'GND') | dict.fromkeys(['A4','A9','B4','B9'],'USB5V') | {'A5':'CC1','B5':'CC2','A7':'USB_DN_CONN','B7':'USB_DN_CONN','A6':'USB_DP_CONN','B6':'USB_DP_CONN'}),
+ ('R3','Device','R',200,110,'5.1k 1%',{'1':'CC1','2':'GND'}),
+ ('R4','Device','R',220,110,'5.1k 1%',{'1':'CC2','2':'GND'}),
+ ('R5','Device','R',200,140,'22',{'1':'USB_DN_CONN','2':'USB_DN'}),
+ ('R6','Device','R',220,140,'22',{'1':'USB_DP_CONN','2':'USB_DP'}),
+ ('U2','Regulator_Linear','AP2112K-3.3',65,165,'AP2112K-3.3TRG1',{'1':'USB5V','2':'GND','3':'USB5V','5':'+3V3'}),
+ ('C4','Device','C',35,165,'2.2u 10V X7R',{'1':'USB5V','2':'GND'}),
+ ('C5','Device','C',100,165,'2.2u 10V X7R',{'1':'+3V3','2':'GND'}),
+ ('#FLG01','power','PWR_FLAG',170,90,None,{'1':'USB5V'}),
  ('#FLG02','power','PWR_FLAG',170,115,None,{'1':'GND'})]
 footprints={'R':'Resistor_SMD:R_0603_1608Metric','C':'Capacitor_SMD:C_0603_1608Metric','SW_Push':'Button_Switch_SMD:SW_SPST_TL3342'}
 rootid=uid('sheet'); libdefs={}; objects=[]; mapping={}; provenance={}
@@ -43,7 +57,8 @@ for ref,lib,name,x,y,value,nets in parts:
     sym=load(lib,name); libid=lib+':'+name
     libdefs[libid]=dump(sym).replace(q(name),q(libid),1)
     fp=footprints.get(name,'')
-    if name=='ESP32-S3-WROOM-1': fp=raw(next(p for p in children(sym,'property') if raw(p[1])=='Footprint')[2])
+    if name=='USB_C_Receptacle_USB2.0_16P': fp='Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal'
+    if name in ('ESP32-S3-WROOM-1','AP2112K-3.3'): fp=raw(next(p for p in children(sym,'property') if raw(p[1])=='Footprint')[2])
     if fp:
         fl,fn=fp.split(':'); path=Path('/usr/share/kicad/footprints')/(fl+'.pretty')/(fn+'.kicad_mod')
         pads={raw(p[1]) for p in children(parse(path.read_text()),'pad') if raw(p[1])}
