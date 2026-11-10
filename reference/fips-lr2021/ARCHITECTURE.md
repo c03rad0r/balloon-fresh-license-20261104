@@ -40,8 +40,9 @@ payload_len(2) | payload | CRC32(4)
 - `frag_idx`/`frag_count` identify the fragment.
 - CRC32 covers the header and payload.
 
-With a 255-byte radio packet the maximum fragment payload is 231 bytes. A
-1400-byte FIPS frame becomes 7 fragments.
+With the validated E80/ESP32 128-byte radio packet the maximum fragment payload
+is 104 bytes (20-byte link header + 4-byte CRC). A 1400-byte FIPS frame becomes
+14 fragments. Other bridge profiles may use larger packets.
 
 ## Fragmentation and reassembly
 
@@ -55,17 +56,29 @@ With a 255-byte radio packet the maximum fragment payload is 231 bytes. A
 
 ## ACK / ARQ
 
-- The receiver ACKs every DATA fragment with the bitmap it has so far.
-- The sender marks delivered fragments.
-- Missing fragments are retransmitted immediately on an ACK with gaps, and by
-  the 40 ms timer as a backstop.
-- After 3 retries the frame is dropped. FIPS sees loss and its own recovery
-  applies.
-- The pending queue is capped at 64 frames.
+- Intermediate fragments do not immediately consume airtime with an ACK: the
+  remainder of the batch is still arriving.
+- An incomplete tail produces one NACK containing the cumulative bitmap. The
+  sender immediately retransmits exactly the fragments missing from that map.
+- A complete batch produces one completion ACK. Duplicate completed fragments
+  also get an ACK but are never delivered again.
+- ACKs are accepted only for the sender's own epoch, pending sequence and peer
+  ID; a same-numbered transmission in the opposite direction cannot complete it.
+- An ordinary partial ACK records progress without duplicating an in-flight
+  batch. The configurable retry timer is the backstop for a missing final ACK or
+  tail. The measured bench configuration uses 300 ms and 15 retries; protocol
+  defaults are separate and configurable.
+- The transport application queue is capped at 64 FIPS frames. A background
+  scheduler submits one FIPS frame at a time and waits for final ACK or retry
+  exhaustion before submitting the next. This prevents NACK repairs from
+  starving behind new application bursts without blocking FIPS event handling.
+- `packet_gap_ms` optionally spaces individual USB TX commands; the measured
+  E80/ESP32 benchmark uses 20 ms. It defaults to zero and is not a TDMA slot.
 
-This is intentionally simple. Stop-and-wait per FIPS frame is enough for the
-event: handshake frames are one fragment, and a 1280-byte ping is 6 fragments.
-A sliding window is a later optimization.
+The resulting stop-and-wait data path deliberately favors reliable completion
+on one half-duplex air lane. Handshake frames are one or a few fragments, while
+larger data frames use tail-NACK repair. A sliding window is a later measured
+optimization, not a prerequisite for correctness.
 
 ## Bridge protocol
 

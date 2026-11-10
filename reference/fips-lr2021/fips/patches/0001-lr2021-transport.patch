@@ -1450,10 +1450,10 @@ index 00000000..fc6aae1f
 +}
 diff --git a/crates/fips-lr2021/src/config.rs b/crates/fips-lr2021/src/config.rs
 new file mode 100644
-index 00000000..fa322970
+index 00000000..cbc02a60
 --- /dev/null
 +++ b/crates/fips-lr2021/src/config.rs
-@@ -0,0 +1,388 @@
+@@ -0,0 +1,405 @@
 +//! Band profiles and configuration types.
 +
 +use serde::{Deserialize, Serialize};
@@ -1706,6 +1706,9 @@ index 00000000..fa322970
 +    pub ack_timeout_ms: Option<u64>,
 +    #[serde(default, skip_serializing_if = "Option::is_none")]
 +    pub max_retries: Option<u8>,
++    /// Optional delay between USB transmissions in one fragment batch.
++    #[serde(default, skip_serializing_if = "Option::is_none")]
++    pub packet_gap_ms: Option<u64>,
 +}
 +
 +impl Lr2021Config {
@@ -1749,6 +1752,10 @@ index 00000000..fa322970
 +
 +    pub fn auto_connect(&self) -> bool {
 +        self.auto_connect.unwrap_or(false)
++    }
++
++    pub fn packet_gap_ms(&self) -> u64 {
++        self.packet_gap_ms.unwrap_or(0)
 +    }
 +
 +    pub fn local_id(&self) -> u32 {
@@ -1831,6 +1838,16 @@ index 00000000..fa322970
 +    }
 +
 +    #[test]
++    fn fragment_pacing_defaults_off_and_is_configurable() {
++        assert_eq!(Lr2021Config::default().packet_gap_ms(), 0);
++        let cfg = Lr2021Config {
++            packet_gap_ms: Some(20),
++            ..Lr2021Config::default()
++        };
++        assert_eq!(cfg.packet_gap_ms(), 20);
++    }
++
++    #[test]
 +    fn custom_frequency_selects_band_path() {
 +        let cfg = Lr2021Config {
 +            band: Some(Band::Custom),
@@ -1895,10 +1912,10 @@ index 00000000..f5da1c19
 +}
 diff --git a/crates/fips-lr2021/src/device.rs b/crates/fips-lr2021/src/device.rs
 new file mode 100644
-index 00000000..3d0b4cd4
+index 00000000..c9932885
 --- /dev/null
 +++ b/crates/fips-lr2021/src/device.rs
-@@ -0,0 +1,166 @@
+@@ -0,0 +1,181 @@
 +//! Convenience wrapper for opening and configuring a bridge.
 +
 +use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
@@ -2006,7 +2023,22 @@ index 00000000..3d0b4cd4
 +
 +/// Write a batch of raw radio packets as `Tx` frames.
 +pub fn send_packets(bridge: &mut SerialBridge, packets: &[Vec<u8>]) -> Result<(), BridgeError> {
-+    for packet in packets {
++    send_packets_paced(bridge, packets, Duration::ZERO)
++}
++
++/// Write a fragment batch with an optional gap between radio packets. This is
++/// useful for diagnosing receive-side exhaustion on half-duplex bridges: the
++/// default remains back-to-back, while a test can give each receiver time to
++/// finish RX before the next packet arrives without changing its firmware.
++pub fn send_packets_paced(
++    bridge: &mut SerialBridge,
++    packets: &[Vec<u8>],
++    gap: Duration,
++) -> Result<(), BridgeError> {
++    for (index, packet) in packets.iter().enumerate() {
++        if index > 0 && !gap.is_zero() {
++            std::thread::sleep(gap);
++        }
 +        bridge.write_frame(BridgeKind::Tx, packet)?;
 +    }
 +    Ok(())
@@ -2322,7 +2354,7 @@ index 00000000..21e054b4
 +}
 diff --git a/crates/fips-lr2021/src/lib.rs b/crates/fips-lr2021/src/lib.rs
 new file mode 100644
-index 00000000..4b7bbe6e
+index 00000000..34417847
 --- /dev/null
 +++ b/crates/fips-lr2021/src/lib.rs
 @@ -0,0 +1,25 @@
@@ -2342,7 +2374,7 @@ index 00000000..4b7bbe6e
 +
 +pub use bridge::{BridgeDecoder, BridgeFrame, BridgeKind, SerialBridge};
 +pub use config::{Band, BridgeConfig, LinkConfig, Lr2021Config, RadioProfile};
-+pub use device::{handshake, open_device, poll_rx, send_packets};
++pub use device::{handshake, open_device, poll_rx, send_packets, send_packets_paced};
 +pub use frame::{Frame, FrameKind};
 +pub use link::{Link, LinkError, LinkStats, RxOutcome};
 +
@@ -2353,10 +2385,10 @@ index 00000000..4b7bbe6e
 +pub const BRIDGE_PROTOCOL_VERSION: u8 = 1;
 diff --git a/crates/fips-lr2021/src/link.rs b/crates/fips-lr2021/src/link.rs
 new file mode 100644
-index 00000000..345fe5aa
+index 00000000..46ee254d
 --- /dev/null
 +++ b/crates/fips-lr2021/src/link.rs
-@@ -0,0 +1,553 @@
+@@ -0,0 +1,643 @@
 +//! Fragmentation, reassembly, ACK/NACK retransmission and deduplication.
 +//!
 +//! The link is deliberately sans-IO: callers submit frames, feed received
@@ -2413,6 +2445,7 @@ index 00000000..345fe5aa
 +}
 +
 +struct Pending {
++    dst: u32,
 +    encoded: Vec<Vec<u8>>,
 +    acked: Vec<bool>,
 +    sent_at: u64,
@@ -2539,6 +2572,7 @@ index 00000000..345fe5aa
 +        self.pending.insert(
 +            seq,
 +            Pending {
++                dst,
 +                acked: vec![false; frag_count],
 +                encoded: encoded.clone(),
 +                sent_at: now,
@@ -2629,8 +2663,15 @@ index 00000000..345fe5aa
 +
 +        let complete = (0..frag_count).all(|idx| bitmap_get(&entry.bitmap, idx));
 +        if !complete {
++            // Do not answer every intermediate fragment: its ACK would contend
++            // with the rest of the batch still being transmitted. Once the
++            // tail arrives, one NACK reports the complete receive bitmap and
++            // lets the sender repair exactly the missing fragments.
++            if frame.frag_idx + 1 != frag_count {
++                return Ok(RxOutcome::default());
++            }
 +            let bitmap = entry.bitmap.clone();
-+            return self.ack_outcome(frame, frag_count, &bitmap, false);
++            return self.ack_outcome(frame, frag_count, &bitmap, true);
 +        }
 +
 +        let last_len = entry.lens[(frag_count - 1) as usize];
@@ -2650,11 +2691,19 @@ index 00000000..345fe5aa
 +        let Some((frag_count, bitmap)) = parse_ack_payload(frame.payload) else {
 +            return Ok(RxOutcome::default());
 +        };
++        if frame.epoch != self.epoch {
++            return Ok(RxOutcome::default());
++        }
 +        self.stats.acks_rx += 1;
 +
 +        let Some(pending) = self.pending.get_mut(&frame.seq) else {
 +            return Ok(RxOutcome::default());
 +        };
++        // Both directions start their sequence counters at one. Do not let an
++        // identically numbered frame from another peer ACK this transmission.
++        if frame.src != pending.dst {
++            return Ok(RxOutcome::default());
++        }
 +        if frag_count as usize != pending.encoded.len() {
 +            return Ok(RxOutcome::default());
 +        }
@@ -2669,9 +2718,14 @@ index 00000000..345fe5aa
 +            self.pending.remove(&frame.seq);
 +            return Ok(RxOutcome::default());
 +        }
++        if frame.kind == FrameKind::Ack {
++            // A partial cumulative ACK is progress information, not a request
++            // to duplicate an in-flight batch. The ACK timer is the backstop;
++            // only an explicit tail NACK triggers immediate selective repair.
++            return Ok(RxOutcome::default());
++        }
 +
-+        // Some fragments are still missing. Retransmit them now; the sender's
-+        // timer is a backstop for a lost ACK.
++        // A tail NACK identifies exactly which fragments are still missing.
 +        let mut outbound = Vec::new();
 +        for (idx, packet) in pending.encoded.iter().enumerate() {
 +            if !pending.acked[idx] {
@@ -2818,6 +2872,74 @@ index 00000000..345fe5aa
 +        assert_eq!(delivered.len(), 1);
 +        assert_eq!(delivered[0].0, 1);
 +        assert_eq!(delivered[0].1, data);
++    }
++
++    #[test]
++    fn rejects_ack_for_wrong_peer_or_epoch() {
++        let (mut a, mut b) = pair();
++        let packets = a.submit(b"authenticated ack", 2, 0).unwrap();
++        let outcome = b.process(&packets[0], 1).unwrap();
++        assert_eq!(outcome.outbound.len(), 1);
++        let ack = Frame::decode(&outcome.outbound[0]).unwrap();
++
++        let mut encoded = Vec::new();
++        Frame { src: 3, ..ack }.encode(&mut encoded).unwrap();
++        a.process(&encoded, 2).unwrap();
++        assert_eq!(a.pending_len(), 1, "another peer must not ACK this frame");
++
++        Frame {
++            epoch: ack.epoch.wrapping_add(1),
++            ..ack
++        }
++        .encode(&mut encoded)
++        .unwrap();
++        a.process(&encoded, 3).unwrap();
++        assert_eq!(a.pending_len(), 1, "another epoch must not ACK this frame");
++
++        a.process(&outcome.outbound[0], 4).unwrap();
++        assert_eq!(a.pending_len(), 0, "the real peer and epoch still complete");
++    }
++
++    #[test]
++    fn nacks_once_at_batch_tail_and_repairs_missing_fragment() {
++        let (mut a, mut b) = pair();
++        let data = vec![0x77; 700];
++        let packets = a.submit(&data, 2, 0).unwrap();
++        assert!(packets.len() >= 3);
++
++        let mut tail_nack = None;
++        for (idx, packet) in packets.iter().enumerate() {
++            if idx == 1 {
++                continue; // Lose one intermediate fragment.
++            }
++            let outcome = b.process(packet, 1).unwrap();
++            assert!(outcome.delivered.is_empty());
++            if idx + 1 < packets.len() {
++                assert!(
++                    outcome.outbound.is_empty(),
++                    "intermediate fragments must not contend with the batch"
++                );
++            } else {
++                tail_nack = Some(outcome.outbound);
++            }
++        }
++
++        let nacks = tail_nack.expect("tail must report the incomplete bitmap");
++        assert_eq!(nacks.len(), 1);
++        assert_eq!(Frame::decode(&nacks[0]).unwrap().kind, FrameKind::Nack);
++
++        let repair = a.process(&nacks[0], 2).unwrap().outbound;
++        assert_eq!(repair.len(), 1, "only the missing fragment is repeated");
++        assert_eq!(repair[0], packets[1]);
++
++        let outcome = b.process(&repair[0], 3).unwrap();
++        assert_eq!(outcome.delivered.len(), 1);
++        assert_eq!(outcome.delivered[0].1, data);
++        assert_eq!(outcome.outbound.len(), 1, "one final completion ACK");
++        assert_eq!(
++            Frame::decode(&outcome.outbound[0]).unwrap().kind,
++            FrameKind::Ack
++        );
 +    }
 +
 +    #[test]
@@ -3031,16 +3153,17 @@ index d704df65..cfd33753 100644
          {
 diff --git a/src/transport/lr2021/mod.rs b/src/transport/lr2021/mod.rs
 new file mode 100644
-index 00000000..a1a1e18a
+index 00000000..aa029b0d
 --- /dev/null
 +++ b/src/transport/lr2021/mod.rs
-@@ -0,0 +1,345 @@
+@@ -0,0 +1,416 @@
 +//! LR2021/FLRC transport for FIPS.
 +//!
 +//! The host owns the link layer (fragmentation, reassembly, ACK/NACK and
 +//! deduplication); the RP2040 bridge is a raw packet pipe. See
 +//! `crates/fips-lr2021` for the protocol and tests.
 +
++use std::collections::VecDeque;
 +use std::sync::atomic::{AtomicBool, Ordering};
 +use std::sync::{Arc, Mutex};
 +use std::thread::{self, JoinHandle};
@@ -3054,7 +3177,7 @@ index 00000000..a1a1e18a
 +    TransportId, TransportState, TransportType,
 +};
 +use fips_lr2021::bridge::{BridgeKind, RxPayload};
-+use fips_lr2021::{Link, send_packets};
++use fips_lr2021::{Link, send_packets_paced};
 +
 +/// Native FIPS transport over an LR2021 USB bridge.
 +pub struct Lr2021Transport {
@@ -3065,6 +3188,9 @@ index 00000000..a1a1e18a
 +    packet_tx: PacketTx,
 +    mtu: u16,
 +    link: Arc<Mutex<Option<Link>>>,
++    /// Application frames wait here until the shared half-duplex air lane has
++    /// completed the previous fragment batch. Bounded to provide backpressure.
++    outbound: Arc<Mutex<VecDeque<(u32, Vec<u8>)>>>,
 +    tx_packets: Sender<Vec<Vec<u8>>>,
 +    stop: Arc<AtomicBool>,
 +    threads: Vec<JoinHandle<()>>,
@@ -3087,6 +3213,7 @@ index 00000000..a1a1e18a
 +            packet_tx,
 +            mtu,
 +            link: Arc::new(Mutex::new(None)),
++            outbound: Arc::new(Mutex::new(VecDeque::new())),
 +            tx_packets,
 +            stop: Arc::new(AtomicBool::new(false)),
 +            threads: Vec::new(),
@@ -3135,15 +3262,56 @@ index 00000000..a1a1e18a
 +
 +        // Writer: every radio packet and ACK is serialized here.
 +        let writer_stop = Arc::clone(&stop);
++        let packet_gap = std::time::Duration::from_millis(self.config.packet_gap_ms());
 +        self.threads.push(thread::spawn(move || {
 +            while !writer_stop.load(Ordering::Relaxed) {
 +                match rx_packets.recv_timeout(std::time::Duration::from_millis(200)) {
 +                    Ok(packets) => {
-+                        if let Err(e) = send_packets(&mut writer, &packets) {
++                        if let Err(e) = send_packets_paced(&mut writer, &packets, packet_gap) {
 +                            tracing::warn!(error = %e, "lr2021 serial write failed");
 +                        }
 +                    }
 +                    Err(_) => {}
++                }
++            }
++        }));
++
++        // Application scheduler: one FIPS frame reaches the air at a time.
++        // NACK repairs generated by the reader are never placed behind a later
++        // application burst, but FIPS itself remains asynchronous.
++        let dispatch_link = Arc::clone(&link);
++        let dispatch_outbound = Arc::clone(&self.outbound);
++        let dispatch_stop = Arc::clone(&stop);
++        let dispatch_tx = tx_packets.clone();
++        self.threads.push(thread::spawn(move || {
++            while !dispatch_stop.load(Ordering::Relaxed) {
++                let next = dispatch_outbound.lock().unwrap().pop_front();
++                let Some((dst, data)) = next else {
++                    thread::sleep(std::time::Duration::from_millis(2));
++                    continue;
++                };
++                let packets = {
++                    let mut guard = dispatch_link.lock().unwrap();
++                    let Some(link) = guard.as_mut() else {
++                        break;
++                    };
++                    if link.pending_len() != 0 {
++                        dispatch_outbound.lock().unwrap().push_front((dst, data));
++                        drop(guard);
++                        thread::sleep(std::time::Duration::from_millis(2));
++                        continue;
++                    }
++                    link.submit(&data, dst, now_ms())
++                };
++                match packets {
++                    Ok(packets) => {
++                        if dispatch_tx.send(packets).is_err() {
++                            break;
++                        }
++                    }
++                    Err(error) => {
++                        tracing::debug!(%error, dst, "lr2021 queued frame rejected")
++                    }
 +                }
 +            }
 +        }));
@@ -3265,6 +3433,7 @@ index 00000000..a1a1e18a
 +            let _ = handle.join();
 +        }
 +        *self.link.lock().unwrap() = None;
++        self.outbound.lock().unwrap().clear();
 +        self.state = TransportState::Down;
 +        Ok(())
 +    }
@@ -3273,23 +3442,26 @@ index 00000000..a1a1e18a
 +        if self.state != TransportState::Up {
 +            return Err(TransportError::NotStarted);
 +        }
-+        let dst = addr_to_id(addr)?;
-+        tracing::debug!(dst, bytes = data.len(), "lr2021 send frame");
-+        let now = now_ms();
-+        let mut guard = self.link.lock().unwrap();
-+        let link = guard.as_mut().ok_or(TransportError::NotStarted)?;
-+        if data.len() > link.mtu() as usize {
++        if data.len() > self.mtu as usize {
 +            return Err(TransportError::MtuExceeded {
 +                packet_size: data.len(),
-+                mtu: link.mtu(),
++                mtu: self.mtu,
 +            });
 +        }
-+        let packets = link
-+            .submit(data, dst, now)
-+            .map_err(|e| TransportError::SendFailed(e.to_string()))?;
-+        self.tx_packets
-+            .send(packets)
-+            .map_err(|_| TransportError::SendFailed("writer stopped".to_string()))?;
++        let dst = addr_to_id(addr)?;
++        let mut outbound = self.outbound.lock().unwrap();
++        if outbound.len() >= 64 {
++            return Err(TransportError::SendFailed(
++                "LR2021 application queue is full".to_string(),
++            ));
++        }
++        tracing::debug!(
++            dst,
++            bytes = data.len(),
++            queued = outbound.len() + 1,
++            "lr2021 queue frame"
++        );
++        outbound.push_back((dst, data.to_vec()));
 +        Ok(())
 +    }
 +
@@ -3349,14 +3521,35 @@ index 00000000..a1a1e18a
 +
 +#[cfg(test)]
 +mod tests {
-+    use super::{addr_to_id, hex_prefix, id_to_addr};
-+    use crate::transport::TransportAddr;
++    use super::{Lr2021Transport, addr_to_id, hex_prefix, id_to_addr};
++    use crate::config::Lr2021Config;
++    use crate::transport::{Transport, TransportAddr, TransportError, TransportId, TransportState};
 +
 +    #[test]
 +    fn corrupt_frame_logs_include_prefix_without_full_payload() {
 +        assert_eq!(hex_prefix(&[0xF1, 0x50, 0x10, 0x00, 0xAA]), "f1501000aa");
 +        assert_eq!(hex_prefix(&[0u8; 20]), "000000000000000000000000");
 +        assert_eq!(hex_prefix(&[]), "");
++    }
++
++    #[test]
++    fn bounded_application_queue_provides_backpressure() {
++        let (packet_tx, _packet_rx) = tokio::sync::mpsc::channel(1);
++        let mut transport = Lr2021Transport::new(
++            TransportId::new(1),
++            None,
++            Lr2021Config::default(),
++            packet_tx,
++        );
++        transport.set_state(TransportState::Up);
++        let addr = TransportAddr::from_string("2");
++        for _ in 0..64 {
++            transport.send(&addr, b"queued").unwrap();
++        }
++        assert!(matches!(
++            transport.send(&addr, b"overflow"),
++            Err(TransportError::SendFailed(message)) if message.contains("queue is full")
++        ));
 +    }
 +
 +    #[test]

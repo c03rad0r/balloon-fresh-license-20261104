@@ -58,9 +58,9 @@ A pass means all of the following, not just a successful `HELLO` or peer entry:
 - [x] No `bad magic` or `bad crc32` occurs during those controlled PER runs.
 - [ ] Simultaneous FIPS control flows and bidirectional traffic survive a sustained test (not yet clean).
 - [x] Both FIPS nodes report a non-empty `show sessions`.
-- [ ] The FIPS IPv6 ping succeeds in both directions with 0% loss.
-- [ ] An interactive SSH command succeeds over the FIPS IPv6 address.
-- [ ] The test is repeated once from a clean daemon start to prove reliability.
+- [x] The FIPS IPv6 ping succeeds in both directions with 0% loss (50/50 each).
+- [x] A non-interactive public-key SSH command succeeds over the FIPS IPv6 address (`RADIO_SSH_OK`, exit 0).
+- [x] The test is repeated from a clean daemon start with established initiator and responder XK sessions.
 
 ## Phase 1 — deterministic fixed-size TX
 
@@ -78,7 +78,7 @@ transmit a full configured packet:
 - [x] Confirm `cfg --band eu868` uses 868.1 MHz, FLRC-650 and sync `2dd4d4b2`.
 - [x] Host suite passes 39/39, including the three new E80 FIFO padding tests.
 - [x] Radio-init retries raised to five attempts with 100 ms spacing; a fresh
-      boot now reports `firmware=0.4.21 chip=0x1801` without an initial CFG.
+      boot now reports `firmware=0.4.22 chip=0x1801` without an initial CFG.
 - [ ] Build and flash the same padded firmware to the second ESP32-S3.
 - [ ] Confirm both adapters are independent nodes, not one S3 plus a C3,
       Pico or native STM32.
@@ -126,13 +126,23 @@ Recommended temporary bench settings:
 
 ```yaml
 node:
-  heartbeat_interval_secs: 30
+  heartbeat_interval_secs: 300
+  # Long rekey is for the isolated benchmark window only, not production.
+  rekey:
+    after_secs: 3600
+    after_messages: 1000000000
+  mmp:
+    mode: minimal
+  session_mmp:
+    mode: minimal
 
 transports:
   lr2021:
     radio_payload: 128
-    ack_timeout_ms: 500
-    max_retries: 10
+    tx_power_dbm: 14
+    packet_gap_ms: 20
+    ack_timeout_ms: 300
+    max_retries: 15
 ```
 
 `radio_payload=128` is mandatory on the current RF pair. 128 works in both
@@ -165,13 +175,14 @@ The random guard alone is not a promise that collisions are impossible.
 
 ## Phase 4 — IPv6 and SSH
 
-- [ ] Ping B from A using B's actual reported IPv6 address.
-- [ ] Ping A from B.
-- [ ] Confirm replies are not through host networking by using the isolated
-      namespaces (or separate machines with no other route).
-- [ ] Start `sshd` inside namespace B bound to B's FIPS address and run one
-      non-interactive SSH command from namespace A.
-- [ ] Record latency, throughput and any session rekeys.
+- [x] Ping B from A using B's actual reported IPv6 address (50/50, 0% loss).
+- [x] Ping A from B (50/50, 0% loss).
+- [x] Confirm replies are not through host networking: only `fd00::/8`, link-local
+      and the peer's host route are present in the isolated measuring namespace.
+- [x] Start isolated `sshd` and execute a public-key authenticated remote command
+      over the radio (`RADIO_SSH_OK`, exit 0); remove the ephemeral key/config.
+- [x] Record post-rekey latency/loss: a real rekey completed during 1 MiB run 3,
+      after which a new 50/50-per-direction gate passed at 0% loss.
 
 ## Phase 4b — throughput and internet-speed benchmarks
 
@@ -184,8 +195,14 @@ The random guard alone is not a promise that collisions are impossible.
       0% loss.
 - [x] The HTTP gate correctly refused a measurement while ping was 1/3
       (`66.7%` loss); no unsupported throughput number was recorded.
-- [ ] Pass the 0%-loss gate with the final default CSMA build.
-- [ ] Record radio-only 128 KiB/1 MiB results and then optional MCP results.
+- [x] Pass the 0%-loss gate with the final fixed-size CSMA build and repaired
+      batch scheduler (50/50 A→B and 50/50 B→A).
+- [x] Record radio-only 128 KiB results, 3 runs: 147.019/167.250/138.060 s,
+      mean 0.0070 Mb/s, all HTTP 200 and exact length.
+- [x] Record radio-only 1 MiB results, 3 runs: 1275.047/1272.223/1313.169 s,
+      mean 0.0065 Mb/s, all HTTP 200 and exact length.
+- [ ] Only after those results, evaluate the optional MCP internet path. It is
+      not run: no MCP speed-test tool/resource or isolated WAN route is present.
 
 These are **two different measurements** and must not be conflated.
 
@@ -275,4 +292,8 @@ Open-source references to evaluate when Phase 5 starts:
   S3 adapter.
 - Short packets may set the chip CRC flag even when their payload reaches the
   independent FIPS CRC intact. The host CRC decision remains authoritative.
-- No FIPS IPv6/SSH claim is valid until Phases 2–4 pass.
+- The resolved host-side batch/ACK/scheduler defects and measured HTTP/SSH
+  evidence are recorded in `PING-RELIABILITY-PLAN.md`.
+- The 1 MiB transfers and post-rekey gate pass. The optional ContextVM/MCP run
+  is intentionally not performed without an isolated WAN fixture or real MCP
+  tool; a LAN substitute would not be a valid radio/WAN baseline.

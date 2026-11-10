@@ -45,6 +45,24 @@ DIRECTION=B_TO_A SERIAL_A=<c3> SERIAL_B=<s3> \
   RADIO_PAYLOAD=128 ./per.sh 100 104
 ```
 
+## SSH/radio-only smoke test
+
+Run this after the strict ping gate. It creates an ephemeral ED25519 keypair and
+`sshd` config inside the test user's protected `~/.ssh`, starts `sshd` bound only
+to A's FIPS address, executes a command from namespace B, requires
+`RADIO_SSH_OK`, and removes the temporary credentials/configuration on exit.
+It never modifies the persistent `authorized_keys`.
+
+```bash
+IP_A=fd5e:2e1d:e571:368f:2110:b0ac:badc:3c3c \
+NETNS_A=fips-lr-a NETNS_B=fips-lr-b ./ssh-smoke.sh
+```
+
+The bench run completed `RADIO_SSH_OK`, `archipelago`, `archipelago` with exit
+status 0. Keeping the keypair under `/tmp` would fail `StrictModes` because that
+parent directory is world-writable; use the protected home path as the script
+does.
+
 ## HTTP/radio-only throughput
 
 The HTTP meter runs **inside a FIPS network namespace**, checks that ping to the

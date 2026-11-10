@@ -16,7 +16,7 @@ using them as FIPS transports.
 | 128-byte payload delivery in each direction | **verified: 100/100 accepted by `echo` each way at the measured RF ceiling** |
 | FIPS Noise handshake between independent radios | **verified: authenticated, connected peers in two namespaces** |
 | FIPS end-to-end session | **verified: initiator and responder established on both nodes** |
-| Deterministic fixed-size TX padding | **implemented in S3 0.4.21 / C3 0.5.11; 39/39 host tests pass** |
+| Deterministic fixed-size TX padding | **implemented in S3 0.4.22 / C3 0.5.12; 39/39 host tests pass** |
 | Sustained, larger-payload bidirectional transfer | **not yet verified; needs a second working S3** |
 | FIPS IPv6 ping | **fails so far; not claimed to work** |
 | SSH over the radios | **not yet verified** |
@@ -242,7 +242,7 @@ fips-lr2021ctl --serial "$PORT" status
 The reference adapter answered:
 
 ```text
-protocol=1 firmware=0.4.21 chip=0x1801 capabilities=0x0007
+protocol=1 firmware=0.4.22 chip=0x1801 capabilities=0x0007
 pong
 tx=0 rx=0 crc=0 drops=0 timeouts=0 resets=0
 ```
@@ -339,8 +339,9 @@ band: eu868              # 868.1 MHz, FLRC-650, +14 dBm
 radio_payload: 128
 sync_word: "2dd4d4b2"
 mtu: 1400
-ack_timeout_ms: 200
-max_retries: 8
+ack_timeout_ms: 300
+max_retries: 15
+packet_gap_ms: 20
 auto_connect: true
 ```
 
@@ -369,6 +370,15 @@ node:
   identity:
     persistent: true
   leaf_only: true
+  heartbeat_interval_secs: 300
+  mmp:
+    mode: minimal
+  session_mmp:
+    mode: minimal
+  # Optional quiet benchmark window only; keep normal rekey in production.
+  rekey:
+    after_secs: 3600
+    after_messages: 1000000000
   control:
     enabled: true
     socket_path: /tmp/fips-a.sock
@@ -390,8 +400,9 @@ transports:
     radio_payload: 128
     sync_word: "2dd4d4b2"
     mtu: 1400
-    ack_timeout_ms: 200
-    max_retries: 8
+    ack_timeout_ms: 300
+    max_retries: 15
+    packet_gap_ms: 20
     auto_connect: true
 
 peers:
@@ -409,6 +420,14 @@ Create `$WORK/b/fips.yaml` with these substitutions only:
 - `socket_path: /tmp/fips-b.sock` and TUN `name: fipsb0`;
 - `transports.lr2021.local_id: 2`;
 - **A's npub** in the peers block and `addr: "1"`.
+
+The measured quiet-start topology used `auto_connect: false` on A and
+`auto_connect: true` on B, so only B initiated the Noise handshake. A still
+accepts connections. Keep that asymmetry during initial bring-up.
+
+The 20 ms `packet_gap_ms` requires the repaired batch/ACK host implementation
+at `c03rad0r/fips@8155e5ff` or later; see `PING-RELIABILITY-PLAN.md` for measured
+acceptance evidence.
 
 Use `/dev/ttyUSB0` plus `baud: 115200` **only** when B is the alternative,
 already-flashed native E80 STM32 bridge. A second S3/E80 SPI adapter always uses
@@ -464,9 +483,17 @@ Measured status as of this guide's latest update:
 - [x] Native-E80 → S3 full-size frames with zero CRC errors
 - [x] 64-byte payload delivery, 5/5 each way
 - [x] Bidirectional FIPS peer authentication/connection
-- [ ] Repeated larger-payload and fragmented-packet validation
-- [ ] Bidirectional IPv6 ping (latest default run: A→B 0/5, B→A 3/5)
-- [ ] An interactive SSH connection over the FIPS IPv6 address
+- [x] Fragmented 1000-byte IPv6 payloads in both directions on the S3↔C3 pair;
+      the separate two-identical-S3 hardware test is still pending.
+- [x] Bidirectional IPv6 ping: 50/50 each direction at 0% loss.
+- [x] Public-key SSH remote command over the FIPS IPv6 address (`RADIO_SSH_OK`).
+- [x] 128 KiB HTTP, three runs, all exact-length HTTP 200 responses.
+- [x] 1 MiB HTTP, three runs: 1275.047/1272.223/1313.169 s,
+      mean 0.0065 Mb/s, all exact-length HTTP 200 responses.
+- [x] Public-key `ssh-smoke.sh` remote command, exit 0, with credential cleanup.
+- [x] Post-rekey 50/50 ping gate, 0% loss both directions.
+- [ ] Optional ContextVM/MCP internet baseline (no registered MCP tool or WAN
+      route; intentionally not run or inferred from LAN connectivity).
 
 **Do not debug SSH before ping works.** Do not debug ping before both peers
 authenticate. Do not assume a correct `hello`, CFG ACK, or nonempty peer list
