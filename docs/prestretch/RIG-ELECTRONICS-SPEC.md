@@ -1,5 +1,17 @@
 # PRE-STRETCH RIG ELECTRONICS — ESP32-S3, not C3
 
+> **Address correction — 2026-11-10 (current mapping).** MS5611-01BA03 CSB
+> LOW selects **0x77**, HIGH selects **0x76** (7-bit addresses). The previous
+> “low = 0x76, high = 0x77” claim was reversed and is withdrawn. TE/Measurement
+> Specialties datasheet 06/2017 pp7,12 specifies `111011C`, C = complement of CSB;
+> p15 identifies internally connected CSB pads 4 and 5. Manufacturer document:
+> [AMSYS-hosted PDF](https://amsys-sensor.com/downloads/data/MS5611-01BA03-AMSYS-datasheet.pdf),
+> SHA256 `1fac201505813c97e0b9dff4d562a416b1ab67bb203dab138559f5e6234700b7`.
+> This agrees with sibling PR #537 measurement commit `99f1fad5784b527eb6a2ff701c1a3bc2d79db8f6`,
+> `tracker/hardware/pressure-controller-core/MEASUREMENT-REPORT.md`: U3 internal
+> LOW/0x77, U4 ambient HIGH/0x76. That schematic milestone is not physical
+> qualification; this correction changes no copper or actuator authorization.
+
 > **Safety correction — 2026-11-10, [ADR-087](../adr/087-prestretch-differential-pressure-qualification.md).**
 > The numerical pressure/pump instructions below are historical, NOT executable.
 > Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
@@ -124,11 +136,13 @@ Wiring:
 |---|---|---|---|---|
 | SDA / SCL | `GPIO9` | `GPIO8` | — | — |
 
-Both sensors sit on the same bus, so **they need different I²C addresses.** MS5611 supports `0x76` and
-`0x77` via the CSB pin (low = `0x76`, high = `0x77`). **Route CSB on both footprints**: tie one low and
-one high, or better, put a 2-pin jumper on each so the address is selectable if a part arrives strapped.
-Two sensors defaulting to the same address is a silent single-sensor rig — the second one simply never
-answers and the differential reads as an absolute.
+Both sensors sit on the same bus, so **they need different I²C addresses.** Current mapping:
+**U3 internal: CSB LOW = `0x77`; U4 ambient: CSB HIGH = `0x76`** (7-bit).
+Tie both internally connected CSB pads 4 and 5 alike on each footprint; use fixed
+GND/3V3 straps, never floating inputs. PS HIGH selects I²C. This replaces the reversed
+polarity and selectable-jumper recommendation preserved in the correction trail above.
+Address collision cannot prove two independent readings; reject missing/ambiguous
+pair identity rather than substituting an absolute reading for differential pressure.
 
 Pull-ups: **4.7 kΩ to 3V3 on SDA/SCL**, once per bus (not per footprint). MS5611 breakouts vary.
 
