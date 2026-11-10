@@ -190,11 +190,11 @@ paying when the second side buys a **smaller outline**, and the only way to know
 
 **Then:**
 
-1. **Start single-sided, then let the measurement decide — and populate both sides when it wins.**
-   Try to fit everything on one side at the smallest outline that respects antenna keepouts,
-   connector edge access, sensor/port access, thermal separation and the tight switching loop of any
-   regulator. The second side is **mandatory when it crosses the threshold in point 3**, not a
-   fallback to be avoided.
+1. **Start single-sided, then let the measurement decide.** Try to fit everything on one side at the
+   smallest outline that respects antenna keepouts, connector edge access, sensor/port access,
+   thermal separation and the tight switching loop of any regulator. Then compute the two-sided
+   outline as well. If two sides earn the threshold in point 3, **adopt them** — the only way to
+   stay single-sided is a recorded operator decision weighing assembly cost against the saved area.
 2. **If the binding constraint is a part count on one side rather than a reservation, move the
    parts that do not need adjacency to B.Cu and re-measure.** Safe candidates are series/pull
    resistors, straps and configuration parts. **Do not move decoupling capacitors away from their
@@ -225,11 +225,21 @@ for a denser board. A 65 × 50 mm single-sided candidate fit (**32.3 % smaller**
 
 **CORRECTION (measured the same day, supersedes the earlier conclusion in this section).** A
 two-sided candidate then measured **52 × 46 mm = 2392 mm², a further 26.4 % smaller** — past the
-≥10 % threshold above — so by this very rule the second side is **required** here, not optional.
-The earlier text claimed two sides "would have bought almost nothing" while a *single-sided* board's
-free area outside the reservation was only 197.6 mm². **That measured the wrong quantity.** "Is the
-single-sided board packed?" and "would a second side buy a smaller outline?" are different questions,
-and only the second decides the board. The 197.6 mm² figure answered the first.
+≥10 % threshold above. The earlier text claimed two sides "would have bought almost nothing" while a
+*single-sided* board's free area outside the reservation was only 197.6 mm². **That measured the
+wrong quantity.** "Is the single-sided board packed?" and "would a second side buy a smaller
+outline?" are different questions, and only the second decides the board. The 197.6 mm² figure
+answered the first.
+
+**Operator decision on this board (2026-11-10) — a RECORDED EXCEPTION, not a silent one.** The
+pressure controller stays **single-sided at 65 × 50 mm** even though the two-sided measurement beats
+the ≥10 % threshold. The operator chose single-sided deliberately: one stencil/paste setup, one
+assembly side, no bottom-side CPL mirroring, and a simpler enclosure. That is a valid reason to
+decline a smaller outline, and it must be written down as such — **a threshold win that is declined
+is a decision with a name on it, never an omission.** The rule below therefore still requires the
+two-sided number to be *computed and reported* on every board; it does not force the smaller outline
+when the operator has weighed the assembly cost and said no. What the rule forbids is dismissing the
+second side **without** the measurement.
 
 **The reservation still dominates, and that is unchanged.** 720 mm² of the 2392 mm² board (30 %) is
 the unqualified motor/protection keep-out, so it — not the parts — is now the largest consumer. Point
@@ -664,9 +674,11 @@ Rules:
    of this file. It requires every placement gate to compute the smallest outline **both**
    single-sided and two-sided and to take the smaller one only when it earns **≥10 % of board area**.
    Two-sided is the default **to measure** — never a default to assume, and never dismissible without
-   the measurement. A reservation larger than the parts dominates the decision and must not be shrunk
-   to win area. ADR-120 R1's measured two-sided first pass and §1b are consistent: measure, then
-   choose.
+   the measurement. Staying single-sided after the two-sided number clears the threshold is allowed
+   **only** as a recorded operator decision (see the pressure-controller exception in §1b), never as
+   an agent's shorthand. A reservation larger than the parts dominates the decision and must not be
+   shrunk to win area. ADR-120 R1's measured two-sided first pass and §1b are consistent: measure,
+   then choose.
 2. **Four RF sites:** LoRa2021F33 (HP) + TWO bare LoRa2021 LP + **E28-2G4M27SX module**
    (SX1280+PA+LNA+matching on-module; datasheet at `docs/modules/e28-2g4m27sx/`).
    The bare-chip SX1280 + self-built match network is ABANDONED (measured fatal scatter,
