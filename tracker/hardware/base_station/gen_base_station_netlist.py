@@ -41,8 +41,12 @@ add("D_TVS", "TVS clamp (set point TODO(unverified))", "Diode_SMD:D_SMB",
 add("C_IN", "10uF 25V", "Capacitor_SMD:C_1206_3216Metric",
     [("1", "VIN_GS_PROT"), ("2", "GND")])
 add("U_REG", "TPS62162 5V buck (3-17V in, 1A out)", "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm",
-    [("1", "VIN_GS_PROT"), ("2", "GND"), ("3", "REG_SW"), ("4", "REG_FB"),
-     ("5", "+5V_PCBA"), ("6", "GND"), ("7", "REG_EN"), ("8", "REG_PG"), ("9", "GND")])
+    # TI SLVSAM2E section 6, DSG: PGND VIN EN AGND FB VOS SW PG, EP->AGND.
+    # Fixed-output TPS62162: FB goes to AGND, NOT an external divider.
+    # BLOCKED: TPS62162 is 3.3V, not the required 5V; selection/enable/input
+    # protection need a schematic-first follow-up. Do not route this source.
+    [("1", "GND"), ("2", "VIN_GS_PROT"), ("3", "REG_EN"), ("4", "GND"),
+     ("5", "GND"), ("6", "+5V_PCBA"), ("7", "REG_SW"), ("8", "REG_PG"), ("9", "GND")])
 add("L1", "2.2uH buck inductor", "Inductor_SMD:L_Bourns-SRN4018",
     [("1", "REG_SW"), ("2", "+5V_PCBA")])
 add("R_FB1", "100k (feedback divider)", "Resistor_SMD:R_0402_1005Metric",

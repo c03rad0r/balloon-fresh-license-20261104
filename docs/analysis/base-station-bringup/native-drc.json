@@ -1,0 +1,4626 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-10T12:16:01+0100",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.9",
+    "schematic_parity": [],
+    "source": "base_station_v1_placed_v2.kicad_pcb",
+    "unconnected_items": [
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 16 [+3V3_MCU] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 3.8375,
+                        "y": 9.475
+                    },
+                    "uuid": "82ef9d84-ca28-426d-b52a-9a1ee14d50ca"
+                },
+                {
+                    "description": "Pad 1 [+3V3_MCU] of C_LDO1 on F.Cu",
+                    "pos": {
+                        "x": 5.75,
+                        "y": 17.775
+                    },
+                    "uuid": "cd491a09-2855-4c50-b588-88cca5f62862"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 5 [+3V3_MCU] of U_LDO on F.Cu",
+                    "pos": {
+                        "x": 14.2325,
+                        "y": 16.795
+                    },
+                    "uuid": "48e379e4-9999-4486-9cb9-7fcecda33df7"
+                },
+                {
+                    "description": "Pad 1 [+3V3_MCU] of R_RUN on F.Cu",
+                    "pos": {
+                        "x": 19.465,
+                        "y": 19.515
+                    },
+                    "uuid": "c93cc815-51af-42c8-840a-1d2eebcd885d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 5 [+3V3_MCU] of U_LDO on F.Cu",
+                    "pos": {
+                        "x": 14.2325,
+                        "y": 16.795
+                    },
+                    "uuid": "48e379e4-9999-4486-9cb9-7fcecda33df7"
+                },
+                {
+                    "description": "Pad 1 [+3V3_MCU] of C_LDO1 on F.Cu",
+                    "pos": {
+                        "x": 5.75,
+                        "y": 17.775
+                    },
+                    "uuid": "cd491a09-2855-4c50-b588-88cca5f62862"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 8 [+3V3_MCU] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 25.52
+                    },
+                    "uuid": "e070bf1d-7ce0-44fe-9fd2-7f5f8d4db214"
+                },
+                {
+                    "description": "Pad 1 [+3V3_MCU] of R_RUN on F.Cu",
+                    "pos": {
+                        "x": 19.465,
+                        "y": 19.515
+                    },
+                    "uuid": "c93cc815-51af-42c8-840a-1d2eebcd885d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 8 [+3V3_MCU] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 25.52
+                    },
+                    "uuid": "e070bf1d-7ce0-44fe-9fd2-7f5f8d4db214"
+                },
+                {
+                    "description": "PTH pad 1 [+3V3_MCU] of J_SWD",
+                    "pos": {
+                        "x": 59.815,
+                        "y": 10.815
+                    },
+                    "uuid": "9a55eae6-859a-4371-bc1f-d17c7c44e649"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 5 [+5V_DET] of U_DET on F.Cu",
+                    "pos": {
+                        "x": 2.425,
+                        "y": 15.6125
+                    },
+                    "uuid": "a42ec10b-e84e-4b62-9b96-59039434896f"
+                },
+                {
+                    "description": "Pad 1 [+5V_DET] of C_DET1 on F.Cu",
+                    "pos": {
+                        "x": 31.475,
+                        "y": 19.505
+                    },
+                    "uuid": "422b0e9c-573c-4c58-a920-f8fa283ba9b1"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_DET] of C_DET1 on F.Cu",
+                    "pos": {
+                        "x": 31.475,
+                        "y": 19.505
+                    },
+                    "uuid": "422b0e9c-573c-4c58-a920-f8fa283ba9b1"
+                },
+                {
+                    "description": "Pad 2 [+5V_DET] of FB_DET on F.Cu",
+                    "pos": {
+                        "x": 45.3125,
+                        "y": 16.775
+                    },
+                    "uuid": "6ad9729b-c260-4b6c-85ee-f76372885462"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "PTH pad 3 [+5V_LNA_SW] of TEE2",
+                    "pos": {
+                        "x": 39.815,
+                        "y": 16.895
+                    },
+                    "uuid": "e394310f-2f69-40b8-b3ee-17a725c4285e"
+                },
+                {
+                    "description": "Pad 1 [+5V_LNA_SW] of C_LNA1 on F.Cu",
+                    "pos": {
+                        "x": 25.475,
+                        "y": 19.505
+                    },
+                    "uuid": "cf1d01ff-cc42-4fcb-8e4e-e8d5a2e2e69b"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 5 [+5V_LNA_SW] of Q_LNA_SW on F.Cu",
+                    "pos": {
+                        "x": 52.2325,
+                        "y": 15.795
+                    },
+                    "uuid": "844279f8-b774-45c7-90cd-f2a2a0e129b6"
+                },
+                {
+                    "description": "PTH pad 3 [+5V_LNA_SW] of TEE2",
+                    "pos": {
+                        "x": 39.815,
+                        "y": 16.895
+                    },
+                    "uuid": "e394310f-2f69-40b8-b3ee-17a725c4285e"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_LNA_SW] of C_LNA2 on F.Cu",
+                    "pos": {
+                        "x": 54.795,
+                        "y": 16.025
+                    },
+                    "uuid": "bfe1540f-0114-4787-bf62-6b984ad262f2"
+                },
+                {
+                    "description": "Pad 5 [+5V_LNA_SW] of Q_LNA_SW on F.Cu",
+                    "pos": {
+                        "x": 52.2325,
+                        "y": 15.795
+                    },
+                    "uuid": "844279f8-b774-45c7-90cd-f2a2a0e129b6"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_LNA_SW] of C_LNA2 on F.Cu",
+                    "pos": {
+                        "x": 54.795,
+                        "y": 16.025
+                    },
+                    "uuid": "bfe1540f-0114-4787-bf62-6b984ad262f2"
+                },
+                {
+                    "description": "PTH pad 3 [+5V_LNA_SW] of TEE1",
+                    "pos": {
+                        "x": 64.815,
+                        "y": 15.895
+                    },
+                    "uuid": "b1b851b9-9358-41a9-aca4-b64e945750e1"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 5 [+5V_PCBA] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 20.595,
+                        "y": 13.3
+                    },
+                    "uuid": "c02ceebe-6f17-4bcf-b057-20941ab9fd17"
+                },
+                {
+                    "description": "Pad 1 [+5V_PCBA] of U_LDO on F.Cu",
+                    "pos": {
+                        "x": 11.9575,
+                        "y": 16.795
+                    },
+                    "uuid": "d9e08ab8-484b-4350-b2ad-95c7083a0dfa"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of C_OUT on F.Cu",
+                    "pos": {
+                        "x": 22.87,
+                        "y": 17.195
+                    },
+                    "uuid": "4be54071-cef3-4adb-8c69-fbc2c7135394"
+                },
+                {
+                    "description": "Pad 1 [+5V_PCBA] of R_EN on F.Cu",
+                    "pos": {
+                        "x": 22.465,
+                        "y": 19.515
+                    },
+                    "uuid": "4c1f79eb-9ae3-4ddc-8b4b-810fe4394c72"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of C_OUT on F.Cu",
+                    "pos": {
+                        "x": 22.87,
+                        "y": 17.195
+                    },
+                    "uuid": "4be54071-cef3-4adb-8c69-fbc2c7135394"
+                },
+                {
+                    "description": "Pad 5 [+5V_PCBA] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 20.595,
+                        "y": 13.3
+                    },
+                    "uuid": "c02ceebe-6f17-4bcf-b057-20941ab9fd17"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of FB_VGA on F.Cu",
+                    "pos": {
+                        "x": 28.7375,
+                        "y": 16.775
+                    },
+                    "uuid": "9fd45b99-c950-4109-97ef-4a117dad6f8e"
+                },
+                {
+                    "description": "Pad 1 [+5V_PCBA] of C_OUT on F.Cu",
+                    "pos": {
+                        "x": 22.87,
+                        "y": 17.195
+                    },
+                    "uuid": "4be54071-cef3-4adb-8c69-fbc2c7135394"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of FB_VGA on F.Cu",
+                    "pos": {
+                        "x": 28.7375,
+                        "y": 16.775
+                    },
+                    "uuid": "9fd45b99-c950-4109-97ef-4a117dad6f8e"
+                },
+                {
+                    "description": "Pad 1 [+5V_PCBA] of FB_DET on F.Cu",
+                    "pos": {
+                        "x": 43.7375,
+                        "y": 16.775
+                    },
+                    "uuid": "f7480c93-f006-4f8c-bd25-237014773ebb"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of FB_DET on F.Cu",
+                    "pos": {
+                        "x": 43.7375,
+                        "y": 16.775
+                    },
+                    "uuid": "f7480c93-f006-4f8c-bd25-237014773ebb"
+                },
+                {
+                    "description": "Pad 2 [+5V_PCBA] of L1 on F.Cu",
+                    "pos": {
+                        "x": 47.1,
+                        "y": 12.295
+                    },
+                    "uuid": "4eb6d3c1-ec63-464c-b5c9-21ae31ca2e29"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of Q_LNA_SW on F.Cu",
+                    "pos": {
+                        "x": 49.9575,
+                        "y": 15.795
+                    },
+                    "uuid": "5d73b9a7-f111-4b9e-9753-6c9bbaf61735"
+                },
+                {
+                    "description": "Pad 2 [+5V_PCBA] of L1 on F.Cu",
+                    "pos": {
+                        "x": 47.1,
+                        "y": 12.295
+                    },
+                    "uuid": "4eb6d3c1-ec63-464c-b5c9-21ae31ca2e29"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of Q_LNA_SW on F.Cu",
+                    "pos": {
+                        "x": 49.9575,
+                        "y": 15.795
+                    },
+                    "uuid": "5d73b9a7-f111-4b9e-9753-6c9bbaf61735"
+                },
+                {
+                    "description": "Pad 1 [+5V_PCBA] of C_LDO2 on F.Cu",
+                    "pos": {
+                        "x": 54.75,
+                        "y": 18.775
+                    },
+                    "uuid": "fe48065f-06aa-4540-81b3-ccc94441cbf5"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of R_FB1 on F.Cu",
+                    "pos": {
+                        "x": 55.465,
+                        "y": 10.515
+                    },
+                    "uuid": "bff3a1fb-fb80-46f5-be34-c7d3abcb865f"
+                },
+                {
+                    "description": "Pad 1 [+5V_PCBA] of Q_LNA_SW on F.Cu",
+                    "pos": {
+                        "x": 49.9575,
+                        "y": 15.795
+                    },
+                    "uuid": "5d73b9a7-f111-4b9e-9753-6c9bbaf61735"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_PCBA] of TP_5V on F.Cu",
+                    "pos": {
+                        "x": 67.297505,
+                        "y": 2.296249
+                    },
+                    "uuid": "ab1703d6-9b81-4d9b-86b7-2e6a30134d84"
+                },
+                {
+                    "description": "Pad 1 [+5V_PCBA] of R_FB1 on F.Cu",
+                    "pos": {
+                        "x": 55.465,
+                        "y": 10.515
+                    },
+                    "uuid": "bff3a1fb-fb80-46f5-be34-c7d3abcb865f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [+5V_VGA] of FB_VGA on F.Cu",
+                    "pos": {
+                        "x": 30.3125,
+                        "y": 16.775
+                    },
+                    "uuid": "bc819609-f327-4407-9c26-4735ca994160"
+                },
+                {
+                    "description": "Pad 1 [+5V_VGA] of C_VGA1 on F.Cu",
+                    "pos": {
+                        "x": 28.475,
+                        "y": 19.505
+                    },
+                    "uuid": "3d168d98-7e88-4087-9d09-f4c3595401e6"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_VGA] of C_VGA2 on F.Cu",
+                    "pos": {
+                        "x": 32.75,
+                        "y": 16.775
+                    },
+                    "uuid": "d6d80119-9cfc-4d16-84c4-e2d4317b73c2"
+                },
+                {
+                    "description": "Pad 2 [+5V_VGA] of FB_VGA on F.Cu",
+                    "pos": {
+                        "x": 30.3125,
+                        "y": 16.775
+                    },
+                    "uuid": "bc819609-f327-4407-9c26-4735ca994160"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_VGA] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 26.175
+                    },
+                    "uuid": "cf9eeb5e-4edc-4bd4-89fe-650c011d04bd"
+                },
+                {
+                    "description": "Pad 1 [+5V_VGA] of C_VGA2 on F.Cu",
+                    "pos": {
+                        "x": 32.75,
+                        "y": 16.775
+                    },
+                    "uuid": "d6d80119-9cfc-4d16-84c4-e2d4317b73c2"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 3 [DET_RF_IN] of U_DET on F.Cu",
+                    "pos": {
+                        "x": 1.7375,
+                        "y": 14.425
+                    },
+                    "uuid": "cb8d506a-b6eb-466f-b05e-7859ffbca7ab"
+                },
+                {
+                    "description": "Pad 2 [DET_RF_IN] of FLT_433_B on F.Cu",
+                    "pos": {
+                        "x": 13.1,
+                        "y": 13.195
+                    },
+                    "uuid": "39484bd2-c6cc-4403-b3d6-3622f9fb0125"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 7 [DET_VOUT] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 5.8375
+                    },
+                    "uuid": "f61e6108-2480-4a49-8d89-085d5a595036"
+                },
+                {
+                    "description": "Pad 6 [DET_VOUT] of U_DET on F.Cu",
+                    "pos": {
+                        "x": 2.925,
+                        "y": 15.6125
+                    },
+                    "uuid": "37630751-c8a0-423a-8e5b-dba5e1ad3e24"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 6 [DET_VOUT] of U_DET on F.Cu",
+                    "pos": {
+                        "x": 2.925,
+                        "y": 15.6125
+                    },
+                    "uuid": "37630751-c8a0-423a-8e5b-dba5e1ad3e24"
+                },
+                {
+                    "description": "Pad 1 [DET_VOUT] of C_DET2 on F.Cu",
+                    "pos": {
+                        "x": 34.475,
+                        "y": 19.505
+                    },
+                    "uuid": "d1d6b37e-2f93-453c-ac77-a0015d10a32c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [IOVDD] of C_MCU2 on F.Cu",
+                    "pos": {
+                        "x": 1.75,
+                        "y": 17.775
+                    },
+                    "uuid": "1abf3eee-26e1-4e65-838b-611a6ca5419c"
+                },
+                {
+                    "description": "Pad 1 [IOVDD] of C_MCU1 on F.Cu",
+                    "pos": {
+                        "x": 49.475,
+                        "y": 19.505
+                    },
+                    "uuid": "7acd5825-4d00-4244-8161-ba96b33629d6"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [IOVDD] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 3.4375
+                    },
+                    "uuid": "079f713e-57ae-4a61-aa58-7b8048ea985e"
+                },
+                {
+                    "description": "Pad 5 [IOVDD] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 5.0375
+                    },
+                    "uuid": "1fdd3e5b-57ff-414b-bbe6-01f4c17a4abd"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 5 [IOVDD] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 5.0375
+                    },
+                    "uuid": "1fdd3e5b-57ff-414b-bbe6-01f4c17a4abd"
+                },
+                {
+                    "description": "Pad 1 [IOVDD] of C_MCU2 on F.Cu",
+                    "pos": {
+                        "x": 1.75,
+                        "y": 17.775
+                    },
+                    "uuid": "1abf3eee-26e1-4e65-838b-611a6ca5419c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 21 [LNA_EN] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 5.8375,
+                        "y": 9.475
+                    },
+                    "uuid": "fa7553ca-6131-4d16-ad22-86d60ee7d270"
+                },
+                {
+                    "description": "Pad 3 [LNA_EN] of Q_LNA_SW on F.Cu",
+                    "pos": {
+                        "x": 49.9575,
+                        "y": 17.695
+                    },
+                    "uuid": "8ebece98-92a5-433a-aa8b-991a8d01c05b"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 22 [LNA_FLT] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 6.2375,
+                        "y": 9.475
+                    },
+                    "uuid": "e24c3d78-6aab-4c71-8fe0-939d6b8fff02"
+                },
+                {
+                    "description": "Pad 1 [LNA_FLT] of R_LNA_ILIM on F.Cu",
+                    "pos": {
+                        "x": 16.465,
+                        "y": 19.515
+                    },
+                    "uuid": "1841dd4d-5148-4f5e-84cd-6f092916220d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [LNA_FLT] of R_LNA_ILIM on F.Cu",
+                    "pos": {
+                        "x": 16.465,
+                        "y": 19.515
+                    },
+                    "uuid": "1841dd4d-5148-4f5e-84cd-6f092916220d"
+                },
+                {
+                    "description": "Pad 4 [LNA_FLT] of Q_LNA_SW on F.Cu",
+                    "pos": {
+                        "x": 52.2325,
+                        "y": 17.695
+                    },
+                    "uuid": "7e735bc0-2b22-480a-99cf-2de1d14c6cbc"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 11 [QSPI_SCLK] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 7.4375
+                    },
+                    "uuid": "44cfc8bc-2266-4844-b139-02218488b693"
+                },
+                {
+                    "description": "Pad 6 [QSPI_SCLK] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 28.06
+                    },
+                    "uuid": "dcc6d35c-50d9-4c25-8f5a-5c7789059266"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 12 [QSPI_SD0] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 7.8375
+                    },
+                    "uuid": "1864c750-07ae-4139-b04d-103d1fa4887a"
+                },
+                {
+                    "description": "Pad 2 [QSPI_SD0] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 26.79
+                    },
+                    "uuid": "6ac38945-3094-4945-a698-bd3b8cd9c33c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 13 [QSPI_SD1] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 8.2375
+                    },
+                    "uuid": "682dcb45-8dff-4697-aca8-cb087af6cc04"
+                },
+                {
+                    "description": "Pad 5 [QSPI_SD1] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 29.33
+                    },
+                    "uuid": "82c1ce03-b774-404b-bd97-1216ca2015d8"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 14 [QSPI_SD2] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 8.6375
+                    },
+                    "uuid": "8289228b-fd00-4d7b-8206-efbc34e25c66"
+                },
+                {
+                    "description": "Pad 3 [QSPI_SD2] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 28.06
+                    },
+                    "uuid": "667ae527-6e69-482d-84d6-3db9e450302d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 15 [QSPI_SD3] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 3.4375,
+                        "y": 9.475
+                    },
+                    "uuid": "bf6a8233-21d4-4144-9593-e7653dbc5f6b"
+                },
+                {
+                    "description": "Pad 7 [QSPI_SD3] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 26.79
+                    },
+                    "uuid": "e4b89559-83ac-4bc8-91c7-aa087956b359"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 10 [QSPI_SS] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 2.6,
+                        "y": 7.0375
+                    },
+                    "uuid": "60e90843-11b0-4e35-a104-7f5cd7fc09c1"
+                },
+                {
+                    "description": "Pad 1 [QSPI_SS] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 25.52
+                    },
+                    "uuid": "bedab624-be68-46f8-b740-2b4fd009e7ad"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 7 [REG_EN] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 20.595,
+                        "y": 12.3
+                    },
+                    "uuid": "dd1cb340-7ded-4a78-996f-3a7c54c4ad99"
+                },
+                {
+                    "description": "Pad 2 [REG_EN] of R_EN on F.Cu",
+                    "pos": {
+                        "x": 23.485,
+                        "y": 19.515
+                    },
+                    "uuid": "7aa32406-530d-4b7c-9f31-071eb3e89882"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 4 [REG_FB] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 18.695,
+                        "y": 13.3
+                    },
+                    "uuid": "c038b33b-0253-4ce9-8ece-326e857811ad"
+                },
+                {
+                    "description": "Pad 1 [REG_FB] of R_FB2 on F.Cu",
+                    "pos": {
+                        "x": 55.465,
+                        "y": 12.515
+                    },
+                    "uuid": "ef634e57-9e27-4019-ad92-98b17fb5a5fb"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [REG_FB] of R_FB2 on F.Cu",
+                    "pos": {
+                        "x": 55.465,
+                        "y": 12.515
+                    },
+                    "uuid": "ef634e57-9e27-4019-ad92-98b17fb5a5fb"
+                },
+                {
+                    "description": "Pad 2 [REG_FB] of R_FB1 on F.Cu",
+                    "pos": {
+                        "x": 56.485,
+                        "y": 10.515
+                    },
+                    "uuid": "6fe8728c-add7-48ed-95c8-9311bcf71fda"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 50 [REG_PG] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 5.8375,
+                        "y": 2.6
+                    },
+                    "uuid": "9355020e-3c3d-4f23-9c7c-ab5dac7638bb"
+                },
+                {
+                    "description": "Pad 8 [REG_PG] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 20.595,
+                        "y": 11.8
+                    },
+                    "uuid": "41a553b9-f65a-446b-a38b-1b2eb3008843"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 3 [REG_SW] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 18.695,
+                        "y": 12.8
+                    },
+                    "uuid": "afb01a69-f497-4a12-a7e9-ff510bffb9d4"
+                },
+                {
+                    "description": "Pad 1 [REG_SW] of L1 on F.Cu",
+                    "pos": {
+                        "x": 44.05,
+                        "y": 12.295
+                    },
+                    "uuid": "3fc0b819-43e3-42eb-b881-540687e65730"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [RF_433_ANT] of J_433_RX on F.Cu",
+                    "pos": {
+                        "x": 26.105,
+                        "y": 5.105
+                    },
+                    "uuid": "c57f42fe-9374-4919-af94-a8b5ff1e708e"
+                },
+                {
+                    "description": "Pad 1 [RF_433_ANT] of FLT_433_A on F.Cu",
+                    "pos": {
+                        "x": 50.6,
+                        "y": 10.925
+                    },
+                    "uuid": "d69d11ae-81bf-44b8-ba26-7508fa23226f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [RF_433_BPF1] of FLT_433_A on F.Cu",
+                    "pos": {
+                        "x": 50.1,
+                        "y": 12.195
+                    },
+                    "uuid": "fa2ae2ef-7b2c-4f73-9f22-8c2fc763d069"
+                },
+                {
+                    "description": "PTH pad 1 [RF_433_BPF1] of TEE1",
+                    "pos": {
+                        "x": 64.815,
+                        "y": 10.815
+                    },
+                    "uuid": "baca5e2a-ed79-4810-b54c-e9281d5b1abb"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [RF_TAP] of FLT_433_B on F.Cu",
+                    "pos": {
+                        "x": 13.6,
+                        "y": 11.925
+                    },
+                    "uuid": "cd267f06-b6b2-4fdd-8410-310671c3ac98"
+                },
+                {
+                    "description": "Pad 2 [RF_TAP] of C_TAP on F.Cu",
+                    "pos": {
+                        "x": 64.435,
+                        "y": 19.505
+                    },
+                    "uuid": "428e7595-8afd-4f73-ae7a-71df36e0bd2a"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 26 [RUN] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 7.8375,
+                        "y": 9.475
+                    },
+                    "uuid": "f9a27de6-1c42-4d86-baf7-fe56c59b8ebf"
+                },
+                {
+                    "description": "Pad 2 [RUN] of R_RUN on F.Cu",
+                    "pos": {
+                        "x": 20.485,
+                        "y": 19.515
+                    },
+                    "uuid": "b14e7722-bb4d-48df-a671-b65e33e71b99"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 28 [SWCLK] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 8.6375,
+                        "y": 9.475
+                    },
+                    "uuid": "c423ac40-25db-411f-8f43-fe5012e075b5"
+                },
+                {
+                    "description": "PTH pad 4 [SWCLK] of J_SWD",
+                    "pos": {
+                        "x": 59.815,
+                        "y": 18.435
+                    },
+                    "uuid": "5364fc02-3cf3-4e2c-884f-f00ebb65a0b3"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 29 [SWDIO] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 9.475,
+                        "y": 8.6375
+                    },
+                    "uuid": "f21997d3-7e44-4c3d-8d03-9b2e24129b6a"
+                },
+                {
+                    "description": "PTH pad 2 [SWDIO] of J_SWD",
+                    "pos": {
+                        "x": 59.815,
+                        "y": 13.355
+                    },
+                    "uuid": "1cf6ada1-ec62-41b9-b526-34b910fceee6"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 18 [VGA_GAIN0] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 4.6375,
+                        "y": 9.475
+                    },
+                    "uuid": "f2a27ee6-cbe2-4c47-b0ca-f742879bd468"
+                },
+                {
+                    "description": "Pad 6 [VGA_GAIN0] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 28.675
+                    },
+                    "uuid": "e52fad7f-5230-40a2-b4d2-fb0fb99e24b6"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 19 [VGA_GAIN1] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 5.0375,
+                        "y": 9.475
+                    },
+                    "uuid": "fdf2e380-e2fc-4b5a-a78c-199bca2d428d"
+                },
+                {
+                    "description": "Pad 7 [VGA_GAIN1] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 29.175
+                    },
+                    "uuid": "5231248d-7149-4b5a-ad19-88dbe7558b94"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 20 [VGA_GAIN2] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 5.4375,
+                        "y": 9.475
+                    },
+                    "uuid": "062543ac-7889-4493-8d30-2524b5c93cae"
+                },
+                {
+                    "description": "Pad 8 [VGA_GAIN2] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 29.675
+                    },
+                    "uuid": "ed926c3a-5149-467d-b662-efaaf7a59c55"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "PTH pad 2 [VGA_RF_IN] of TEE2",
+                    "pos": {
+                        "x": 39.815,
+                        "y": 14.355
+                    },
+                    "uuid": "c0e5efaf-9aae-45fe-8cef-d6e9e3e68af0"
+                },
+                {
+                    "description": "Pad 3 [VGA_RF_IN] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 27.175
+                    },
+                    "uuid": "91d73840-1ab0-40d0-8d81-f341da98b10b"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [VGA_RF_IN] of C_TAP on F.Cu",
+                    "pos": {
+                        "x": 63.475,
+                        "y": 19.505
+                    },
+                    "uuid": "a8f3153f-4cca-40d2-aa7e-72110815f33b"
+                },
+                {
+                    "description": "PTH pad 2 [VGA_RF_IN] of TEE2",
+                    "pos": {
+                        "x": 39.815,
+                        "y": 14.355
+                    },
+                    "uuid": "c0e5efaf-9aae-45fe-8cef-d6e9e3e68af0"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "PTH pad 1 [VIN_GS] of J_PWR",
+                    "pos": {
+                        "x": 14.795,
+                        "y": 5.245
+                    },
+                    "uuid": "83780ca8-19ae-4a2f-ab17-0cfcf9db203f"
+                },
+                {
+                    "description": "Pad 2 [VIN_GS] of D_REV on F.Cu",
+                    "pos": {
+                        "x": 27.845,
+                        "y": 12.295
+                    },
+                    "uuid": "fe73e1bd-35a0-41df-add0-39eb42b4c58c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [VIN_GS_PROT] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 18.695,
+                        "y": 11.8
+                    },
+                    "uuid": "0354e3e5-d81a-4ec5-84dc-2885424aad7c"
+                },
+                {
+                    "description": "Pad 1 [VIN_GS_PROT] of C_IN on F.Cu",
+                    "pos": {
+                        "x": 16.87,
+                        "y": 17.195
+                    },
+                    "uuid": "999a0f7e-b76f-44d1-95d7-efb2ff806c81"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [VIN_GS_PROT] of D_REV on F.Cu",
+                    "pos": {
+                        "x": 23.545,
+                        "y": 12.295
+                    },
+                    "uuid": "4979fbf3-06db-4b65-9909-a2d4200bddd3"
+                },
+                {
+                    "description": "Pad 1 [VIN_GS_PROT] of U_REG on F.Cu",
+                    "pos": {
+                        "x": 18.695,
+                        "y": 11.8
+                    },
+                    "uuid": "0354e3e5-d81a-4ec5-84dc-2885424aad7c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [VIN_GS_PROT] of D_REV on F.Cu",
+                    "pos": {
+                        "x": 23.545,
+                        "y": 12.295
+                    },
+                    "uuid": "4979fbf3-06db-4b65-9909-a2d4200bddd3"
+                },
+                {
+                    "description": "Pad 1 [VIN_GS_PROT] of D_TVS on F.Cu",
+                    "pos": {
+                        "x": 31.545,
+                        "y": 12.295
+                    },
+                    "uuid": "8e0869f7-f9fc-4864-a78c-3cc09fc19dbb"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 24 [XIN] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 7.0375,
+                        "y": 9.475
+                    },
+                    "uuid": "a249974e-4cd7-453f-87cd-871cdac0eabd"
+                },
+                {
+                    "description": "Pad 1 [XIN] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 7.045,
+                        "y": 14.645
+                    },
+                    "uuid": "0b82b3e3-9205-4b15-8486-b5341b435b0f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [XIN] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 7.045,
+                        "y": 14.645
+                    },
+                    "uuid": "0b82b3e3-9205-4b15-8486-b5341b435b0f"
+                },
+                {
+                    "description": "Pad 1 [XIN] of C_X1 on F.Cu",
+                    "pos": {
+                        "x": 43.475,
+                        "y": 19.505
+                    },
+                    "uuid": "0f6e1829-5f96-4b94-86c0-c0e0f5bab46d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 25 [XOUT] of U_MCU on F.Cu",
+                    "pos": {
+                        "x": 7.4375,
+                        "y": 9.475
+                    },
+                    "uuid": "25e702ff-a61f-4b64-b850-6e6e2897866a"
+                },
+                {
+                    "description": "Pad 3 [XOUT] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 9.245,
+                        "y": 12.945
+                    },
+                    "uuid": "05eb8a88-fb65-486a-bed3-5852958d10da"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 3 [XOUT] of Y1 on F.Cu",
+                    "pos": {
+                        "x": 9.245,
+                        "y": 12.945
+                    },
+                    "uuid": "05eb8a88-fb65-486a-bed3-5852958d10da"
+                },
+                {
+                    "description": "Pad 1 [XOUT] of C_X2 on F.Cu",
+                    "pos": {
+                        "x": 46.475,
+                        "y": 19.505
+                    },
+                    "uuid": "b57d57b2-91f6-4497-9c23-1b0ac0a3dfb8"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        }
+    ],
+    "violations": [
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 1 [QSPI_SS] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 25.52
+                    },
+                    "uuid": "bedab624-be68-46f8-b740-2b4fd009e7ad"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 2 [QSPI_SD0] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 26.79
+                    },
+                    "uuid": "6ac38945-3094-4945-a698-bd3b8cd9c33c"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 3 [QSPI_SD2] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 28.06
+                    },
+                    "uuid": "667ae527-6e69-482d-84d6-3db9e450302d"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 5 [QSPI_SD1] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 29.33
+                    },
+                    "uuid": "82c1ce03-b774-404b-bd97-1216ca2015d8"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 6 [QSPI_SCLK] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 28.06
+                    },
+                    "uuid": "dcc6d35c-50d9-4c25-8f5a-5c7789059266"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 7 [QSPI_SD3] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 26.79
+                    },
+                    "uuid": "e4b89559-83ac-4bc8-91c7-aa087956b359"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 8 [+3V3_MCU] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 25.52
+                    },
+                    "uuid": "e070bf1d-7ce0-44fe-9fd2-7f5f8d4db214"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_VGA] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 26.175
+                    },
+                    "uuid": "cf9eeb5e-4edc-4bd4-89fe-650c011d04bd"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 3 [VGA_RF_IN] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 27.175
+                    },
+                    "uuid": "91d73840-1ab0-40d0-8d81-f341da98b10b"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 5 [VGA_RF_OUT] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 28.175
+                    },
+                    "uuid": "30d699ca-1795-4537-adc7-81a99e44decc"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 6 [VGA_GAIN0] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 28.675
+                    },
+                    "uuid": "e52fad7f-5230-40a2-b4d2-fb0fb99e24b6"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 7 [VGA_GAIN1] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 29.175
+                    },
+                    "uuid": "5231248d-7149-4b5a-ad19-88dbe7558b94"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 8 [VGA_GAIN2] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 29.675
+                    },
+                    "uuid": "ed926c3a-5149-467d-b662-efaaf7a59c55"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 9 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "f86a93a9-f82a-4d6f-94ad-fcc39268451a"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 10 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "bc1e479a-cd69-442d-9577-8bfdfb0b4bec"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 11 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "eda1d304-36c9-4220-858c-823a807b2c6e"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 12 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "18f489e1-6ce6-47be-83c4-bd7d990aa600"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 13 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "1ef5c975-9d65-4a03-a33c-8cfc9c14e658"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 14 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "c4ed70f0-e360-4a2a-8620-cac0211185bf"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 15 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "348c499f-c70f-40cc-8fb8-1b924d38e9be"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 16 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "a9a0a5d4-d9d9-4256-ab4f-643d15e19559"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 17 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 29.675
+                    },
+                    "uuid": "4e87aec7-acb1-4bd9-b355-26c54e896250"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 18 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 29.175
+                    },
+                    "uuid": "1a2e137b-652d-4031-8132-5a1daf721cc7"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 19 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 28.675
+                    },
+                    "uuid": "a9c9a09b-3b55-40ff-97ac-9013deae5ee5"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 20 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 28.175
+                    },
+                    "uuid": "98d24ad3-eb30-4349-a599-5eb1b2818f0f"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 21 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 27.675
+                    },
+                    "uuid": "31354ea4-454f-4d2d-a7cd-1a4cc8db734d"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 22 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 27.175
+                    },
+                    "uuid": "996a3536-f381-45e3-8602-5c1d3b74aa51"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 23 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 26.675
+                    },
+                    "uuid": "b568d9ae-92a6-4cbd-b623-9b2d2af26519"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 24 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 26.175
+                    },
+                    "uuid": "413e5fd2-a423-4785-8f00-791d4bf54800"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 25 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "0da9d66d-9bcd-4d6a-9e42-3f9f7c26b579"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 26 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "f2901607-9df7-4523-a79f-0ddcc6e975b0"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 27 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "ebd24b9d-6151-4d2b-80f1-e23f837558d7"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 28 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "31b07e7c-5f15-47c1-a4a3-52054424c332"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 29 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "6cb4ac67-c858-4b70-bf72-9509534daf6f"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 30 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "734c4a4a-282f-4751-8e0e-5c443f89d368"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 31 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "314b889a-3c93-4d73-b406-772120073c50"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 32 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "bcf51ced-0519-4d73-98f4-8502e57ce6c9"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 1 [QSPI_SS] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 25.52
+                    },
+                    "uuid": "bedab624-be68-46f8-b740-2b4fd009e7ad"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 2 [QSPI_SD0] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 26.79
+                    },
+                    "uuid": "6ac38945-3094-4945-a698-bd3b8cd9c33c"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 3 [QSPI_SD2] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 20.95,
+                        "y": 28.06
+                    },
+                    "uuid": "667ae527-6e69-482d-84d6-3db9e450302d"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 5 [QSPI_SD1] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 29.33
+                    },
+                    "uuid": "82c1ce03-b774-404b-bd97-1216ca2015d8"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 6 [QSPI_SCLK] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 28.06
+                    },
+                    "uuid": "dcc6d35c-50d9-4c25-8f5a-5c7789059266"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 7 [QSPI_SD3] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 26.79
+                    },
+                    "uuid": "e4b89559-83ac-4bc8-91c7-aa087956b359"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 8 [+3V3_MCU] of U_FLASH on F.Cu",
+                    "pos": {
+                        "x": 25.9,
+                        "y": 25.52
+                    },
+                    "uuid": "e070bf1d-7ce0-44fe-9fd2-7f5f8d4db214"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 1 [+5V_VGA] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 26.175
+                    },
+                    "uuid": "cf9eeb5e-4edc-4bd4-89fe-650c011d04bd"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 3 [VGA_RF_IN] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 27.175
+                    },
+                    "uuid": "91d73840-1ab0-40d0-8d81-f341da98b10b"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 5 [VGA_RF_OUT] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 28.175
+                    },
+                    "uuid": "30d699ca-1795-4537-adc7-81a99e44decc"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 6 [VGA_GAIN0] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 28.675
+                    },
+                    "uuid": "e52fad7f-5230-40a2-b4d2-fb0fb99e24b6"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 7 [VGA_GAIN1] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 29.175
+                    },
+                    "uuid": "5231248d-7149-4b5a-ad19-88dbe7558b94"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 8 [VGA_GAIN2] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 40.4875,
+                        "y": 29.675
+                    },
+                    "uuid": "ed926c3a-5149-467d-b662-efaaf7a59c55"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 9 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "f86a93a9-f82a-4d6f-94ad-fcc39268451a"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 10 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "bc1e479a-cd69-442d-9577-8bfdfb0b4bec"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 11 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "eda1d304-36c9-4220-858c-823a807b2c6e"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 12 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "18f489e1-6ce6-47be-83c4-bd7d990aa600"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 13 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "1ef5c975-9d65-4a03-a33c-8cfc9c14e658"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 14 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "c4ed70f0-e360-4a2a-8620-cac0211185bf"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 15 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.175,
+                        "y": 30.3625
+                    },
+                    "uuid": "348c499f-c70f-40cc-8fb8-1b924d38e9be"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 16 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.675,
+                        "y": 30.3625
+                    },
+                    "uuid": "a9a0a5d4-d9d9-4256-ab4f-643d15e19559"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 17 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 29.675
+                    },
+                    "uuid": "4e87aec7-acb1-4bd9-b355-26c54e896250"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 18 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 29.175
+                    },
+                    "uuid": "1a2e137b-652d-4031-8132-5a1daf721cc7"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 19 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 28.675
+                    },
+                    "uuid": "a9c9a09b-3b55-40ff-97ac-9013deae5ee5"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 20 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 28.175
+                    },
+                    "uuid": "98d24ad3-eb30-4349-a599-5eb1b2818f0f"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 21 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 27.675
+                    },
+                    "uuid": "31354ea4-454f-4d2d-a7cd-1a4cc8db734d"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 22 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 27.175
+                    },
+                    "uuid": "996a3536-f381-45e3-8602-5c1d3b74aa51"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 23 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 26.675
+                    },
+                    "uuid": "b568d9ae-92a6-4cbd-b623-9b2d2af26519"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 24 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 45.3625,
+                        "y": 26.175
+                    },
+                    "uuid": "413e5fd2-a423-4785-8f00-791d4bf54800"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 25 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "0da9d66d-9bcd-4d6a-9e42-3f9f7c26b579"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 26 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 44.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "f2901607-9df7-4523-a79f-0ddcc6e975b0"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 27 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "ebd24b9d-6151-4d2b-80f1-e23f837558d7"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 28 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 43.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "31b07e7c-5f15-47c1-a4a3-52054424c332"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 29 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "6cb4ac67-c858-4b70-bf72-9509534daf6f"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 30 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 42.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "734c4a4a-282f-4751-8e0e-5c443f89d368"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 31 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.675,
+                        "y": 25.4875
+                    },
+                    "uuid": "314b889a-3c93-4d73-b406-772120073c50"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation ( clearance 0.2000 mm; actual 0.0000 mm)",
+            "items": [
+                {
+                    "description": "Pad 32 [<no net>] of U_VGA on F.Cu",
+                    "pos": {
+                        "x": 41.175,
+                        "y": 25.4875
+                    },
+                    "uuid": "bcf51ced-0519-4d73-98f4-8502e57ce6c9"
+                },
+                {
+                    "description": "Zone 'GND_PLANE_F.Cu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "uuid": "325c7aed-c6cf-4b8b-8926-81a1107c46ae"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of U_DET on F.Silkscreen",
+                    "pos": {
+                        "x": 1.565,
+                        "y": 15.785
+                    },
+                    "uuid": "1d7fa96b-b785-4e7c-8f63-511890d0e2bb"
+                },
+                {
+                    "description": "Reference field of C_MCU2",
+                    "pos": {
+                        "x": 2.525,
+                        "y": 16.345
+                    },
+                    "uuid": "2f2719fe-54d9-4b7a-a6fe-355b29a55bfb"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU2",
+                    "pos": {
+                        "x": 2.525,
+                        "y": 16.345
+                    },
+                    "uuid": "2f2719fe-54d9-4b7a-a6fe-355b29a55bfb"
+                },
+                {
+                    "description": "Segment of U_DET on F.Silkscreen",
+                    "pos": {
+                        "x": 2.04,
+                        "y": 15.785
+                    },
+                    "uuid": "81529d95-0c92-48b9-b00f-74d00ab3b450"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU2",
+                    "pos": {
+                        "x": 2.525,
+                        "y": 16.345
+                    },
+                    "uuid": "2f2719fe-54d9-4b7a-a6fe-355b29a55bfb"
+                },
+                {
+                    "description": "Reference field of C_LDO1",
+                    "pos": {
+                        "x": 6.525,
+                        "y": 16.345
+                    },
+                    "uuid": "d1299f4a-62c7-4b28-9054-e54b4e979b18"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU2",
+                    "pos": {
+                        "x": 2.525,
+                        "y": 16.345
+                    },
+                    "uuid": "2f2719fe-54d9-4b7a-a6fe-355b29a55bfb"
+                },
+                {
+                    "description": "Segment of U_DET on F.Silkscreen",
+                    "pos": {
+                        "x": 4.785,
+                        "y": 15.785
+                    },
+                    "uuid": "5f7c4010-3a32-4c63-9cb3-1768063dddff"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of U_DET on F.Silkscreen",
+                    "pos": {
+                        "x": 4.785,
+                        "y": 15.785
+                    },
+                    "uuid": "5f7c4010-3a32-4c63-9cb3-1768063dddff"
+                },
+                {
+                    "description": "Reference field of C_LDO1",
+                    "pos": {
+                        "x": 6.525,
+                        "y": 16.345
+                    },
+                    "uuid": "d1299f4a-62c7-4b28-9054-e54b4e979b18"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_VGA2",
+                    "pos": {
+                        "x": 33.525,
+                        "y": 15.345
+                    },
+                    "uuid": "5890934f-bbd6-490b-a6db-21630f8a9929"
+                },
+                {
+                    "description": "Reference field of FB_VGA",
+                    "pos": {
+                        "x": 29.525,
+                        "y": 15.345
+                    },
+                    "uuid": "acd6781c-e705-44fe-8003-b43adaa78bc2"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_DET1",
+                    "pos": {
+                        "x": 31.955,
+                        "y": 18.345
+                    },
+                    "uuid": "19d9211a-79f4-46a4-bfc9-e0a071dcb06f"
+                },
+                {
+                    "description": "Reference field of C_DET2",
+                    "pos": {
+                        "x": 34.955,
+                        "y": 18.345
+                    },
+                    "uuid": "d30cb6fd-b8a7-42b4-ab8a-b7f9277c7884"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_DET1",
+                    "pos": {
+                        "x": 31.955,
+                        "y": 18.345
+                    },
+                    "uuid": "19d9211a-79f4-46a4-bfc9-e0a071dcb06f"
+                },
+                {
+                    "description": "Reference field of C_VGA1",
+                    "pos": {
+                        "x": 28.955,
+                        "y": 18.345
+                    },
+                    "uuid": "2938afc2-2242-4c0e-ad6c-527720eca49b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Polygon of U_REG on F.Silkscreen",
+                    "pos": {
+                        "x": 18.275,
+                        "y": 11.48
+                    },
+                    "uuid": "928195bd-549e-4af3-b71a-7569eaa1bfaa"
+                },
+                {
+                    "description": "Reference field of U_REG",
+                    "pos": {
+                        "x": 20.025,
+                        "y": 10.65
+                    },
+                    "uuid": "e1b7430e-366a-4853-9846-704f0981967d"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of U_REG",
+                    "pos": {
+                        "x": 20.025,
+                        "y": 10.65
+                    },
+                    "uuid": "e1b7430e-366a-4853-9846-704f0981967d"
+                },
+                {
+                    "description": "Segment of D_REV on F.Silkscreen",
+                    "pos": {
+                        "x": 22.035,
+                        "y": 10.145
+                    },
+                    "uuid": "f5322853-4834-447b-81d0-c31e17ece046"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of D_REV on F.Silkscreen",
+                    "pos": {
+                        "x": 22.035,
+                        "y": 10.145
+                    },
+                    "uuid": "a3689cac-2f9a-4e3c-951c-4d01126115aa"
+                },
+                {
+                    "description": "Reference field of U_REG",
+                    "pos": {
+                        "x": 20.025,
+                        "y": 10.65
+                    },
+                    "uuid": "e1b7430e-366a-4853-9846-704f0981967d"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of R_LNA_ILIM",
+                    "pos": {
+                        "x": 16.975,
+                        "y": 18.345
+                    },
+                    "uuid": "7622cf4d-3e9a-4999-8181-e4d868f53e49"
+                },
+                {
+                    "description": "Reference field of R_RUN",
+                    "pos": {
+                        "x": 19.975,
+                        "y": 18.345
+                    },
+                    "uuid": "c9c61c3c-075f-4bac-b532-a49f291f99e2"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of C_IN on F.Silkscreen",
+                    "pos": {
+                        "x": 17.633748,
+                        "y": 18.105
+                    },
+                    "uuid": "baeb5e28-7725-4373-b08f-6081dbe53162"
+                },
+                {
+                    "description": "Reference field of R_RUN",
+                    "pos": {
+                        "x": 19.975,
+                        "y": 18.345
+                    },
+                    "uuid": "c9c61c3c-075f-4bac-b532-a49f291f99e2"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of R_LNA_ILIM",
+                    "pos": {
+                        "x": 16.975,
+                        "y": 18.345
+                    },
+                    "uuid": "7622cf4d-3e9a-4999-8181-e4d868f53e49"
+                },
+                {
+                    "description": "Segment of C_IN on F.Silkscreen",
+                    "pos": {
+                        "x": 17.633748,
+                        "y": 18.105
+                    },
+                    "uuid": "baeb5e28-7725-4373-b08f-6081dbe53162"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of C_IN on F.Silkscreen",
+                    "pos": {
+                        "x": 17.633748,
+                        "y": 16.285
+                    },
+                    "uuid": "d48b075e-453e-435c-b77f-524a8bfdd74a"
+                },
+                {
+                    "description": "Reference field of FLT_433_B",
+                    "pos": {
+                        "x": 14.51,
+                        "y": 16.415
+                    },
+                    "uuid": "e91389eb-8faa-4ce8-bd3e-b1b6fd9cde7b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_IN",
+                    "pos": {
+                        "x": 18.345,
+                        "y": 15.345
+                    },
+                    "uuid": "91bd94a3-3825-47f3-8496-1bb6f850beeb"
+                },
+                {
+                    "description": "Reference field of FLT_433_B",
+                    "pos": {
+                        "x": 14.51,
+                        "y": 16.415
+                    },
+                    "uuid": "e91389eb-8faa-4ce8-bd3e-b1b6fd9cde7b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of R_EN",
+                    "pos": {
+                        "x": 22.975,
+                        "y": 18.345
+                    },
+                    "uuid": "e862da8b-c32e-4c7c-b3bf-519237af3f1a"
+                },
+                {
+                    "description": "Reference field of C_LNA1",
+                    "pos": {
+                        "x": 25.955,
+                        "y": 18.345
+                    },
+                    "uuid": "f578f29f-b049-44be-8467-204d70a2e0ec"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of C_OUT on F.Silkscreen",
+                    "pos": {
+                        "x": 23.633748,
+                        "y": 18.105
+                    },
+                    "uuid": "9fe1cee8-2256-4fd8-8948-e0c94e0ea6c0"
+                },
+                {
+                    "description": "Reference field of R_EN",
+                    "pos": {
+                        "x": 22.975,
+                        "y": 18.345
+                    },
+                    "uuid": "e862da8b-c32e-4c7c-b3bf-519237af3f1a"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_VGA1",
+                    "pos": {
+                        "x": 28.955,
+                        "y": 18.345
+                    },
+                    "uuid": "2938afc2-2242-4c0e-ad6c-527720eca49b"
+                },
+                {
+                    "description": "Reference field of C_LNA1",
+                    "pos": {
+                        "x": 25.955,
+                        "y": 18.345
+                    },
+                    "uuid": "f578f29f-b049-44be-8467-204d70a2e0ec"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of R_RUN",
+                    "pos": {
+                        "x": 19.975,
+                        "y": 18.345
+                    },
+                    "uuid": "c9c61c3c-075f-4bac-b532-a49f291f99e2"
+                },
+                {
+                    "description": "Reference field of R_EN",
+                    "pos": {
+                        "x": 22.975,
+                        "y": 18.345
+                    },
+                    "uuid": "e862da8b-c32e-4c7c-b3bf-519237af3f1a"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU2",
+                    "pos": {
+                        "x": 2.525,
+                        "y": 16.345
+                    },
+                    "uuid": "2f2719fe-54d9-4b7a-a6fe-355b29a55bfb"
+                },
+                {
+                    "description": "Segment of U_DET on F.Silkscreen",
+                    "pos": {
+                        "x": 4.785,
+                        "y": 15.31
+                    },
+                    "uuid": "aa0bc3a0-49b4-495e-b006-e36319db9a09"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of FLT_433_B",
+                    "pos": {
+                        "x": 14.51,
+                        "y": 16.415
+                    },
+                    "uuid": "e91389eb-8faa-4ce8-bd3e-b1b6fd9cde7b"
+                },
+                {
+                    "description": "Reference field of U_LDO",
+                    "pos": {
+                        "x": 13.095,
+                        "y": 15.345
+                    },
+                    "uuid": "f6cd0456-c424-459a-b0f6-238d750f83bb"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Polygon of U_LDO on F.Silkscreen",
+                    "pos": {
+                        "x": 11.645,
+                        "y": 16.235
+                    },
+                    "uuid": "c226baf9-fed7-4354-b7b9-8da6a99238c9"
+                },
+                {
+                    "description": "Reference field of U_LDO",
+                    "pos": {
+                        "x": 13.095,
+                        "y": 15.345
+                    },
+                    "uuid": "f6cd0456-c424-459a-b0f6-238d750f83bb"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of U_LDO",
+                    "pos": {
+                        "x": 13.095,
+                        "y": 15.345
+                    },
+                    "uuid": "f6cd0456-c424-459a-b0f6-238d750f83bb"
+                },
+                {
+                    "description": "Segment of FLT_433_B on F.Silkscreen",
+                    "pos": {
+                        "x": 12.3,
+                        "y": 15.295
+                    },
+                    "uuid": "fba283c8-10fe-4ffc-b027-e5e57746cf1c"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of U_LDO on F.Silkscreen",
+                    "pos": {
+                        "x": 14.005,
+                        "y": 16.185
+                    },
+                    "uuid": "a137a6d5-91de-4dca-8b73-4e714c5c8c88"
+                },
+                {
+                    "description": "Reference field of FLT_433_B",
+                    "pos": {
+                        "x": 14.51,
+                        "y": 16.415
+                    },
+                    "uuid": "e91389eb-8faa-4ce8-bd3e-b1b6fd9cde7b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of U_LDO on F.Silkscreen",
+                    "pos": {
+                        "x": 12.185,
+                        "y": 16.185
+                    },
+                    "uuid": "0042f550-e4e9-4289-ab7a-d9a61db21e08"
+                },
+                {
+                    "description": "Reference field of FLT_433_B",
+                    "pos": {
+                        "x": 14.51,
+                        "y": 16.415
+                    },
+                    "uuid": "e91389eb-8faa-4ce8-bd3e-b1b6fd9cde7b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Polygon of U_LDO on F.Silkscreen",
+                    "pos": {
+                        "x": 11.645,
+                        "y": 16.235
+                    },
+                    "uuid": "c226baf9-fed7-4354-b7b9-8da6a99238c9"
+                },
+                {
+                    "description": "Reference field of FLT_433_B",
+                    "pos": {
+                        "x": 14.51,
+                        "y": 16.415
+                    },
+                    "uuid": "e91389eb-8faa-4ce8-bd3e-b1b6fd9cde7b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU1",
+                    "pos": {
+                        "x": 49.955,
+                        "y": 18.345
+                    },
+                    "uuid": "3293289b-033c-4bb2-a07c-b806de2bf31b"
+                },
+                {
+                    "description": "Reference field of C_X2",
+                    "pos": {
+                        "x": 46.955,
+                        "y": 18.345
+                    },
+                    "uuid": "6854f3fa-925b-46cb-b31a-9c98205c2644"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_X1",
+                    "pos": {
+                        "x": 43.955,
+                        "y": 18.345
+                    },
+                    "uuid": "13baaaf5-1bae-4160-bd14-6e15a5f22276"
+                },
+                {
+                    "description": "Reference field of C_X2",
+                    "pos": {
+                        "x": 46.955,
+                        "y": 18.345
+                    },
+                    "uuid": "6854f3fa-925b-46cb-b31a-9c98205c2644"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of Q_LNA_SW on F.Silkscreen",
+                    "pos": {
+                        "x": 50.185,
+                        "y": 18.305
+                    },
+                    "uuid": "07dc9baf-de76-49fb-8322-fa2ccce2b1db"
+                },
+                {
+                    "description": "Reference field of C_MCU1",
+                    "pos": {
+                        "x": 49.955,
+                        "y": 18.345
+                    },
+                    "uuid": "3293289b-033c-4bb2-a07c-b806de2bf31b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU1",
+                    "pos": {
+                        "x": 49.955,
+                        "y": 18.345
+                    },
+                    "uuid": "3293289b-033c-4bb2-a07c-b806de2bf31b"
+                },
+                {
+                    "description": "Segment of Q_LNA_SW on F.Silkscreen",
+                    "pos": {
+                        "x": 52.005,
+                        "y": 18.305
+                    },
+                    "uuid": "925349f8-9111-4567-97e9-c0753c361034"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                },
+                {
+                    "description": "Reference field of FLT_433_A",
+                    "pos": {
+                        "x": 51.51,
+                        "y": 15.415
+                    },
+                    "uuid": "dd8a8ff0-1a4a-4d5e-9e59-edbba61971c3"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Polygon of Q_LNA_SW on F.Silkscreen",
+                    "pos": {
+                        "x": 49.645,
+                        "y": 15.235
+                    },
+                    "uuid": "b7486a97-89cb-4257-8ebf-80da30b102b6"
+                },
+                {
+                    "description": "Reference field of FLT_433_A",
+                    "pos": {
+                        "x": 51.51,
+                        "y": 15.415
+                    },
+                    "uuid": "dd8a8ff0-1a4a-4d5e-9e59-edbba61971c3"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                },
+                {
+                    "description": "Polygon of Q_LNA_SW on F.Silkscreen",
+                    "pos": {
+                        "x": 49.645,
+                        "y": 15.235
+                    },
+                    "uuid": "b7486a97-89cb-4257-8ebf-80da30b102b6"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of FB_DET",
+                    "pos": {
+                        "x": 44.525,
+                        "y": 15.345
+                    },
+                    "uuid": "0c94045f-5cff-4dd9-9fcf-b97e24bbc74d"
+                },
+                {
+                    "description": "Reference field of L1",
+                    "pos": {
+                        "x": 45.575,
+                        "y": 15.395
+                    },
+                    "uuid": "dcebc709-4583-4dee-b5ad-783afb04f89c"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of L1 on F.Silkscreen",
+                    "pos": {
+                        "x": 47.96,
+                        "y": 14.405
+                    },
+                    "uuid": "2ed70cad-cbbf-4b80-bc55-c9d5468b41e8"
+                },
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of FLT_433_A on F.Silkscreen",
+                    "pos": {
+                        "x": 49.3,
+                        "y": 14.295
+                    },
+                    "uuid": "8646d295-25eb-46c6-955d-8791377020e4"
+                },
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of L1 on F.Silkscreen",
+                    "pos": {
+                        "x": 47.96,
+                        "y": 14.405
+                    },
+                    "uuid": "1e00d6df-7e04-4e8e-b1fd-f08224f8efd0"
+                },
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of Q_LNA_SW on F.Silkscreen",
+                    "pos": {
+                        "x": 50.185,
+                        "y": 15.185
+                    },
+                    "uuid": "54989d59-9140-4f4f-9c01-ed400563391e"
+                },
+                {
+                    "description": "Reference field of FLT_433_A",
+                    "pos": {
+                        "x": 51.51,
+                        "y": 15.415
+                    },
+                    "uuid": "dd8a8ff0-1a4a-4d5e-9e59-edbba61971c3"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_LNA2",
+                    "pos": {
+                        "x": 55.745,
+                        "y": 14.345
+                    },
+                    "uuid": "b998ec36-ce18-4853-abd5-ad411271b519"
+                },
+                {
+                    "description": "Reference field of FLT_433_A",
+                    "pos": {
+                        "x": 51.51,
+                        "y": 15.415
+                    },
+                    "uuid": "dd8a8ff0-1a4a-4d5e-9e59-edbba61971c3"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of FLT_433_A on F.Silkscreen",
+                    "pos": {
+                        "x": 53.7,
+                        "y": 14.295
+                    },
+                    "uuid": "7816e1b2-95cf-4e28-b908-9b2a3e49c5fb"
+                },
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of R_FB2",
+                    "pos": {
+                        "x": 55.975,
+                        "y": 11.345
+                    },
+                    "uuid": "c481a561-2e57-4744-a489-c4848edb40f3"
+                },
+                {
+                    "description": "Segment of R_FB1 on F.Silkscreen",
+                    "pos": {
+                        "x": 55.821359,
+                        "y": 10.895
+                    },
+                    "uuid": "e5378fe0-f51e-41f0-87c4-5cba2c2468bb"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of J_SWD",
+                    "pos": {
+                        "x": 59.815,
+                        "y": 8.435
+                    },
+                    "uuid": "8b205775-d16d-4799-ba8f-91d245b1ac99"
+                },
+                {
+                    "description": "Reference field of R_FB1",
+                    "pos": {
+                        "x": 55.975,
+                        "y": 9.345
+                    },
+                    "uuid": "f0e66749-170b-436e-af53-b9deca2aeda0"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                },
+                {
+                    "description": "Reference field of C_LNA2",
+                    "pos": {
+                        "x": 55.745,
+                        "y": 14.345
+                    },
+                    "uuid": "b998ec36-ce18-4853-abd5-ad411271b519"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_LDO2",
+                    "pos": {
+                        "x": 55.525,
+                        "y": 17.345
+                    },
+                    "uuid": "1e2a951f-8d8c-4393-8792-efb6a449c1f6"
+                },
+                {
+                    "description": "Segment of C_LNA2 on F.Silkscreen",
+                    "pos": {
+                        "x": 55.483748,
+                        "y": 16.76
+                    },
+                    "uuid": "fc5aec84-8459-47b0-8182-33d826f8eb37"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Segment of FLT_433_A on F.Silkscreen",
+                    "pos": {
+                        "x": 53.7,
+                        "y": 14.295
+                    },
+                    "uuid": "7816e1b2-95cf-4e28-b908-9b2a3e49c5fb"
+                },
+                {
+                    "description": "Reference field of C_LNA2",
+                    "pos": {
+                        "x": 55.745,
+                        "y": 14.345
+                    },
+                    "uuid": "b998ec36-ce18-4853-abd5-ad411271b519"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of C_LNA2",
+                    "pos": {
+                        "x": 55.745,
+                        "y": 14.345
+                    },
+                    "uuid": "b998ec36-ce18-4853-abd5-ad411271b519"
+                },
+                {
+                    "description": "Segment of FLT_433_A on F.Silkscreen",
+                    "pos": {
+                        "x": 53.7,
+                        "y": 14.295
+                    },
+                    "uuid": "bce7637b-158f-4c14-b0d4-8305985d8b6d"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen overlap",
+            "items": [
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                },
+                {
+                    "description": "Segment of FLT_433_A on F.Silkscreen",
+                    "pos": {
+                        "x": 53.7,
+                        "y": 14.295
+                    },
+                    "uuid": "bce7637b-158f-4c14-b0d4-8305985d8b6d"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU2",
+                    "pos": {
+                        "x": 2.525,
+                        "y": 16.345
+                    },
+                    "uuid": "2f2719fe-54d9-4b7a-a6fe-355b29a55bfb"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of C_MCU1",
+                    "pos": {
+                        "x": 49.955,
+                        "y": 18.345
+                    },
+                    "uuid": "3293289b-033c-4bb2-a07c-b806de2bf31b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of D_TVS",
+                    "pos": {
+                        "x": 33.695,
+                        "y": 9.295
+                    },
+                    "uuid": "fa583a02-6222-4a17-8a15-728d9e31b3d9"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of C_LNA2",
+                    "pos": {
+                        "x": 55.745,
+                        "y": 14.345
+                    },
+                    "uuid": "b998ec36-ce18-4853-abd5-ad411271b519"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of U_LDO",
+                    "pos": {
+                        "x": 13.095,
+                        "y": 15.345
+                    },
+                    "uuid": "f6cd0456-c424-459a-b0f6-238d750f83bb"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of R_FB2",
+                    "pos": {
+                        "x": 55.975,
+                        "y": 11.345
+                    },
+                    "uuid": "c481a561-2e57-4744-a489-c4848edb40f3"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of R_RUN",
+                    "pos": {
+                        "x": 19.975,
+                        "y": 18.345
+                    },
+                    "uuid": "c9c61c3c-075f-4bac-b532-a49f291f99e2"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of R_EN",
+                    "pos": {
+                        "x": 22.975,
+                        "y": 18.345
+                    },
+                    "uuid": "e862da8b-c32e-4c7c-b3bf-519237af3f1a"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of D_REV",
+                    "pos": {
+                        "x": 25.695,
+                        "y": 9.295
+                    },
+                    "uuid": "4b3da4d7-6d57-4ef9-a055-cd3645206947"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of C_LNA1",
+                    "pos": {
+                        "x": 25.955,
+                        "y": 18.345
+                    },
+                    "uuid": "f578f29f-b049-44be-8467-204d70a2e0ec"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of C_LDO2",
+                    "pos": {
+                        "x": 55.525,
+                        "y": 17.345
+                    },
+                    "uuid": "1e2a951f-8d8c-4393-8792-efb6a449c1f6"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of FLT_433_B",
+                    "pos": {
+                        "x": 14.51,
+                        "y": 16.415
+                    },
+                    "uuid": "e91389eb-8faa-4ce8-bd3e-b1b6fd9cde7b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of FLT_433_A",
+                    "pos": {
+                        "x": 51.51,
+                        "y": 15.415
+                    },
+                    "uuid": "dd8a8ff0-1a4a-4d5e-9e59-edbba61971c3"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of C_LDO1",
+                    "pos": {
+                        "x": 6.525,
+                        "y": 16.345
+                    },
+                    "uuid": "d1299f4a-62c7-4b28-9054-e54b4e979b18"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of R_LNA_ILIM",
+                    "pos": {
+                        "x": 16.975,
+                        "y": 18.345
+                    },
+                    "uuid": "7622cf4d-3e9a-4999-8181-e4d868f53e49"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of Q_LNA_SW",
+                    "pos": {
+                        "x": 51.095,
+                        "y": 14.345
+                    },
+                    "uuid": "b2ecaf85-6838-4503-a4b0-11311b436fb1"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Rectangle on Edge.Cuts",
+                    "pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "uuid": "00000000-0000-0000-0000-00000000000f"
+                },
+                {
+                    "description": "Reference field of C_MCU2",
+                    "pos": {
+                        "x": 2.525,
+                        "y": 16.345
+                    },
+                    "uuid": "2f2719fe-54d9-4b7a-a6fe-355b29a55bfb"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Rectangle on Edge.Cuts",
+                    "pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "uuid": "00000000-0000-0000-0000-00000000000f"
+                },
+                {
+                    "description": "Reference field of J_433_RX",
+                    "pos": {
+                        "x": 26.105,
+                        "y": 0.355
+                    },
+                    "uuid": "f1913d35-7913-4f21-b813-ad0937cd388c"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Rectangle on Edge.Cuts",
+                    "pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "uuid": "00000000-0000-0000-0000-00000000000f"
+                },
+                {
+                    "description": "Reference field of J_PWR",
+                    "pos": {
+                        "x": 16.545,
+                        "y": 0.425
+                    },
+                    "uuid": "8b013630-8c47-47e2-ba27-473b295fb70b"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Rectangle on Edge.Cuts",
+                    "pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "uuid": "00000000-0000-0000-0000-00000000000f"
+                },
+                {
+                    "description": "Reference field of J_2450_TX",
+                    "pos": {
+                        "x": 44.105,
+                        "y": 0.355
+                    },
+                    "uuid": "be3d70cc-dd35-4cfb-bbb5-e5be104e4734"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Rectangle on Edge.Cuts",
+                    "pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "uuid": "00000000-0000-0000-0000-00000000000f"
+                },
+                {
+                    "description": "Reference field of J_LNA_FEED",
+                    "pos": {
+                        "x": 35.105,
+                        "y": 0.355
+                    },
+                    "uuid": "b00c163e-bd32-4032-a7a6-e014674124f4"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        }
+    ]
+}
