@@ -1,5 +1,18 @@
 # PRE-STRETCH RIG ELECTRONICS — ESP32-S3, not C3
 
+> **Safety correction — 2026-11-10, [ADR-087](../adr/087-prestretch-differential-pressure-qualification.md).**
+> The numerical pressure/pump instructions below are historical, NOT executable.
+> Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
+> Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
+> calibration and independent manometer validation. Target/ramp/dwell/max remain
+> UNKNOWN for each envelope. Independent relief AND pump-off shutdown verification
+> are mandatory: leakage and a GPIO pull-down alone are not safety protection.
+> Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
+> Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
+> override ADR-087. No bench session alone automatically qualifies an envelope.
+
+
+
 **Status:** specification. **Supersedes the C3 version of this document** (PR #518, merged `81f80f3`).
 The C3 assumption was inherited from the bench firmware's target and was the assistant's, not the
 operator's decision. The operator's instruction is to design around the **S3**.

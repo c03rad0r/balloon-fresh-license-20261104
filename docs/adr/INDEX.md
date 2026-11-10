@@ -168,7 +168,8 @@ None.
 | 146 | `146-v11-wing-bypass-diodes-to-top.md` | v11: move the four wing bypass diodes `D_BP1..D_BP4` to the top side | PROPOSED for v11. Not applied to v10. Operator directive 2026-11-09: *"lets move the |
 | 147 | `147-no-merge-pressure-rig-into-base-station.md` | Do not merge the pressure rig into the base station; order separate boards in one basket | ACCEPTED · 2026-11-10 · supersedes the assumption that the base station carries an ESP32 |
 | 148 | `148-ads1115-analog-sense-and-rail-telemetry.md` | One ADS1115 resolves `OPEN-25` and the `/SCAP_ADC` orphan, with zero new MCU pins | ACCEPTED · 2026-11-10 · closes `OPEN-25` |
-| ≥044 | *(reserved)* | next free: `scripts/adr_next_number.py` → 087 | — |
+| 087 | `087-prestretch-differential-pressure-qualification.md` | Differential-pressure basis; dual MS5611 calibration; independent relief/shutdown; envelope qualification before pump arm | ACCEPTED — operator decision 2026-11-10 |
+| ≥044 | *(reserved)* | next free: `scripts/adr_next_number.py` → 088 | — |
 
 ## Non-conforming filenames (not `NNN-description.md`)
 

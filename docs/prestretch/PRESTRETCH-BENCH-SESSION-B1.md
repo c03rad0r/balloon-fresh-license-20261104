@@ -1,5 +1,18 @@
 # Bench Session B1 — Minimal Rig Check and Threshold Derivation
 
+> **Safety correction — 2026-11-10, [ADR-087](../adr/087-prestretch-differential-pressure-qualification.md).**
+> The numerical pressure/pump instructions below are historical, NOT executable.
+> Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
+> Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
+> calibration and independent manometer validation. Target/ramp/dwell/max remain
+> UNKNOWN for each envelope. Independent relief AND pump-off shutdown verification
+> are mandatory: leakage and a GPIO pull-down alone are not safety protection.
+> Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
+> Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
+> override ADR-087. No bench session alone automatically qualifies an envelope.
+
+
+
 **Status:** SPEC — **not yet run. No hardware test has been performed.**
 **Purpose:** the single bench session that (a) proves the interlock's fail-safe direction on
 real hardware, (b) derives the `dp_cutoff_mbar` / `dp_reset_mbar` / `max_fill_s` placeholders,
