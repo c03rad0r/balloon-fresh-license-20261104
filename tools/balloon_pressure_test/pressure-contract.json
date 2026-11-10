@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "basis": "internal_minus_ambient",
+  "unit": "Pa",
+  "qualified": false,
+  "envelope_id": null,
+  "target_pa": null,
+  "ramp_pa_s": null,
+  "dwell_s": null,
+  "max_pa": null,
+  "max_age_s": null,
+  "offset_pa": null,
+  "internal_sensor_id": null,
+  "ambient_sensor_id": null,
+  "envelope_evidence": null,
+  "calibration_evidence": null,
+  "manometer_evidence": null,
+  "relief_evidence": null,
+  "shutdown_evidence": null
+}

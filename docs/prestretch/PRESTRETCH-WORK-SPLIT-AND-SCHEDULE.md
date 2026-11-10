@@ -8,7 +8,7 @@ This roadmap owns pressure work only; no other board is cancelled or merged.
 | Milestone | Status | Artifact / dependency |
 |---|---|---|
 | Operator design decision | COMPLETE (accepted; master publication pending merge) | [ADR-087](../adr/087-prestretch-differential-pressure-qualification.md), ADR index; replaces H6 ambiguity with explicit ΔP, not a guessed number |
-| Pressure contract + host pump-arm qualification validator | NEXT, hardware-free | unknown limits and refusal tests; not firmware/hardware integration |
+| Pressure contract + host pump-arm qualification validator | COMPLETE, host-tested only | `tools/balloon_pressure_test/pressure-contract.json`, `pressure_contract.py`, `test/test_pressure_contract.py`; unknown limits refuse; runtime integration still OPEN |
 | Dual MS5611 measurement chain | OPEN | S3 rig spec; pair identity, same-pressure offset record, independent manometer uncertainty/range/temperature validation; no automatic flight calibration transfer |
 | Independent relief and shutdown | OPEN, blocks actuation | physical relief-capacity and pump-off evidence for power loss, hang, stuck-on faults; no reliance on leakage or gate pull-down alone |
 | Envelope qualification | OPEN, blocks actuation | exact type/lot; accepted target Pa, ramp Pa/s, dwell s, maximum Pa and evidence; all currently UNKNOWN |
