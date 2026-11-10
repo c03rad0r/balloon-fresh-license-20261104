@@ -12,5 +12,7 @@
   "Regulator_Switching.kicad_sym": "63a3ff699b61501c20fc1a2e3523728f1b37794b915f2da0b0664d188c972a34",
   "Inductor_SMD:L_Coilcraft_XAL6030-XXX": "ce639f58aa992b17e0455d785046fafd16bfcee9c1c1df38bc3baf61c7426afd",
   "Capacitor_SMD:C_1210_3225Metric": "dc1d0a7bce3d19e41856e1e02896abcc84ef4ee752999c7f4162f4519df9d5f8",
-  "power.kicad_sym": "541c49bdad55134b5f6379e80c6d18f165c1d9e98ca7df36ad6ec2a316a6d11b"
+  "power.kicad_sym": "541c49bdad55134b5f6379e80c6d18f165c1d9e98ca7df36ad6ec2a316a6d11b",
+  "Package_LGA:LGA-8_3x5mm_P1.25mm": "03835de5d7c4c280ca2698ae7e9874c7ec96753ce917595eb280d320fb6a5aa1",
+  "Sensor_Pressure.kicad_sym": "5ab7cd0298c16d16ff5a7c7717231fca4aa506959d0971b904d10cbb1fa020c5"
 }
