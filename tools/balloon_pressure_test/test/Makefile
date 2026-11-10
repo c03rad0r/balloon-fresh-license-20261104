@@ -29,9 +29,15 @@ check-pair: test_pressure_pair
 check-contract:
 	python3 test_pressure_contract.py
 
-check: check-interlock check-analysis check-pair check-contract
+test_ms5611: test_ms5611.c $(MAIN)/ms5611.c $(MAIN)/ms5611.h
+	$(CC) $(CFLAGS) -I$(MAIN) -o $@ test_ms5611.c $(MAIN)/ms5611.c
+
+check-ms5611: test_ms5611
+	./test_ms5611
+
+check: check-ms5611 check-interlock check-analysis check-pair check-contract
 
 clean:
-	rm -f test_interlock test_pressure_pair
+	rm -f test_interlock test_ms5611 test_pressure_pair
 
-.PHONY: all check check-interlock check-analysis check-pair check-contract clean
+.PHONY: all check check-ms5611 check-interlock check-analysis check-pair check-contract clean
