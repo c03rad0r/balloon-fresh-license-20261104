@@ -36,9 +36,9 @@
 #endif
 
 #if LR2021_NICERF_C3
-static const uint8_t FW_VERSION[3] = {0, 5, 11};
+static const uint8_t FW_VERSION[3] = {0, 5, 12};
 #else
-static const uint8_t FW_VERSION[3] = {0, 4, 21};
+static const uint8_t FW_VERSION[3] = {0, 4, 22};
 #endif
 static const uint16_t CAPS = 0x0007;
 
@@ -62,7 +62,7 @@ static CfgPayload gCfg;
 static uint8_t gChipVersion[4] = {0};
 static BridgeDecoder gDecoder;
 
-static uint32_t gTx, gRx, gCrc, gDrops, gTimeouts, gResets;
+static uint32_t gTx, gRx, gCrc, gDrops, gTimeouts, gResets, gUsbShortWrites;
 static uint32_t gLastOkMs, gLastInitMs;
 static bool gRadioOk;
 
@@ -74,7 +74,10 @@ static void sendFrame(uint8_t kind, const uint8_t *payload, uint16_t len)
 {
     static uint8_t out[BRIDGE_MAX_PAYLOAD + 16];
     size_t n = bridgeEncode(kind, payload, len, out, sizeof(out));
-    if (n) usb_serial_jtag_write_bytes(out, n, pdMS_TO_TICKS(50));
+    if (n) {
+        size_t sent = usb_serial_jtag_write_bytes(out, n, pdMS_TO_TICKS(10));
+        if (sent != n) gUsbShortWrites++;
+    }
 }
 
 static void sendStat(void)
@@ -401,10 +404,10 @@ static void handleFrame(const BridgeFrame &f)
         {
             char mm[96];
             snprintf(mm, sizeof(mm),
-                     "cca deferral=%u capped=%u guard_us=%u slot_role=%u slot_wait_ms=%u",
+                     "cca deferral=%u capped=%u guard_us=%u slot_role=%u slot_wait_ms=%u usb_short=%u",
                      (unsigned)gCcaDeferrals, (unsigned)gCcaTimeouts,
                      (unsigned)gCcaLastGuardUs, (unsigned)gSlotConfigured ? (unsigned)gSlotRole : 9,
-                     (unsigned)gSlotWaitMs);
+                     (unsigned)gSlotWaitMs, (unsigned)gUsbShortWrites);
             sendFrame(BR_EVT, (const uint8_t *)mm, (uint16_t)strlen(mm));
         }
 #endif
@@ -416,8 +419,8 @@ static void handleFrame(const BridgeFrame &f)
 extern "C" void app_main(void)
 {
     usb_serial_jtag_driver_config_t uj = {};
-    uj.tx_buffer_size = 1024;
-    uj.rx_buffer_size = 4096;
+    uj.tx_buffer_size = 16384;
+    uj.rx_buffer_size = 16384;
     ESP_ERROR_CHECK(usb_serial_jtag_driver_install(&uj));
 
     gCfg.band = 0;
@@ -438,13 +441,20 @@ extern "C" void app_main(void)
     uint32_t lastStat = now_ms();
 
     for (;;) {
-        /* Service radio RX on a ~1 ms cadence. A 128-byte FLRC frame occupies
-         * only ~1.6 ms of airtime; a 20 ms USB wait lets back-to-back FIPS
-         * frames overrun the single RX FIFO. */
+        /* RX has priority over host commands: a just-completed radio frame must
+         * be consumed before a queued TX request can clear/overwrite FIFO
+         * events. */
+        handleRx();
+
+        /* Service radio RX on a 1 ms cadence (CONFIG_FREERTOS_HZ=1000). A
+         * 128-byte FLRC frame occupies only ~1.6 ms of airtime. */
         int n = usb_serial_jtag_read_bytes(buf, sizeof(buf), pdMS_TO_TICKS(1));
         if (n > 0 && gDecoder.push(buf, (size_t)n)) {
             BridgeFrame f;
-            while (gDecoder.next(f)) handleFrame(f);
+            while (gDecoder.next(f)) {
+                handleRx();
+                handleFrame(f);
+            }
         }
 
         handleRx();

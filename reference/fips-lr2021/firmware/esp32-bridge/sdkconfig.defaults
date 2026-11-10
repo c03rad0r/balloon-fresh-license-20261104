@@ -1,3 +1,5 @@
 CONFIG_ESP_CONSOLE_UART_DEFAULT=y
 # Bridge app: give app_main room for the protocol and radio buffers.
 CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+# 1 ms scheduler tick so radio RX servicing is not quantized to 10 ms.
+CONFIG_FREERTOS_HZ=1000

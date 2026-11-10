@@ -1,6 +1,33 @@
 # Results
 
-**Status: hardware pending.** Do not fill this in from expectations.
+**Status: measured hardware acceptance passed on 2026-11-10 at host revision
+`c03rad0r/fips@8155e5ff`.** Earlier results below are retained as history.
+
+## Verified FIPS data-plane acceptance — 2026-11-10
+
+Configuration: S3 `0.4.22` and C3 `0.5.12`, EU-868 FLRC-650, 128-byte radio
+packets, 14 dBm, minimal link/session MMP, 20 ms fragment pacing, 300 ms ACK
+backstop and bounded asynchronous one-frame scheduling. Firmware and host code
+versions are separated in `PING-RELIABILITY-PLAN.md`.
+
+| Gate | Measured result | Raw evidence on `archipelago` |
+|---|---|---|
+| Authenticated sessions | Initiator and responder XK sessions established | `session-evidence.log` |
+| Bidirectional IPv6 | 50/50 replies each way, 0% loss | `ping-gate-async.log` |
+| Post-rekey IPv6 | Real link/FSP rekey during 1 MiB run 3; then 50/50 each way, 0% loss | `rekey-evidence.log`, `ping-gate-post-rekey.log` |
+| HTTP 128 KiB | Three exact-length HTTP 200 runs; 147.019/167.250/138.060 s; mean 0.0070 Mb/s | `http-128k-async-results.log` |
+| HTTP 1 MiB | Three exact-length HTTP 200 runs; 1275.047/1272.223/1313.169 s; mean 0.0065 Mb/s | `http-1m-async-results.log` |
+| SSH over FIPS | Public-key remote `RADIO_SSH_OK`, exit 0; reusable `ssh-smoke.sh` passed and removed credentials | `ssh-smoke.out`, `ssh-smoke-client.log`, `ssh-smoke-sshd.log` |
+
+Raw evidence archive: `/home/archipelago/fips-results/2026-11-10/` (includes
+`README.md`, non-secret configs and `SHA256SUMS`). No private FIPS or SSH keys
+were archived. The deployed host binary SHA-256 matched the local rebuild:
+`1ee7bda54116e80773e030c619f66b857ff78aad762706b5fc88e9ad50b18112`.
+
+Host tests: **25/25** FIPS LR2021 link tests, **4/4** native transport tests,
+**39/39** tracker driver tests. The optional MCP/ContextVM WAN test was not run:
+no registered MCP speed-test tool or isolated WAN route was present. Wirehair,
+production TDMA and MTU increases remain deferred.
 
 ## Host tests
 
