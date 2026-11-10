@@ -15,7 +15,7 @@ v10 ever had. Treating it as an afternoon's edit would produce a board that look
 
 | # | change | parts added | copper added | blocked by |
 |---|---|---|---|---|
-| 1 | ADR-146: `D_BP1..4` to the top face | 0 | 8 pad connections (3 sites easy, 1 needs new trunk) | nothing |
+| 1 | ADR-146: `D_BP1..4` to the top face | 0 | 8 pad connections, **all four sited** (worst 1.42 mm) | nothing |
 | 2 | `/SCAP_ADC` + cut sense + solar dividers via I²C ADC | **2 × ADS1115** | I²C taps + 8 analog nets | **resolved (ADR-148)** |
 | 3 | Real cut driver at `U_CUT1..4` | 4 × (latch + FET + Rg + Rsense) | 4 sub-circuits | schematic |
 | 4 | ADR-145: GPIO expander for `U_C` | 1 × MCP23017 | I2C tap + 2 traces | schematic |
@@ -29,23 +29,29 @@ Measured on v10: all four are **B.Cu-only**, which forces either 2 × $25 double
 PCBA setup or hand-soldering four SMA joints. v11 places them on the top face at layout time.
 
 **This is not a footprint flip.** The pads are B.Cu-only, so each diode needs both connections
-re-made on F.Cu. Searched a 20 × 20 mm window around each v10 site, both rotations, for positions
-where both pads land within 2.5 mm of same-net F.Cu copper:
+re-made on F.Cu. A full-board search (not a window) for positions where both pads land within
+**6 mm** of same-net F.Cu copper, all four rotations:
 
-| diode | nets | candidate sites | best site | worst pad-to-copper |
+| diode | nets | sites found | best site | worst pad-to-copper |
 |---|---|---|---|---|
-| `D_BP1` | `/W1_SOLAR_P` / `/W1_SOLAR_N` | 20 | (3.0, 39.0) rot 90 | **0.30 mm** |
-| `D_BP2` | `/W1_SOLAR_N` / `/W2_SOLAR_N` | 15 | (35.0, 78.0) rot 0 | **1.08 mm** |
-| `D_BP3` | `/W2_SOLAR_N` / `/W3_SOLAR_N` | **0** | — | **needs new copper** |
-| `D_BP4` | `/W3_SOLAR_N` / `GND` | 55 | (39.0, 6.0) rot 90 | **0.98 mm** |
+| `D_BP1` | `/W1_SOLAR_P` / `/W1_SOLAR_N` | 387 | (3.0, 39.0) rot 90 | **0.30 mm** |
+| `D_BP2` | `/W1_SOLAR_N` / `/W2_SOLAR_N` | 584 | (36.5, 77.0) rot 0 | **0.85 mm** |
+| `D_BP3` | `/W2_SOLAR_N` / `/W3_SOLAR_N` | **194** | (67.5, 38.5) rot 270 | **1.42 mm** |
+| `D_BP4` | `/W3_SOLAR_N` / `GND` | 6154 | (49.5, 11.5) rot 0 | **0.11 mm** |
 
-**`D_BP3` is the one that costs work.** `/W2_SOLAR_N` has 220 F.Cu segments and `/W3_SOLAR_N` has
-314, yet no top-side position within 2.5 mm reaches both — they occupy opposite halves of the
-board at that corner. v11 must either route a new trunk for it or accept a slightly worse placement.
+**CORRECTED 2026-11-10 — all four diodes have a viable top-side site.** An earlier version of this
+document reported `D_BP3` as having **zero** sites and "needs new copper". That was an artefact of a
+**20 × 20 mm search window around its v10 position**. Measured: `/W2_SOLAR_N` occupies y 44–77 and
+`/W3_SOLAR_N` occupies y 3–34 — an 11 mm vertical gap — so nothing near the old site can reach both.
 
-**What would change this:** a v11 layout that reserves the four corner regions for the diodes
-before routing anything else makes all four trivial. That is the correct order and is the single
-highest-value instruction for whoever lays out v11.
+But **v11 is a re-layout, not a re-place.** The diode may go anywhere on the top face, and a full-board
+search finds **194** valid sites, the best **1.42 mm** away. No new trunk is needed.
+
+Reproduce: `/usr/bin/python3 tracker/hardware/v11_diode_sites.py`
+
+**The layout instruction still stands, and matters more:** place the four diodes on the top face
+**before** routing anything else. Doing it first makes each one a local connection; doing it after
+routing means pushing copper aside to reach them.
 
 ---
 
