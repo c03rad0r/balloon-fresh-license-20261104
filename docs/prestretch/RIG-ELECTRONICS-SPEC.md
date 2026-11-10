@@ -23,7 +23,15 @@
 > Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
 > override ADR-088. No bench session alone automatically qualifies an envelope.
 
-
+> **Electrical hold / safety correction:** see [electrical blockers](PRESSURE-RIG-ELECTRICAL-BLOCKERS.md).
+> This is a specification, NOT a sound schematic or fabrication basis. The unmerged
+> `053daa96` generator is quarantined; its pads and nets must not be reused.
+> Natural leakage is NOT guaranteed overpressure protection. Pump default OFF and
+> fault shutdown are mandatory; a pull-down alone cannot stop a hung MCU driving HIGH.
+> The pump motor still requires validated inductive suppression. No purchase or
+> actuation is authorized by the recommendations below. The historical 1.05 bar
+> absolute-vs-gauge instruction is withdrawn by ADR-088, not an operating target.
+> This electrical hold and the qualification gates above override contrary statements below.
 
 **Status:** specification. **Supersedes the C3 version of this document** (PR #518, merged `81f80f3`).
 The C3 assumption was inherited from the bench firmware's target and was the assistant's, not the

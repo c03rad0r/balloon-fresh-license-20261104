@@ -1,0 +1,976 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-10T11:35:46+0100",
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "9.0.9",
+    "schematic_parity": [],
+    "source": "v11-dbp2-spec.kicad_pcb",
+    "unconnected_items": [
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 4 [/SPI2_SCK] of U1 on F.Cu",
+                    "pos": {
+                        "x": 11.05,
+                        "y": 37.7
+                    },
+                    "uuid": "24ef7af5-d6d8-4e93-ba4c-29cb7f2873d6"
+                },
+                {
+                    "description": "Pad 12 [/SPI2_SCK] of U2 on F.Cu",
+                    "pos": {
+                        "x": 33.7289,
+                        "y": 30.6
+                    },
+                    "uuid": "9585f437-31fa-4f77-b00b-2ede560e6814"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 21 [/F33_VSENSE] of U1 on F.Cu",
+                    "pos": {
+                        "x": 20.435,
+                        "y": 51.65
+                    },
+                    "uuid": "65e6247f-6316-4698-9a8d-1e0900d52dcf"
+                },
+                {
+                    "description": "Track [/F33_VSENSE] on B.Cu, length 3.8000 mm",
+                    "pos": {
+                        "x": 18.75,
+                        "y": 10.25
+                    },
+                    "uuid": "a5748491-a42c-4cd3-9774-89a15f623273"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0",
+                    "pos": {
+                        "x": 0.45,
+                        "y": 0.45
+                    },
+                    "uuid": "73c9b043-ca4d-478d-a850-a6b449ae5465"
+                },
+                {
+                    "description": "PTH pad 1 [/VSCAP] of C_CAP1",
+                    "pos": {
+                        "x": 36.0,
+                        "y": 37.5
+                    },
+                    "uuid": "da8f8e81-f7ce-46e0-bae7-098b61f85ab0"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Via [/VSCAP] on F.Cu - B.Cu",
+                    "pos": {
+                        "x": 41.839423,
+                        "y": 42.652152
+                    },
+                    "uuid": "a79fad88-9ed2-4cf4-ae45-6860f865ae8a"
+                },
+                {
+                    "description": "Pad 1 [/VSCAP] of R_BAL1 on F.Cu",
+                    "pos": {
+                        "x": 40.49,
+                        "y": 43.5
+                    },
+                    "uuid": "4142fa5f-663b-416e-a294-6209dfcb9e92"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Track [/W2_SOLAR_N] on F.Cu, length 2.2000 mm",
+                    "pos": {
+                        "x": 36.55,
+                        "y": 72.75
+                    },
+                    "uuid": "a3405ef2-86d2-4690-b960-7d9e733c745f"
+                },
+                {
+                    "description": "Track [/W2_SOLAR_N] on B.Cu, length 0.1414 mm",
+                    "pos": {
+                        "x": 38.95,
+                        "y": 72.5
+                    },
+                    "uuid": "df46489e-b6c3-4ebb-a5fc-d686e0bd0221"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+                    "pos": {
+                        "x": 38.7,
+                        "y": 3.0
+                    },
+                    "uuid": "5839bb05-7264-4d71-9181-ecdbf26a66ef"
+                },
+                {
+                    "description": "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+                    "pos": {
+                        "x": 38.7,
+                        "y": 3.0
+                    },
+                    "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 4 [/W3_SOLAR_N] of J_W3 on B.Cu",
+                    "pos": {
+                        "x": 69.0,
+                        "y": 37.3
+                    },
+                    "uuid": "48391745-6a9e-4144-8896-e3f44884766e"
+                },
+                {
+                    "description": "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu",
+                    "pos": {
+                        "x": 69.0,
+                        "y": 37.3
+                    },
+                    "uuid": "3a568d7e-3e32-4524-b896-1dd35975c207"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.45,
+                        "y": 0.45
+                    },
+                    "uuid": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72"
+                },
+                {
+                    "description": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+                    "pos": {
+                        "x": 0.25,
+                        "y": 0.25
+                    },
+                    "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+                    "pos": {
+                        "x": 0.45,
+                        "y": 0.45
+                    },
+                    "uuid": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c"
+                },
+                {
+                    "description": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+                    "pos": {
+                        "x": 0.25,
+                        "y": 0.25
+                    },
+                    "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+                    "pos": {
+                        "x": 0.25,
+                        "y": 0.25
+                    },
+                    "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+                },
+                {
+                    "description": "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+                    "pos": {
+                        "x": 0.45,
+                        "y": 0.45
+                    },
+                    "uuid": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 3 [/EN] of U1 on F.Cu",
+                    "pos": {
+                        "x": 11.05,
+                        "y": 36.43
+                    },
+                    "uuid": "5e672328-5888-40f6-b19b-95ccb5c81f62"
+                },
+                {
+                    "description": "PTH pad 3 [/EN] of J_PROG",
+                    "pos": {
+                        "x": 31.0,
+                        "y": 59.78
+                    },
+                    "uuid": "17bb4f3d-b143-4474-bd55-7a711dedd338"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 27 [/IO0] of U1 on F.Cu",
+                    "pos": {
+                        "x": 28.55,
+                        "y": 50.4
+                    },
+                    "uuid": "50a9f4e1-ba65-42ec-ac94-81bf0e747d57"
+                },
+                {
+                    "description": "PTH pad 6 [/IO0] of J_PROG",
+                    "pos": {
+                        "x": 31.0,
+                        "y": 67.4
+                    },
+                    "uuid": "4d31c0cc-b64a-4141-a133-51c61c189c1c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        }
+    ],
+    "violations": [
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Track [GND] on F.Cu, length 2.5881 mm",
+                    "pos": {
+                        "x": 35.1,
+                        "y": 77.0
+                    },
+                    "uuid": "49532024-04ba-40b4-a921-2c477eab2d1b"
+                },
+                {
+                    "description": "Pad 1 [/W1_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 34.5,
+                        "y": 77.0
+                    },
+                    "uuid": "b5bb52ad-5911-4e31-a056-486f57ef7e61"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 2 [GND] of J_W2 on F.Cu",
+                    "pos": {
+                        "x": 35.1,
+                        "y": 77.0
+                    },
+                    "uuid": "fda3b9f9-4d33-4263-84da-3969f284787a"
+                },
+                {
+                    "description": "Pad 1 [/W1_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 34.5,
+                        "y": 77.0
+                    },
+                    "uuid": "b5bb52ad-5911-4e31-a056-486f57ef7e61"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Front solder mask aperture bridges items with different nets",
+            "items": [
+                {
+                    "description": "Pad 3 [/CUT_SENSE_W2] of J_W2 on F.Cu",
+                    "pos": {
+                        "x": 36.9,
+                        "y": 77.0
+                    },
+                    "uuid": "bd860c07-7229-44fa-b27b-0f42a372bf62"
+                },
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Courtyards overlap",
+            "items": [
+                {
+                    "description": "Footprint J_W2",
+                    "pos": {
+                        "x": 36.0,
+                        "y": 80.0
+                    },
+                    "uuid": "2e01a1a4-7f70-4d53-a638-0786cf58223d"
+                },
+                {
+                    "description": "Footprint D_BP2",
+                    "pos": {
+                        "x": 36.5,
+                        "y": 77.0
+                    },
+                    "uuid": "a3d8bdf4-fcb6-42e9-8b28-03cceb00fa72"
+                }
+            ],
+            "severity": "error",
+            "type": "courtyards_overlap"
+        },
+        {
+            "description": "Clearance violation (rule 'S1 frozen JLCPCB clearance' clearance 0.2000 mm; actual 0.1815 mm)",
+            "items": [
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                },
+                {
+                    "description": "Track [/CUT_SENSE_W2] on F.Cu, length 0.1000 mm",
+                    "pos": {
+                        "x": 37.1,
+                        "y": 75.9
+                    },
+                    "uuid": "3f6b481f-2f9d-4e62-9c2b-64740c7ac0dd"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Items shorting two nets (nets GND and /W1_SOLAR_N)",
+            "items": [
+                {
+                    "description": "Track [GND] on F.Cu, length 2.5881 mm",
+                    "pos": {
+                        "x": 35.1,
+                        "y": 77.0
+                    },
+                    "uuid": "49532024-04ba-40b4-a921-2c477eab2d1b"
+                },
+                {
+                    "description": "Pad 1 [/W1_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 34.5,
+                        "y": 77.0
+                    },
+                    "uuid": "b5bb52ad-5911-4e31-a056-486f57ef7e61"
+                }
+            ],
+            "severity": "error",
+            "type": "shorting_items"
+        },
+        {
+            "description": "Clearance violation (rule 'S1 frozen JLCPCB clearance' clearance 0.2000 mm; actual 0.0500 mm)",
+            "items": [
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                },
+                {
+                    "description": "Track [/CUT_SENSE_W2] on F.Cu, length 0.1000 mm",
+                    "pos": {
+                        "x": 37.1,
+                        "y": 76.4
+                    },
+                    "uuid": "4185f131-2fcb-428f-ab0f-54d142a23d6f"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation (rule 'S1 frozen JLCPCB clearance' clearance 0.2000 mm; actual 0.0531 mm)",
+            "items": [
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                },
+                {
+                    "description": "Track [/CUT_SENSE_W2] on F.Cu, length 0.1000 mm",
+                    "pos": {
+                        "x": 37.1,
+                        "y": 76.2
+                    },
+                    "uuid": "60984417-3352-4dac-a072-3aa29904a632"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation (rule 'S1 frozen JLCPCB clearance' clearance 0.2000 mm; actual 0.0500 mm)",
+            "items": [
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                },
+                {
+                    "description": "Track [/CUT_SENSE_W2] on F.Cu, length 0.1000 mm",
+                    "pos": {
+                        "x": 37.1,
+                        "y": 76.3
+                    },
+                    "uuid": "8f0a99fb-7681-4aaa-8e8d-bc78dd647518"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation (rule 'S1 frozen JLCPCB clearance' clearance 0.2000 mm; actual 0.0772 mm)",
+            "items": [
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                },
+                {
+                    "description": "Track [/CUT_SENSE_W2] on F.Cu, length 0.1000 mm",
+                    "pos": {
+                        "x": 37.1,
+                        "y": 76.1
+                    },
+                    "uuid": "ae7ee002-c23e-410f-a5c0-188d1390fbc2"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Clearance violation (rule 'S1 frozen JLCPCB clearance' clearance 0.2000 mm; actual 0.1217 mm)",
+            "items": [
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                },
+                {
+                    "description": "Track [/CUT_SENSE_W2] on F.Cu, length 0.1000 mm",
+                    "pos": {
+                        "x": 37.1,
+                        "y": 76.0
+                    },
+                    "uuid": "be147a9b-2109-42fa-8c61-27007ef857b8"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Items shorting two nets (nets GND and /W1_SOLAR_N)",
+            "items": [
+                {
+                    "description": "Pad 2 [GND] of J_W2 on F.Cu",
+                    "pos": {
+                        "x": 35.1,
+                        "y": 77.0
+                    },
+                    "uuid": "fda3b9f9-4d33-4263-84da-3969f284787a"
+                },
+                {
+                    "description": "Pad 1 [/W1_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 34.5,
+                        "y": 77.0
+                    },
+                    "uuid": "b5bb52ad-5911-4e31-a056-486f57ef7e61"
+                }
+            ],
+            "severity": "error",
+            "type": "shorting_items"
+        },
+        {
+            "description": "Items shorting two nets (nets /CUT_SENSE_W2 and /W2_SOLAR_N)",
+            "items": [
+                {
+                    "description": "Pad 3 [/CUT_SENSE_W2] of J_W2 on F.Cu",
+                    "pos": {
+                        "x": 36.9,
+                        "y": 77.0
+                    },
+                    "uuid": "bd860c07-7229-44fa-b27b-0f42a372bf62"
+                },
+                {
+                    "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on F.Cu",
+                    "pos": {
+                        "x": 38.5,
+                        "y": 77.0
+                    },
+                    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+                }
+            ],
+            "severity": "error",
+            "type": "shorting_items"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Reference field of D_BP2",
+                    "pos": {
+                        "x": 36.5,
+                        "y": 74.5
+                    },
+                    "uuid": "3607b517-8af9-4de7-a855-f5388edbe943"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of D_BP2 on F.Silkscreen",
+                    "pos": {
+                        "x": 32.99,
+                        "y": 75.35
+                    },
+                    "uuid": "eed5c529-b7c4-4c2b-9817-dd81eeeaec39"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of D_BP2 on F.Silkscreen",
+                    "pos": {
+                        "x": 32.99,
+                        "y": 75.35
+                    },
+                    "uuid": "78898d8d-b4b2-442b-9003-19ccb8b0b5a9"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Silkscreen clipped by solder mask",
+            "items": [
+                {
+                    "description": "Segment of D_BP2 on F.Silkscreen",
+                    "pos": {
+                        "x": 32.99,
+                        "y": 78.65
+                    },
+                    "uuid": "b48d175e-89e7-46c8-b84a-aefb4392647f"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_over_copper"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint HW1",
+                    "pos": {
+                        "x": 4.5,
+                        "y": 50.5
+                    },
+                    "uuid": "098c0bd5-9900-4e00-9478-462e89af0893"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'CP_Radial_D10.0mm_P5.00mm' does not match copy in library 'Capacitor_THT'.",
+            "items": [
+                {
+                    "description": "Footprint C_CAP2",
+                    "pos": {
+                        "x": 47.8,
+                        "y": 37.5
+                    },
+                    "uuid": "0f9d2c31-0cfb-4109-9490-3adf1ffe7fe8"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint H2",
+                    "pos": {
+                        "x": 3.3,
+                        "y": 68.5
+                    },
+                    "uuid": "22fb8025-3ca9-48c2-b4f2-a1252f67fb7c"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint HW2",
+                    "pos": {
+                        "x": 36.0,
+                        "y": 66.5
+                    },
+                    "uuid": "5b7f17a0-3680-471e-a7d5-bc49e2d186c9"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'CP_Radial_D10.0mm_P5.00mm' does not match copy in library 'Capacitor_THT'.",
+            "items": [
+                {
+                    "description": "Footprint C_CAP1",
+                    "pos": {
+                        "x": 36.0,
+                        "y": 37.5
+                    },
+                    "uuid": "6bc284c1-996b-42ee-ba50-c2e593ae42a4"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "The current configuration does not include the footprint library 'NiceRF'.",
+            "items": [
+                {
+                    "description": "Footprint U_LORA1280",
+                    "pos": {
+                        "x": 53.0,
+                        "y": 68.1
+                    },
+                    "uuid": "70b452f9-a3c4-40c2-8e32-fd260b4746e2"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint HW3",
+                    "pos": {
+                        "x": 67.5,
+                        "y": 50.5
+                    },
+                    "uuid": "7c2d9af3-06c0-4e62-890a-18603ad28d62"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint HW4",
+                    "pos": {
+                        "x": 66.0,
+                        "y": 76.5
+                    },
+                    "uuid": "823377c7-ff11-4455-88c4-c63c34775d81"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint H1",
+                    "pos": {
+                        "x": 3.3,
+                        "y": 76.5
+                    },
+                    "uuid": "a43a4fda-414c-4b53-bc1f-837bc9a2dabc"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint H4",
+                    "pos": {
+                        "x": 3.3,
+                        "y": 11.5
+                    },
+                    "uuid": "afaf1c91-ddab-42bc-a1fd-f6355cc5c328"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'MountingHole_2.5mm' does not match copy in library 'MountingHole'.",
+            "items": [
+                {
+                    "description": "Footprint H3",
+                    "pos": {
+                        "x": 3.3,
+                        "y": 3.5
+                    },
+                    "uuid": "f5f52f8a-baf3-41a2-b71f-4890c230f6db"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'LoRa2021F33_2G4' not found in library 'balloon_flight_v10'.",
+            "items": [
+                {
+                    "description": "Footprint U2",
+                    "pos": {
+                        "x": 29.8,
+                        "y": 20.1
+                    },
+                    "uuid": "fc756e9c-de60-4fad-bc29-e093600cd106"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'LoRa2021_Castellated' not found in library 'balloon_flight_v10'.",
+            "items": [
+                {
+                    "description": "Footprint U_C",
+                    "pos": {
+                        "x": 43.7,
+                        "y": 16.7
+                    },
+                    "uuid": "24ba50df-026d-4518-9a00-a2bb4b99131f"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Footprint 'SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm' does not match copy in library 'Jumper'.",
+            "items": [
+                {
+                    "description": "Footprint J_VCC",
+                    "pos": {
+                        "x": 18.0,
+                        "y": 5.0
+                    },
+                    "uuid": "63d10232-2015-4a27-aa17-4667b52c3515"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Footprint 'LoRa2021_Castellated' not found in library 'balloon_flight_v10'.",
+            "items": [
+                {
+                    "description": "Footprint U3",
+                    "pos": {
+                        "x": 20.9,
+                        "y": 16.7
+                    },
+                    "uuid": "d14abb72-73cd-4caa-960c-b7b731631309"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_issues"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment of J_W2 on Edge.Cuts",
+                    "pos": {
+                        "x": 35.75,
+                        "y": 74.0
+                    },
+                    "uuid": "2da8afb6-e3d6-488e-be22-774d5c498c47"
+                },
+                {
+                    "description": "Reference field of D_BP2",
+                    "pos": {
+                        "x": 36.5,
+                        "y": 74.5
+                    },
+                    "uuid": "3607b517-8af9-4de7-a855-f5388edbe943"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment of J_W2 on Edge.Cuts",
+                    "pos": {
+                        "x": 35.75,
+                        "y": 80.0
+                    },
+                    "uuid": "aa7cc93a-cbc1-4c76-9093-d64d3e29c03d"
+                },
+                {
+                    "description": "Segment of D_BP2 on F.Silkscreen",
+                    "pos": {
+                        "x": 32.99,
+                        "y": 75.35
+                    },
+                    "uuid": "78898d8d-b4b2-442b-9003-19ccb8b0b5a9"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment of J_W2 on Edge.Cuts",
+                    "pos": {
+                        "x": 35.75,
+                        "y": 80.0
+                    },
+                    "uuid": "aa7cc93a-cbc1-4c76-9093-d64d3e29c03d"
+                },
+                {
+                    "description": "Segment of D_BP2 on F.Silkscreen",
+                    "pos": {
+                        "x": 32.99,
+                        "y": 78.65
+                    },
+                    "uuid": "b48d175e-89e7-46c8-b84a-aefb4392647f"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Track has unconnected end",
+            "items": [
+                {
+                    "description": "Track [/W2_SOLAR_N] on B.Cu, length 1.0000 mm",
+                    "pos": {
+                        "x": 28.95,
+                        "y": 77.95
+                    },
+                    "uuid": "2b117ed7-3eaf-4ad7-817a-f411ce423ce1"
+                }
+            ],
+            "severity": "warning",
+            "type": "track_dangling"
+        },
+        {
+            "description": "Track has unconnected end",
+            "items": [
+                {
+                    "description": "Track [/W2_SOLAR_N] on B.Cu, length 0.1414 mm",
+                    "pos": {
+                        "x": 38.95,
+                        "y": 72.5
+                    },
+                    "uuid": "df46489e-b6c3-4ebb-a5fc-d686e0bd0221"
+                }
+            ],
+            "severity": "warning",
+            "type": "track_dangling"
+        }
+    ]
+}
