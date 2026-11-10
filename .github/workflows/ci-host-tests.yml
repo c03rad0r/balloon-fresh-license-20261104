@@ -196,3 +196,17 @@ jobs:
         run: |
           /usr/bin/python3 scripts/assert_board_checks_ran.py \
             "$RUNNER_TEMP/pcb-pipeline.xml"
+
+      # No setup-python here: pcbnew is built for the distro interpreter.
+      # Keep this blocking and unconditional, paired with test.yml's exclusion.
+      - name: Run native wing export tests
+        run: |
+          /usr/bin/python3 -c "import pcbnew; v = pcbnew.Version(); print('pcbnew', v); assert v.startswith('9.'), v"
+          /usr/bin/python3 -m pytest tests/test_wing_order_export.py -v --tb=short \
+            --junitxml="$RUNNER_TEMP/wing-export.xml"
+          /usr/bin/python3 scripts/assert_board_checks_ran.py \
+            "$RUNNER_TEMP/wing-export.xml" \
+            --require test_front_paste_has_six_diode_pads \
+            --require test_native_origin_and_asymmetric_pad_anchor \
+            --require test_each_reversed_diode_fails \
+            --require test_native_bypass_polarity
