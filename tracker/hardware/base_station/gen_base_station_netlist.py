@@ -41,8 +41,12 @@ add("D_TVS", "TVS clamp (set point TODO(unverified))", "Diode_SMD:D_SMB",
 add("C_IN", "10uF 25V", "Capacitor_SMD:C_1206_3216Metric",
     [("1", "VIN_GS_PROT"), ("2", "GND")])
 add("U_REG", "TPS62162 5V buck (3-17V in, 1A out)", "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm",
-    [("1", "VIN_GS_PROT"), ("2", "GND"), ("3", "REG_SW"), ("4", "REG_FB"),
-     ("5", "+5V_PCBA"), ("6", "GND"), ("7", "REG_EN"), ("8", "REG_PG"), ("9", "GND")])
+    # TI SLVSAM2E section 6, DSG: PGND VIN EN AGND FB VOS SW PG, EP->AGND.
+    # Fixed-output TPS62162: FB goes to AGND, NOT an external divider.
+    # BLOCKED: TPS62162 is 3.3V, not the required 5V; selection/enable/input
+    # protection need a schematic-first follow-up. Do not route this source.
+    [("1", "GND"), ("2", "VIN_GS_PROT"), ("3", "REG_EN"), ("4", "GND"),
+     ("5", "GND"), ("6", "+5V_PCBA"), ("7", "REG_SW"), ("8", "REG_PG"), ("9", "GND")])
 add("L1", "2.2uH buck inductor", "Inductor_SMD:L_Bourns-SRN4018",
     [("1", "REG_SW"), ("2", "+5V_PCBA")])
 add("R_FB1", "100k (feedback divider)", "Resistor_SMD:R_0402_1005Metric",
@@ -86,33 +90,33 @@ add("C_DET2", "100nF (VOUT filter)", "Capacitor_SMD:C_0402_1005Metric",
 
 # ---------------- +3V3_MCU : RP2040 rail ------------------------------------------------------
 add("U_MCU", "RP2040 QFN-56", "base_station_lib:RP2040-QFN-56",
-    [("1", "IOVDD"), ("2", "GND"), ("3", "ADC_AVDD"), ("4", "GND"),
-     ("5", "IOVDD"), ("6", "GND"), ("7", "DET_VOUT"), ("8", "GND"),
-     ("9", "GND"), ("10", "QSPI_SS"), ("11", "QSPI_SCLK"), ("12", "QSPI_SD0"),
-     ("13", "QSPI_SD1"), ("14", "QSPI_SD2"), ("15", "QSPI_SD3"), ("16", "+3V3_MCU"),
-     ("17", "GND"), ("18", "VGA_GAIN0"), ("19", "VGA_GAIN1"), ("20", "VGA_GAIN2"),
-     ("21", "LNA_EN"), ("22", "LNA_FLT"), ("23", "GND"), ("24", "XIN"),
-     ("25", "XOUT"), ("26", "RUN"), ("27", "GND"), ("28", "SWCLK"),
-     ("29", "SWDIO"), ("30", "GND"), ("31", "GND"), ("32", "GND"),
-     ("33", "USB_DM"), ("34", "USB_DP"), ("35", "GND"), ("36", "GND"),
-     ("37", "GND"), ("38", "GND"), ("39", "GND"), ("40", "GND"),
-     ("41", "GND"), ("42", "GND"), ("43", "GND"), ("44", "GND"),
-     ("45", "GND"), ("46", "GND"), ("47", "GND"), ("48", "GND"),
-     ("49", "GND"), ("50", "REG_PG"), ("51", "GND"), ("52", "GND"),
-     ("53", "GND"), ("54", "GND"), ("55", "GND"), ("56", "GND"), ("57", "GND")])
+    # Physical QFN pads from datasheet Figure 3, NOT GPIO numbers.
+    # GPIO18/19/20 gain; GPIO21 enable; GPIO22 fault; GPIO25 PG; GPIO26/ADC0 detector.
+    # Unused GPIOs stay unconnected. VREG_VOUT -> DVDD only, never 3.3V.
+    [("1", "+3V3_MCU"), ("10", "+3V3_MCU"), ("19", "GND"),
+     ("20", "XIN"), ("21", "XOUT"), ("22", "+3V3_MCU"), ("23", "+1V1_CORE"),
+     ("24", "SWCLK"), ("25", "SWDIO"), ("26", "RUN"),
+     ("29", "VGA_GAIN0"), ("30", "VGA_GAIN1"), ("31", "VGA_GAIN2"),
+     ("32", "LNA_EN"), ("33", "+3V3_MCU"), ("34", "LNA_FLT"),
+     ("37", "REG_PG"), ("38", "DET_VOUT"), ("42", "+3V3_MCU"),
+     ("43", "+3V3_MCU"), ("44", "+3V3_MCU"), ("45", "+1V1_CORE"),
+     ("46", "USB_DM"), ("47", "USB_DP"), ("48", "+3V3_MCU"), ("49", "+3V3_MCU"),
+     ("50", "+1V1_CORE"), ("51", "QSPI_SD3"), ("52", "QSPI_SCLK"),
+     ("53", "QSPI_SD0"), ("54", "QSPI_SD2"), ("55", "QSPI_SD1"),
+     ("56", "QSPI_SS"), ("57", "GND")])
 add("Y1", "12MHz crystal", "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm",
     [("1", "XIN"), ("2", "GND"), ("3", "XOUT"), ("4", "GND")])
 add("C_X1", "15pF", "Capacitor_SMD:C_0402_1005Metric", [("1", "XIN"), ("2", "GND")])
 add("C_X2", "15pF", "Capacitor_SMD:C_0402_1005Metric", [("1", "XOUT"), ("2", "GND")])
 add("U_FLASH", "QSPI flash (RP2040 boot)", "Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm",
-    [("1", "QSPI_SS"), ("2", "QSPI_SD0"), ("3", "QSPI_SD2"), ("4", "GND"),
-     ("5", "QSPI_SD1"), ("6", "QSPI_SCLK"), ("7", "QSPI_SD3"), ("8", "+3V3_MCU"), ("9", "GND")])
+    [("1", "QSPI_SS"), ("2", "QSPI_SD1"), ("3", "QSPI_SD2"), ("4", "GND"),
+     ("5", "QSPI_SD0"), ("6", "QSPI_SCLK"), ("7", "QSPI_SD3"), ("8", "+3V3_MCU"), ("9", "GND")])
 add("J_SWD", "SWD debug header 1x4", "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
     [("1", "+3V3_MCU"), ("2", "SWDIO"), ("3", "GND"), ("4", "SWCLK")])
 add("R_RUN", "10k RUN pull-up", "Resistor_SMD:R_0402_1005Metric",
     [("1", "+3V3_MCU"), ("2", "RUN")])
-add("C_MCU1", "100nF", "Capacitor_SMD:C_0402_1005Metric", [("1", "IOVDD"), ("2", "GND")])
-add("C_MCU2", "1uF", "Capacitor_SMD:C_0603_1608Metric", [("1", "IOVDD"), ("2", "GND")])
+add("C_MCU1", "100nF", "Capacitor_SMD:C_0402_1005Metric", [("1", "+3V3_MCU"), ("2", "GND")])
+add("C_MCU2", "1uF", "Capacitor_SMD:C_0603_1608Metric", [("1", "+3V3_MCU"), ("2", "GND")])
 
 # ---------------- +3V3_MCU source: LDO from +5V_PCBA (own domain per the ERC requirement) -----
 add("U_LDO", "3.3V LDO for +3V3_MCU", "Package_TO_SOT_SMD:SOT-23-5",
