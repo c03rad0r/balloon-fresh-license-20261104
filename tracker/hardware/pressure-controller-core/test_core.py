@@ -8,7 +8,7 @@ root=ET.parse(p/'core.xml').getroot()
 nets={}
 for net in root.findall('./nets/net'):
     for node in net.findall('node'): nets[node.attrib['ref'],node.attrib['pin']]=net.attrib['name'].lstrip('/')
-expected={'1':'GND','2':'+3V3','3':'EN','27':'BOOT','40':'GND','41':'GND','13':'USB_DN','14':'USB_DP'}
+expected={'1':'GND','2':'+3V3','3':'EN','27':'BOOT','40':'GND','41':'GND','13':'USB_DN','14':'USB_DP','12':'I2C_SDA','17':'I2C_SCL'}
 for pin,net in expected.items(): assert nets['U1',pin]==net,(pin,nets.get(('U1',pin)))
 for ref,ns in {'R1':('+3V3','EN'),'R2':('+3V3','BOOT'),'C1':('EN','GND'),'C2':('+3V3','GND'),'C3':('+3V3','GND'),'SW1':('EN','GND'),'SW2':('BOOT','GND')}.items():
     for i,n in enumerate(ns,1): assert nets[ref,str(i)]==n

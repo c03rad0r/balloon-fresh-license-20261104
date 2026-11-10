@@ -26,9 +26,12 @@ test_pressure_pair: test_pressure_pair.c $(MAIN)/pressure_pair.c $(MAIN)/pressur
 check-pair: test_pressure_pair
 	./test_pressure_pair
 
-check: check-interlock check-analysis check-pair
+check-contract:
+	python3 test_pressure_contract.py
+
+check: check-interlock check-analysis check-pair check-contract
 
 clean:
 	rm -f test_interlock test_pressure_pair
 
-.PHONY: all check check-interlock check-analysis check-pair clean
+.PHONY: all check check-interlock check-analysis check-pair check-contract clean

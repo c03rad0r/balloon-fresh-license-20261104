@@ -12,6 +12,10 @@ This is the current pressure-track roadmap; older work-split/schedule entries ar
 - [x] Separate measurement/protection qualification from envelope testing.
 
 These checks mean decisions/documentation exist, NOT that hardware is implemented.
+[ADR-088](../adr/088-prestretch-differential-pressure-qualification.md) supplements
+ADR-087 with the [fail-closed host qualification contract](PRESSURE-CONTRACT.md).
+That host validator is tested; firmware integration and physical qualification
+remain open in item 1 below.
 
 ## Next deliverables, in dependency order
 

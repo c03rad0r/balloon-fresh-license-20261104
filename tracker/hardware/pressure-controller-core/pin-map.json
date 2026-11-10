@@ -47,12 +47,12 @@
     },
     "12": {
       "name": "IO8",
-      "net": null,
+      "net": "I2C_SDA",
       "footprint": "RF_Module:ESP32-S3-WROOM-1"
     },
     "17": {
       "name": "IO9",
-      "net": null,
+      "net": "I2C_SCL",
       "footprint": "RF_Module:ESP32-S3-WROOM-1"
     },
     "18": {
@@ -563,6 +563,138 @@
       "name": "~",
       "net": "+3V3",
       "footprint": ""
+    }
+  },
+  "U3": {
+    "2": {
+      "name": "PS",
+      "net": "+3V3",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "6": {
+      "name": "SDO",
+      "net": null,
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "7": {
+      "name": "SDI/SDA",
+      "net": "I2C_SDA",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "8": {
+      "name": "SCLK",
+      "net": "I2C_SCL",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "4": {
+      "name": "CSB",
+      "net": "GND",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "5": {
+      "name": "CSB",
+      "net": "GND",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "1": {
+      "name": "VDD",
+      "net": "+3V3",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "3": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    }
+  },
+  "U4": {
+    "2": {
+      "name": "PS",
+      "net": "+3V3",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "6": {
+      "name": "SDO",
+      "net": null,
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "7": {
+      "name": "SDI/SDA",
+      "net": "I2C_SDA",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "8": {
+      "name": "SCLK",
+      "net": "I2C_SCL",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "4": {
+      "name": "CSB",
+      "net": "+3V3",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "5": {
+      "name": "CSB",
+      "net": "+3V3",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "1": {
+      "name": "VDD",
+      "net": "+3V3",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    },
+    "3": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+    }
+  },
+  "C7": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "C8": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "R9": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "I2C_SDA",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R10": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "I2C_SCL",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
     }
   }
 }

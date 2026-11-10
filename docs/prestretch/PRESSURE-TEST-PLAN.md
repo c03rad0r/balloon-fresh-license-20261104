@@ -1,5 +1,16 @@
 # Pressure Test Plan
 
+> **Safety correction — 2026-11-10, [ADR-088](../adr/088-prestretch-differential-pressure-qualification.md).**
+> The numerical pressure/pump instructions below are historical, NOT executable.
+> Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
+> Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
+> calibration and independent manometer validation. Target/ramp/dwell/max remain
+> UNKNOWN for each envelope. Independent relief AND pump-off shutdown verification
+> are mandatory: leakage and a GPIO pull-down alone are not safety protection.
+> Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
+> Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
+> override ADR-088. No bench session alone automatically qualifies an envelope.
+
 **Legacy test/firmware reference, NOT current fill authority.** `DIFFERENTIAL-PRESSURE-BASIS.md` supersedes single-sensor measurement, the ambiguous pressure target and automatic flight-readiness claims below. Current rig: ESP32-S3 plus two MS5611 sensors. The firmware output described below is not evidence that paired sampling/control is implemented. Use the new document’s raw/corrected paired-pressure log schema and qualification gates before balloon testing.
 
 ---

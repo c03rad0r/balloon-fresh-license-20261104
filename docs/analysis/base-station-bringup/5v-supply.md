@@ -1,5 +1,9 @@
 # Base 5 V logical supply correction — NOT a qualified power tree
 
+Follow-up: [MCU supply block](mcu-supply.md) supersedes the historical
+unspecified/floating U_LDO and missing MCU decoupling findings below.
+Other blockers, especially 18 V input, remain unchanged.
+
 Base: PR #532 `82071ddc126001275bbbb20e848f02c527428d58`. Isolated branch
 `pr/base-5v-supply`; worktree `~/worktrees/pr-base-5v-supply`. Worktree inventory
 and live PR #532 head inspected before editing; no competing branch/worktree

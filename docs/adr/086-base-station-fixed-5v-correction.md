@@ -32,6 +32,18 @@ input, PG threshold, voltage accuracy and load-budget limitations; all are recor
 The delegation service reports `tier/delegation`, not a served family identifier:
 this is **not claimed as cross-family review**. Independent parent review required.
 
+## MCU branch follow-up decision (proposed, bounded implementation)
+
+Select AP2112K-3.3TRG1 SOT25, EN tied to +5V_PCBA, pin4 NC, with
+input/output capacitance and per-power-pin RP2040 bypass. The intended MCU
+allowance is 50 mA, not the ESP32 pressure-controller load. This supersedes
+the unspecified-LDO/startup/decoupling implementation gap above, not the
+18 V requirement or thermal/analog qualification blockers. No PCB change.
+[Exact source citations, alternatives, thermal sensitivities and RED/GREEN
+netlist evidence](../analysis/base-station-bringup/mcu-supply.md).
+Capacitor MPN/bias selection and actual firmware/flash current are not closed.
+This is a proposed topology milestone pending review, not fab authorization.
+
 ## For future sessions
 
 Read the linked report; do not route or release this netlist. The native base PCB
