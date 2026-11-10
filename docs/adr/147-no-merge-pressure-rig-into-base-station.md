@@ -1,5 +1,18 @@
 # ADR-147 — Do not merge the pressure rig into the base station; order separate boards in one basket
 
+> **Safety correction — 2026-11-10, [ADR-088](088-prestretch-differential-pressure-qualification.md).**
+> The numerical pressure/pump instructions below are historical, NOT executable.
+> Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
+> Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
+> calibration and independent manometer validation. Target/ramp/dwell/max remain
+> UNKNOWN for each envelope. Independent relief AND pump-off shutdown verification
+> are mandatory: leakage and a GPIO pull-down alone are not safety protection.
+> Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
+> Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
+> override ADR-088. No bench session alone automatically qualifies an envelope.
+
+
+
 **Status:** ACCEPTED · 2026-11-10 · supersedes the assumption that the base station carries an ESP32
 
 ## Context

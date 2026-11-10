@@ -20,9 +20,12 @@ check-interlock: test_interlock
 check-analysis:
 	python3 test_plot_pressure.py
 
-check: check-interlock check-analysis
+check-contract:
+	python3 test_pressure_contract.py
+
+check: check-interlock check-analysis check-contract
 
 clean:
 	rm -f test_interlock
 
-.PHONY: all check check-interlock check-analysis clean
+.PHONY: all check check-interlock check-analysis check-contract clean

@@ -1,5 +1,28 @@
 # Pre-Stretching — What Is Blocked on Your Hands, What I Can Do, and the Schedule
 
+## Current roadmap correction — 2026-11-10 (takes precedence over historical schedule)
+
+Portfolio unchanged: **flight hub, solar/wing interconnect, pressure rig, base station**.
+This roadmap owns pressure work only; no other board is cancelled or merged.
+
+| Milestone | Status | Artifact / dependency |
+|---|---|---|
+| Operator design decision | COMPLETE (accepted; master publication pending merge) | [ADR-088](../adr/088-prestretch-differential-pressure-qualification.md), ADR index; replaces H6 ambiguity with explicit ΔP, not a guessed number |
+| Pressure contract + host pump-arm qualification validator | COMPLETE, host-tested only | `tools/balloon_pressure_test/pressure-contract.json`, `pressure_contract.py`, `test/test_pressure_contract.py`; unknown limits refuse; runtime integration still OPEN |
+| Dual MS5611 measurement chain | OPEN | S3 rig spec; pair identity, same-pressure offset record, independent manometer uncertainty/range/temperature validation; no automatic flight calibration transfer |
+| Independent relief and shutdown | OPEN, blocks actuation | physical relief-capacity and pump-off evidence for power loss, hang, stuck-on faults; no reliance on leakage or gate pull-down alone |
+| Envelope qualification | OPEN, blocks actuation | exact type/lot; accepted target Pa, ramp Pa/s, dwell s, maximum Pa and evidence; all currently UNKNOWN |
+| Runtime enforcement + fault injection | OPEN, blocks actuation | qualified contract + fresh dual inputs + hardware proofs; integration must reject/stop, not merely log a validator result |
+| Pump selection | BLOCKED | withdraw ≥100 kPa recommendation; depends on envelope/flow and relief capacity; no purchase authorized |
+
+Measurement-only logging/offset work with pump power disconnected and host tests can
+proceed now. Historical B1 inflation steps, placeholder limits, “1.05 bar” question,
+C3/valve assumptions and schedule estimates below are NOT current authorization.
+Independent manometer validation and envelope acceptance are separate gates; do not
+pressurize an unknown envelope to discover its limit under the old B1 instructions.
+
+
+
 **Answer to:** *"Pre-stretching — protocol + firmware exist, board does not. What do you need
 me to do here? Is there anything you can do to make progress here? If so, please schedule it."*
 **Historical work split, superseded for pressure work 2026-11-10. No hardware test has been run.**
