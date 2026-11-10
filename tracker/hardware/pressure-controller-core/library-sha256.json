@@ -8,7 +8,9 @@
   "Switch.kicad_sym": "a93607f7bb68bce50996f458d7be86e1e187ac661877548a5119f8b890748fef",
   "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal": "f350bfcd388f6081aa7570d5929d6d7fb9556adc3bb24b84d6482e0d5c320818",
   "Connector.kicad_sym": "5c46ee679a6d5ef5d67115ce3f3217636385de49f316db649f44376861de31c9",
-  "Package_TO_SOT_SMD:SOT-23-5": "2a5c9e030fb192cd2393b5f95872fe796deb29ae7570c83050e19f7b78ceea71",
-  "Regulator_Linear.kicad_sym": "0668d6043b5213767a7f45ff376b06c1cb1edec1309cc6ce51e7a0e0cbecf3fc",
+  "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias": "987a044d1ae684e36daec23bc71811d11346fae6c377abf5e2902b440e43a26f",
+  "Regulator_Switching.kicad_sym": "63a3ff699b61501c20fc1a2e3523728f1b37794b915f2da0b0664d188c972a34",
+  "Inductor_SMD:L_Coilcraft_XAL6030-XXX": "ce639f58aa992b17e0455d785046fafd16bfcee9c1c1df38bc3baf61c7426afd",
+  "Capacitor_SMD:C_1210_3225Metric": "dc1d0a7bce3d19e41856e1e02896abcc84ef4ee752999c7f4162f4519df9d5f8",
   "power.kicad_sym": "541c49bdad55134b5f6379e80c6d18f165c1d9e98ca7df36ad6ec2a316a6d11b"
 }

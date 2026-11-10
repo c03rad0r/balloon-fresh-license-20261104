@@ -426,54 +426,122 @@
     }
   },
   "U2": {
-    "1": {
+    "2": {
       "name": "VIN",
       "net": "USB5V",
-      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
     },
     "3": {
       "name": "EN",
       "net": "USB5V",
-      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
     },
-    "2": {
-      "name": "GND",
+    "8": {
+      "name": "PG",
+      "net": null,
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "9": {
+      "name": "PAD",
       "net": "GND",
-      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "1": {
+      "name": "PGND",
+      "net": "GND",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
     },
     "4": {
-      "name": "NC",
-      "net": null,
-      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+      "name": "AGND",
+      "net": "GND",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "7": {
+      "name": "SW",
+      "net": "BUCK_SW",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "6": {
+      "name": "VOS",
+      "net": "+3V3",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
     },
     "5": {
-      "name": "VOUT",
+      "name": "FB",
+      "net": "BUCK_FB",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    }
+  },
+  "L1": {
+    "1": {
+      "name": "1",
+      "net": "BUCK_SW",
+      "footprint": "Inductor_SMD:L_Coilcraft_XAL6030-XXX"
+    },
+    "2": {
+      "name": "2",
       "net": "+3V3",
-      "footprint": "Package_TO_SOT_SMD:SOT-23-5"
+      "footprint": "Inductor_SMD:L_Coilcraft_XAL6030-XXX"
+    }
+  },
+  "R7": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "BUCK_FB",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R8": {
+    "1": {
+      "name": "~",
+      "net": "BUCK_FB",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
     }
   },
   "C4": {
     "1": {
       "name": "~",
       "net": "USB5V",
-      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
     },
     "2": {
       "name": "~",
       "net": "GND",
-      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
     }
   },
   "C5": {
     "1": {
       "name": "~",
       "net": "+3V3",
-      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
     },
     "2": {
       "name": "~",
       "net": "GND",
-      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    }
+  },
+  "C6": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
     }
   },
   "#FLG01": {
@@ -487,6 +555,13 @@
     "1": {
       "name": "~",
       "net": "GND",
+      "footprint": ""
+    }
+  },
+  "#FLG03": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
       "footprint": ""
     }
   }

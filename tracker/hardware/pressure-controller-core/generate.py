@@ -25,13 +25,18 @@ def load(lib,name):
     sym=next(v for v in children(tree,'symbol') if raw(v[1])==name)
     if children(sym,'extends'):
         base=load(lib,raw(one(sym,'extends')[1]))
+        # KiCad inheritance includes graphical/pin display flags, not only units.
+        for flag in ('pin_names','pin_numbers','exclude_from_sim','in_bom','on_board'):
+            if not children(sym,flag): sym.extend(children(base,flag))
         for sub in children(base,'symbol'):
             sub[1]=q(raw(sub[1]).replace(raw(base[1]),name,1)); sym.append(sub)
         sym.remove(one(sym,'extends'))
     return sym
 def pins(sym):
     return [p for s in children(sym,'symbol') for p in children(s,'pin')]
-# USB-C sink and LDO implemented; thermal qualification remains a release blocker.
+# USB-C dedicated rig supply: externally verified 5V/1.5A advertisement required.
+# Rd alone does NOT authorize this load. No PD negotiation/current detection here.
+# Motor supply remains absent/isolated. Buck follows TI SLVSAM2E.
 parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3':'EN','27':'BOOT','40':'GND','41':'GND','13':'USB_DN','14':'USB_DP'}),
  ('R1','Device','R',40,40,'10k',{'1':'+3V3','2':'EN'}),
  ('R2','Device','R',60,40,'10k',{'1':'+3V3','2':'BOOT'}),
@@ -45,11 +50,17 @@ parts=[('U1','RF_Module','ESP32-S3-WROOM-1',100,90,None,{'1':'GND','2':'+3V3','3
  ('R4','Device','R',220,110,'5.1k 1%',{'1':'CC2','2':'GND'}),
  ('R5','Device','R',200,140,'22',{'1':'USB_DN_CONN','2':'USB_DN'}),
  ('R6','Device','R',220,140,'22',{'1':'USB_DP_CONN','2':'USB_DP'}),
- ('U2','Regulator_Linear','AP2112K-3.3',65,165,'AP2112K-3.3TRG1',{'1':'USB5V','2':'GND','3':'USB5V','5':'+3V3'}),
- ('C4','Device','C',35,165,'2.2u 10V X7R',{'1':'USB5V','2':'GND'}),
- ('C5','Device','C',100,165,'2.2u 10V X7R',{'1':'+3V3','2':'GND'}),
+ ('U2','Regulator_Switching','TPS62160DSG',65,165,'TPS62160DSGR',{'1':'GND','2':'USB5V','3':'USB5V','4':'GND','5':'BUCK_FB','6':'+3V3','7':'BUCK_SW','9':'GND'}),
+ ('L1','Device','L',110,165,'3.3u XAL6030-332MEC',{'1':'BUCK_SW','2':'+3V3'}),
+ ('R7','Device','R',140,165,'100k 0.1%',{'1':'+3V3','2':'BUCK_FB'}),
+ ('R8','Device','R',165,165,'32k 0.1%',{'1':'BUCK_FB','2':'GND'}),
+ ('C4','Device','C',35,165,'22u GRM32ER71E226KE15L 25V',{'1':'USB5V','2':'GND'}),
+ ('C5','Device','C',190,165,'22u GRM32ER71E226KE15L 25V',{'1':'+3V3','2':'GND'}),
+ ('C6','Device','C',215,165,'22u GRM32ER71E226KE15L 25V',{'1':'+3V3','2':'GND'}),
  ('#FLG01','power','PWR_FLAG',170,90,None,{'1':'USB5V'}),
- ('#FLG02','power','PWR_FLAG',170,115,None,{'1':'GND'})]
+ ('#FLG02','power','PWR_FLAG',170,115,None,{'1':'GND'}),
+ # Passive L1 blocks KiCad power-driver propagation from U2 SW to the output.
+ ('#FLG03','power','PWR_FLAG',250,165,None,{'1':'+3V3'})]
 footprints={'R':'Resistor_SMD:R_0603_1608Metric','C':'Capacitor_SMD:C_0603_1608Metric','SW_Push':'Button_Switch_SMD:SW_SPST_TL3342'}
 rootid=uid('sheet'); libdefs={}; objects=[]; mapping={}; provenance={}
 for ref,lib,name,x,y,value,nets in parts:
@@ -58,7 +69,9 @@ for ref,lib,name,x,y,value,nets in parts:
     libdefs[libid]=dump(sym).replace(q(name),q(libid),1)
     fp=footprints.get(name,'')
     if name=='USB_C_Receptacle_USB2.0_16P': fp='Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal'
-    if name in ('ESP32-S3-WROOM-1','AP2112K-3.3'): fp=raw(next(p for p in children(sym,'property') if raw(p[1])=='Footprint')[2])
+    if ref in ('C4','C5','C6'): fp='Capacitor_SMD:C_1210_3225Metric'
+    if ref=='L1': fp='Inductor_SMD:L_Coilcraft_XAL6030-XXX'
+    if name in ('ESP32-S3-WROOM-1','TPS62160DSG'): fp=raw(next(p for p in children(sym,'property') if raw(p[1])=='Footprint')[2])
     if fp:
         fl,fn=fp.split(':'); path=Path('/usr/share/kicad/footprints')/(fl+'.pretty')/(fn+'.kicad_mod')
         pads={raw(p[1]) for p in children(parse(path.read_text()),'pad') if raw(p[1])}
