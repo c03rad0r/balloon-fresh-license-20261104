@@ -17,7 +17,7 @@ approved.** No pump, motor, valve actuation, order, flash or fabrication claim i
 
 ## What was done, mechanically
 
-`study.py` runs six stages, each in its **own process** (pcbnew invalidates SWIG handles after
+`study.py` runs seven stages, each in its **own process** (pcbnew invalidates SWIG handles after
 any collection mutation; a chained script was measured to segfault):
 
 1. `copy` — **byte-copy** the source board into this directory and record its hash. The source
@@ -29,8 +29,9 @@ any collection mutation; a chained script was measured to segfault):
 3. `place` — move footprints, move the single board-level rule area to the new motor
    reservation rectangle, and set the 65 × 50 outline.
 4. `annotate` — three `Dwgs.User` text notes. **No added components, no fake parts.**
-5. `space` — measure free area and the largest empty rectangle on a 0.25 mm grid.
-6. `verify` — ERC, netlist, full audit, native DRC, top/bottom SVG+PNG.
+5. `stabilise` — rewrite UUIDs to name-based values so two builds are byte-identical.
+6. `space` — measure free area and the largest empty rectangle on a 0.25 mm grid.
+7. `verify` — ERC, netlist, full audit, native DRC, per-net open parity, top/bottom SVG+PNG.
 
 ## Measured result
 
@@ -99,6 +100,9 @@ Enforced in `study.audit()`, which **re-loads the board from disk** and aborts o
   forbidden, **30 × 24 mm, kept at full size**, now at `x 33…63, y 24…48`; no courtyard
   intersects it (`motor_reservation_fully_empty: true`).
 - **Single-sidedness** — every footprint is on `F.Cu`; `side_counts = {top: 26, bottom: 0}`.
+  "Single-sided" here means **SMT placement only**: J1 (4), U1 (12) and U2 (2) keep their natural
+  plated through-hole lands, which legitimately show on `B.Cu` in `bottom.png`. No part is mounted
+  on the bottom side, and the bottom carries no tracks or pours.
 - **Unrouted** — zero tracks and vias; zero copper zones (rule areas excluded).
 
 ## The motor-reservation question, answered with geometry
@@ -133,18 +137,12 @@ The tight geometry is elsewhere, and it is stated as a measurement rather than a
 4. **No power-integrity change claimed.** The compact buck cell is rigidly translated, so its
    loop geometry is unchanged, and the unresolved SLVSAM2E §11.1 warning about the 0.20 mm
    SW trace is untouched.
-5. **Deterministic output.** Annotation texts mint random UUIDs, which made two builds differ in
-   exactly 3 UUID lines. `stage_stabilise` rewrites UUIDs to name-based values after placement;
-   two consecutive full builds are now byte-identical (`2cc927b1…7f47e7`), and geometry is untouched.
-6. **The single intentional DRC record stays.** `lib_footprint_mismatch` on U1 is the inherited,
-   declared silk→Fab move (the antenna overhangs the edge, so the stock silk rectangle would be
-   clipped). It is reported, not suppressed.
 
 ## Reproduce
 
 ```sh
 D=tracker/hardware/pressure-controller-core/compact
-/usr/bin/python3 "$D/study.py"            # copy → strip → place → annotate → space → verify
+/usr/bin/python3 "$D/study.py"            # copy → strip → place → annotate → stabilise → space → verify
 /usr/bin/python3 "$D/baseline.py"         # same kernels on the committed 80x60 checkpoint
 /usr/bin/python3 "$D/make_dimensions.py" && rsvg-convert -w 1900 -o "$D/dimensions.png" "$D/dimensions.svg"
 /usr/bin/python3 "$D/test_compact.py"     # 4 state controls + 9 negative controls
@@ -188,7 +186,13 @@ byte-identical source checkpoint.
    unqualified change to a reservation whose real part is unknown.
 5. **Two copper layers, all parts on top.** Single-sided assembly was an explicit constraint
    ("partsdenser"); a second side would need its own stencil/paste decision and is out of scope.
-7. **Six processes instead of one script.** Measured: holding a zone list across a
+6. **Deterministic output.** Annotation texts mint random UUIDs, which made two builds differ in
+   exactly 3 UUID lines. `stage_stabilise` rewrites UUIDs to name-based values after placement;
+   two consecutive full builds are now byte-identical (`2cc927b1…7f47e7`), geometry untouched.
+7. **The single intentional DRC record stays.** `lib_footprint_mismatch` on U1 is the inherited,
+   declared silk→Fab move (the antenna overhangs the edge, so the stock silk rectangle would be
+   clipped). It is reported, not suppressed.
+8. **One process per stage instead of one script.** Measured: holding a zone list across a
    `SaveBoard`/`LoadBoard` pair makes the next pcbnew call fail with `SwigPyObject has no attribute
    'GetTracks'`, and a longer chain segfaulted (exit 139). One mutation class per process is the
    only reliable pattern here.

@@ -305,9 +305,21 @@ def audit(path=None):
     del src, src_sig
     total = sum(p.area for p in polys.values())
     inside = sum(p.intersection(box(0, 0, 65, 50)).area for p in polys.values())
+    # Single-sided means SMT placement: through-hole lands still exist on B.Cu by nature.
+    pth = {}
+    for f in fps:
+        n = sum(1 for q in f.Pads()
+                if int(q.GetAttribute()) == int(pcb.PAD_ATTRIB_PTH)
+                and 'B.Cu' in [pcb.LayerName(l) for l in q.GetLayerSet().Seq()])
+        if n:
+            pth[f.GetReference()] = n
     return {'references': 26, 'exported_endpoints': len(actual),
             'nets': len({v for v in actual.values()}),
             'side_counts': {'top': 26, 'bottom': 0},
+            'through_hole_land_counts': pth,
+            'through_hole_note': ('single-sided = SMT placement only; J1/U1/U2 keep their natural '
+                                  'through-hole lands which appear on B.Cu in the bottom view. '
+                                  'No part is mounted on the bottom side.'),
             'footprints_with_courtyard': len(polys),
             'courtyard_area_total_mm2': round(total, 3),
             'courtyard_area_inside_board_mm2': round(inside, 3),
@@ -332,7 +344,6 @@ def largest_empty_rect(polys, blocked, x0, y0, x1, y1, step=0.25):
     Bounded by construction (65x50 at 0.25 mm => 260x200 cells), so this is a
     measured headroom figure, not a search for an optimum.
     """
-    import math
     nx, ny = int((x1 - x0) / step), int((y1 - y0) / step)
     free = [[True] * ny for _ in range(nx)]
     for i in range(nx):
@@ -419,7 +430,7 @@ def stage_verify():
     d = json.loads((HERE / 'drc.json').read_text())
     proof['native_violations'] = dict(Counter(v['type'] for v in d['violations']))
     proof['native_unconnected_records'] = len(d['unconnected_items'])
-    per_net, cross = {}, []
+    per_net = {}
     for rec in d['unconnected_items']:
         nets = set()
         for item in rec['items']:

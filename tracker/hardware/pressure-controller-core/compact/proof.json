@@ -6,6 +6,12 @@
     "top": 26,
     "bottom": 0
   },
+  "through_hole_land_counts": {
+    "J1": 4,
+    "U1": 12,
+    "U2": 2
+  },
+  "through_hole_note": "single-sided = SMT placement only; J1/U1/U2 keep their natural through-hole lands which appear on B.Cu in the bottom view. No part is mounted on the bottom side.",
   "footprints_with_courtyard": 26,
   "courtyard_area_total_mm2": 1809.821,
   "courtyard_area_inside_board_mm2": 785.01,
