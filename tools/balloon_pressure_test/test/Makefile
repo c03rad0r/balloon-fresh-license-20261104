@@ -20,9 +20,15 @@ check-interlock: test_interlock
 check-analysis:
 	python3 test_plot_pressure.py
 
-check: check-interlock check-analysis
+test_pressure_pair: test_pressure_pair.c $(MAIN)/pressure_pair.c $(MAIN)/pressure_pair.h
+	$(CC) $(CFLAGS) -I$(MAIN) -o $@ test_pressure_pair.c $(MAIN)/pressure_pair.c -lm
+
+check-pair: test_pressure_pair
+	./test_pressure_pair
+
+check: check-interlock check-analysis check-pair
 
 clean:
-	rm -f test_interlock
+	rm -f test_interlock test_pressure_pair
 
-.PHONY: all check check-interlock check-analysis clean
+.PHONY: all check check-interlock check-analysis check-pair clean
