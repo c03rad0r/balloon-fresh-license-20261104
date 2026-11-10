@@ -7,7 +7,7 @@
  *
  * Detection order:
  *   1. BMP280: chip ID register 0xD0 == 0x58 at address 0x76 or 0x77
- *   2. MS5611: PROM coefficient C1 non-zero at address 0x76
+ *   2. MS5611: complete PROM with valid CRC4 at address 0x76 or 0x77
  *
  * Hardware: ESP32-C3 (XIAO or Mini_V1)
  *   SDA → GPIO8, SCL → GPIO9
@@ -25,6 +25,7 @@
 #include "esp_timer.h"
 #include "driver/i2c_master.h"
 #include "interlock.h"
+#include "ms5611.h"
 
 static const char *TAG = "PRES_TEST";
 
@@ -52,7 +53,7 @@ typedef enum {
 } sensor_type_t;
 
 static sensor_type_t g_sensor = SENSOR_NONE;
-static uint8_t       g_dev_addr;
+
 
 /* ---- I2C config ---- */
 #define I2C_SDA_PIN  8
@@ -97,36 +98,22 @@ typedef struct {
 
 static bmp280_calib_t s_bmp280_calib;
 
-/* ===== MS5611 definitions ===== */
-
-#define MS5611_CMD_RESET    0x1E
-#define MS5611_CMD_CONV_D1  0x40  /* D1 pressure conversion, OSR256 */
-#define MS5611_CMD_CONV_D2  0x50  /* D2 temperature conversion, OSR256 */
-#define MS5611_CMD_ADC_READ 0x00
-#define MS5611_CMD_PROM_BASE 0xA0 /* PROM read base: command = PROM_BASE + 2*i */
-
-static uint16_t s_ms5611_coeff[6];  /* C1–C6, big-endian from PROM */
+/* MS5611 calibration belongs to its device, not the bus. */
+static ms5611_t s_ms5611;
 
 /* ===== I2C helper functions ===== */
 
 /* Read len bytes starting at register addr */
 static esp_err_t i2c_read_reg(uint8_t reg, uint8_t *data, uint8_t len)
 {
-    return i2c_master_write_read_device(g_i2c_dev, g_dev_addr,
-                                        &reg, 1, data, len, -1);
-}
-
-/* Write a single command byte (for MS5611 commands: reset, conversion) */
-static esp_err_t i2c_write_byte(uint8_t val)
-{
-    return i2c_master_write_to_device(g_i2c_dev, g_dev_addr, &val, 1, -1);
+    return i2c_master_transmit_receive(g_i2c_dev, &reg, 1, data, len, 100);
 }
 
 /* Write a byte to a register (for BMP280 configuration) */
 static esp_err_t i2c_write_reg(uint8_t reg, uint8_t val)
 {
     uint8_t buf[2] = {reg, val};
-    return i2c_master_write_to_device(g_i2c_dev, g_dev_addr, buf, 2, -1);
+    return i2c_master_transmit(g_i2c_dev, buf, 2, 100);
 }
 
 /* ===== BMP280 functions (compensation math unchanged from original) ===== */
@@ -225,95 +212,27 @@ static esp_err_t bmp280_read(double *pressure_mbar, double *temp_c)
     return ESP_OK;
 }
 
-/* ===== MS5611 functions (per TE Connectivity MS5611-01BA03 datasheet) ===== */
-
-/* Reset: write 0x1E, wait 3ms */
-static esp_err_t ms5611_reset(void)
+/* ===== MS5611 adapter (same extracted driver as host tests) ===== */
+static int ms_transfer(void *ctx, uint8_t cmd, uint8_t *data, size_t len,
+                       unsigned timeout_ms)
 {
-    esp_err_t ret = i2c_write_byte(MS5611_CMD_RESET);
-    if (ret != ESP_OK) return ret;
-    vTaskDelay(pdMS_TO_TICKS(3));
-    return ESP_OK;
+    i2c_master_dev_handle_t dev = ctx;
+    return len ? i2c_master_transmit_receive(dev, &cmd, 1, data, len, timeout_ms)
+               : i2c_master_transmit(dev, &cmd, 1, timeout_ms);
 }
-
-/* Read 6 PROM coefficients C1–C6 from addresses 0xA2,0xA4,...,0xAC */
-static esp_err_t ms5611_read_prom(void)
+static void ms_wait(void *ctx, unsigned ms)
 {
-    for (int i = 0; i < 6; i++) {
-        uint8_t cmd = MS5611_CMD_PROM_BASE + 2 * (i + 1); /* 0xA2, 0xA4, ..., 0xAC */
-        uint8_t buf[2] = {0};
-        esp_err_t ret = i2c_read_reg(cmd, buf, 2);
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "MS5611 PROM read C%d (cmd=0x%02x) failed: %s",
-                     i + 1, cmd, esp_err_to_name(ret));
-            return ret;
-        }
-        s_ms5611_coeff[i] = ((uint16_t)buf[0] << 8) | buf[1]; /* big-endian */
-    }
-
-    ESP_LOGI(TAG, "MS5611 coefficients: C1=%u C2=%u C3=%u C4=%u C5=%u C6=%u",
-             s_ms5611_coeff[0], s_ms5611_coeff[1], s_ms5611_coeff[2],
-             s_ms5611_coeff[3], s_ms5611_coeff[4], s_ms5611_coeff[5]);
-    return ESP_OK;
+    (void)ctx;
+    /* One extra tick covers tick phase and truncation: elapsed >= requested. */
+    vTaskDelay((ms + portTICK_PERIOD_MS - 1) / portTICK_PERIOD_MS + 1);
 }
-
-/* Read 24-bit ADC result from register 0x00 */
-static esp_err_t ms5611_read_adc(uint32_t *value)
+static esp_err_t ms5611_read_legacy(double *pressure_mbar, double *temp_c)
 {
-    uint8_t buf[3] = {0};
-    esp_err_t ret = i2c_read_reg(MS5611_CMD_ADC_READ, buf, 3);
-    if (ret != ESP_OK) return ret;
-    *value = ((uint32_t)buf[0] << 16) | ((uint32_t)buf[1] << 8) | buf[2];
-    return ESP_OK;
-}
-
-/*
- * Read compensated pressure (mbar) and temperature (°C) from MS5611.
- *
- * Per MS5611-01BA03 datasheet first-order integer compensation:
- *   dT  = D2 - C5 * 2^8
- *   T   = 2000 + dT * C6 / 2^23          (0.01°C)
- *   OFF  = C2 * 2^16 + C4 * dT / 2^7
- *   SENS = C1 * 2^15 + C3 * dT / 2^8
- *   P   = (D1 * SENS / 2^21 - OFF) / 2^15 (0.01 mbar)
- *
- * All intermediate math uses int64_t to prevent overflow.
- */
-static esp_err_t ms5611_read(double *pressure_mbar, double *temp_c)
-{
-    /* D1 — pressure conversion */
-    esp_err_t ret = i2c_write_byte(MS5611_CMD_CONV_D1);
-    if (ret != ESP_OK) return ret;
-    vTaskDelay(pdMS_TO_TICKS(1));
-    uint32_t D1 = 0;
-    ret = ms5611_read_adc(&D1);
-    if (ret != ESP_OK) return ret;
-
-    /* D2 — temperature conversion */
-    ret = i2c_write_byte(MS5611_CMD_CONV_D2);
-    if (ret != ESP_OK) return ret;
-    vTaskDelay(pdMS_TO_TICKS(1));
-    uint32_t D2 = 0;
-    ret = ms5611_read_adc(&D2);
-    if (ret != ESP_OK) return ret;
-
-    /* Load coefficients */
-    uint16_t C1 = s_ms5611_coeff[0];  /* pressure sensitivity       */
-    uint16_t C2 = s_ms5611_coeff[1];  /* pressure offset            */
-    uint16_t C3 = s_ms5611_coeff[2];  /* TC of pressure sensitivity */
-    uint16_t C4 = s_ms5611_coeff[3];  /* TC of pressure offset      */
-    uint16_t C5 = s_ms5611_coeff[4];  /* reference temperature      */
-    uint16_t C6 = s_ms5611_coeff[5];  /* TC of temperature          */
-
-    /* First-order compensation (int64_t throughout) */
-    int64_t dT   = (int64_t)D2 - ((int64_t)C5 << 8);
-    int64_t T    = 2000 + ((dT * (int64_t)C6) >> 23);               /* 0.01 °C  */
-    int64_t OFF  = ((int64_t)C2 << 16) + (((int64_t)C4 * dT) >> 7);
-    int64_t SENS = ((int64_t)C1 << 15) + (((int64_t)C3 * dT) >> 8);
-    int64_t P    = ((((int64_t)D1 * SENS) >> 21) - OFF) >> 15;       /* 0.01 mbar */
-
-    *temp_c        = (double)T / 100.0;
-    *pressure_mbar = (double)P / 100.0;
+    ms5611_sample_t sample;
+    int ret = ms5611_read(&s_ms5611, &sample);
+    if (ret) return ret;
+    *pressure_mbar = sample.pressure_pa / 100.0;
+    *temp_c = sample.temperature_centi_c / 100.0;
     return ESP_OK;
 }
 
@@ -331,7 +250,7 @@ static esp_err_t add_device(uint8_t addr)
 
 /*
  * Probe I2C addresses 0x76 then 0x77.
- * At each address try BMP280 (chip ID) first, then MS5611 (PROM C1 non-zero).
+ * At each address try BMP280 (chip ID) first, then MS5611 (complete PROM + CRC4).
  */
 static esp_err_t sensor_init(void)
 {
@@ -363,7 +282,7 @@ static esp_err_t sensor_init(void)
                      addr, esp_err_to_name(ret));
             continue;
         }
-        g_dev_addr = addr;
+
 
         /* --- Try BMP280: check chip ID register 0xD0 == 0x58 --- */
         uint8_t chip_id = 0;
@@ -378,12 +297,12 @@ static esp_err_t sensor_init(void)
         }
 
         /* --- Try MS5611: reset then read PROM --- */
-        ret = ms5611_reset();
+        s_ms5611.io = (ms5611_io_t){g_i2c_dev, ms_transfer, ms_wait};
+        ret = ms5611_read_prom(&s_ms5611);
         if (ret == ESP_OK) {
-            ret = ms5611_read_prom();
-            if (ret == ESP_OK && s_ms5611_coeff[0] != 0) {
+            if (s_ms5611.ready) {
                 ESP_LOGI(TAG, "MS5611 found at 0x%02x (C1=%u)",
-                         addr, s_ms5611_coeff[0]);
+                         addr, s_ms5611.prom[1]);
                 g_sensor = SENSOR_MS5611;
                 printf("SENSOR: MS5611\n");
                 fflush(stdout);
@@ -454,7 +373,7 @@ void app_main(void)
             ret = bmp280_read(&pressure, &temp);
             break;
         case SENSOR_MS5611:
-            ret = ms5611_read(&pressure, &temp);
+            ret = ms5611_read_legacy(&pressure, &temp);
             break;
         default:
             ret = ESP_ERR_NOT_SUPPORTED;

@@ -1,5 +1,10 @@
 # Balloon Pressure Test Rig
 
+**MS5611 driver prerequisite:** see [MS5611-MILESTONE.md](MS5611-MILESTONE.md).
+Host-verified per-device PROM/CRC and acquisition; paired S3 runtime is not yet
+integrated. The legacy single-sensor instructions below are not controller-board
+bring-up instructions.
+
 Pressure/temperature logger for balloon leak-rate testing, plus the firmware side
 of the over-pressure safety interlock.
 
