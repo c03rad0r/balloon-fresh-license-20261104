@@ -51,9 +51,9 @@ any collection mutation; a chained script was measured to segfault):
 | Largest empty rectangle (parts + antenna keepout blocked) | 1752.0 mm² (54.75 × 32.0) | **953.4 mm² (33.75 × 28.25 at 31.25, 21.75)** |
 | Largest empty rectangle **outside** the motor reservation | — | **197.6 mm² (27.25 × 7.25 at 37.75, 0)** |
 | Placement extents | — | x 2.75…61.90, y 1.27…46.73 |
-| Tracks / vias in candidate | 5 tracks / 2 filled zones (partial route) | **0 / 0** |
+| Tracks / vias in candidate | 5 tracks / 2 filled zones (`placement/core-placement.kicad_pcb`, partially routed checkpoint) · 0 / 0 (`routing/batch0.kicad_pcb`, copper stripped) | **0 / 0** |
 | Native DRC | — | 1 record: `lib_footprint_mismatch` on U1 (declared silk→Fab move, inherited) |
-| Native DRC unconnected | 77 (`routing/batch0`, unrouted 80×60) | **77** (expected: unrouted board) |
+| Native DRC unconnected | **44** on `placement/core-placement.kicad_pcb` · **77** on `routing/batch0.kicad_pcb` | **77** (expected: unrouted board) |
 | Per-net opens vs unrouted baseline | 15 nets | **identical, all 15 nets** (`opens_by_net_parity_with_unrouted_baseline: true`) |
 
 Per-net unconnected records on the candidate (DRC spanning-edge accounting, **not** endpoint
