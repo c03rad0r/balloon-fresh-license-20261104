@@ -8,5 +8,12 @@
   "top.svg": "212a6a7a907ddbd4e23ed03e8f519f0f8d2e32fd85383dbcbcacdd0578f20692",
   "batch1.kicad_pcb": "4b803747c1d9f1b872bbd8bf2b41ac4860949cdb691cdff1299638f59f3fe700",
   "batch2.kicad_pro": "303ebf90c820dd8db3896fddddab4610ac803a07cee1aa5e6157ba3ab8bfef44",
-  "batch2.kicad_pcb": "841ed7760623062dd02cbbdf2d7ebf31d2e5a7f58dee860bf65dded239d5e2a7"
+  "batch2.kicad_pcb": "841ed7760623062dd02cbbdf2d7ebf31d2e5a7f58dee860bf65dded239d5e2a7",
+  "batch3-top.svg": "c3c0fe30fb6798de8c81719f1f5b75866f1cb0bc9f3df40fa8d4c321284dc6b3",
+  "batch3.kicad_prl": "baa0a391467cab224846e628b47a7f6507bb0e9872d3008c9d1090d8d31bbe06",
+  "batch3.kicad_pcb": "5f3c7abef9e9c16d9925d32300c4a05cdf658d31c93a096848a12b1b3c8f46f6",
+  "batch3.kicad_pro": "303ebf90c820dd8db3896fddddab4610ac803a07cee1aa5e6157ba3ab8bfef44",
+  "batch3-bottom.svg": "274500e09cedbf87a9b447ac1b48af9cc0a9a81ac298640e7caa96534cf01696",
+  "batch3-bottom.png": "ab9b46e7469ea863965e5e8301e860b6dcd6a27229830e1264f06d29c39d5992",
+  "batch3-top.png": "ca7a2b348958f78e62b30c3ec0bfe55c3096ed9ed3756a9974756d826071da15"
 }

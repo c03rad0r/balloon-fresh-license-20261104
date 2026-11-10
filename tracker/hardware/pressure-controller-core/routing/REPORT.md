@@ -17,12 +17,13 @@ Pours use direct pad connection (not thermal relief), 0.20 mm clearance, 0.25 mm
 width and edge inset >0.50 mm. Direct connections require assembly/thermal review, particularly
 for sensor thermal coupling; electrical closure does not qualify analog or assembly performance.
 
-**Zero previously-connected pairs broken:** proofs/preservation.json proves all 93 baseline
-objects preserved in batch1 and all 94 batch1 objects preserved in batch2, including every
-footprint/pad/net/pose, setup, outline, reservation and existing filled polygon. Only one new
-zone each time. Additive copper cannot sever prior connectivity. The GetConnectedPads counts
-in batch proofs are direct pad adjacency only, NOT a complete transitive zone connectivity
-proof; preservation is the authoritative no-break proof for these two additive batches.
+**Prior connectivity independently rechecked:** object preservation alone is not a sufficient
+post-refill connectivity proof. `proofs/batch3-physical-native.json` now contains actual
+physical pad partitions for batch0, batch1, batch2 and batch3. Native copper polygons
+(including each filled island and holes separately) are intersected per layer, with only
+physical through-hole pads joining layers. Both prior pour transitions have zero partition
+splits. All 48 GND pads form one physical component in batch2 and batch3. The historical
+GetConnectedPads counts are direct adjacency, not transitive zone connectivity evidence.
 
 /GND fully closed. Remaining native opens (47):
 /+3V3 19; /BOOT 3; /BUCK_FB 2; /BUCK_SW 1; /CC1 1; /CC2 1; /EN 4;
@@ -66,7 +67,35 @@ python3 verify_batch.py batch2.kicad_pcb --before batch1.kicad_pcb --label batch
 python3 check_preservation.py
 ```
 
-placement/core-placement.kicad_pcb now equals batch2.kicad_pcb. Original unrouted placement
+## Accepted batch3 — short buck switch node
+
+Clean ownership checked at 9ea4df60 (PR #542); no competing routing process found.
+One exact native pad-centre segment closes /BUCK_SW: U2.7 (13.95,42.75) to
+L1.1 (16.23,42.75), F.Cu, 2.28 mm length, 0.20 mm width, no vias. This is a
+bounded electrical-connectivity checkpoint, NOT regulator-current/EMI qualification.
+Bottom-first pour sequence remains 77→72→47; this batch is **47→46 native opens**.
+Native post-refill DRC: zero shorts, zero clearance, exact new violation records **[]**;
+only unchanged U1 library footprint mismatch remains. No prior physical partition splits.
+All 92 original non-zone objects and zone definitions remain unchanged, including
+antenna/local keepouts and motor reservation. Fill polygons were allowed to regenerate,
+then connectivity was remeasured. No placement, rules, or thermal-policy change.
+
+The unsafe router remains removed. `short_buck_batch.py` uses native KiCad refill +
+full-board DRC as the geometry acceptance oracle, not an incomplete custom obstacle map.
+Negative control deliberately routes via U2.6 (+3V3): rejected with two native
+shorting_items and two solder_mask_bridge records, all exact item UUIDs retained in
+`proofs/rejected-buck-native-after.json`. Negative physical-graph control removes fills
+and correctly detects a GND split (`proofs/batch3-controls.json`).
+The physical graph uses native polygonization at 100 nm maximum error; it fails closed
+on vias (none exist in these boards), and is scoped to this two-copper-layer board.
+
+Reproduce: `/usr/bin/python3 short_buck_batch.py` then
+`/usr/bin/python3 test_physical_partitions.py`. Native JSON proofs include exact UUID
+identities (KiCad violations have no separate violation UUID). Current renders are
+`batch3-top.png/svg` and `batch3-bottom.png/svg`; old top/bottom images remain historical.
+Direct GND pad-connect caveat remains: **no thermal or assembly approval**.
+
+placement/core-placement.kicad_pcb now equals batch3.kicad_pcb. Original unrouted placement
 proofs are historical; do NOT regenerate placement.py over the routed file. Routing-specific
 proofs and current renders are here: top.png/top.svg, bottom.png/bottom.svg, manifest.json.
 No flashing, purchases or actuation. No completed-controller, USB SI, regulator-current,
