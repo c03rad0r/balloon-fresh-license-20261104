@@ -55,6 +55,20 @@ int main(void) {
     assert(!pp_evaluate(&cfg, &in, &amb, 1000, 0, &out));
     in.timestamp_ms = 900; amb.timestamp_ms = 921;
     assert(!pp_evaluate(&cfg, &in, &amb, 1000, 0, &out));
+    /* Isolate age from skew: both samples are stale, but skew is zero. */
+    in.timestamp_ms = amb.timestamp_ms = 899;
+    out = (pp_result){123, 123};
+    assert(!pp_evaluate(&cfg, &in, &amb, 1000, 0, &out));
+    assert(isnan(out.raw_pa) && isnan(out.corrected_pa));
+    /* Isolate future rejection from unsigned age underflow and from skew.
+     * Without the future guard, 1000 - 1001 wraps to UINT64_MAX, which this
+     * age bound permits. Neither another guard nor skew may mask the fault. */
+    in.timestamp_ms = amb.timestamp_ms = 1001;
+    cfg.max_age_ms = UINT64_MAX;
+    out = (pp_result){123, 123};
+    assert(!pp_evaluate(&cfg, &in, &amb, 1000, 0, &out));
+    assert(isnan(out.raw_pa) && isnan(out.corrected_pa));
+    cfg.max_age_ms = 100;
     /* Each failure must overwrite an earlier plausible result, on either role. */
     for (int role = 0; role < 2; ++role) {
         for (int fault = 0; fault < 10; ++fault) {
