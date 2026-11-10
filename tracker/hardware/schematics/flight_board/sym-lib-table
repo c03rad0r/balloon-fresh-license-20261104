@@ -14,4 +14,6 @@
 	(lib (name "balloon_flight_v9")(type "KiCad")(uri "${KIPRJMOD}/v9_lib/balloon_flight_v9.kicad_sym")(options "")(descr ""))
 	(lib (name "power")(type "KiCad")(uri "/usr/share/kicad/symbols/power.kicad_sym")(options "")(descr ""))
 	(lib (name "balloon_flight_v10")(type "KiCad")(uri "${KIPRJMOD}/v10_lib/balloon_flight_v10.kicad_sym")(options "")(descr "v10 flight board symbols (design-intent, ADR-128)"))
+	(lib (name "Analog_ADC")(type "KiCad")(uri "/usr/share/kicad/symbols/Analog_ADC.kicad_sym")(options "")(descr ""))
+	(lib (name "balloon_flight_v11")(type "KiCad")(uri "${KIPRJMOD}/v11_lib/balloon_flight_v11.kicad_sym")(options "")(descr "v11 flight board symbols (design-intent, ADR-128/ADR-148)"))
 )
