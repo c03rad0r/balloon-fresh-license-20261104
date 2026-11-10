@@ -79,8 +79,10 @@ for ref,lib,name,x,y,value,nets in parts:
     if ref in ('C4','C5','C6'): fp='Capacitor_SMD:C_1210_3225Metric'
     if ref=='L1': fp='Inductor_SMD:L_Coilcraft_XAL6030-XXX'
     if name in ('ESP32-S3-WROOM-1','TPS62160DSG','MS5611-01BA'): fp=raw(next(p for p in children(sym,'property') if raw(p[1])=='Footprint')[2])
+    if name=='MS5611-01BA': fp='PressureSensor:MS5611-01BA03_TE_Recommended'
     if fp:
-        fl,fn=fp.split(':'); path=Path('/usr/share/kicad/footprints')/(fl+'.pretty')/(fn+'.kicad_mod')
+        fl,fn=fp.split(':')
+        path=(ROOT if fl=='PressureSensor' else Path('/usr/share/kicad/footprints'))/(fl+'.pretty')/(fn+'.kicad_mod')
         pads={raw(p[1]) for p in children(parse(path.read_text()),'pad') if raw(p[1])}
         expected={raw(one(p,'number')[1]) for p in pins(sym)}
         assert pads==expected,(ref,pads,expected)

@@ -569,84 +569,84 @@
     "2": {
       "name": "PS",
       "net": "+3V3",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "6": {
       "name": "SDO",
       "net": null,
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "7": {
       "name": "SDI/SDA",
       "net": "I2C_SDA",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "8": {
       "name": "SCLK",
       "net": "I2C_SCL",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "4": {
       "name": "CSB",
       "net": "GND",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "5": {
       "name": "CSB",
       "net": "GND",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "1": {
       "name": "VDD",
       "net": "+3V3",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "3": {
       "name": "GND",
       "net": "GND",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     }
   },
   "U4": {
     "2": {
       "name": "PS",
       "net": "+3V3",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "6": {
       "name": "SDO",
       "net": null,
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "7": {
       "name": "SDI/SDA",
       "net": "I2C_SDA",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "8": {
       "name": "SCLK",
       "net": "I2C_SCL",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "4": {
       "name": "CSB",
       "net": "+3V3",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "5": {
       "name": "CSB",
       "net": "+3V3",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "1": {
       "name": "VDD",
       "net": "+3V3",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     },
     "3": {
       "name": "GND",
       "net": "GND",
-      "footprint": "Package_LGA:LGA-8_3x5mm_P1.25mm"
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
     }
   },
   "C7": {

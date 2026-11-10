@@ -1,5 +1,9 @@
 # Dual MS5611 measurement milestone — NOT PHYSICALLY QUALIFIED
 
+**Land-pattern update:** [FOOTPRINT-REPORT.md](FOOTPRINT-REPORT.md) supersedes the
+retained-stock-footprint decision below with a manufacturer-derived local footprint.
+Copper mismatch repaired; assembly, thermal and port-access qualification remain open.
+
 ## Motivation and scope
 
 Implement the approved internal-minus-ambient measurement chain on the native S3 core,
