@@ -23,7 +23,7 @@
   "sha256": {
     "core.kicad_sch": "6fd10237092f8046982cd1ba71fb3568b5273cf7c16e0f6344d0ece9fc4804c5",
     "library-sha256.json": "a2ebaea80a871f746909d2bdb4b22070d6ebff1cce505d93b7a47eaa39a04fb9",
-    "placement.py": "a28be386c48714af59ff236f3748599dcfd6772aebd8071c898ece62ac79dcb4",
+    "placement.py": "37bc84da222376c91b13104b2a157ec20acc1f8c96d759c861a5e5c020c545aa",
     "placement/core.xml": "ca7b689c697289d62ee1d29c2371893eb141ef29ddabbf64f8ddb04dd1ff2c08",
     "placement/core-placement.kicad_pcb": "9ee4f157ae021c8fde5d6b95a7a98d8b6c3d91b6aa0b9b4703fc88a100ff23ed"
   }

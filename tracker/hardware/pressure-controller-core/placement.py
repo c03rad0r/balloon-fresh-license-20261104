@@ -143,6 +143,9 @@ def build(xml):
 def main():
     OUT.mkdir(exist_ok=True)
     subprocess.run(['kicad-cli','sch','erc','--format','json','--exit-code-violations','-o',str(OUT/'erc.json'),str(ROOT/'core.kicad_sch')],check=True)
+    # Same wall-clock stamp in the ERC report; normalise so rebuilds are byte-identical.
+    erc=json.loads((OUT/'erc.json').read_text()); erc['date']='NORMALISED'
+    (OUT/'erc.json').write_text(json.dumps(erc,indent=4)+'\n')
     xml=OUT/'core.xml'
     subprocess.run(['kicad-cli','sch','export','netlist','--format','kicadxml','-o',str(xml),str(ROOT/'core.kicad_sch')],check=True)
     # The exporter stamps wall-clock time; that is not an input to placement.
