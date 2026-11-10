@@ -1,5 +1,12 @@
 # Native placement candidate — INCOMPLETE CONTROLLER, NOT FAB READY
 
+> **Current checkpoint:** operator authorized routing 2026-11-10. Bottom-first GND pours
+> reduced native opens 77→72→47, zero shorts/clearance/new violations. See
+> [routing/REPORT.md](routing/REPORT.md) and its per-batch proofs/current images.
+> `placement/core-placement.kicad_pcb` now contains that partial route. The unrouted
+> numbers and gate status below are historical; `routing/batch0.kicad_pcb` preserves their
+> exact source. Do not run `placement.py` over the routed file.
+
 Unrouted, operator-gated placement of the real merged core. **No routing has started and none
 may start until the operator signs off this placement (ADR-120 R3).** No S0 waiver, no pump or
 motor actuation, no purchase, nothing flashed.
