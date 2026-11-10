@@ -6,6 +6,15 @@ Date: 2026-10-09
 Scope: base-station control/bias/telemetry PCBA v1, gap-analysis D14  
 Related decisions: [ADR-084](adr/084-ground-station-automatic-level-control.md), [ADR-079](adr/079-amplifier-led-receive-chain-owned-tqp3m9037-lna.md), [ADR-072](adr/072-band-split-duplex-two-antennas-no-circulator.md)
 
+## CORRECTION — fixed-voltage part identity (ADR-086, proposed follow-up)
+
+The TPS62162-as-5-V statements and 15 mA detector allowance below are preserved
+as historical freeze text, not valid electrical specifications.
+[ADR-086](adr/086-base-station-fixed-5v-correction.md) selects TPS62163DSGR fixed
+5 V in the logical source and records the corrected 465.625 mA conditional budget.
+The 18 V input corner and full rail qualification remain unsupported; this does
+not waive the frozen system requirement or authorize layout/purchase.
+
 ## Decision
 
 The board-own parts and network below are frozen for schematic capture. Every selected active part has a manufacturer datasheet URL. The board implements the 433 MHz receive AGC and telemetry controller; it does not add a 2.4 GHz PA, and it does not attempt to put the masthead LNA on the PCBA.

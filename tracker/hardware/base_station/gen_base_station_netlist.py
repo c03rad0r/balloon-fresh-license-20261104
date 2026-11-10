@@ -31,29 +31,27 @@ COMPS = []
 def add(ref, value, fp, pins):
     COMPS.append((ref, value, fp, pins))
 
-# ---------------- power entry + regulator (spec: VIN_GS 9-18V -> TPS62162 -> +5V_PCBA) -------
+# ---------------- power entry + regulator (D14 correction: protected VIN <=17V -> TPS62163 -> +5V_PCBA) -------
 add("J_PWR", "VIN_GS 9-18V input", "TerminalBlock_4Ucon:TerminalBlock_4Ucon_1x02_P3.50mm_Vertical",
     [("1", "VIN_GS"), ("2", "GND")])
 add("D_REV", "reverse-polarity/TVS protection", "Diode_SMD:D_SMB",
     [("1", "VIN_GS_PROT"), ("2", "VIN_GS")])
 add("D_TVS", "TVS clamp (set point TODO(unverified))", "Diode_SMD:D_SMB",
     [("1", "VIN_GS_PROT"), ("2", "GND")])
-add("C_IN", "10uF 25V", "Capacitor_SMD:C_1206_3216Metric",
+add("C_IN", "GRM31CR61E106KA12L 10uF 25V X5R 10%", "Capacitor_SMD:C_1206_3216Metric",
     [("1", "VIN_GS_PROT"), ("2", "GND")])
-add("U_REG", "TPS62162 5V buck (3-17V in, 1A out)", "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm",
+add("U_REG", "TPS62163DSGR fixed 5V buck (3-17V in, 1A out)", "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm",
     # TI SLVSAM2E section 6, DSG: PGND VIN EN AGND FB VOS SW PG, EP->AGND.
-    # Fixed-output TPS62162: FB goes to AGND, NOT an external divider.
-    # BLOCKED: TPS62162 is 3.3V, not the required 5V; selection/enable/input
-    # protection need a schematic-first follow-up. Do not route this source.
-    [("1", "GND"), ("2", "VIN_GS_PROT"), ("3", "REG_EN"), ("4", "GND"),
+    # Fixed TPS62163: FB -> AGND. EN -> VIN per TI typical application.
+    # Input >17V and analog corner qualification remain BLOCKED; see 5v-supply.md.
+    # This logical correction is not an ERC-clean schematic. Do not route.
+    [("1", "GND"), ("2", "VIN_GS_PROT"), ("3", "VIN_GS_PROT"), ("4", "GND"),
      ("5", "GND"), ("6", "+5V_PCBA"), ("7", "REG_SW"), ("8", "REG_PG"), ("9", "GND")])
-add("L1", "2.2uH buck inductor", "Inductor_SMD:L_Bourns-SRN4018",
+add("L1", "SRN4018-2R2M 2.2uH 20% 2.9A Irms 3.0A Isat", "Inductor_SMD:L_Bourns-SRN4018",
     [("1", "REG_SW"), ("2", "+5V_PCBA")])
-add("R_FB1", "100k (feedback divider)", "Resistor_SMD:R_0402_1005Metric",
-    [("1", "+5V_PCBA"), ("2", "REG_FB")])
-add("R_FB2", "22.6k (feedback divider)", "Resistor_SMD:R_0402_1005Metric",
-    [("1", "REG_FB"), ("2", "GND")])
-add("C_OUT", "22uF 6V3", "Capacitor_SMD:C_1206_3216Metric",
+add("R_PG", "RC0603FR-07100KL 100k 1% PG pull-up", "Resistor_SMD:R_0603_1608Metric",
+    [("1", "+3V3_MCU"), ("2", "REG_PG")])
+add("C_OUT", "GRM31CR71A226KE15L 22uF 10V X7R 10%", "Capacitor_SMD:C_1206_3216Metric",
     [("1", "+5V_PCBA"), ("2", "GND")])
 
 # ---------------- +5V_LNA_SW : switched, resettable-limited (spec) ---------------------------
@@ -80,7 +78,7 @@ add("C_VGA2", "1uF", "Capacitor_SMD:C_0603_1608Metric", [("1", "+5V_VGA"), ("2",
 # ---------------- +5V_DET : AD8318 log detector ----------------------------------------------
 add("FB_DET", "ferrite bead", "Inductor_SMD:L_0603_1608Metric",
     [("1", "+5V_PCBA"), ("2", "+5V_DET")])
-add("U_DET", "AD8318ACPZ-R7 log detector (15mA allowance)",
+add("U_DET", "AD8318ACPZ-R7 log detector (68mA typ, 82mA max at 25C)",
     "Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.3x1.3mm",
     [("1", "GND"), ("2", "GND"), ("3", "DET_RF_IN"), ("4", "GND"),
      ("5", "+5V_DET"), ("6", "DET_VOUT"), ("7", "GND"), ("8", "GND"), ("17", "GND")])
@@ -123,8 +121,7 @@ add("U_LDO", "3.3V LDO for +3V3_MCU", "Package_TO_SOT_SMD:SOT-23-5",
     [("1", "+5V_PCBA"), ("2", "GND"), ("3", "LDO_EN"), ("4", "GND"), ("5", "+3V3_MCU")])
 add("C_LDO1", "1uF", "Capacitor_SMD:C_0603_1608Metric", [("1", "+3V3_MCU"), ("2", "GND")])
 add("C_LDO2", "1uF", "Capacitor_SMD:C_0603_1608Metric", [("1", "+5V_PCBA"), ("2", "GND")])
-add("R_EN", "100k LDO/REG enable pull-up", "Resistor_SMD:R_0402_1005Metric",
-    [("1", "+5V_PCBA"), ("2", "REG_EN")])
+
 
 # ---------------- RF chain (spec): ant -> BPF -> tee -> LNA -> coax -> tee -> VGA -------------
 add("J_433_RX", "433 MHz RX antenna port (SMA)", "Connector_Coaxial:SMA_Amphenol_132134-10_Vertical",
