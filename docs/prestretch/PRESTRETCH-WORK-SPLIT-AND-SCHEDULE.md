@@ -4,7 +4,7 @@
 me to do here? Is there anything you can do to make progress here? If so, please schedule it."*
 **Historical work split, superseded for pressure work 2026-11-10. No hardware test has been run.**
 
-Current authority: `DIFFERENTIAL-PRESSURE-BASIS.md` and revised B1. Absolute-vs-gauge ambiguity is RESOLVED: differential basis; numerical envelope limit UNKNOWN. Two MS5611 + S3 retained. Qualify measurement and independent passive relief/pump-off without a balloon, then qualify envelope batches separately. Old C3/valve tasks and combined trace-derived cutoff instructions below are archival, NOT executable work orders. No further user clarification of pressure units or sensor choice is required.
+Current roadmap: [ROADMAP.md](ROADMAP.md). Canonical decision: [ADR-087](../adr/087-pressure-rig-differential-basis.md). Current authority: `DIFFERENTIAL-PRESSURE-BASIS.md` and revised B1. Absolute-vs-gauge ambiguity is RESOLVED: differential basis; numerical envelope limit UNKNOWN. Two MS5611 + S3 retained. Qualify measurement and independent passive relief/pump-off without a balloon, then qualify envelope batches separately. Old C3/valve tasks and combined trace-derived cutoff instructions below are archival, NOT executable work orders. No further user clarification of pressure units or sensor choice is required.
 
 ---
 

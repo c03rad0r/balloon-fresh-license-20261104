@@ -1,6 +1,7 @@
 # Differential-pressure basis and qualification gates
 
 Status: operator-approved design basis, 2026-11-10; physical qualification NOT RUN.
+Canonical decision: [ADR-087](../adr/087-pressure-rig-differential-basis.md). Remaining implementation: [roadmap](ROADMAP.md).
 This decision supersedes the ambiguous 1.05 bar instruction, the >=100 kPa pump recommendation, and ADR-147 Decision 5's reliance on leakage/pump-off as sufficient pressure protection. Other ADR-147 decisions remain unchanged.
 
 ## DECISIONS

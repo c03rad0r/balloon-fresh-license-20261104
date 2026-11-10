@@ -1,4 +1,11 @@
 # STATUS REPORT: balloon-pre-stretching
+
+## Current pressure-track status — 2026-11-10
+
+Authority: [ADR-087](adr/087-pressure-rig-differential-basis.md). Current work: [pressure-rig roadmap](prestretch/ROADMAP.md). Differential basis and two-MS5611/S3 choice are settled; numerical balloon limits remain unknown. Measurement and independent protection qualification are separate from envelope testing. Physical tests NOT RUN.
+
+## Historical status (superseded for pressure work)
+
 - Current Phase: execution (rebased onto consolidated master, deliverables restored)
 - Kanban Telemetry: no board
 - Last Commit: 65453cc — docs: update status — phase execution, rig firmware built
