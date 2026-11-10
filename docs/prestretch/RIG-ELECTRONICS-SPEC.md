@@ -34,7 +34,7 @@ and was always a separate bench tool. Nothing was mis-ordered.
 ## The consequence of moving to a bare S3 module
 
 The C3 plan was a **carrier**: an off-the-shelf dev board on headers, with the PCB supplying only the
-valve driver, alarm and sensor connectors. **A bare ESP32-S3 module changes that** — the board must now
+driver, alarm and sensor connectors. **A bare ESP32-S3 module changes that** — the board must now
 provide everything a dev board used to:
 
 | function | on the C3 carrier | on a bare S3 board |
@@ -96,31 +96,35 @@ duplicate pull-up in parallel is harmless; a missing one is a dead bus.
 Bus speed **100 kHz** (measured, `I2C_FREQ_HZ 100000` at `main.c:60`) — no length concern at that rate,
 but keep the trace clear of the regulator's switching node.
 
-### 2. Fill valve driver — NORMALLY CLOSED, energize-to-open
-The safety-critical part. From `interlock.h`:
+### 2. Pump driver — one actuator, fail-closed (NO valve, NO release valve)
 
-> The FILL valve is NORMALLY CLOSED (energize-to-open). The physical output is
-> `il_valve_energized()`; it returns true **only** while the interlock is in the ARMED state.
+**Revised 2026-11-10 per operator decision, recorded in ADR-147.** The original design had a
+normally-closed fill valve plus a pump, with a shared fault line. The operator's reasoning removes the
+valve entirely:
 
-**Any fault, power loss, MCU reset or hung task must de-energise the valve.** Therefore:
+> its safe to assume that the pressure will leak out so we can just run the pump to maintain the
+> pressure without needing a release valve
 
-- **Low-side switch to a NC solenoid**, gate pulled **down** by a resistor.
-- **The gate pull-down is not optional.** At reset the S3's GPIOs are high-impedance; without a
-  pull-down the FET state is undefined during a brownout — the exact event the fail-safe exists for.
-- Flyback diode across the coil, cathode to the supply rail.
-- Gate resistor chosen with the pull-down as a divider.
+A rig that can only **add** gas needs **one** actuator, and the fail-safe direction becomes trivial:
+**pump OFF is safe.** This is strictly simpler than the valve design:
 
-**Valve voltage and coil current are NOT specified anywhere in the repo.** A 5 V and a 12 V solenoid need
-different FETs, different flyback diodes and different supply provision. This is the one blocking input.
+- no NC solenoid to source, so **the valve voltage / coil current question — previously the one
+  blocking input — disappears**;
+- no flyback diode, no solenoid supply rail;
+- a **low-side MOSFET on the pump** with a **gate pull-down** is the whole interlock.
 
-### 3. Pump path — same fail-safe line
-> The pump must share the same fail-safe path: either the fill valve is electrically in series with the
-> pump, or the pump relay is de-energised-off from the same fault line.
+**The gate pull-down is still not optional.** At reset, brownout or a hung task the S3's GPIOs go
+high-impedance; the pull-down makes the FET fall to OFF, so no gas is added. That is the fail-safe,
+and it costs one resistor.
 
-Implement as **one enable line** driving both the valve FET and a pump relay, so a single fault drops
-both. Do not give the pump an independent enable that firmware could leave on.
+**Retained from the interlock doc:** the pump enable must fail **closed**, and the alarm must be
+**latched** and prove itself at boot — both guard faults the MCU cannot report on itself.
 
-### 4. Latched alarm + boot self-test feedback
+**Still a guard, never a setpoint.** Protocol §C.3: a mbar/PSI unit confusion destroyed balloons
+JR01–JR06. A pump that maintains pressure must remain gated by a **hard ceiling**, not a control loop
+that trusts the sensor.
+
+### 3. Latched alarm + boot self-test feedback
 > Alarm is a separate latched output and must be asserted *on* for a fault.
 
 Latch + buzzer + LED, in the `SN74LVC1G373` pattern already used on the hub's cut driver (`C128413`). It
@@ -130,17 +134,19 @@ with the firmware is not an alarm.
 **Plus a sense path** to an input, so the boot self-test can *prove* the alarm hardware is alive.
 Without it, "de-energised alarm = no alarm" is an assumption.
 
-### 5. Load supply, separate from logic
-The valve/pump load must **not** come from the USB 5 V rail. A solenoid drawing amps will brown out the
-regulator, reset the S3, and re-open the valve mid-fill. Provide a **separate load supply input** with
-its own bulk capacitance and a **common ground**.
+### 4. Load supply, separate from logic
+The pump load must **not** come from the USB 5 V rail. A pump drawing amps will brown out the regulator
+and reset the S3 mid-fill — and a reset is exactly the event the fail-safe exists for, so the board
+should not manufacture it. Provide a **separate load supply input** with its own bulk capacitance and a
+**common ground**.
 
 ---
 
 ## What is deliberately NOT on the board
 
-- **No pump driver electronics for mains.** A 12 V pump relay is fine; putting mains on a 2-layer hobby
-  board is the wrong risk. Valve and pump stay hand-wired chassis parts.
+- **No mains switching.** A 12 V DC pump switched by a low-side FET is fine; putting mains on a 2-layer
+  hobby board is the wrong risk. The pump itself stays a hand-wired chassis part.
+- **No release valve and no fill valve.** Deliberate — see §2 and ADR-147.
 - **No load cells / heater.** Nothing in the protocol or the firmware references them. The control
   variable is **circumference**, measured with a tape — see the safety note below.
 - **No per-wing multiplexing.** This is a single-balloon bench rig.
@@ -160,13 +166,15 @@ So the assignment is still free. Proposed, avoiding the S3's strapping pins (`GP
 |---|---|---|
 | I²C SDA | **8** | matches existing firmware `main.c:58` |
 | I²C SCL | **9** | matches existing firmware `main.c:59` |
-| valve enable (NC, energize-to-open) | **4** | plain GPIO, low-side FET gate |
-| pump enable (shared fault line) | **5** | plain GPIO |
-| alarm drive (latched) | **6** | plain GPIO |
-| alarm sense / boot self-test | **7** | input |
+| pump enable (low-side FET, gate pull-down) | **4** | plain GPIO |
+| alarm drive (latched) | **5** | plain GPIO |
+| alarm sense / boot self-test | **6** | input |
 | USB D− / D+ | **19** / **20** | fixed by silicon |
 
-GPIO4–7 are contiguous, all plain I/O on the S3, and route as one short run to the driver block.
+GPIO4–6 are contiguous, all plain I/O on the S3, and route as one short run to the driver block.
+
+Only **one** output now drives gas flow. The firmware's `il_valve_energized()` predicate maps directly
+to this single pump enable — the stub wiring is one `gpio_set_level`, not two.
 
 ---
 
@@ -208,7 +216,7 @@ interlock ceiling trips *well below any plausible burst*.
 
 | item | blocked by |
 |---|---|
-| valve FET, flyback, supply provision | **valve voltage and coil current** — operator must specify |
+| pump FET and supply provision | **pump voltage and current** — operator must specify |
 | regulator choice and bulk sizing | load current, and whether logic and load share a supply |
 | `dp_cutoff_mbar` (5 placeholder), `dp_reset_mbar` (2), `max_fill_s` (10800) | **Bench session B1** — measure ΔP vs circumference |
 
@@ -218,13 +226,16 @@ interlock ceiling trips *well below any plausible burst*.
 
 ## Recommended sequence
 
-1. **Operator specifies the valve** (voltage, coil current, NC confirmed by datasheet) and the pump
-   switching method.
+1. **Operator specifies the pump** (voltage and current, at startup and running). Much smaller ask than
+   the valve question it replaces — and the pump is already in the protocol's parts list.
 2. Schematic: S3 module, 3.3 V regulator ≥ 500 mA, USB-C + native USB, EN/BOOT + auto-reset, I²C headers
-   with pull-ups, NC valve driver with gate pull-down, shared pump enable, latched alarm with self-test
-   sense, separate load supply.
+   with pull-ups, single pump driver (low-side FET + gate pull-down), latched alarm with self-test sense,
+   separate load supply for the pump. **No valve of any kind.**
 3. Layout **2-layer**. Keep the regulator's switching node and the TX burst current away from the I²C
    sensor run — on this board the layout *is* the measurement.
-4. Order with **Standard PCBA** (the S3 module is Standard-only per JLCPCB). Valve and pump stay
-   hand-wired: they are chassis parts, not board parts.
+4. Order with **Standard PCBA** and let JLCPCB place the S3 module. The ESP32-S3-WROOM series is
+   **Standard Only** per JLCPCB's own part data. Hand-fitting was considered and rejected in ADR-147:
+   the module's **3.90 x 3.90 mm (15.2 mm2) GND thermal pad** sits under the body with no accessible
+   edge and needs hot air, so an iron cannot wet it. A partially-wetted thermal pad on an RF module
+   gives intermittent resets under TX load. The pump stays hand-wired — it is a chassis part.
 5. **Bench session B1** sets the real thresholds before the rig touches a balloon.
