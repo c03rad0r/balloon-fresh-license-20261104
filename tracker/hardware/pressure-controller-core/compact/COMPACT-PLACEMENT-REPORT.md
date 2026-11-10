@@ -184,15 +184,25 @@ byte-identical source checkpoint.
    has no mandate for.
 4. **Motor reservation kept 30 × 24 and only moved.** It fits, so shrinking it would be an
    unqualified change to a reservation whose real part is unknown.
-5. **Two copper layers, all parts on top.** Single-sided assembly was an explicit constraint
-   ("partsdenser"); a second side would need its own stencil/paste decision and is out of scope.
-6. **Deterministic output.** Annotation texts mint random UUIDs, which made two builds differ in
+5. **Two copper layers, all parts on top — OPERATOR DECISION 2026-11-10.** The operator first
+   asked for parts on both sides, then withdrew that after reading the measurement: a second
+   populated side would have to earn a smaller outline, and here it cannot, because the free area
+   outside the motor reservation is only **197.6 mm²** on a 65 × 50 mm board. The binding consumer
+   is the **720 mm² motor reservation**, not the part count. Two-sided assembly would add a side
+   setup, a second stencil, mirrored CPL entries and bottom stack-up height for no outline benefit.
+   Single-sided is therefore adopted deliberately, and the standing rule now requires any future
+   placement to *measure* both directions before it may claim a side is unnecessary — see
+   `AGENTS.md` §1b. **Rejected:** moving R1/R2/R3/R4/R9/R10 to B.Cu (measured to buy no area here).
+6. **Board size adopted: 65 × 50 mm.** Operator adopted the compact outline on 2026-11-10,
+   superseding the 80 × 60 mm placement sign-off. The 44-open routing checkpoint applies to the
+   80 × 60 geometry and is historical; **routing restarts on this outline**.
+7. **Deterministic output.** Annotation texts mint random UUIDs, which made two builds differ in
    exactly 3 UUID lines. `stage_stabilise` rewrites UUIDs to name-based values after placement;
    two consecutive full builds are now byte-identical (`2cc927b1…7f47e7`), geometry untouched.
-7. **The single intentional DRC record stays.** `lib_footprint_mismatch` on U1 is the inherited,
+8. **The single intentional DRC record stays.** `lib_footprint_mismatch` on U1 is the inherited,
    declared silk→Fab move (the antenna overhangs the edge, so the stock silk rectangle would be
    clipped). It is reported, not suppressed.
-8. **One process per stage instead of one script.** Measured: holding a zone list across a
+9. **One process per stage instead of one script.** Measured: holding a zone list across a
    `SaveBoard`/`LoadBoard` pair makes the next pcbnew call fail with `SwigPyObject has no attribute
    'GetTracks'`, and a longer chain segfaulted (exit 139). One mutation class per process is the
    only reliable pattern here.

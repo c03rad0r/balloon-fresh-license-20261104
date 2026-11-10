@@ -172,6 +172,59 @@ the payload does not.
 
 Full record: `docs/fab/ORDERING-CHANNEL-JLCONE.md`.
 
+### 1b. Board density: MEASURE whether a second side saves space, then use it
+
+**A board must not carry idle area that a second populated side would remove.** This is a
+measurement rule, not a preference: two-sided assembly costs an extra JLCPCB side setup, a second
+stencil/paste step, mirrored/rotated CPL entries and a taller bottom stack-up. It is only worth
+paying when the second side buys a **smaller outline**, and the only way to know is to compute it.
+
+**Every placement gate must report, with denominators:**
+
+| quantity | why |
+|---|---|
+| board area, top-side part count, bottom-side part count | the baseline; `top N / bottom 0` is a claim that must be printed, not implied |
+| courtyard area **per side**, clipped to the outline | occupancy of each side, not one merged number |
+| largest empty rectangle **outside intended reservations** | the actual free space, separated from deliberate keepouts |
+| area held by each declared reservation (motor/protection, antenna, port access) | a reservation is not waste, but its size must be justified by real parts |
+
+**Then:**
+
+1. **Single-sided first.** Try to fit everything on one side at the smallest outline that respects
+   antenna keepouts, connector edge access, sensor/port access, thermal separation and the tight
+   switching loop of any regulator.
+2. **If the binding constraint is a part count on one side rather than a reservation, move the
+   parts that do not need adjacency to B.Cu and re-measure.** Safe candidates are series/pull
+   resistors, straps and configuration parts. **Do not move decoupling capacitors away from their
+   IC** unless the via loop is shown to be harmless; do not split a buck cell (TI TPS6216x Rev E
+   §11.1) or move anything whose port/edge/thermal reason is physical.
+3. **Report the measured smallest outline each way**, single-sided and two-sided, and take the
+   smaller outline if it is materially smaller (default threshold: **≥10 % board area**). If two
+   sides do not buy that much, say so with numbers and stay single-sided — a second side that saves
+   a few millimetres is a cost with no benefit.
+4. **A reservation dominates the decision when it is larger than the parts.** Do not shrink a
+   reservation to win area; size it from the actual future circuit, and label an unsized
+   reservation explicitly as unqualified.
+
+**Mechanical rules for a genuinely two-sided board — these are checked, not assumed:**
+
+- SMD pads on opposite faces at the same XY do **not** short through the FR4 substrate. Only
+  *shared copper layers* collide.
+- **Plated through-hole lands are drilled through**: no bottom-side pad or part may sit beneath
+  them, plus the required clearance.
+- Courtyard collisions only count **within one side**; opposite-side courtyards may overlap.
+- Assembly-side consequences must be stated in the same report as the area saving: extra side
+  setup and stencil, bottom-side paste, CPL mirroring/rotation, and enclosure height under the
+  board.
+
+**Why this density rule exists.** Measured 2026-11-10 on the pressure controller: 80 × 60 mm carried **26 parts
+on top and none underneath**, with courtyards on only **16.35 %** of the board. The operator asked
+for a denser board. A 65 × 50 mm single-sided candidate fit (**32.3 % smaller**) and, once packed,
+its largest empty area *outside* the motor reservation was only **197.6 mm²** — so a second
+populated side would have bought almost nothing while the **720 mm² motor reservation**, not the
+parts, was consuming the board. **The number that decided it was measured free area, not a
+preference about assembly cost.** That is the standard this rule enforces.
+
 **Why this exists.** Measured 2026-10-18: the operator was asked to adjudicate a design fork ("move `U4` 2 mm
 or reassign pins") and answered from a summary that was **wrong three times over** — the direction was
 inverted, the move collided with `U1`, and the move would not have freed the pads at all because the
