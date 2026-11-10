@@ -184,18 +184,24 @@ byte-identical source checkpoint.
    has no mandate for.
 4. **Motor reservation kept 30 × 24 and only moved.** It fits, so shrinking it would be an
    unqualified change to a reservation whose real part is unknown.
-5. **Two copper layers, all parts on top — OPERATOR DECISION 2026-11-10.** The operator first
-   asked for parts on both sides, then withdrew that after reading the measurement: a second
-   populated side would have to earn a smaller outline, and here it cannot, because the free area
-   outside the motor reservation is only **197.6 mm²** on a 65 × 50 mm board. The binding consumer
-   is the **720 mm² motor reservation**, not the part count. Two-sided assembly would add a side
-   setup, a second stencil, mirrored CPL entries and bottom stack-up height for no outline benefit.
-   Single-sided is therefore adopted deliberately, and the standing rule now requires any future
-   placement to *measure* both directions before it may claim a side is unnecessary — see
-   `AGENTS.md` §1b. **Rejected:** moving R1/R2/R3/R4/R9/R10 to B.Cu (measured to buy no area here).
-6. **Board size adopted: 65 × 50 mm.** Operator adopted the compact outline on 2026-11-10,
-   superseding the 80 × 60 mm placement sign-off. The 44-open routing checkpoint applies to the
-   80 × 60 geometry and is historical; **routing restarts on this outline**.
+5. **Two copper layers, all parts on top — SUPERSEDED 2026-11-10.** This was the first-pass
+   decision, taken when the only measurement available was free area remaining on the *single-sided*
+   board (197.6 mm² outside the motor reservation). The operator asked for parts on both sides; the
+   decision was withdrawn, then a genuine two-sided placement of the same 26 parts was measured at
+   **52 × 46 mm / 2,397 mm² — 26 % smaller** than this 65 × 50 / 3,250 mm² outline, with native DRC
+   still showing zero shorts and zero same-side courtyard collisions. **The first-pass reasoning was
+   wrong**: "free area left on one side" is not the test, the smallest achievable outline each way
+   is, which is what `AGENTS.md` §1b now requires. The qualified two-sided candidate is tracked
+   separately; this single-sided board remains valid as the fallback and as the comparison baseline.
+   **Rejected:** presenting "two sides buy almost nothing" as a measured result — it was a
+   same-side-only measurement.
+6. **Board size adopted: 65 × 50 mm — PENDING FINAL CHOICE between two measured outlines.** The
+   compact single-sided outline was adopted on 2026-11-10, superseding the 80 × 60 mm placement
+   sign-off; the two-sided candidate then measured smaller still. The decision table is therefore
+   **80 × 60 (historical) → 65 × 50 (single-sided) → 52 × 46 (two-sided, 26 % smaller)**, and the
+   operator's placement gate decides between the last two. The 44-open routing checkpoint applies to
+   the 80 × 60 geometry and is historical either way; **routing restarts on whichever outline is
+   signed off**.
 7. **Deterministic output.** Annotation texts mint random UUIDs, which made two builds differ in
    exactly 3 UUID lines. `stage_stabilise` rewrites UUIDs to name-based values after placement;
    two consecutive full builds are now byte-identical (`2cc927b1…7f47e7`), geometry untouched.
