@@ -12,7 +12,7 @@ bool pp_evaluate(const pp_config *cfg, const pp_sample *internal,
         !isfinite(cfg->min_temp_c) || !isfinite(cfg->max_temp_c) ||
         cfg->min_abs_pa <= 0 || cfg->min_abs_pa >= cfg->max_abs_pa ||
         cfg->min_temp_c >= cfg->max_temp_c) return false;
-    if (internal->address != 0x76 || ambient->address != 0x77) return false;
+    if (internal->address != 0x77 || ambient->address != 0x76) return false;
     const pp_sample *samples[] = {internal, ambient};
     for (size_t i = 0; i < 2; ++i) {
         const pp_sample *s = samples[i];

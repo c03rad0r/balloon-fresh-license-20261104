@@ -3,7 +3,10 @@
 #include <stdbool.h>
 #include <stdint.h>
 /* Caller supplies independently justified fixture bounds, NOT balloon limits.
- * Addresses denote roles on one bus: internal 0x76, ambient 0x77.
+ * Board contract (native S3 core, PR537): U3 internal 0x77, U4 ambient 0x76.
+ * MS5611 address bit C is the complement of CSB: LOW=0x77, HIGH=0x76.
+ * Roles are a board/plumbing choice, not a silicon property; this API fixes
+ * that choice to the existing schematic, not to an interchangeable role map.
  * Acquisition must verify actual device type/PROM separately.
  * Offset is externally calibrated; this stateless module cannot re-zero or
  * enforce immutability between calls. Caller must freeze it for each run.
