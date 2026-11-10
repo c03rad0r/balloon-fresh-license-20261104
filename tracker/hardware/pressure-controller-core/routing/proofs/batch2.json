@@ -1,0 +1,74 @@
+{
+ "label": "batch2: + GND pour on F.Cu (GND plane both layers)",
+ "board": {
+  "path": "/home/c08r4d0r/worktrees/pr-pressure-core-placement/tracker/hardware/pressure-controller-core/routing/batch2.kicad_pcb",
+  "sha256": "841ed7760623062dd02cbbdf2d7ebf31d2e5a7f58dee860bf65dded239d5e2a7",
+  "bytes": 202374
+ },
+ "before": {
+  "path": "/home/c08r4d0r/worktrees/pr-pressure-core-placement/tracker/hardware/pressure-controller-core/routing/batch1.kicad_pcb",
+  "opens": 72,
+  "violations": {
+   "lib_footprint_mismatch": 1
+  }
+ },
+ "after": {
+  "opens": 47,
+  "violations": {
+   "lib_footprint_mismatch": 1
+  }
+ },
+ "opens_delta": -25,
+ "opens_by_net_before": {
+  "/+3V3": 19,
+  "/BOOT": 3,
+  "/BUCK_FB": 2,
+  "/BUCK_SW": 1,
+  "/CC1": 1,
+  "/CC2": 1,
+  "/EN": 4,
+  "/GND": 25,
+  "/I2C_SCL": 3,
+  "/I2C_SDA": 3,
+  "/USB5V": 4,
+  "/USB_DN": 1,
+  "/USB_DN_CONN": 2,
+  "/USB_DP": 1,
+  "/USB_DP_CONN": 2
+ },
+ "opens_by_net_after": {
+  "/+3V3": 19,
+  "/BOOT": 3,
+  "/BUCK_FB": 2,
+  "/BUCK_SW": 1,
+  "/CC1": 1,
+  "/CC2": 1,
+  "/EN": 4,
+  "/I2C_SCL": 3,
+  "/I2C_SDA": 3,
+  "/USB5V": 4,
+  "/USB_DN": 1,
+  "/USB_DN_CONN": 2,
+  "/USB_DP": 1,
+  "/USB_DP_CONN": 2
+ },
+ "nets_closed": [
+  "/GND"
+ ],
+ "nets_improved": [],
+ "nets_worsened": [],
+ "nets_opened": [],
+ "connected_pad_pairs_before": 20,
+ "connected_pad_pairs_after": 20,
+ "previously_connected_pairs_broken": [],
+ "shorts": 0,
+ "clearance": 0,
+ "tolerated_violation_types": [
+  "lib_footprint_mismatch"
+ ],
+ "new_violation_records": [],
+ "cleared_violation_records": [],
+ "verdict": [
+  "PASS"
+ ]
+}

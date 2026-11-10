@@ -61,7 +61,22 @@ External verification/interlock and inrush qualification are deployment gates.
 
 Layout must implement TI §11: short VIN/PGND capacitor loop, SW/L/output loop,
 Kelvin VOS at output capacitors, quiet FB/AGND, single-point ground connection
-and soldered exposed pad/thermal vias. This milestone contains no PCB.
+and soldered exposed pad/thermal vias.
+
+## Placement candidate — UNROUTED, PENDING OPERATOR GATE
+
+`placement/core-placement.kicad_pcb` is a native, **unrouted** placement derived from
+`kicad-cli sch export netlist` (125 endpoints, 26 references) with the exact qualified
+footprints; see [PLACEMENT-CANDIDATE.md](PLACEMENT-CANDIDATE.md) for the geometry, the
+measured DRC/opens figures, the decisions and the remaining placement issues.
+
+```sh
+/usr/bin/python3 "$D/placement.py" && /usr/bin/python3 "$D/verify_placement.py"
+/usr/bin/python3 "$D/test_placement.py" && /usr/bin/python3 "$D/poison_placement.py"
+```
+
+No routing, no fab release, no motor circuit. `placement/top.png` / `placement/bottom.png`
+are the operator views, hash-bound to the board in `placement/view-proof.json`.
 
 ## Verification and saved report
 
@@ -89,7 +104,8 @@ python3 "$D/test_supply.py"
 - https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GRM32ER71E226KE15-01.pdf
 - https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/schematic-checklist.html
 
-Remaining: capacitor biased-capacitance/ripple qualification, actual thermal
+Remaining: placement operator sign-off then routing, capacitor biased-capacitance/ripple
+qualification, actual thermal
 soak at 1A at both input extremes, startup/load-step/ripple measurement,
 source permission/inrush, USB ESD and connector suffix/drawing cross-check,
 physical USB tests, exact S3 suffix, sensors, independent motor shutdown and

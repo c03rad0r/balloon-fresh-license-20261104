@@ -1,0 +1,15 @@
+{
+ "net": "/GND",
+ "layer": "F.Cu",
+ "priority": 0,
+ "rect": [
+  0.575,
+  0.575,
+  79.425,
+  59.425
+ ],
+ "clearance": 0.2,
+ "min_width": 0.25,
+ "zones_filled": true,
+ "out": "/home/c08r4d0r/worktrees/pr-pressure-core-placement/tracker/hardware/pressure-controller-core/routing/batch2.kicad_pcb"
+}

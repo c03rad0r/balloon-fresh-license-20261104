@@ -1,0 +1,9 @@
+{
+  "ground_fill_removal_negative_control": "PASS: physical GND split detected",
+  "unchanged_non_zone_objects": 92,
+  "added_segments": 1,
+  "removed_or_changed_non_zone_objects": 0,
+  "zone_definitions_unchanged": true,
+  "GND_pads_connected": 48,
+  "prior_partition_splits": []
+}
