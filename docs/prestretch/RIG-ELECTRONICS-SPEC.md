@@ -82,19 +82,48 @@ burst is measuring the wrong thing. **On this board the layout is part of the me
 
 ## What must be on the board
 
-### 1. I²C sensor headers — 4-pin
-SDA `GPIO8`, SCL `GPIO9`, `3V3`, `GND`. Firmware **auto-detects** at boot: BMP280 at `0x76`/`0x77`
-(chip ID `0x58`) first, then MS5611 at `0x76` (PROM read).
+### 1. I²C sensor headers — TWO MS5611, not one BMP280
 
-Provide for **both** — `PRESSURE-TEST-PLAN.md` distinguishes **BMP280 for ground leak testing
-(300–1100 mbar)** from **MS5611 for full altitude range (10–1200 mbar)**. Same pins, so two footprints
-on a shared bus.
+**Corrected 2026-11-10.** An earlier version of this spec said "pressure only (BMP280)". That was the
+operator's option-1 wording, but it contradicts the repo's own settled design. Measured:
 
-**Fit 4.7 kΩ pull-ups to 3V3** on SDA/SCL. Most BMP280 breakouts carry them; MS5611 breakouts vary. A
-duplicate pull-up in parallel is harmless; a missing one is a dead bus.
+`PRESTRETCH-OVERPRESSURE-INTERLOCK.md` §3.2, "Options for the differential input":
 
-Bus speed **100 kHz** (measured, `I2C_FREQ_HZ 100000` at `main.c:60`) — no length concern at that rate,
-but keep the trace clear of the regulator's switching node.
+| option | parts | calibration transfers to flight? | verdict |
+|---|---|---|---|
+| **A** | **two MS5611** — one internal tap, one ambient | **YES** (same part as flight) | **recommended, and the design choice taken** |
+| B | one MS5611 internal + ground reference | partially | slower to separate ambient drift from real ΔP |
+| C | true differential (SDP810 / MPXV7002) | **NO** | different measurement chain, does not fly |
+| D | two BMP280 | ground only | superseded by A |
+
+And `PRESTRETCH-BENCH-SESSION-B1.md` line 20 is explicit:
+
+> **MS5611 #2** on an **ambient** port — gives a true differential; **a BMP280 is not acceptable here
+> (300–1100 mbar, ground-only)**
+
+**So the board carries TWO MS5611 footprints on one I²C bus** — one on the internal tap, one on an
+ambient port. That is the whole reason the measurement is worth anything: differencing two absolute
+readings from **the same part that flies** means the calibration transfers.
+
+Wiring:
+
+| signal | SCL | SDA | 3V3 | GND |
+|---|---|---|---|---|
+| SDA / SCL | `GPIO9` | `GPIO8` | — | — |
+
+Both sensors sit on the same bus, so **they need different I²C addresses.** MS5611 supports `0x76` and
+`0x77` via the CSB pin (low = `0x76`, high = `0x77`). **Route CSB on both footprints**: tie one low and
+one high, or better, put a 2-pin jumper on each so the address is selectable if a part arrives strapped.
+Two sensors defaulting to the same address is a silent single-sensor rig — the second one simply never
+answers and the differential reads as an absolute.
+
+Pull-ups: **4.7 kΩ to 3V3 on SDA/SCL**, once per bus (not per footprint). MS5611 breakouts vary.
+
+Bus speed **100 kHz** (measured, `I2C_FREQ_HZ 100000` at `main.c:60`) — no length concern, but keep the
+trace clear of the regulator's switching node.
+
+**BMP280 is still worth one footprint** if a ground-only smoke test is wanted (option D), but it must
+not be the differential pair. If only one sensor footprint is affordable, make it **MS5611**.
 
 ### 2. Pump driver — one actuator, fail-closed (NO valve, NO release valve)
 
@@ -108,21 +137,83 @@ valve entirely:
 A rig that can only **add** gas needs **one** actuator, and the fail-safe direction becomes trivial:
 **pump OFF is safe.** This is strictly simpler than the valve design:
 
-- no NC solenoid to source, so **the valve voltage / coil current question — previously the one
-  blocking input — disappears**;
+- no NC solenoid to source, so the valve voltage / coil current question disappears;
 - no flyback diode, no solenoid supply rail;
 - a **low-side MOSFET on the pump** with a **gate pull-down** is the whole interlock.
 
-**The gate pull-down is still not optional.** At reset, brownout or a hung task the S3's GPIOs go
+**The gate pull-down is not optional.** At reset, brownout or a hung task the S3's GPIOs go
 high-impedance; the pull-down makes the FET fall to OFF, so no gas is added. That is the fail-safe,
 and it costs one resistor.
+
+#### The pump is NOT a JLCPCB-placed part, and cannot be
+
+The operator asked for *"one that jlcpcb is able to solder for us."* That is not possible, and it is
+worth being precise about why rather than picking a part number that cannot be ordered:
+
+A micro diaphragm air pump is a **mechanical assembly** — DC motor, diaphragm, inlet/outlet check
+valves, pump head, housing, and a 3–4.3 mm air barb. Typical body is **24–27 mm across and ~36–60 g**.
+JLCPCB's SMT assembly places **surface-mount components on a PCB**; it has no process that places a
+pump body with an air barb. The same is true of LCSC: it is an electronic-component distributor, and a
+diaphragm pump head is not a catalogue component.
+
+**This is not a limitation to work around — the pump does not belong on the board.** It is a chassis
+part connected to a **2-pin header**, exactly as `PRESTRETCH-OVERPRESSURE-INTERLOCK.md` already frames
+it: *"Pump (hand bulb or electric), ahead of the valve."* So the board's job is to **switch** a pump,
+not to carry one. What the board needs from the pump is an **electrical envelope**, and that we can fix
+by choosing a pump class.
+
+#### Recommended pump class — and the pressure requirement that decides it
+
+**Class: 6 V DC micro diaphragm pump, blood-pressure-monitor type.** These are the most standardised,
+best-documented and cheapest pumps in this market, and the published figures cluster tightly:
+
+| figure | typical published value |
+|---|---|
+| rated voltage | 6.0 V DC (operating 4.0–7.2 V) |
+| current while pressurising | **≤ 380–450 mA** |
+| max pressure | 60–100 kPa (450–750 mmHg) |
+| flow | 2–3.5 L/min |
+| body | ~24–27 mm, 36–60 g |
+
+**The board must therefore switch ≥ 500 mA at 6 V** with margin. That fixes the driver.
+
+**But the pressure requirement is unresolved, and it is the one number to settle before buying.**
+
+`PRE-STRETCHING-PROTOCOL.md` line 46 says *"Inflate with the pump to **1.05 bar**"* without saying
+whether that is gauge or absolute:
+
+- **absolute** (1.05 bar abs vs ~1.013 bar ambient) → **ΔP ≈ 3.7 kPa** (37 mbar). Any pump in the
+  class above does this easily.
+- **gauge** (1.05 bar above ambient) → **ΔP ≈ 105 kPa**, which is **beyond** a 60 kPa BP pump and
+  needs the higher end of the class (≥ 100 kPa), or a different pump entirely.
+
+**Do not resolve this by assumption.** Protocol §C.3 records that confusing **0.31 mbar with 0.31 PSI**
+overpressured balloons and destroyed JR01–JR06 — a pump rated in the wrong unit is that same trap with
+a different label. **Measure the balloon's actual inflation differential in bench session B1** (the
+circumference→ΔP trace already specified) and pick the pump from the measured number.
+
+**Interim recommendation:** buy a pump rated **≥ 100 kPa (750 mmHg)** max pressure. It costs the same
+as a 60 kPa unit in this class, and it covers both interpretations of the 1.05 bar line. Buying the
+60 kPa part is the only choice that could strand the rig.
+
+#### The driver
+
+| item | choice | why |
+|---|---|---|
+| pump FET | **AO3400A**, LCSC `C20917`, SOT-23 | JLCPCB **Basic**, $0.0891. Datasheet (AOS Rev3): **30 V, 5.7 A @ 25 °C**, RDS(on) **< 32 mΩ @ VGS 4.5 V, < 48 mΩ @ 2.5 V**, VGS(th) **max 1.45 V**. At 500 mA and 32 mΩ that is **8 mW** dissipation. Gate drive is a 3.3 V GPIO, comfortably above threshold. **Already qualified on the hub's cut driver**, so one fewer part to source and inspect. |
+| gate pull-down | 100 kΩ to GND | the fail-safe. Holds the FET off while the GPIO floats at reset/brownout. |
+| gate series resistor | 100 Ω | limits inrush into the gate; with the pull-down it forms the divider. |
+| flyback | **SS24** (`C50645`, already in every BOM) across the pump terminals, cathode to +6 V | a brushed motor is inductive. The AO3400A's body diode is rated **IS 2 A** and would clamp, but a reverse-biased diode **at the connector** is better practice and costs nothing — it is the same part already used for the wing bypass and hub diodes. |
+| connector | 2-pin JST-XH or screw terminal | pump is a chassis part; a screw terminal survives field rewiring better than a JST. |
+
+**Pump enable = GPIO4** (see the GPIO table). The firmware's `il_valve_energized()` predicate maps
+directly onto this single output.
 
 **Retained from the interlock doc:** the pump enable must fail **closed**, and the alarm must be
 **latched** and prove itself at boot — both guard faults the MCU cannot report on itself.
 
-**Still a guard, never a setpoint.** Protocol §C.3: a mbar/PSI unit confusion destroyed balloons
-JR01–JR06. A pump that maintains pressure must remain gated by a **hard ceiling**, not a control loop
-that trusts the sensor.
+**Still a guard, never a setpoint.** A pump that maintains pressure must remain gated by a **hard
+ceiling**, not a control loop that trusts the sensor.
 
 ### 3. Latched alarm + boot self-test feedback
 > Alarm is a separate latched output and must be asserted *on* for a fault.
@@ -216,7 +307,8 @@ interlock ceiling trips *well below any plausible burst*.
 
 | item | blocked by |
 |---|---|
-| pump FET and supply provision | **pump voltage and current** — operator must specify |
+| **pump class** | resolved: 6 V BP-type micro diaphragm, board switches >=500 mA at 6 V |
+| **pressure requirement** | protocol line 46 "1.05 bar" does not say gauge or absolute — 37 mbar vs 105 kPa. **Measure in bench B1.** Buy a >=100 kPa pump to cover both. |
 | regulator choice and bulk sizing | load current, and whether logic and load share a supply |
 | `dp_cutoff_mbar` (5 placeholder), `dp_reset_mbar` (2), `max_fill_s` (10800) | **Bench session B1** — measure ΔP vs circumference |
 
@@ -226,8 +318,9 @@ interlock ceiling trips *well below any plausible burst*.
 
 ## Recommended sequence
 
-1. **Operator specifies the pump** (voltage and current, at startup and running). Much smaller ask than
-   the valve question it replaces — and the pump is already in the protocol's parts list.
+1. **Buy a 6 V DC micro diaphragm pump rated >=100 kPa (>=750 mmHg)**, blood-pressure-monitor type.
+   Confirm from its datasheet that pressurising current is <=500 mA. It bolts to the chassis and plugs
+   into the board's 2-pin header; **JLCPCB cannot and should not place it** (§2).
 2. Schematic: S3 module, 3.3 V regulator ≥ 500 mA, USB-C + native USB, EN/BOOT + auto-reset, I²C headers
    with pull-ups, single pump driver (low-side FET + gate pull-down), latched alarm with self-test sense,
    separate load supply for the pump. **No valve of any kind.**
