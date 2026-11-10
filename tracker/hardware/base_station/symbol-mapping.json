@@ -1,0 +1,3044 @@
+{
+  "_note": "Every ref -> symbol decision. 'stock' symbols were verified pin-set exact against the generator. 'local' symbols carry pin numbers copied from the generator and are NOT datasheet-verified.",
+  "components": {
+    "C_DET1": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_DET2": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF (VOUT filter)",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_FLASH": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R flash bypass",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_IN": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "GRM31CR61E106KA12L 10uF 25V X5R 10%",
+      "footprint": "Capacitor_SMD:C_1206_3216Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_LDO1": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "2.2uF 16V X7R 10% (effective >=1uF required)",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_LDO2": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "2.2uF 16V X7R 10% (effective >=1uF required)",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_LNA1": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF (tee DC injection bypass)",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_LNA2": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "10uF (tee DC injection bypass)",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU1": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU2": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "1uF",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P10": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad10",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P22": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad22",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P23": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad23",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P33": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad33",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P42": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad42",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P43": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad43",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P48": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad48",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P49": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad49",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_MCU_P50": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF X7R MCU pad50",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_OUT": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "GRM31CR71A226KE15L 22uF 10V X7R 10%",
+      "footprint": "Capacitor_SMD:C_1206_3216Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_TAP": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "directional/coupled tap after the BPF/LNA (TODO(unverified) coupling)",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_VGA1": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_VGA2": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "1uF",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_VREG_OUT": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "1uF X7R VREG_OUT pad45",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_X1": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "15pF",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "C_X2": {
+      "lib_id": "Device:C",
+      "kind": "stock",
+      "value": "15pF",
+      "footprint": "Capacitor_SMD:C_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "D_REV": {
+      "lib_id": "Device:D",
+      "kind": "stock",
+      "value": "reverse-polarity/TVS protection",
+      "footprint": "Diode_SMD:D_SMB",
+      "rationale": "SMB diode; pin 1 = cathode, 2 = anode",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "D_TVS": {
+      "lib_id": "Device:D_TVS",
+      "kind": "stock",
+      "value": "TVS clamp (set point TODO(unverified))",
+      "footprint": "Diode_SMD:D_SMB",
+      "rationale": "bidirectional TVS symbol, pins 1/2",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "FB_DET": {
+      "lib_id": "Device:FerriteBead",
+      "kind": "stock",
+      "value": "ferrite bead",
+      "footprint": "Inductor_SMD:L_0603_1608Metric",
+      "rationale": "ferrite bead symbol, pins 1/2",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "FB_VGA": {
+      "lib_id": "Device:FerriteBead",
+      "kind": "stock",
+      "value": "ferrite bead / pi filter",
+      "footprint": "Inductor_SMD:L_0603_1608Metric",
+      "rationale": "ferrite bead symbol, pins 1/2",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "FLT_433_A": {
+      "lib_id": "BaseStation:SAW_433",
+      "kind": "local",
+      "value": "433 MHz BPF (ahead of LNA)",
+      "footprint": "Filter:Filter_SAW-6_3.8x3.8mm",
+      "rationale": "the 433 MHz BPF part is not selected (the freeze only requires 'a 433 MHz BPF'), so no stock SAW symbol can be correct. The footprint Filter:Filter_SAW-6 has pads 1-6; the generator connects only 1 (in) and 2 (out). Pads 3-6 are emitted and left unconnected: their real function is unknown at this milestone",
+      "pin_number_basis": "UNVERIFIED",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    "FLT_433_B": {
+      "lib_id": "BaseStation:SAW_433",
+      "kind": "local",
+      "value": "433 MHz BPF #2 (before the AD8318 -- mandatory)",
+      "footprint": "Filter:Filter_SAW-6_3.8x3.8mm",
+      "rationale": "the 433 MHz BPF part is not selected (the freeze only requires 'a 433 MHz BPF'), so no stock SAW symbol can be correct. The footprint Filter:Filter_SAW-6 has pads 1-6; the generator connects only 1 (in) and 2 (out). Pads 3-6 are emitted and left unconnected: their real function is unknown at this milestone",
+      "pin_number_basis": "UNVERIFIED",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    "J_2450_TX": {
+      "lib_id": "Connector:Conn_Coaxial",
+      "kind": "stock",
+      "value": "2.45 GHz TX antenna port (SMA; no PA on the PCBA)",
+      "footprint": "Connector_Coaxial:SMA_Amphenol_132134-10_Vertical",
+      "rationale": "SMA: 1 = centre, 2 = shield",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "J_433_RX": {
+      "lib_id": "Connector:Conn_Coaxial",
+      "kind": "stock",
+      "value": "433 MHz RX antenna port (SMA)",
+      "footprint": "Connector_Coaxial:SMA_Amphenol_132134-10_Vertical",
+      "rationale": "SMA: 1 = centre, 2 = shield",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "J_LNA_FEED": {
+      "lib_id": "Connector:Conn_Coaxial",
+      "kind": "stock",
+      "value": "coax feed to the masthead LNA (SMA)",
+      "footprint": "Connector_Coaxial:SMA_Amphenol_132134-10_Vertical",
+      "rationale": "SMA: 1 = centre, 2 = shield",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "J_PWR": {
+      "lib_id": "Connector:Screw_Terminal_01x02",
+      "kind": "stock",
+      "value": "VIN_GS 9-18V input",
+      "footprint": "TerminalBlock_4Ucon:TerminalBlock_4Ucon_1x02_P3.50mm_Vertical",
+      "rationale": "2-way terminal block, matching the TerminalBlock_4Ucon footprint",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "J_SWD": {
+      "lib_id": "Connector_Generic:Conn_01x04",
+      "kind": "stock",
+      "value": "SWD debug header 1x4",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+      "rationale": "4-pin header",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "pins_left_unconnected": []
+    },
+    "L1": {
+      "lib_id": "Device:L",
+      "kind": "stock",
+      "value": "SRN4018-2R2M 2.2uH 20% 2.9A Irms 3.0A Isat",
+      "footprint": "Inductor_SMD:L_Bourns-SRN4018",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "Q_LNA_SW": {
+      "lib_id": "BaseStation:LoadSwitch_5",
+      "kind": "local",
+      "value": "load switch / resettable limiter (ADL5240 must NOT share this rail)",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "rationale": "the freeze allows 'load switch OR resettable limiter' and no part is selected, so no stock symbol can be correct. Generic 5-pin symbol with the generator's numbers: 1 IN, 2 GND, 3 EN, 4 FLT, 5 OUT",
+      "pin_number_basis": "UNVERIFIED",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "pins_left_unconnected": []
+    },
+    "R_LNA_ILIM": {
+      "lib_id": "Device:R",
+      "kind": "stock",
+      "value": "set LNA branch current limit",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "R_PG": {
+      "lib_id": "Device:R",
+      "kind": "stock",
+      "value": "RC0603FR-07100KL 100k 1% PG pull-up",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "R_RUN": {
+      "lib_id": "Device:R",
+      "kind": "stock",
+      "value": "10k RUN pull-up",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "rationale": "pin numbers are 1/2 in both",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2"
+      ],
+      "generator_pins": [
+        "1",
+        "2"
+      ],
+      "pins_left_unconnected": []
+    },
+    "TEE1": {
+      "lib_id": "Connector_Generic:Conn_01x03",
+      "kind": "stock",
+      "value": "Mini-Circuits ZFBT-4R2GW+ bias tee (masthead feed boundary, NOT in series)",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+      "rationale": "bias tee as its 3-pin interface; footprint is a 1x03 header",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3"
+      ],
+      "pins_left_unconnected": []
+    },
+    "TEE2": {
+      "lib_id": "Connector_Generic:Conn_01x03",
+      "kind": "stock",
+      "value": "ZFBT-4R2GW+ bias tee (board side)",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+      "rationale": "bias tee as its 3-pin interface; footprint is a 1x03 header",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3"
+      ],
+      "pins_left_unconnected": []
+    },
+    "TP_5V": {
+      "lib_id": "Connector:TestPoint",
+      "kind": "stock",
+      "value": "+5V_PCBA test point",
+      "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+      "rationale": "single-pad test point",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1"
+      ],
+      "generator_pins": [
+        "1"
+      ],
+      "pins_left_unconnected": []
+    },
+    "TP_GND": {
+      "lib_id": "Connector:TestPoint",
+      "kind": "stock",
+      "value": "GND test point",
+      "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+      "rationale": "single-pad test point",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1"
+      ],
+      "generator_pins": [
+        "1"
+      ],
+      "pins_left_unconnected": []
+    },
+    "U_DET": {
+      "lib_id": "BaseStation:AD8318",
+      "kind": "local",
+      "value": "AD8318ACPZ-R7 log detector (68mA typ, 82mA max at 25C)",
+      "footprint": "Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.3x1.3mm",
+      "rationale": "no stock KiCad symbol. Pins 1-8 and 17 (EP) are the GENERATOR'S logical numbers, not a datasheet reading. Footprint pads 1-17; pads 9-16 are unmapped -- same open item as U_VGA",
+      "pin_number_basis": "UNVERIFIED",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "17"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "17"
+      ],
+      "pins_left_unconnected": []
+    },
+    "U_FLASH": {
+      "lib_id": "Memory_Flash:W25Q32JVZP",
+      "kind": "stock",
+      "value": "QSPI flash (RP2040 boot)",
+      "footprint": "Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.29x3mm",
+      "rationale": "stock serial-NOR symbol: 1 ~CS, 2 DO/IO1, 3 ~WP/IO2, 4 GND, 5 DI/IO0, 6 CLK, 7 ~HOLD/IO3, 8 VCC, 9 EP -- every pad the generator asserts",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "pins_left_unconnected": []
+    },
+    "U_LDO": {
+      "lib_id": "Regulator_Linear:AP2112K-3.3",
+      "kind": "stock",
+      "value": "AP2112K-3.3TRG1 fixed 3.3V",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "rationale": "stock AP2112K SOT-25 symbol: 1 IN, 2 GND, 3 EN, 4 NC, 5 OUT. The generator deliberately omits pin 4 (NC); that NC pin gets a no-connect flag, not a ground",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "5"
+      ],
+      "pins_left_unconnected": [
+        "4"
+      ]
+    },
+    "U_MCU": {
+      "lib_id": "MCU_RaspberryPi:RP2040",
+      "kind": "stock",
+      "value": "RP2040 QFN-56",
+      "footprint": "base_station_lib:RP2040-QFN-56",
+      "rationale": "stock symbol carries the same physical QFN pads 1-57 the corrected generator map uses (TESTEN=19, QSPI_SS=56, USB_DM=46, USB_DP=47, ADC_AVDD=43, VREG_VOUT=45); pin-set verified exact below",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57"
+      ],
+      "generator_pins": [
+        "1",
+        "10",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "37",
+        "38",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57"
+      ],
+      "pins_left_unconnected": [
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "2",
+        "27",
+        "28",
+        "3",
+        "35",
+        "36",
+        "39",
+        "4",
+        "40",
+        "41",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ]
+    },
+    "U_REG": {
+      "lib_id": "Regulator_Switching:TPS62163DSG",
+      "kind": "stock",
+      "value": "TPS62163DSGR fixed 5V buck (3-17V in, 1A out)",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm",
+      "rationale": "stock TPS6216x DSG symbol: 1 PGND, 2 VIN, 3 EN, 4 AGND, 5 FB, 6 VOS, 7 SW, 8 PG, 9 PAD -- the corrected regulator pinout, pin for pin",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "pins_left_unconnected": []
+    },
+    "U_VGA": {
+      "lib_id": "BaseStation:ADL5240",
+      "kind": "local",
+      "value": "ADL5240 VGA (93mA @ 4.75-5.25V, gain from RP2040)",
+      "footprint": "Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm",
+      "rationale": "no stock KiCad symbol among the 223 installed libraries. Pins 1-8 and 33 (EP) are the GENERATOR'S logical numbers, not a datasheet reading. Footprint Package_CSP:LFCSP-32-1EP has pads 1-33, so pads 9-32 are unmapped -- a real pin-assignment task for schematic review",
+      "pin_number_basis": "UNVERIFIED",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "33"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "33"
+      ],
+      "pins_left_unconnected": []
+    },
+    "Y1": {
+      "lib_id": "Device:Crystal_GND24",
+      "kind": "stock",
+      "value": "12MHz crystal",
+      "footprint": "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm",
+      "rationale": "4-pad crystal; footprint pads 2 and 4 are case ground, matching the generator's Y1 mapping",
+      "pin_number_basis": "stock-verified-pin-set",
+      "symbol_pins": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "generator_pins": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "pins_left_unconnected": []
+    }
+  },
+  "pwr_flag_nets": [
+    "+5V_DET",
+    "+5V_PCBA",
+    "+5V_VGA",
+    "GND",
+    "VIN_GS_PROT"
+  ],
+  "pin_positions": {
+    "C_DET1": {
+      "1": {
+        "x": 24.13,
+        "y": 33.02,
+        "net": "+5V_DET"
+      },
+      "2": {
+        "x": 24.13,
+        "y": 40.64,
+        "net": "GND"
+      }
+    },
+    "C_DET2": {
+      "1": {
+        "x": 41.91,
+        "y": 34.29,
+        "net": "DET_VOUT"
+      },
+      "2": {
+        "x": 41.91,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_FLASH": {
+      "1": {
+        "x": 67.31,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 67.31,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_IN": {
+      "1": {
+        "x": 102.87,
+        "y": 38.1,
+        "net": "VIN_GS_PROT"
+      },
+      "2": {
+        "x": 102.87,
+        "y": 45.72,
+        "net": "GND"
+      }
+    },
+    "C_LDO1": {
+      "1": {
+        "x": 151.13,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 151.13,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_LDO2": {
+      "1": {
+        "x": 204.47,
+        "y": 34.29,
+        "net": "+5V_PCBA"
+      },
+      "2": {
+        "x": 204.47,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_LNA1": {
+      "1": {
+        "x": 250.19,
+        "y": 36.83,
+        "net": "+5V_LNA_SW"
+      },
+      "2": {
+        "x": 250.19,
+        "y": 44.45,
+        "net": "GND"
+      }
+    },
+    "C_LNA2": {
+      "1": {
+        "x": 287.02,
+        "y": 36.83,
+        "net": "+5V_LNA_SW"
+      },
+      "2": {
+        "x": 287.02,
+        "y": 44.45,
+        "net": "GND"
+      }
+    },
+    "C_MCU1": {
+      "1": {
+        "x": 311.15,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 311.15,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU2": {
+      "1": {
+        "x": 320.04,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 320.04,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P10": {
+      "1": {
+        "x": 336.55,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 336.55,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P22": {
+      "1": {
+        "x": 361.95,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 361.95,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P23": {
+      "1": {
+        "x": 386.08,
+        "y": 35.56,
+        "net": "+1V1_CORE"
+      },
+      "2": {
+        "x": 386.08,
+        "y": 43.18,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P33": {
+      "1": {
+        "x": 410.21,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 410.21,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P42": {
+      "1": {
+        "x": 434.34,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 434.34,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P43": {
+      "1": {
+        "x": 458.47,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 458.47,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P48": {
+      "1": {
+        "x": 483.87,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 483.87,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P49": {
+      "1": {
+        "x": 508.0,
+        "y": 34.29,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 508.0,
+        "y": 41.91,
+        "net": "GND"
+      }
+    },
+    "C_MCU_P50": {
+      "1": {
+        "x": 532.13,
+        "y": 35.56,
+        "net": "+1V1_CORE"
+      },
+      "2": {
+        "x": 532.13,
+        "y": 43.18,
+        "net": "GND"
+      }
+    },
+    "C_OUT": {
+      "1": {
+        "x": 41.91,
+        "y": 68.58,
+        "net": "+5V_PCBA"
+      },
+      "2": {
+        "x": 41.91,
+        "y": 76.2,
+        "net": "GND"
+      }
+    },
+    "C_TAP": {
+      "1": {
+        "x": 104.14,
+        "y": 69.85,
+        "net": "VGA_RF_IN"
+      },
+      "2": {
+        "x": 104.14,
+        "y": 77.47,
+        "net": "RF_TAP"
+      }
+    },
+    "C_VGA1": {
+      "1": {
+        "x": 149.86,
+        "y": 68.58,
+        "net": "+5V_VGA"
+      },
+      "2": {
+        "x": 149.86,
+        "y": 76.2,
+        "net": "GND"
+      }
+    },
+    "C_VGA2": {
+      "1": {
+        "x": 158.75,
+        "y": 68.58,
+        "net": "+5V_VGA"
+      },
+      "2": {
+        "x": 158.75,
+        "y": 76.2,
+        "net": "GND"
+      }
+    },
+    "C_VREG_OUT": {
+      "1": {
+        "x": 177.8,
+        "y": 69.85,
+        "net": "+1V1_CORE"
+      },
+      "2": {
+        "x": 177.8,
+        "y": 77.47,
+        "net": "GND"
+      }
+    },
+    "C_X1": {
+      "1": {
+        "x": 195.58,
+        "y": 63.5,
+        "net": "XIN"
+      },
+      "2": {
+        "x": 195.58,
+        "y": 71.12,
+        "net": "GND"
+      }
+    },
+    "C_X2": {
+      "1": {
+        "x": 203.2,
+        "y": 64.77,
+        "net": "XOUT"
+      },
+      "2": {
+        "x": 203.2,
+        "y": 72.39,
+        "net": "GND"
+      }
+    },
+    "D_REV": {
+      "1": {
+        "x": 223.52,
+        "y": 58.42,
+        "net": "VIN_GS_PROT"
+      },
+      "2": {
+        "x": 231.14,
+        "y": 58.42,
+        "net": "VIN_GS"
+      }
+    },
+    "D_TVS": {
+      "1": {
+        "x": 265.43,
+        "y": 58.42,
+        "net": "VIN_GS_PROT"
+      },
+      "2": {
+        "x": 273.05,
+        "y": 58.42,
+        "net": "GND"
+      }
+    },
+    "FB_DET": {
+      "1": {
+        "x": 300.99,
+        "y": 68.58,
+        "net": "+5V_PCBA"
+      },
+      "2": {
+        "x": 300.99,
+        "y": 76.2,
+        "net": "+5V_DET"
+      }
+    },
+    "FB_VGA": {
+      "1": {
+        "x": 323.85,
+        "y": 68.58,
+        "net": "+5V_PCBA"
+      },
+      "2": {
+        "x": 323.85,
+        "y": 76.2,
+        "net": "+5V_VGA"
+      }
+    },
+    "FLT_433_A": {
+      "1": {
+        "x": 354.33,
+        "y": 58.42,
+        "net": "RF_433_ANT"
+      },
+      "2": {
+        "x": 379.73,
+        "y": 58.42,
+        "net": "RF_433_BPF1"
+      },
+      "3": {
+        "x": 379.73,
+        "y": 60.96,
+        "net": null
+      },
+      "4": {
+        "x": 379.73,
+        "y": 63.5,
+        "net": null
+      },
+      "5": {
+        "x": 379.73,
+        "y": 66.04,
+        "net": null
+      },
+      "6": {
+        "x": 379.73,
+        "y": 68.58,
+        "net": null
+      }
+    },
+    "FLT_433_B": {
+      "1": {
+        "x": 411.48,
+        "y": 58.42,
+        "net": "RF_TAP"
+      },
+      "2": {
+        "x": 436.88,
+        "y": 58.42,
+        "net": "DET_RF_IN"
+      },
+      "3": {
+        "x": 436.88,
+        "y": 60.96,
+        "net": null
+      },
+      "4": {
+        "x": 436.88,
+        "y": 63.5,
+        "net": null
+      },
+      "5": {
+        "x": 436.88,
+        "y": 66.04,
+        "net": null
+      },
+      "6": {
+        "x": 436.88,
+        "y": 68.58,
+        "net": null
+      }
+    },
+    "J_2450_TX": {
+      "1": {
+        "x": 476.25,
+        "y": 63.5,
+        "net": "RF_2450_TX"
+      },
+      "2": {
+        "x": 481.33,
+        "y": 68.58,
+        "net": "GND"
+      }
+    },
+    "J_433_RX": {
+      "1": {
+        "x": 527.05,
+        "y": 63.5,
+        "net": "RF_433_ANT"
+      },
+      "2": {
+        "x": 532.13,
+        "y": 68.58,
+        "net": "GND"
+      }
+    },
+    "J_LNA_FEED": {
+      "1": {
+        "x": 36.83,
+        "y": 99.06,
+        "net": "RF_TEE_MAST"
+      },
+      "2": {
+        "x": 41.91,
+        "y": 104.14,
+        "net": "GND"
+      }
+    },
+    "J_PWR": {
+      "1": {
+        "x": 73.66,
+        "y": 96.52,
+        "net": "VIN_GS"
+      },
+      "2": {
+        "x": 73.66,
+        "y": 99.06,
+        "net": "GND"
+      }
+    },
+    "J_SWD": {
+      "1": {
+        "x": 102.87,
+        "y": 96.52,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 102.87,
+        "y": 99.06,
+        "net": "SWDIO"
+      },
+      "3": {
+        "x": 102.87,
+        "y": 101.6,
+        "net": "GND"
+      },
+      "4": {
+        "x": 102.87,
+        "y": 104.14,
+        "net": "SWCLK"
+      }
+    },
+    "L1": {
+      "1": {
+        "x": 146.05,
+        "y": 102.87,
+        "net": "REG_SW"
+      },
+      "2": {
+        "x": 146.05,
+        "y": 110.49,
+        "net": "+5V_PCBA"
+      }
+    },
+    "Q_LNA_SW": {
+      "1": {
+        "x": 199.39,
+        "y": 93.98,
+        "net": "+5V_PCBA"
+      },
+      "2": {
+        "x": 199.39,
+        "y": 96.52,
+        "net": "GND"
+      },
+      "3": {
+        "x": 224.79,
+        "y": 93.98,
+        "net": "LNA_EN"
+      },
+      "4": {
+        "x": 224.79,
+        "y": 96.52,
+        "net": "LNA_FLT"
+      },
+      "5": {
+        "x": 224.79,
+        "y": 99.06,
+        "net": "+5V_LNA_SW"
+      }
+    },
+    "R_LNA_ILIM": {
+      "1": {
+        "x": 269.24,
+        "y": 104.14,
+        "net": "LNA_FLT"
+      },
+      "2": {
+        "x": 269.24,
+        "y": 111.76,
+        "net": "GND"
+      }
+    },
+    "R_PG": {
+      "1": {
+        "x": 307.34,
+        "y": 105.41,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 307.34,
+        "y": 113.03,
+        "net": "REG_PG"
+      }
+    },
+    "R_RUN": {
+      "1": {
+        "x": 339.09,
+        "y": 105.41,
+        "net": "+3V3_MCU"
+      },
+      "2": {
+        "x": 339.09,
+        "y": 113.03,
+        "net": "RUN"
+      }
+    },
+    "TEE1": {
+      "1": {
+        "x": 387.35,
+        "y": 93.98,
+        "net": "RF_433_BPF1"
+      },
+      "2": {
+        "x": 387.35,
+        "y": 96.52,
+        "net": "RF_LNA_OUT"
+      },
+      "3": {
+        "x": 387.35,
+        "y": 99.06,
+        "net": "+5V_LNA_SW"
+      }
+    },
+    "TEE2": {
+      "1": {
+        "x": 452.12,
+        "y": 93.98,
+        "net": "RF_COAX_RX"
+      },
+      "2": {
+        "x": 452.12,
+        "y": 96.52,
+        "net": "VGA_RF_IN"
+      },
+      "3": {
+        "x": 452.12,
+        "y": 99.06,
+        "net": "+5V_LNA_SW"
+      }
+    },
+    "TP_5V": {
+      "1": {
+        "x": 488.95,
+        "y": 105.41,
+        "net": "+5V_PCBA"
+      }
+    },
+    "TP_GND": {
+      "1": {
+        "x": 510.54,
+        "y": 99.06,
+        "net": "GND"
+      }
+    },
+    "U_DET": {
+      "1": {
+        "x": 39.37,
+        "y": 129.54,
+        "net": "GND"
+      },
+      "2": {
+        "x": 39.37,
+        "y": 132.08,
+        "net": "GND"
+      },
+      "4": {
+        "x": 39.37,
+        "y": 134.62,
+        "net": "GND"
+      },
+      "7": {
+        "x": 39.37,
+        "y": 137.16,
+        "net": "GND"
+      },
+      "8": {
+        "x": 39.37,
+        "y": 139.7,
+        "net": "GND"
+      },
+      "5": {
+        "x": 39.37,
+        "y": 142.24,
+        "net": "+5V_DET"
+      },
+      "17": {
+        "x": 39.37,
+        "y": 144.78,
+        "net": "GND"
+      },
+      "3": {
+        "x": 64.77,
+        "y": 129.54,
+        "net": "DET_RF_IN"
+      },
+      "6": {
+        "x": 64.77,
+        "y": 132.08,
+        "net": "DET_VOUT"
+      }
+    },
+    "U_FLASH": {
+      "1": {
+        "x": 99.06,
+        "y": 144.78,
+        "net": "QSPI_SS"
+      },
+      "6": {
+        "x": 99.06,
+        "y": 147.32,
+        "net": "QSPI_SCLK"
+      },
+      "5": {
+        "x": 99.06,
+        "y": 149.86,
+        "net": "QSPI_SD0"
+      },
+      "2": {
+        "x": 99.06,
+        "y": 152.4,
+        "net": "QSPI_SD1"
+      },
+      "3": {
+        "x": 99.06,
+        "y": 154.94,
+        "net": "QSPI_SD2"
+      },
+      "7": {
+        "x": 99.06,
+        "y": 157.48,
+        "net": "QSPI_SD3"
+      },
+      "8": {
+        "x": 109.22,
+        "y": 139.7,
+        "net": "+3V3_MCU"
+      },
+      "4": {
+        "x": 109.22,
+        "y": 165.1,
+        "net": "GND"
+      },
+      "9": {
+        "x": 111.76,
+        "y": 165.1,
+        "net": "GND"
+      }
+    },
+    "U_LDO": {
+      "1": {
+        "x": 139.7,
+        "y": 134.62,
+        "net": "+5V_PCBA"
+      },
+      "3": {
+        "x": 139.7,
+        "y": 137.16,
+        "net": "+5V_PCBA"
+      },
+      "2": {
+        "x": 147.32,
+        "y": 144.78,
+        "net": "GND"
+      },
+      "4": {
+        "x": 152.4,
+        "y": 137.16,
+        "net": null
+      },
+      "5": {
+        "x": 154.94,
+        "y": 134.62,
+        "net": "+3V3_MCU"
+      }
+    },
+    "U_MCU": {
+      "19": {
+        "x": 181.61,
+        "y": 156.21,
+        "net": "GND"
+      },
+      "26": {
+        "x": 181.61,
+        "y": 163.83,
+        "net": "RUN"
+      },
+      "46": {
+        "x": 181.61,
+        "y": 171.45,
+        "net": "USB_DM"
+      },
+      "47": {
+        "x": 181.61,
+        "y": 173.99,
+        "net": "USB_DP"
+      },
+      "56": {
+        "x": 181.61,
+        "y": 181.61,
+        "net": "QSPI_SS"
+      },
+      "52": {
+        "x": 181.61,
+        "y": 184.15,
+        "net": "QSPI_SCLK"
+      },
+      "53": {
+        "x": 181.61,
+        "y": 186.69,
+        "net": "QSPI_SD0"
+      },
+      "55": {
+        "x": 181.61,
+        "y": 189.23,
+        "net": "QSPI_SD1"
+      },
+      "54": {
+        "x": 181.61,
+        "y": 191.77,
+        "net": "QSPI_SD2"
+      },
+      "51": {
+        "x": 181.61,
+        "y": 194.31,
+        "net": "QSPI_SD3"
+      },
+      "20": {
+        "x": 181.61,
+        "y": 201.93,
+        "net": "XIN"
+      },
+      "21": {
+        "x": 181.61,
+        "y": 212.09,
+        "net": "XOUT"
+      },
+      "24": {
+        "x": 181.61,
+        "y": 219.71,
+        "net": "SWCLK"
+      },
+      "25": {
+        "x": 181.61,
+        "y": 222.25,
+        "net": "SWDIO"
+      },
+      "48": {
+        "x": 194.31,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "43": {
+        "x": 196.85,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "1": {
+        "x": 204.47,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "10": {
+        "x": 204.47,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "22": {
+        "x": 204.47,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "33": {
+        "x": 204.47,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "42": {
+        "x": 204.47,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "49": {
+        "x": 204.47,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "57": {
+        "x": 207.01,
+        "y": 232.41,
+        "net": "GND"
+      },
+      "44": {
+        "x": 209.55,
+        "y": 140.97,
+        "net": "+3V3_MCU"
+      },
+      "45": {
+        "x": 214.63,
+        "y": 140.97,
+        "net": "+1V1_CORE"
+      },
+      "23": {
+        "x": 219.71,
+        "y": 140.97,
+        "net": "+1V1_CORE"
+      },
+      "50": {
+        "x": 219.71,
+        "y": 140.97,
+        "net": "+1V1_CORE"
+      },
+      "2": {
+        "x": 232.41,
+        "y": 148.59,
+        "net": null
+      },
+      "3": {
+        "x": 232.41,
+        "y": 151.13,
+        "net": null
+      },
+      "4": {
+        "x": 232.41,
+        "y": 153.67,
+        "net": null
+      },
+      "5": {
+        "x": 232.41,
+        "y": 156.21,
+        "net": null
+      },
+      "6": {
+        "x": 232.41,
+        "y": 158.75,
+        "net": null
+      },
+      "7": {
+        "x": 232.41,
+        "y": 161.29,
+        "net": null
+      },
+      "8": {
+        "x": 232.41,
+        "y": 163.83,
+        "net": null
+      },
+      "9": {
+        "x": 232.41,
+        "y": 166.37,
+        "net": null
+      },
+      "11": {
+        "x": 232.41,
+        "y": 168.91,
+        "net": null
+      },
+      "12": {
+        "x": 232.41,
+        "y": 171.45,
+        "net": null
+      },
+      "13": {
+        "x": 232.41,
+        "y": 173.99,
+        "net": null
+      },
+      "14": {
+        "x": 232.41,
+        "y": 176.53,
+        "net": null
+      },
+      "15": {
+        "x": 232.41,
+        "y": 179.07,
+        "net": null
+      },
+      "16": {
+        "x": 232.41,
+        "y": 181.61,
+        "net": null
+      },
+      "17": {
+        "x": 232.41,
+        "y": 184.15,
+        "net": null
+      },
+      "18": {
+        "x": 232.41,
+        "y": 186.69,
+        "net": null
+      },
+      "27": {
+        "x": 232.41,
+        "y": 189.23,
+        "net": null
+      },
+      "28": {
+        "x": 232.41,
+        "y": 191.77,
+        "net": null
+      },
+      "29": {
+        "x": 232.41,
+        "y": 194.31,
+        "net": "VGA_GAIN0"
+      },
+      "30": {
+        "x": 232.41,
+        "y": 196.85,
+        "net": "VGA_GAIN1"
+      },
+      "31": {
+        "x": 232.41,
+        "y": 199.39,
+        "net": "VGA_GAIN2"
+      },
+      "32": {
+        "x": 232.41,
+        "y": 201.93,
+        "net": "LNA_EN"
+      },
+      "34": {
+        "x": 232.41,
+        "y": 204.47,
+        "net": "LNA_FLT"
+      },
+      "35": {
+        "x": 232.41,
+        "y": 207.01,
+        "net": null
+      },
+      "36": {
+        "x": 232.41,
+        "y": 209.55,
+        "net": null
+      },
+      "37": {
+        "x": 232.41,
+        "y": 212.09,
+        "net": "REG_PG"
+      },
+      "38": {
+        "x": 232.41,
+        "y": 217.17,
+        "net": "DET_VOUT"
+      },
+      "39": {
+        "x": 232.41,
+        "y": 219.71,
+        "net": null
+      },
+      "40": {
+        "x": 232.41,
+        "y": 222.25,
+        "net": null
+      },
+      "41": {
+        "x": 232.41,
+        "y": 224.79,
+        "net": null
+      }
+    },
+    "U_REG": {
+      "2": {
+        "x": 264.16,
+        "y": 132.08,
+        "net": "VIN_GS_PROT"
+      },
+      "3": {
+        "x": 264.16,
+        "y": 134.62,
+        "net": "VIN_GS_PROT"
+      },
+      "8": {
+        "x": 264.16,
+        "y": 142.24,
+        "net": "REG_PG"
+      },
+      "9": {
+        "x": 271.78,
+        "y": 149.86,
+        "net": "GND"
+      },
+      "1": {
+        "x": 274.32,
+        "y": 149.86,
+        "net": "GND"
+      },
+      "4": {
+        "x": 276.86,
+        "y": 149.86,
+        "net": "GND"
+      },
+      "7": {
+        "x": 284.48,
+        "y": 132.08,
+        "net": "REG_SW"
+      },
+      "6": {
+        "x": 284.48,
+        "y": 134.62,
+        "net": "+5V_PCBA"
+      },
+      "5": {
+        "x": 284.48,
+        "y": 137.16,
+        "net": "GND"
+      }
+    },
+    "U_VGA": {
+      "1": {
+        "x": 317.5,
+        "y": 129.54,
+        "net": "+5V_VGA"
+      },
+      "2": {
+        "x": 317.5,
+        "y": 132.08,
+        "net": "GND"
+      },
+      "4": {
+        "x": 317.5,
+        "y": 134.62,
+        "net": "GND"
+      },
+      "33": {
+        "x": 317.5,
+        "y": 137.16,
+        "net": "GND"
+      },
+      "3": {
+        "x": 342.9,
+        "y": 129.54,
+        "net": "VGA_RF_IN"
+      },
+      "5": {
+        "x": 342.9,
+        "y": 132.08,
+        "net": "VGA_RF_OUT"
+      },
+      "6": {
+        "x": 342.9,
+        "y": 134.62,
+        "net": "VGA_GAIN0"
+      },
+      "7": {
+        "x": 342.9,
+        "y": 137.16,
+        "net": "VGA_GAIN1"
+      },
+      "8": {
+        "x": 342.9,
+        "y": 139.7,
+        "net": "VGA_GAIN2"
+      }
+    },
+    "Y1": {
+      "1": {
+        "x": 367.03,
+        "y": 134.62,
+        "net": "XIN"
+      },
+      "2": {
+        "x": 370.84,
+        "y": 139.7,
+        "net": "GND"
+      },
+      "4": {
+        "x": 370.84,
+        "y": 139.7,
+        "net": "GND"
+      },
+      "3": {
+        "x": 374.65,
+        "y": 134.62,
+        "net": "XOUT"
+      }
+    }
+  },
+  "nets": {
+    "+1V1_CORE": [
+      [
+        "C_MCU_P23",
+        "1"
+      ],
+      [
+        "C_MCU_P50",
+        "1"
+      ],
+      [
+        "C_VREG_OUT",
+        "1"
+      ],
+      [
+        "U_MCU",
+        "23"
+      ],
+      [
+        "U_MCU",
+        "45"
+      ],
+      [
+        "U_MCU",
+        "50"
+      ]
+    ],
+    "+3V3_MCU": [
+      [
+        "C_FLASH",
+        "1"
+      ],
+      [
+        "C_LDO1",
+        "1"
+      ],
+      [
+        "C_MCU1",
+        "1"
+      ],
+      [
+        "C_MCU2",
+        "1"
+      ],
+      [
+        "C_MCU_P10",
+        "1"
+      ],
+      [
+        "C_MCU_P22",
+        "1"
+      ],
+      [
+        "C_MCU_P33",
+        "1"
+      ],
+      [
+        "C_MCU_P42",
+        "1"
+      ],
+      [
+        "C_MCU_P43",
+        "1"
+      ],
+      [
+        "C_MCU_P48",
+        "1"
+      ],
+      [
+        "C_MCU_P49",
+        "1"
+      ],
+      [
+        "J_SWD",
+        "1"
+      ],
+      [
+        "R_PG",
+        "1"
+      ],
+      [
+        "R_RUN",
+        "1"
+      ],
+      [
+        "U_FLASH",
+        "8"
+      ],
+      [
+        "U_LDO",
+        "5"
+      ],
+      [
+        "U_MCU",
+        "1"
+      ],
+      [
+        "U_MCU",
+        "10"
+      ],
+      [
+        "U_MCU",
+        "22"
+      ],
+      [
+        "U_MCU",
+        "33"
+      ],
+      [
+        "U_MCU",
+        "42"
+      ],
+      [
+        "U_MCU",
+        "43"
+      ],
+      [
+        "U_MCU",
+        "44"
+      ],
+      [
+        "U_MCU",
+        "48"
+      ],
+      [
+        "U_MCU",
+        "49"
+      ]
+    ],
+    "+5V_DET": [
+      [
+        "C_DET1",
+        "1"
+      ],
+      [
+        "FB_DET",
+        "2"
+      ],
+      [
+        "U_DET",
+        "5"
+      ]
+    ],
+    "+5V_LNA_SW": [
+      [
+        "C_LNA1",
+        "1"
+      ],
+      [
+        "C_LNA2",
+        "1"
+      ],
+      [
+        "Q_LNA_SW",
+        "5"
+      ],
+      [
+        "TEE1",
+        "3"
+      ],
+      [
+        "TEE2",
+        "3"
+      ]
+    ],
+    "+5V_PCBA": [
+      [
+        "C_LDO2",
+        "1"
+      ],
+      [
+        "C_OUT",
+        "1"
+      ],
+      [
+        "FB_DET",
+        "1"
+      ],
+      [
+        "FB_VGA",
+        "1"
+      ],
+      [
+        "L1",
+        "2"
+      ],
+      [
+        "Q_LNA_SW",
+        "1"
+      ],
+      [
+        "TP_5V",
+        "1"
+      ],
+      [
+        "U_LDO",
+        "1"
+      ],
+      [
+        "U_LDO",
+        "3"
+      ],
+      [
+        "U_REG",
+        "6"
+      ]
+    ],
+    "+5V_VGA": [
+      [
+        "C_VGA1",
+        "1"
+      ],
+      [
+        "C_VGA2",
+        "1"
+      ],
+      [
+        "FB_VGA",
+        "2"
+      ],
+      [
+        "U_VGA",
+        "1"
+      ]
+    ],
+    "DET_RF_IN": [
+      [
+        "FLT_433_B",
+        "2"
+      ],
+      [
+        "U_DET",
+        "3"
+      ]
+    ],
+    "DET_VOUT": [
+      [
+        "C_DET2",
+        "1"
+      ],
+      [
+        "U_DET",
+        "6"
+      ],
+      [
+        "U_MCU",
+        "38"
+      ]
+    ],
+    "GND": [
+      [
+        "C_DET1",
+        "2"
+      ],
+      [
+        "C_DET2",
+        "2"
+      ],
+      [
+        "C_FLASH",
+        "2"
+      ],
+      [
+        "C_IN",
+        "2"
+      ],
+      [
+        "C_LDO1",
+        "2"
+      ],
+      [
+        "C_LDO2",
+        "2"
+      ],
+      [
+        "C_LNA1",
+        "2"
+      ],
+      [
+        "C_LNA2",
+        "2"
+      ],
+      [
+        "C_MCU1",
+        "2"
+      ],
+      [
+        "C_MCU2",
+        "2"
+      ],
+      [
+        "C_MCU_P10",
+        "2"
+      ],
+      [
+        "C_MCU_P22",
+        "2"
+      ],
+      [
+        "C_MCU_P23",
+        "2"
+      ],
+      [
+        "C_MCU_P33",
+        "2"
+      ],
+      [
+        "C_MCU_P42",
+        "2"
+      ],
+      [
+        "C_MCU_P43",
+        "2"
+      ],
+      [
+        "C_MCU_P48",
+        "2"
+      ],
+      [
+        "C_MCU_P49",
+        "2"
+      ],
+      [
+        "C_MCU_P50",
+        "2"
+      ],
+      [
+        "C_OUT",
+        "2"
+      ],
+      [
+        "C_VGA1",
+        "2"
+      ],
+      [
+        "C_VGA2",
+        "2"
+      ],
+      [
+        "C_VREG_OUT",
+        "2"
+      ],
+      [
+        "C_X1",
+        "2"
+      ],
+      [
+        "C_X2",
+        "2"
+      ],
+      [
+        "D_TVS",
+        "2"
+      ],
+      [
+        "J_2450_TX",
+        "2"
+      ],
+      [
+        "J_433_RX",
+        "2"
+      ],
+      [
+        "J_LNA_FEED",
+        "2"
+      ],
+      [
+        "J_PWR",
+        "2"
+      ],
+      [
+        "J_SWD",
+        "3"
+      ],
+      [
+        "Q_LNA_SW",
+        "2"
+      ],
+      [
+        "R_LNA_ILIM",
+        "2"
+      ],
+      [
+        "TP_GND",
+        "1"
+      ],
+      [
+        "U_DET",
+        "1"
+      ],
+      [
+        "U_DET",
+        "17"
+      ],
+      [
+        "U_DET",
+        "2"
+      ],
+      [
+        "U_DET",
+        "4"
+      ],
+      [
+        "U_DET",
+        "7"
+      ],
+      [
+        "U_DET",
+        "8"
+      ],
+      [
+        "U_FLASH",
+        "4"
+      ],
+      [
+        "U_FLASH",
+        "9"
+      ],
+      [
+        "U_LDO",
+        "2"
+      ],
+      [
+        "U_MCU",
+        "19"
+      ],
+      [
+        "U_MCU",
+        "57"
+      ],
+      [
+        "U_REG",
+        "1"
+      ],
+      [
+        "U_REG",
+        "4"
+      ],
+      [
+        "U_REG",
+        "5"
+      ],
+      [
+        "U_REG",
+        "9"
+      ],
+      [
+        "U_VGA",
+        "2"
+      ],
+      [
+        "U_VGA",
+        "33"
+      ],
+      [
+        "U_VGA",
+        "4"
+      ],
+      [
+        "Y1",
+        "2"
+      ],
+      [
+        "Y1",
+        "4"
+      ]
+    ],
+    "LNA_EN": [
+      [
+        "Q_LNA_SW",
+        "3"
+      ],
+      [
+        "U_MCU",
+        "32"
+      ]
+    ],
+    "LNA_FLT": [
+      [
+        "Q_LNA_SW",
+        "4"
+      ],
+      [
+        "R_LNA_ILIM",
+        "1"
+      ],
+      [
+        "U_MCU",
+        "34"
+      ]
+    ],
+    "QSPI_SCLK": [
+      [
+        "U_FLASH",
+        "6"
+      ],
+      [
+        "U_MCU",
+        "52"
+      ]
+    ],
+    "QSPI_SD0": [
+      [
+        "U_FLASH",
+        "5"
+      ],
+      [
+        "U_MCU",
+        "53"
+      ]
+    ],
+    "QSPI_SD1": [
+      [
+        "U_FLASH",
+        "2"
+      ],
+      [
+        "U_MCU",
+        "55"
+      ]
+    ],
+    "QSPI_SD2": [
+      [
+        "U_FLASH",
+        "3"
+      ],
+      [
+        "U_MCU",
+        "54"
+      ]
+    ],
+    "QSPI_SD3": [
+      [
+        "U_FLASH",
+        "7"
+      ],
+      [
+        "U_MCU",
+        "51"
+      ]
+    ],
+    "QSPI_SS": [
+      [
+        "U_FLASH",
+        "1"
+      ],
+      [
+        "U_MCU",
+        "56"
+      ]
+    ],
+    "REG_PG": [
+      [
+        "R_PG",
+        "2"
+      ],
+      [
+        "U_MCU",
+        "37"
+      ],
+      [
+        "U_REG",
+        "8"
+      ]
+    ],
+    "REG_SW": [
+      [
+        "L1",
+        "1"
+      ],
+      [
+        "U_REG",
+        "7"
+      ]
+    ],
+    "RF_2450_TX": [
+      [
+        "J_2450_TX",
+        "1"
+      ]
+    ],
+    "RF_433_ANT": [
+      [
+        "FLT_433_A",
+        "1"
+      ],
+      [
+        "J_433_RX",
+        "1"
+      ]
+    ],
+    "RF_433_BPF1": [
+      [
+        "FLT_433_A",
+        "2"
+      ],
+      [
+        "TEE1",
+        "1"
+      ]
+    ],
+    "RF_COAX_RX": [
+      [
+        "TEE2",
+        "1"
+      ]
+    ],
+    "RF_LNA_OUT": [
+      [
+        "TEE1",
+        "2"
+      ]
+    ],
+    "RF_TAP": [
+      [
+        "C_TAP",
+        "2"
+      ],
+      [
+        "FLT_433_B",
+        "1"
+      ]
+    ],
+    "RF_TEE_MAST": [
+      [
+        "J_LNA_FEED",
+        "1"
+      ]
+    ],
+    "RUN": [
+      [
+        "R_RUN",
+        "2"
+      ],
+      [
+        "U_MCU",
+        "26"
+      ]
+    ],
+    "SWCLK": [
+      [
+        "J_SWD",
+        "4"
+      ],
+      [
+        "U_MCU",
+        "24"
+      ]
+    ],
+    "SWDIO": [
+      [
+        "J_SWD",
+        "2"
+      ],
+      [
+        "U_MCU",
+        "25"
+      ]
+    ],
+    "USB_DM": [
+      [
+        "U_MCU",
+        "46"
+      ]
+    ],
+    "USB_DP": [
+      [
+        "U_MCU",
+        "47"
+      ]
+    ],
+    "VGA_GAIN0": [
+      [
+        "U_MCU",
+        "29"
+      ],
+      [
+        "U_VGA",
+        "6"
+      ]
+    ],
+    "VGA_GAIN1": [
+      [
+        "U_MCU",
+        "30"
+      ],
+      [
+        "U_VGA",
+        "7"
+      ]
+    ],
+    "VGA_GAIN2": [
+      [
+        "U_MCU",
+        "31"
+      ],
+      [
+        "U_VGA",
+        "8"
+      ]
+    ],
+    "VGA_RF_IN": [
+      [
+        "C_TAP",
+        "1"
+      ],
+      [
+        "TEE2",
+        "2"
+      ],
+      [
+        "U_VGA",
+        "3"
+      ]
+    ],
+    "VGA_RF_OUT": [
+      [
+        "U_VGA",
+        "5"
+      ]
+    ],
+    "VIN_GS": [
+      [
+        "D_REV",
+        "2"
+      ],
+      [
+        "J_PWR",
+        "1"
+      ]
+    ],
+    "VIN_GS_PROT": [
+      [
+        "C_IN",
+        "1"
+      ],
+      [
+        "D_REV",
+        "1"
+      ],
+      [
+        "D_TVS",
+        "1"
+      ],
+      [
+        "U_REG",
+        "2"
+      ],
+      [
+        "U_REG",
+        "3"
+      ]
+    ],
+    "XIN": [
+      [
+        "C_X1",
+        "1"
+      ],
+      [
+        "U_MCU",
+        "20"
+      ],
+      [
+        "Y1",
+        "1"
+      ]
+    ],
+    "XOUT": [
+      [
+        "C_X2",
+        "1"
+      ],
+      [
+        "U_MCU",
+        "21"
+      ],
+      [
+        "Y1",
+        "3"
+      ]
+    ]
+  }
+}

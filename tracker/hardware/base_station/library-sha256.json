@@ -1,0 +1,11 @@
+{
+  "BaseStation.kicad_sym": "f99c88988561edfdbaf6ee6d8a7b7b9e66721e9b249855ba062d41a71af4a10d",
+  "Connector.kicad_sym": "5c46ee679a6d5ef5d67115ce3f3217636385de49f316db649f44376861de31c9",
+  "Connector_Generic.kicad_sym": "c44a0a561694b37a58027539b4e215067f64b5789cd7855bc001890dc484d51b",
+  "Device.kicad_sym": "bf466eecad72ed640dd9a279bce4741c1fcf3d0eecfb07e933c945f7a64744ae",
+  "MCU_RaspberryPi.kicad_sym": "345e4cfb8de8fe788e029bb805667e87a65572ef624bb88ab38280e1b943f016",
+  "Memory_Flash.kicad_sym": "cf74df8246551a9d26d6165a4b4c2d9cdbc8f9702b71cf512d37faf6f4cc940b",
+  "Regulator_Linear.kicad_sym": "0668d6043b5213767a7f45ff376b06c1cb1edec1309cc6ce51e7a0e0cbecf3fc",
+  "Regulator_Switching.kicad_sym": "63a3ff699b61501c20fc1a2e3523728f1b37794b915f2da0b0664d188c972a34",
+  "power.kicad_sym": "541c49bdad55134b5f6379e80c6d18f165c1d9e98ca7df36ad6ec2a316a6d11b"
+}
