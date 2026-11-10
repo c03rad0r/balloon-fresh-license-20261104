@@ -203,18 +203,17 @@ def load_world(board_path):
     # but forbids footprints must not block routing. A rule area binds every copper layer it
     # covers, and one with no copper layers in its set is skipped (it forbids nothing here).
     rule_areas = []
-    COPPER = (pcbnew.F_Cu, pcbnew.B_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu)
-    for i in range(b.GetAreaCount()):
-        z = b.GetArea(i)
-        if not z.GetIsRuleArea():
-            continue
+
+    def _collect_rule_area(z, label):
+        """Append a keep-out's rectangle if it forbids copper. Shared by both scan sites."""
         if not (z.GetDoNotAllowTracks() or z.GetDoNotAllowVias()
                 or z.GetDoNotAllowCopperPour()):
-            continue                      # only footprint/other restrictions: not a copper keep-out
+            return                        # only footprint/other restrictions: not a copper keep-out
         zlays = set(z.GetLayerSet().Seq())
-        layers = tuple(ly for ly in COPPER if ly in zlays)
+        layers = tuple(ly for ly in (pcbnew.F_Cu, pcbnew.B_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu)
+                       if ly in zlays)
         if not layers:
-            continue
+            return
         # A RULE AREA'S BOUNDING BOX IS ONLY A VALID OBSTACLE IF THE AREA IS A RECTANGLE.
         # Comparing the outline's own area against its bounding-box area makes that a
         # measurement instead of an assumption: for a rotated or L-shaped keep-out the box
@@ -227,15 +226,30 @@ def load_world(board_path):
         box_area = (zbb.GetWidth() / UM) * (zbb.GetHeight() / UM)
         if abs(poly_area - box_area) > 1e-3:
             raise SystemExit(
-                f"REFUSED: rule area [{i}] is not rectangular "
+                f"REFUSED: keep-out {label} is not rectangular "
                 f"(polygon {poly_area:.3f} mm^2 vs box {box_area:.3f} mm^2). Modelling it as "
                 f"its bounding box would block cells the design does not reserve. Implement "
                 f"polygon marking before routing this board."
             )
-        rule_areas.append((f"rule-area[{i}]", layers,
+        rule_areas.append((label, layers,
                            (zbb.GetX() / UM, zbb.GetY() / UM,
                             (zbb.GetX() + zbb.GetWidth()) / UM,
                             (zbb.GetY() + zbb.GetHeight()) / UM)))
+
+    for i in range(b.GetAreaCount()):
+        z = b.GetArea(i)
+        if z.GetIsRuleArea():
+            _collect_rule_area(z, f"rule-area[{i}]")
+    # FOOTPRINT-OWNED RULE AREAS ARE KEEP-OUTS TOO, and the board-level scan above cannot see
+    # them. Measured 2026-11-10: the pressure-controller sensor ports and U1's antenna clearance
+    # are footprint-owned rule areas, so the router laid /I2C_SCL straight through both sensor
+    # ports and kicad-cli reported 6 x items_not_allowed -- after the copper existed, because a
+    # keep-out is only ever reported post-hoc. A footprint keep-out binds in BOARD coordinates and
+    # moves when the part moves, so it must be read from the placed footprint, not from a template.
+    for fp in b.GetFootprints():
+        for j, z in enumerate(fp.Zones()):
+            if z.GetIsRuleArea():
+                _collect_rule_area(z, f"{fp.GetReference()}.keepout[{j}]")
 
     return {"board": b, "origin": (ox, oy), "size": (w, h),
             "pads": pads, "bodies": bodies, "net_pads": net_pads,

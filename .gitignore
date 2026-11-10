@@ -101,3 +101,5 @@ tracker/hardware/base_station/output/
 fp-info-cache
 *.lck
 ~*.kicad_pcb.lck
+*-batch*.json
+*-ckpt*.kicad_pcb

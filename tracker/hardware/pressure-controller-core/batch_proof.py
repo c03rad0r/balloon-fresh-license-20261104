@@ -32,8 +32,12 @@ from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
+# `items_not_allowed` is a KEEP-OUT violation and was MISSING from this list, so a batch that
+# routed a track straight through the sensor-port keep-outs reported VERDICT PASS while native DRC
+# carried 6 x items_not_allowed. Measured 2026-11-10. A keep-out breach is a design-constraint
+# breach, not cosmetics, so it belongs with the hard classes.
 HARD_BLOCKING = ("clearance", "shorting_items", "copper_edge_clearance",
-                 "courtyards_overlap", "hole_to_hole")
+                 "courtyards_overlap", "hole_to_hole", "items_not_allowed")
 
 
 def run_drc(board):
