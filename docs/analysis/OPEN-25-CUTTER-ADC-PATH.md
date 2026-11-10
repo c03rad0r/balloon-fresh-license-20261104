@@ -1,6 +1,10 @@
 # OPEN-25 cutter ADC input: bounded component proposal
 
-Status: proposed input circuit, not electrical closure. No copper or actuation.
+Status: proposed DC input circuit, **power-sequence qualification BLOCKED**. No copper or actuation.
+See [the sequence adjudication](OPEN-25-CUTTER-ADC-SEQUENCE.md): a concrete
+TPS3808G33 retrofit is rejected because assertion latency has no guaranteed
+maximum and rail collapse has no bounded slew; isolated ADC hold-up is the
+safer candidate, not yet a qualified circuit.
 Scope: ADR148 ADS1115, one ground-referenced 10 mOhm shunt per cutter.
 Repeat the input cell for the allocated cutter channels; do not allocate a spare ADC input.
 
