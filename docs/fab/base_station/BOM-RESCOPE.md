@@ -4,6 +4,11 @@
 The base station stops being an analogue RF instrument and becomes a **control board**; the 433 MHz
 receive front end is a purchased SPI module.
 
+> **UPDATE — this board is now merged with the inflator.** [ADR-150](../../../docs/adr/150-inflator-and-radio-on-one-board.md)
+> supersedes ADR-147 and puts the pressure/inflation controller **on the same PCB** as this control
+> board. The 26 parts below remain correct **for the radio/power half**; they are no longer the whole
+> board. Combined totals are in §7.
+
 **Measured on:** `tracker/hardware/base_station/base_station_v1_placed_v2.kicad_pcb`
 **Status:** BOM record only. No board re-fabricated, nothing purchased, nothing powered up.
 
@@ -125,3 +130,41 @@ Applying 5 V to a 3.3 V-only breakout destroys it. This ADR does not assume it a
 - `J_433_RX` currently expects an antenna; with a module it becomes the module's antenna feed. That
   re-wiring is schematic work, not yet done.
 - Nothing here is qualified. No measurement of a purchased module exists.
+
+---
+
+## §7 — Combined board (ADR-150)
+
+The inflator joins this board. This section is the BOM consequence; the decision and its risks are in
+[ADR-150](../../../docs/adr/150-inflator-and-radio-on-one-board.md).
+
+| | footprints | body area |
+|---|---|---|
+| Radio/power half (this document, post-ADR-149) | **26** | 562 mm² |
+| Pressure/inflation half (`compact.kicad_pcb`) | **26** | 2407 mm² |
+| **Combined** | **52** | **2970 mm²** |
+
+At the ~60 % packing the compact pressure board achieved, 2970 mm² of body implies roughly
+**5000 mm² of board — about 70 × 70 mm**. That is an area estimate from body bounding boxes, **not a
+placement**, and it will move once real placement runs.
+
+**The pressure half dominates (81 % of area)** because it carries two MS5611 breakouts, USB-C, the
+buck, and the pneumatic port keep-outs.
+
+### What the combination costs in the BOM
+
+| item | consequence |
+|---|---|
+| MCUs | **two, not one** — RP2040 (radio/host) and ESP32-S3 (pressure/inflation). ADR-150 D2. |
+| Power tree | one input rail feeds both; pump inrush sizing and bulk capacitance are now board-wide, not local |
+| Debug access | both `J_SWD` (RP2040) and USB (ESP32-S3) must remain reachable after assembly |
+| Interlock | stays entirely inside the ESP32-S3; the inter-MCU link is **telemetry only** (ADR-150 D3) |
+| Pneumatics | the pressure half's sealed-tap port keep-outs now share a board with the radio and its 2.4 GHz antenna keep-out |
+
+### Still open before a combined BOM can be finalised
+
+1. **The 3.3 V / 5 V reconciliation for the RF module** (inherited from ADR-149 — the RFM96W breakout
+   is 3.3 V logic only).
+2. **Pump current and inrush** — not specified anywhere in the repo; needed to size the shared rail.
+3. **Which pneumatic interface** the combined board presents.
+4. **Whether both functions ship in one enclosure** — decides connector placement.
