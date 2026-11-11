@@ -250,6 +250,32 @@ pilot-operated spool valve, where it is merely usually true.
 **No MOSFET or diode part numbers are given.** They follow from coil current and clamp energy, which
 follow from the valve. Sizing against a guessed valve is how a driver ends up under-rated.
 
+### Pump — dual-direction required, flow is not the constraint
+
+Measured in [`docs/analysis/pump-selection.md`](../../analysis/pump-selection.md)
+(model `pump_sizing_model.py`). **The pump never touches helium** — the protocol is
+`[Pump] → [Balloon]` for air pre-stretch and vacuum deflate, then a separate He 4.6 refill from a
+cylinder through a regulator. So helium compatibility is a *regulator* requirement, not a pump one.
+
+| criterion | decides? | evidence |
+|---|---|---|
+| **pressure AND vacuum** | **YES** | protocol C.4 steps 2 and 4; BD-03A is pressure-only, BD-03V is vacuum-only — each fails one step |
+| flow ≥ ~3 L/min | as a floor | 0.8–2.2 L/min pumps need 2–6 h to pre-stretch a 32" |
+| brushless / duty | YES | brushes ~1000 h; holds run 12–48 h and repeat |
+| PWM | YES | 5 L/min at full speed overshoots a fine circumference adjustment |
+| helium compatibility | **NO** | pump never sees He |
+
+| candidate | flow | pressure | vacuum | power | state |
+|---|---:|---:|---:|---:|---|
+| **JSG OD-05TVB-S.1** | 5.5 L/min | 1.0–1.5 bar | −70 kPa | 4 W | **preferred** |
+| Boxer 5KS | 5.1 L/min | 0.30 bar | 50 kPa | 1.5–4 W | premium low-noise, thin pressure head |
+| BD-04AB-11L | 11 L/min | 2.5 bar | 75 kPa | 7 W | if envelope moves to 60" |
+| BD-03A-3L | 3 L/min | 2 bar | **0 kPa** | 5 W | **rejected** — cannot deflate |
+
+**Hold:** with the pump OFF for 12–48 h, an *acceptable* 2 mbar/h leak loses 6.7 L (12 h) to 26.6 L
+(48 h) on a 281 L envelope. The **valve** holds that, not the pump — which is why S1's
+normally-closed proof carries the safety weight.
+
 ### Connectors the inflation half adds
 
 | connector | purpose |
