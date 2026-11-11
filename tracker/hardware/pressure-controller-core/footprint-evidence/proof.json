@@ -8,11 +8,11 @@
   "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended",
   "scope": "isolated no-net coupon only; not controller layout or fab readiness",
   "sha256": {
-    "PressureSensor.pretty/MS5611-01BA03_TE_Recommended.kicad_mod": "839bbd65de4adeb2e662aebc050c0ddd929b6c52a77d76dbc2c87679858ee4d3",
+    "PressureSensor.pretty/MS5611-01BA03_TE_Recommended.kicad_mod": "5257fed9855c5a93effabe58553b4989dbb830a773d2b9476168ed4e30ccc6df",
     "core.kicad_sch": "6fd10237092f8046982cd1ba71fb3568b5273cf7c16e0f6344d0ece9fc4804c5",
     "core.xml": "3bfacefd6bfe6e253fb18d347425cf94afc477bc60e5d9720f7b98eeec0f2476",
-    "footprint-evidence/coupon.kicad_pcb": "60209902e7198d14fa04cd00d17473fa7112095c7f5227ba51bbe4d5fa641985",
-    "footprint-evidence/coupon.svg": "3ad6294ad247fa431a77c8bd6b1391611a544c0fdb1c84f6a5858758027a62d0",
+    "footprint-evidence/coupon.kicad_pcb": "1eda84cdfa93cd7410305b938a9345ec5baccb7776a74eee4d6dd9d33537d7b1",
+    "footprint-evidence/coupon.svg": "1dd913bb3f8538c6e42caed2323ddf8eb657851de359e35f8974636034bf8d95",
     "footprint-evidence/coupon.png": "254b87b726a0db1908f9aadaef41b30f8a74dbfadf5f86b586ccb0caece17795"
   }
 }

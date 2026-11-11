@@ -1,0 +1,6 @@
+A ESCAPE  pad-centre track outward: items_not_allowed=NO connected=True  all_violations=['lib_footprint_mismatch', 'track_dangling']
+  PASS  escape is DRC-clean and connected (unblocked by the strip)
+B BETWEEN track down the strip: PASS refused (items_not_allowed present)
+C OLD SHAPE control: PASS the body-wide zone refuses the same track too, so probe B is not vacuous
+D VIA in the strip: PASS refused (project policy preserved)
+VERDICT PASS

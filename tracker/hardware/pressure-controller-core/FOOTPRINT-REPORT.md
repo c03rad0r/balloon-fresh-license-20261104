@@ -23,11 +23,36 @@ Courtyard is **project policy**, not a dimension claimed from TE: 0.25 mm beyond
 max body/copper envelope, rounded outward to 0.05 mm gives +/-1.90 x +/-2.80 mm.
 Nominal body/Fab outline and dimensioned cap ports preserve mechanical visibility.
 
-p16 forbids tracks between pads. A conservative **F.Cu rule area over the nominal
-3 x 5 body** prohibits tracks, vias and pours, allows pads/footprints. Blocking
-vias/pours is additional project policy, not quoted TE wording. Lands extend
-outside the body so outward escape remains possible. No invented all-layer or
-pneumatic clearance dimension; final placement/escape remains a layout task.
+p16 forbids tracks between pads. The implemented **F.Cu rule area is the inter-pad
+strip only: local x -0.55..+0.55, y -2.50..+2.50 (1.10 mm wide)**, i.e. exactly the gap
+between the land columns (left lands span x -1.65..-0.55, right lands +0.55..+1.65), so it
+does not extend over the pads. It prohibits tracks, vias and pours and allows
+pads/footprints. This is now **aligned to the quoted TE wording** ("Please do not route
+tracks between pads", p16): the prohibition covers the space between pads and nothing more.
+
+Blocking **vias and pours** as well as tracks is **project policy, not quoted TE wording**:
+a via in the gap is a track passing through it in the third dimension, and a pour there
+would re-create the copper the reserved area exists to keep out. Pads and footprints are
+allowed because TE's constraint is about routing, and forbidding them would make the
+footprint unable to host its own lands. Lands extend outside the body so outward escape
+remains possible; measured escape band at a pad centre is now **975 um** per side for a
+0.25 mm track (land outer edge 1.650 - rule edge 0.550 - 0.125 mm end-cap), against 25 um
+when the rule area still covered the body.
+
+**Historical note (corrected over-reach).** The first qualification of this footprint put a
+"conservative F.Cu rule area over the nominal 3 x 5 body" here, with the intent of encoding
+the same TE sentence. That was wider than the cited constraint: all eight pad centres sat
+inside it, so every centre-anchored escape was an `items_not_allowed` DRC record and the only
+legal anchor band was 0.150 mm of land overhang minus a 0.125 mm track end-cap = 25 um. The
+over-reach was measured and drawn before it was changed
+([sensor-port-keepout-conflict.png](sensor-port-keepout-conflict.png), commit `5e628f86`),
+the narrowing was chosen by the operator (option A of three drawn), and the result is drawn
+against the old shape in [sensor-port-keepout-strip.png](sensor-port-keepout-strip.png).
+The body-wide shape is now a **negative control** in `test_keepout_strip.py`: it must be
+REJECTED, so the fix cannot silently regress.
+
+No invented all-layer or pneumatic clearance dimension; final placement/escape remains a
+layout task.
 
 F.Cu/F.Mask/F.Paste pad layers provided. Manufacturer does not specify mask
 expansion, paste reduction, stencil thickness or courtyard. Project defaults are
@@ -74,10 +99,23 @@ stock library provenance before replacement.
   base: unchanged; U3/U4 export points to the new local library.
 - Isolated **no-net coupon** native reload and DRC: zero violations/unconnected.
   This exercises library linkage, native geometry and courtyard, NOT routing.
+  The coupon carries the narrowed keep-out (measured at the coupon origin 10,10:
+  strip x 9.45..10.55), so the regenerated evidence is evidence of the CURRENT
+  shape, not the pre-fix one.
 - Native SVG plus raster render: [coupon.png](footprint-evidence/coupon.png).
   Render includes overlaid Fab port circles (not drills), copper, courtyard,
   silk; purple plot-origin graphics are not copper tracks. Features inspected
   visible/uncropped. No numbered pads in native plot: numbering is tested natively.
+  **Limit, measured:** KiCad's SVG plotter does not draw rule-area zones, so this
+  render CANNOT show the keep-out. It is cited for pad/courtyard/port geometry only.
+  The keep-out shape is drawn instead by `draw_keepout_strip.py`, which reads the
+  zone from the footprint with `pcbnew` and prints the measured box:
+  [sensor-port-keepout-strip.png](sensor-port-keepout-strip.png).
+- `test_keepout_strip.py` pins the keep-out itself: the strip edges, that
+  tracks/vias/pours stay forbidden, that every pad CENTRE lies outside it, that a
+  pad-centre escape is DRC-clean AND electrically connected, that a track BETWEEN
+  the pads is still REFUSED (the TE constraint), and two negative controls
+  (the body-wide shape and an over-narrow strip must both be rejected).
 - [proof.json](footprint-evidence/proof.json) binds exact footprint, schematic,
   XML, coupon and render hashes. Coupon UUIDs may vary on rebuild.
 
@@ -91,6 +129,8 @@ python3 test_measurement.py && python3 test_measurement_negative.py
 /usr/bin/python3 test_footprint.py
 /usr/bin/python3 -O test_footprint.py
 /usr/bin/python3 verify_footprint.py
+/usr/bin/python3 test_keepout_strip.py
+~/venvs/kicad/bin/python draw_keepout_strip.py   # needs matplotlib AND pcbnew
 ```
 Requires distro pcbnew, KiCad CLI and rsvg-convert. Matching core.kicad_pro is
 necessary for KiCad to load project-local fp-lib-table during ERC.
