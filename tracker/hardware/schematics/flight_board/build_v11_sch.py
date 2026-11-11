@@ -65,6 +65,19 @@ V11_REG = os.path.join(REPO, "tracker", "hardware", "connectivity",
 V11_CHANNELS = os.path.join(REPO, "tracker", "hardware",
                             "v11_analog_channels.json")
 
+# v11 scope item 3 (four nichrome cut channels) lives in its own module so it can be
+# reviewed as one block and cannot be edited by a later item. It reads its values from
+# tracker/hardware/v11_cut_channels.json.
+def _load_cut_module():
+    p = os.path.join(REPO, "tracker", "hardware", "build_v11_cut.py")
+    spec = importlib.util.spec_from_file_location("build_v11_cut", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+CUT = _load_cut_module()
+
 # ---------------------------------------------------------------------------
 # v11 component table.  Built as v10_COMPONENTS with substitutions, so every
 # comment/authority the v10 sheet carries is preserved verbatim and reviewed
@@ -167,7 +180,9 @@ V11_FP_SOURCES = [
      "VSSOP-10_3x3mm_P0.5mm"),
 ]
 
-V11_COLUMNS = B.V10_COLUMNS + [
+V11_COLUMNS = (B.V10_COLUMNS[:-1]
+               # v10's last column is the four U_CUT placeholders, which item 3 replaces.
+               + [
     # ADR-148 analog sense.  R_DIV1/R_DIV2 are NOT repeated here: they already sit in
     # v10's "supercap divider + F33 rail monitor" column, and v11 only re-values them.
     ["U_ADC1", "U_ADC2"],
@@ -176,15 +191,16 @@ V11_COLUMNS = B.V10_COLUMNS + [
     ["R_SOL3", "R_SOL4", "R_PROT3", "C_SOL2"],
     ["R_SOL5", "R_SOL6", "R_PROT4", "C_SOL3"],
     ["R_PU1", "R_PU2", "C_ADC1", "C_ADC2"],
-]
-V11_COL_TITLES = B.V10_COL_TITLES + [
-    "ADR-148 ANALOG SENSE: 2x ADS1115IDGS - 0x48 cut-sense (DNP), 0x49 rail monitors",
+] + [CUT.columns()[0][i] for i in range(len(CUT.columns()[0]))])
+V11_COL_TITLES = (B.V10_COL_TITLES[:-1]      # drop the OPEN-placeholder title
+                  + [
+    "ADR-148 ANALOG SENSE: 2x ADS1115IDGS - 0x48 cut-sense, 0x49 rail monitors",
     "ADR-148 input protection + 10nF RC on the /VSCAP tap (R_DIV1/2 re-valued above)",
     "ADR-148 SOLAR DIVIDER D_W1 220k/62k -> /W1_SOLAR_P (12-cell stack top)",
     "ADR-148 SOLAR DIVIDER D_W2 220k/62k -> /W1_SOLAR_N (9-cell tap = W2_P)",
     "ADR-148 SOLAR DIVIDER D_W3 220k/62k -> /W2_SOLAR_N (6-cell tap = W3_P)",
     "ADR-148 I2C PULL-UPS 2x4k7 (v10 bus had NONE) + ADC VDD decoupling",
-]
+] + CUT.columns()[1])
 
 V11_TODO = B.V10_TODO + [
     ("ADR-148 SOLAR OPEN-CIRCUIT VOLTAGE IS AN ESTIMATE, NOT A MEASUREMENT",
@@ -222,12 +238,19 @@ def v11_components():
     for (ref, lib_id, value, fp, dnp, note) in B.V10_COMPONENTS:
         if ref in VALUE_CHANGES:
             value, note = VALUE_CHANGES[ref]
+        # --- v11 SCOPE ITEM 3: the four placeholder CUT_CHANNEL provisions are REPLACED.
+        # They were 3-pin TODO symbols (VSCAP/GND/CUT_W) with pins 4..6 UNASSIGNED. The
+        # real channel is a latch + FET + shunt + divider + 2-conductor loop, which is
+        # eight parts, so the provision is dropped here and re-emitted by build_v11_cut.
+        if ref in ("U_CUT1", "U_CUT2", "U_CUT3", "U_CUT4"):
+            continue
         # the v10 sheet's own custom parts are re-homed into the v11 library (see
         # v11_emit's `custom`), so the lib_id must follow them or the loader goes
         # looking for balloon_flight_v10 in /usr/share/kicad/symbols.
         lib_id = lib_id.replace(B.V10_LIBNAME + ":", V11_LIBNAME + ":")
         comps.append((ref, lib_id, value, fp, dnp, note))
     comps.extend(V11_ADDED)
+    comps.extend(CUT.components())
     return comps
 
 
