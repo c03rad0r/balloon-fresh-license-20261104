@@ -4,6 +4,11 @@
 The base station stops being an analogue RF instrument and becomes a **control board**; the 433 MHz
 receive front end is a purchased SPI module.
 
+> **UPDATE — this board is now merged with the inflator.** [ADR-150](../../../docs/adr/150-inflator-and-radio-on-one-board.md)
+> supersedes ADR-147 and puts the pressure/inflation controller **on the same PCB** as this control
+> board. The 26 parts below remain correct **for the radio/power half**; they are no longer the whole
+> board. Combined totals are in §7.
+
 **Measured on:** `tracker/hardware/base_station/base_station_v1_placed_v2.kicad_pcb`
 **Status:** BOM record only. No board re-fabricated, nothing purchased, nothing powered up.
 
@@ -128,112 +133,111 @@ Applying 5 V to a 3.3 V-only breakout destroys it. This ADR does not assume it a
 
 ---
 
-# Part 2 — inflation control, merged onto the same board (ADR-150)
+## §7 — Combined board (ADR-150)
 
-**Scope:** implements [ADR-150](../../adr/150-merge-inflation-control-onto-base-station.md). This
-reverses ADR-147's "separate boards" decision on the operator's instruction, and inherits **every**
-safety requirement of ADR-088 unchanged.
+The inflator joins this board. This section is the BOM consequence; the decision and its risks are in
+[ADR-150](../../../docs/adr/150-inflator-and-radio-on-one-board.md).
 
-**This section is not a shopping list.** ADR-088 is explicit that target/ramp/dwell/max ΔP are
-**UNKNOWN per envelope** and that pump actuation is currently *disabled*. The parts below define what
-the board must be able to drive; they do not authorise inflating anything.
+| | footprints | body area |
+|---|---|---|
+| Radio/power half (this document, post-ADR-149) | **26** | 562 mm² |
+| Pressure/inflation half (`compact.kicad_pcb`) | **26** | 2407 mm² |
+| **Combined** | **52** | **2970 mm²** |
 
-## Added — inflation control domain
+At the ~60 % packing the compact pressure board achieved, 2970 mm² of body implies roughly
+**5000 mm² of board — about 70 × 70 mm**. That is an area estimate from body bounding boxes, **not a
+placement**, and it will move once real placement runs.
 
-### Sensors — 2 × MS5611 (verified)
+**The pressure half dominates (81 % of area)** because it carries two MS5611 breakouts, USB-C, the
+buck, and the pneumatic port keep-outs.
+
+### What the combination costs in the BOM
+
+| item | consequence |
+|---|---|
+| MCUs | **two, not one** — RP2040 (radio/host) and ESP32-S3 (pressure/inflation). ADR-150 D2. |
+| Power tree | one input rail feeds both; pump inrush sizing and bulk capacitance are now board-wide, not local |
+| Debug access | both `J_SWD` (RP2040) and USB (ESP32-S3) must remain reachable after assembly |
+| Interlock | stays entirely inside the ESP32-S3; the inter-MCU link is **telemetry only** (ADR-150 D3) |
+| Pneumatics | the pressure half's sealed-tap port keep-outs now share a board with the radio and its 2.4 GHz antenna keep-out |
+
+### Still open before a combined BOM can be finalised
+
+1. **The 3.3 V / 5 V reconciliation for the RF module** (inherited from ADR-149 — the RFM96W breakout
+   is 3.3 V logic only).
+2. **Pump current and inrush** — not specified anywhere in the repo; needed to size the shared rail.
+3. **Which pneumatic interface** the combined board presents.
+4. **Whether both functions ship in one enclosure** — decides connector placement.
+
+---
+
+## Part 2 — inflation domain parts, with verified numbers (2026-11-11)
+
+The section above sizes the combined board. This one names the parts that did **not** exist in the
+repo's BOM before, and marks exactly how far each is verified. **Not a shopping list:** ADR-088 keeps
+pump actuation disabled and leaves ΔP targets UNKNOWN, so these define what the board must be able to
+drive, not permission to inflate.
+
+### Sensors — verified
 
 | item | part | spec | price | source |
 |---|---|---|---|---|
-| ΔP sensor, internal tap | **MS5611-01BA03** (`MS561101BA03-50`) | 10–1200 mbar, 24-bit, I²C+SPI, **1.8–3.6 V**, QFN 5.0×3.0×1.0 mm | **$11.56–12.25** | DigiKey, **16,892 in stock** |
-| ΔP sensor, ambient | same part, **other I²C address** | CSB pin sets the address LSB — two sensors share one bus | same | same |
+| ΔP sensor, internal tap | **MS5611-01BA03** (`MS561101BA03-50`) | 10–1200 mbar, 24-bit ΔΣ, I²C+SPI, **1.8–3.6 V**, QFN 5.0×3.0×1.0 mm | **$11.56–12.25** | DigiKey, **16,892 in stock** |
+| ΔP sensor, ambient | same part, **other I²C address** | CSB sets the address LSB, so two sensors share one bus with no mux | same | same |
 
-**Why this part and not BMP280:** ADR-088 §2 mandates two MS5611 with pair-specific offset
-calibration. The part is also what the existing `tools/balloon_pressure_test` firmware already
-speaks (ESP-IDF, PROM/CRC verified) — reusing it avoids a second driver.
+Chosen because ADR-088 §2 mandates two MS5611 with pair-specific calibration, and because the existing
+`tools/balloon_pressure_test` firmware already speaks this part (PROM/CRC verified) — no second driver.
 
-**Calibration does not transfer.** Same part number ≠ calibrated pair. Two units must be offset-
-calibrated at equal pressure and validated against an independent manometer (ADR-088 §2).
+> **Calibration does not transfer.** Same part number ≠ calibrated pair. Offset must be determined at
+> equal pressure and validated against an independent manometer (ADR-088 §2).
 
-### Valve — normally-closed, 12 V DC (candidate, NOT verified for helium)
+### Fill valve — CANDIDATE ONLY, three things unverified
 
 | item | candidate | spec | price | state |
 |---|---|---|---|---|
-| fill valve | **SMC VQZ1121** series (e.g. `VQZ1121-5L1-M5`) | 4/5-port, 2-position single solenoid, **0.35 W**, 24 VDC coil (12 V variants exist), **≤17–25 ms** response, 0.1–0.7 MPa, fluid: **air, inert gas** | **$44.28–58.87** | **candidate only** |
+| fill valve | **SMC VQZ1121** series (e.g. `VQZ1121-5L1-M5`) | 4/5-port, 2-position single solenoid, 0.35 W, ≤17–25 ms response, 0.1–0.7 MPa, fluid: air/inert gas | **$44.28–58.87** | **candidate** |
 
-**THREE THINGS ARE UNVERIFIED AND MUST BE CHECKED BEFORE ANY ORDER:**
+1. **Coil voltage is 24 VDC in every listing found.** A 12 V variant exists in the series but the
+   suffix must be confirmed against SMC's ordering guide — do not assume the rail fits.
+2. **"Normally closed" is not stated.** 2-position single-solenoid *usually* means spring-return,
+   which is **not proof**. ADR-150 S1 requires it proven: a valve that fails open is a safety
+   defect, not a part substitution.
+3. **Helium behaviour is unquantified.** Response time above is specified for **air**. A 0.35 W spool
+   valve may be the wrong device for filling a Mylar envelope at a controlled rate.
 
-1. **Coil voltage.** The listings above are **24 VDC**. A 12 VDC variant exists in the series but the
-   exact suffix must be confirmed against SMC's ordering guide — do not assume.
-2. **"Normally closed" is not stated in these listings.** They are 2-position single-solenoid valves,
-   which *usually* means spring-return, but ADR-088/D3 requires it **proven**, not inferred. A valve
-   that fails open is a safety defect, not a part substitution.
-3. **Helium compatibility.** "Air, inert gas" is stated; helium is an inert gas but leaks through
-   small clearances faster than air, and the response time above is specified for air. A 0.35 W
-   25 ms spool valve may be the wrong device for filling a Mylar envelope at controlled rate.
+A small direct-acting 3.3–12 V DC valve would likely suit a pico-balloon better. It is left
+**unevaluated** rather than guessed, because flow must follow the UNKNOWN ΔP targets.
 
-**Cheaper alternative not yet evaluated:** a small 3.3–12 V DC direct-acting solenoid valve with a
-fraction of this flow would likely suit a pico-balloon better. It is left unevaluated rather than
-guessed, because the flow and pressure range depend on the **UNKNOWN** ΔP targets of ADR-088.
-
-### Driver stage — the safety-critical part
+### Driver stage — deliberately unsized
 
 | block | implementation | why |
 |---|---|---|
-| low-side switch | N-channel MOSFET, logic-level, **pulled DOWN hard at the gate** | de-energised = closed = safe (ADR-150 D3) |
-| freewheel | **diode across the coil** (Schottky or PN) | an inductive kick with no path destroys the MOSFET — TI/Nexperia both treat this as mandatory, not optional |
-| pump interlock | pump relay de-energised-off from the **same fault line** as the valve, or valve in series with the pump | ADR-150 D4; the pump must not run with the valve closed unless plumbing forbids a path |
-| alarm | separate **latched** output, asserted ON for fault | a dead alarm must not read as "healthy" — boot self-test required (ADR-150 D5) |
-| gate resistor + pulldown | 1 kΩ series, 10 kΩ pulldown | prevents floating gate during MCU reset |
+| low-side switch | logic-level N-channel MOSFET, gate **pulled low** | de-energised = closed = safe (ADR-150 S1) |
+| freewheel | diode across the coil | no recirculation path destroys the MOSFET — TI/Nexperia treat as mandatory (S4) |
+| pump interlock | pump relay de-energised-off from the same fault line, or valve in series with pump | ADR-150 S2 |
+| alarm | separate **latched** output, asserted ON for fault, boot self-test | ADR-150 S3 |
+| gate network | 1 kΩ series + 10 kΩ pulldown | a floating gate during MCU reset is a valve that might open |
 
-**No specific MOSFET/flyback part numbers are given here on purpose.** They follow from the valve
-choice (coil current, clamp energy), which is unverified. Sizing them against a guessed valve is how
-a driver ends up under-rated.
+**No MOSFET or diode part numbers are given.** They follow from coil current and clamp energy, which
+follow from the valve. Sizing against a guessed valve is how a driver ends up under-rated.
 
-### Interlock MCU (ADR-150 D1/D3)
-
-| item | part | why |
-|---|---|---|
-| interlock MCU | **ESP32-S3** module (same family as `tools/balloon_pressure_test`) | reuses the written interlock state machine + **33 host assertions**; independent of the RP2040 tracking domain |
-| interlock SWD/access | own header | a hung telemetry MCU must not block reflashing the guard |
-
-**The two MCUs must not share a bus, crystal or reset** (ADR-150 D2). They may share a ground plane
-only if that common-mode path is written down as a known limitation.
-
-## Kept from Part 1
-
-Nothing from Part 1 is removed by this merge. The board now carries **both** domains:
-
-| domain | parts |
-|---|---|
-| tracking (Part 1) | 26 kept parts + off-board RFM96W module |
-| inflation (Part 2) | 2 × MS5611, valve, MOSFET + flyback + pulldowns, pump relay, alarm, ESP32-S3 + decoupling, plus connectors: fill line, ambient tap, internal tap |
-
-**Rough part count: 26 + ~18–22 = ~44–48 parts** — i.e. the inflation half returns the board close
-to the *original* 44-footprint size, because the RF chain's 18-part saving is spent on pneumatics.
-This is stated plainly so nobody expects a small board.
-
-## Connectors — physical access matters as much as copper
+### Connectors the inflation half adds
 
 | connector | purpose |
 |---|---|
-| fill line | valve outlet to balloon neck; barb or threaded |
-| ambient pressure tap | MS5611 #2, must stay open to atmosphere and be **screened** from propwash |
-| internal pressure tap | MS5611 #1, to the envelope side of the fill path |
+| fill line | valve outlet to balloon neck — barb or threaded |
+| ambient pressure tap | MS5611 #2, open to atmosphere and **screened from propwash** |
+| internal pressure tap | MS5611 #1, envelope side of the fill path |
 | pump power | switched + unswitched, strain-relieved |
 | alarm | latched, audible/visible |
 
-## Layout constraint (ADR-150 §4)
+### Part-count honesty
 
-**Valve and pump copper does not go near the RF module.** A switching solenoid beside a −137 dBm
-receiver is an own-goal; the two domains are separated on the board, not only in the schematic.
+The RF retirement saved 18 parts; the inflation half spends all of it. The combined board lands near
+its **original 44 footprints**, not below. Stated plainly so nobody budgets for a small board.
 
-## Still open — blocks the final BOM
+### Layout constraint
 
-1. **Valve selection** — coil voltage, proven normally-closed, helium/flow suitability (above).
-2. **ΔP targets remain UNKNOWN** (ADR-088 §3) — flow rating cannot be finalised without them.
-3. **RFM96W is 3.3 V logic only** — 5 V rail must not reach it (carried from Part 1).
-4. **Board outline** — no longer 60 × 45 mm; must be measured from the merged part list, not guessed.
-5. **Hardware fail-safe direction is NOT verified.** Per `PRESTRETCH-OVERPRESSURE-INTERLOCK.md`, that
-   *"needs the operator's hands"*: the valve must be proven to de-energise closed, and the pump proven
-   to share the path.
-
+Valve and pump copper must not sit near the RF module, and the 2.4 GHz antenna keep-out (ADR-150 D5)
+must stay clear of the pneumatic connectors. A switching solenoid beside a −137 dBm receiver is an
+own-goal, and pump inrush browning out the radio rail is the residual ADR-147 concern (ADR-150 D4).
