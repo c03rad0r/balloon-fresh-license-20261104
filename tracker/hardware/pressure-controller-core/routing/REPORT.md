@@ -152,3 +152,48 @@ minimum SW width here: review actual load plus inductor ripple/peak current, cop
 thickness, allowed rise/drop, and complete high-di/dt loop geometry before approval.
 This batch neither widens the switch path nor modifies placement; regulator-current,
 thermal/EMI and assembly qualification remain explicit open requirements.
+
+## Accepted batch 5 — I2C escape after the keep-out was narrowed to the inter-pad strip
+
+**This batch closes the class of blocker that the MS5611 sensor-port keep-out caused**, not the
+whole board. Operator decision (option A) narrowed the footprint's F.Cu rule area from the
+3 x 5 mm body to the inter-pad strip `x -0.55..+0.55, y -2.50..+2.50` (1.10 mm); see
+`../FOOTPRINT-REPORT.md` and `../sensor-port-keepout-strip.png` for the measured geometry and
+`../proofs/strip-native-probes.txt` for the native DRC probes.
+
+| Batch | Addition | Native opens | /I2C_SDA | /I2C_SCL | New violations |
+|---|---|---:|---:|---:|---:|
+| 5 | /I2C_SDA + /I2C_SCL escape, 0.20 mm F.Cu, 4 vias | 66→63 | 3→0 | 3→0 | 0 |
+
+Both I2C nets are closed. Measured, same board and same project rules before and after:
+opens **66 → 63**; native DRC violations unchanged at **1** (the inherited, declared U1
+`lib_footprint_mismatch`); shorts 0, clearance 0, `items_not_allowed` 0.
+
+**WHY /I2C_SDA HAD TO WAIT FOR /I2C_SCL TO MOVE.** After the strip edit SDA still failed, and the
+search was NOT the limit: a 2-layer flood fill from U4.7 reached **249 cells** against 411 728
+from U1.12, i.e. pad 7's own escape was walled in. The wall was `/I2C_SCL`'s previously-laid
+copper running down the middle of the sensor gap at `x 61.075` and crossing at `y 8.675`, sealing
+the pocket between pads 7 and 8. Deleting only SCL's copper made SDA route first try. The batch
+therefore re-routes both I2C nets in ONE pass, SDA promoted, and SCL re-routes around it.
+
+**Prior connectivity re-proved, not assumed.** `prove_i2c_escape_preservation.py` compares
+physical copper polygon partitions (native polygonization at 100 nm, individual filled islands
+and holes) before vs after: pads-bridged pairs **104 → 110**, previously-connected pairs broken
+**0**. Two controls run in the same process: stripping /I2C_SCL's copper must split /I2C_SCL
+(it does), and the before-board against itself must split nothing (it does not). A GND-fill
+control was tried first and is **vacuous on this candidate** — it has no pour zones — so it was
+replaced rather than reported as a pass.
+
+`physical_partitions.py` previously failed closed on vias (`assert not isinstance(t, PCB_VIA)`).
+This batch places four plated through-vias, so the graph now models a via as a barrel joining
+ITS OWN net's copper across layers, through a bridge key kept separate from pad membership so a
+via can never fabricate a pad group. `test_physical_partitions.py` gained a negative control that
+removes a via barrel and requires the net to split, so the bridge is proven load-bearing.
+
+All five project routing gates plus hole clearance pass on the final board: lane_clearance
+0 under-clearance, lane_integrity 0, copper_under_body 0 crossings, lane_isolation 0,
+lane_crossing 0 crossings/overlaps/touches/near. Render: `route-layers.png`.
+
+**Still open (unchanged by this batch):** /GND 30 and /+3V3 19 are RAILS that need pour zones as
+deliberate work; /EN 4, /USB5V 4, /BOOT 3, /USB_DN_CONN 2, /BUCK_SW 1 remain. 63 native opens.
+Not fab ready. No flash, no order, no actuation.
