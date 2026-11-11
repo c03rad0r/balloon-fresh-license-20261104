@@ -1,20 +1,17 @@
 [
   {
-    "before": "batch0",
-    "after": "batch1",
-    "unchanged_existing_objects": 93,
-    "added_zones": 1,
+    "before": "/tmp/rail/full/rail-gnd-stitch.kicad_pcb",
+    "after": "/tmp/rail/full/rail-3v3-tree.kicad_pcb",
+    "unchanged_existing_objects": 228,
+    "added_by_kind": {
+      "segment": 6
+    },
     "removed_or_modified_existing_objects": 0,
-    "previously_connected_pairs_broken": 0,
-    "proof": "All pre-existing copper including filled polygons preserved exactly; additive copper cannot disconnect pairs."
-  },
-  {
-    "before": "batch1",
-    "after": "batch2",
-    "unchanged_existing_objects": 94,
-    "added_zones": 1,
-    "removed_or_modified_existing_objects": 0,
-    "previously_connected_pairs_broken": 0,
-    "proof": "All pre-existing copper including filled polygons preserved exactly; additive copper cannot disconnect pairs."
+    "disallowed_removals": [],
+    "disallowed_additions": {},
+    "allowed_additions": [
+      "segment",
+      "zone"
+    ]
   }
 ]
