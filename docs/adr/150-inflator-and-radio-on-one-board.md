@@ -143,6 +143,48 @@ and the pneumatic port keep-outs.
 
 ---
 
+## Added 2026-11-11 — pressure-safety requirements this merge must not erase
+
+The decisions above settle the **architecture**. They do not restate the safety rules the inflation
+side already lives under, and a merge is exactly where those get quietly lost. **ADR-088 remains the
+authority and is not superseded by this record.** Carried here verbatim in effect:
+
+**S1 — The valve is NORMALLY-CLOSED and de-energises closed.** Loss of power, loss of the ESP32-S3,
+or a hung GPIO must leave the fill path **closed**. This is the existing firmware contract
+(`tools/balloon_pressure_test`: *"the fill valve stays closed (fail-safe)"*). It is a property of the
+**chosen valve**, and must be **proven**, not inferred from "2-position single solenoid".
+
+**S2 — The pump shares the fail-safe path** (`PRESTRETCH-OVERPRESSURE-INTERLOCK.md`): the fill valve
+is electrically in series with the pump, or the pump relay is de-energised-off from the same fault
+line. The pump must never run with the valve closed unless the plumbing guarantees no path to the
+envelope. Note this interacts with D4.1: a pump that shares the fault line must also survive the
+inrush sizing.
+
+**S3 — The alarm is a separate LATCHED output, asserted ON for a fault**, with a boot self-test. A
+de-energised alarm must not read as "healthy" unless the alarm hardware is proven healthy.
+
+**S4 — The freewheel diode is not optional.** A solenoid is an inductive load; interrupting coil
+current without a recirculation path destroys the switching MOSFET (TI and Nexperia both treat this
+as mandatory). Gate held **low** by a pulldown so an MCU reset leaves the valve closed.
+
+**S5 — ΔP targets, ramp, dwell and maximum remain UNKNOWN per envelope** (ADR-088 §3). The two
+MS5611 need pair-specific offset calibration validated against an independent manometer; the same part
+number does **not** transfer calibration. Circumference remains the primary control variable —
+pressure is a **gross over-inflation detector**, not a working setpoint.
+
+**S6 — The hardware fail-safe direction is NOT verified.** Per the existing interlock record, that
+*"needs the operator's hands"*: someone must prove the valve de-energises closed and the pump shares
+the path. Software tests demonstrate logic only, never physical protection.
+
+**Why this section exists:** D3 above says actuation stays inside the ESP32-S3, which is a *command*
+boundary. S1–S6 are the *physical* boundary, and a merged board is the first place where a radio
+supply fault could reach a pneumatic part. Both must hold.
+
+**BOM:** `docs/fab/base_station/BOM-RESCOPE.md` Part 2.
+
+
+---
+
 ## Reproduce
 
 ```bash

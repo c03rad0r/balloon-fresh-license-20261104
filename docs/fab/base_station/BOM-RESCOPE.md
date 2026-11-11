@@ -168,3 +168,76 @@ buck, and the pneumatic port keep-outs.
 2. **Pump current and inrush** — not specified anywhere in the repo; needed to size the shared rail.
 3. **Which pneumatic interface** the combined board presents.
 4. **Whether both functions ship in one enclosure** — decides connector placement.
+
+---
+
+## Part 2 — inflation domain parts, with verified numbers (2026-11-11)
+
+The section above sizes the combined board. This one names the parts that did **not** exist in the
+repo's BOM before, and marks exactly how far each is verified. **Not a shopping list:** ADR-088 keeps
+pump actuation disabled and leaves ΔP targets UNKNOWN, so these define what the board must be able to
+drive, not permission to inflate.
+
+### Sensors — verified
+
+| item | part | spec | price | source |
+|---|---|---|---|---|
+| ΔP sensor, internal tap | **MS5611-01BA03** (`MS561101BA03-50`) | 10–1200 mbar, 24-bit ΔΣ, I²C+SPI, **1.8–3.6 V**, QFN 5.0×3.0×1.0 mm | **$11.56–12.25** | DigiKey, **16,892 in stock** |
+| ΔP sensor, ambient | same part, **other I²C address** | CSB sets the address LSB, so two sensors share one bus with no mux | same | same |
+
+Chosen because ADR-088 §2 mandates two MS5611 with pair-specific calibration, and because the existing
+`tools/balloon_pressure_test` firmware already speaks this part (PROM/CRC verified) — no second driver.
+
+> **Calibration does not transfer.** Same part number ≠ calibrated pair. Offset must be determined at
+> equal pressure and validated against an independent manometer (ADR-088 §2).
+
+### Fill valve — CANDIDATE ONLY, three things unverified
+
+| item | candidate | spec | price | state |
+|---|---|---|---|---|
+| fill valve | **SMC VQZ1121** series (e.g. `VQZ1121-5L1-M5`) | 4/5-port, 2-position single solenoid, 0.35 W, ≤17–25 ms response, 0.1–0.7 MPa, fluid: air/inert gas | **$44.28–58.87** | **candidate** |
+
+1. **Coil voltage is 24 VDC in every listing found.** A 12 V variant exists in the series but the
+   suffix must be confirmed against SMC's ordering guide — do not assume the rail fits.
+2. **"Normally closed" is not stated.** 2-position single-solenoid *usually* means spring-return,
+   which is **not proof**. ADR-150 S1 requires it proven: a valve that fails open is a safety
+   defect, not a part substitution.
+3. **Helium behaviour is unquantified.** Response time above is specified for **air**. A 0.35 W spool
+   valve may be the wrong device for filling a Mylar envelope at a controlled rate.
+
+A small direct-acting 3.3–12 V DC valve would likely suit a pico-balloon better. It is left
+**unevaluated** rather than guessed, because flow must follow the UNKNOWN ΔP targets.
+
+### Driver stage — deliberately unsized
+
+| block | implementation | why |
+|---|---|---|
+| low-side switch | logic-level N-channel MOSFET, gate **pulled low** | de-energised = closed = safe (ADR-150 S1) |
+| freewheel | diode across the coil | no recirculation path destroys the MOSFET — TI/Nexperia treat as mandatory (S4) |
+| pump interlock | pump relay de-energised-off from the same fault line, or valve in series with pump | ADR-150 S2 |
+| alarm | separate **latched** output, asserted ON for fault, boot self-test | ADR-150 S3 |
+| gate network | 1 kΩ series + 10 kΩ pulldown | a floating gate during MCU reset is a valve that might open |
+
+**No MOSFET or diode part numbers are given.** They follow from coil current and clamp energy, which
+follow from the valve. Sizing against a guessed valve is how a driver ends up under-rated.
+
+### Connectors the inflation half adds
+
+| connector | purpose |
+|---|---|
+| fill line | valve outlet to balloon neck — barb or threaded |
+| ambient pressure tap | MS5611 #2, open to atmosphere and **screened from propwash** |
+| internal pressure tap | MS5611 #1, envelope side of the fill path |
+| pump power | switched + unswitched, strain-relieved |
+| alarm | latched, audible/visible |
+
+### Part-count honesty
+
+The RF retirement saved 18 parts; the inflation half spends all of it. The combined board lands near
+its **original 44 footprints**, not below. Stated plainly so nobody budgets for a small board.
+
+### Layout constraint
+
+Valve and pump copper must not sit near the RF module, and the 2.4 GHz antenna keep-out (ADR-150 D5)
+must stay clear of the pneumatic connectors. A switching solenoid beside a −137 dBm receiver is an
+own-goal, and pump inrush browning out the radio rail is the residual ADR-147 concern (ADR-150 D4).
