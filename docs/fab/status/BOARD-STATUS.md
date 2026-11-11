@@ -4,6 +4,22 @@
 **Purpose:** one honest page. Every number below was **measured on the committed board**, not
 recalled from an ADR. Anything unmeasured is labelled as such.
 
+> ## ➡️ Split into per-generation pages (2026-11-11)
+>
+> This register now covers **general and flight-deferral content only**. Board state moved to one
+> page per generation, so a stale section cannot contradict a current one:
+>
+> | generation | page | state |
+> |---|---|---|
+> | **v10 (hub + wing)** | **[V10-STATUS.md](V10-STATUS.md)** | fabricated, 10 assembled boards, **82 nets still unconnected** |
+> | **v11** | **[V11-STATUS.md](V11-STATUS.md)** | **specification only — no board file exists** |
+>
+> **The hub table in §1 below is stale.** It reads `127 unrouted` from 2026-10-25; the board measures
+> **82 unconnected** as of 2026-11-11 (`ace09314`). The v10 page carries the current numbers and the
+> reproduce command. Where the two disagree, **the per-generation page wins** — it is measured with a
+> recorded command, this register is a snapshot.
+
+
 Operator direction that shapes this document: *"lets skip these tests and just investigate +
 record this kind of stuff as part of the balloon flight. We might focus on the wrong details
 if we go too deep into the details before doing our first flight."*
