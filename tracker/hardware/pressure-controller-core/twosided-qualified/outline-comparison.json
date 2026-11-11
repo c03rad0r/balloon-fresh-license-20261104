@@ -1,0 +1,115 @@
+{
+  "rows": [
+    {
+      "label": "80 x 60 baseline (master, all top)",
+      "path": "/home/c08r4d0r/worktrees/pr-pressure-twosided-qualified/tracker/hardware/pressure-controller-core/placement/core-placement.kicad_pcb",
+      "board_mm": [
+        80,
+        60
+      ],
+      "board_area_mm2": 4800,
+      "source": "placement/core-placement.kicad_pcb @ 04219c23",
+      "top_parts": 26,
+      "bottom_parts": 0,
+      "courtyard_top_total_mm2": 1809.821,
+      "courtyard_bottom_total_mm2": 0,
+      "courtyard_top_clipped_mm2": 785.01,
+      "courtyard_bottom_clipped_mm2": 0,
+      "occupancy_top_percent": 16.35,
+      "occupancy_bottom_percent": 0.0,
+      "occupancy_both_percent": 16.35,
+      "occupancy_denominator": "80 x 60 = 4800 mm2, per side; courtyards clipped to outline",
+      "per_side_max_occupancy_percent": 16.35,
+      "reservations_mm2": {
+        "motor_30x24": 720.0,
+        "module_keepout": 393.9
+      },
+      "reservations_total_mm2": 1113.9,
+      "reservations_percent_of_board": 23.21,
+      "largest_empty_rect_outside_reservations_mm2": 728.0,
+      "largest_empty_rect_outside_reservations_at": [
+        25.25,
+        28.0,
+        22.75,
+        32.0
+      ],
+      "largest_empty_rect_grid_mm": 0.25,
+      "delta_vs_80x60_percent": 0.0
+    },
+    {
+      "label": "65 x 50 single-sided (unmerged candidate)",
+      "path": "/home/c08r4d0r/.hermes/profiles/manager/cache/scratch/compact-12d063cf.kicad_pcb",
+      "board_mm": [
+        65,
+        50
+      ],
+      "board_area_mm2": 3250,
+      "source": "compact/compact.kicad_pcb @ 12d063cf (branch pr-pressure-compact-placement, NOT on master)",
+      "top_parts": 26,
+      "bottom_parts": 0,
+      "courtyard_top_total_mm2": 1809.821,
+      "courtyard_bottom_total_mm2": 0,
+      "courtyard_top_clipped_mm2": 785.01,
+      "courtyard_bottom_clipped_mm2": 0,
+      "occupancy_top_percent": 24.15,
+      "occupancy_bottom_percent": 0.0,
+      "occupancy_both_percent": 24.15,
+      "occupancy_denominator": "65 x 50 = 3250 mm2, per side; courtyards clipped to outline",
+      "per_side_max_occupancy_percent": 24.15,
+      "reservations_mm2": {
+        "motor_30x24": 720.0,
+        "module_keepout": 393.9
+      },
+      "reservations_total_mm2": 1113.9,
+      "reservations_percent_of_board": 34.27,
+      "largest_empty_rect_outside_reservations_mm2": 197.6,
+      "largest_empty_rect_outside_reservations_at": [
+        37.75,
+        0.0,
+        27.25,
+        7.25
+      ],
+      "largest_empty_rect_grid_mm": 0.25,
+      "delta_vs_80x60_percent": -32.29
+    },
+    {
+      "label": "52 x 46 two-sided (this candidate)",
+      "path": "/home/c08r4d0r/worktrees/pr-pressure-twosided-qualified/tracker/hardware/pressure-controller-core/twosided-qualified/twosided-qualified.kicad_pcb",
+      "board_mm": [
+        52,
+        46
+      ],
+      "board_area_mm2": 2392,
+      "source": "twosided-qualified/twosided-qualified.kicad_pcb",
+      "top_parts": 19,
+      "bottom_parts": 7,
+      "courtyard_top_total_mm2": 1697.762,
+      "courtyard_bottom_total_mm2": 112.059,
+      "courtyard_top_clipped_mm2": 672.951,
+      "courtyard_bottom_clipped_mm2": 112.059,
+      "occupancy_top_percent": 28.13,
+      "occupancy_bottom_percent": 4.68,
+      "occupancy_both_percent": 32.82,
+      "occupancy_denominator": "52 x 46 = 2392 mm2, per side; courtyards clipped to outline",
+      "per_side_max_occupancy_percent": 28.13,
+      "reservations_mm2": {
+        "motor_30x24": 720.0,
+        "module_keepout": 393.9
+      },
+      "reservations_total_mm2": 1113.9,
+      "reservations_percent_of_board": 46.57,
+      "largest_empty_rect_outside_reservations_mm2": 212.4,
+      "largest_empty_rect_outside_reservations_at": [
+        13.75,
+        20.25,
+        8.25,
+        25.75
+      ],
+      "largest_empty_rect_grid_mm": 0.25,
+      "delta_vs_80x60_percent": -50.17
+    }
+  ],
+  "grid_step_mm": 0.25,
+  "two_vs_single_percent": -26.4,
+  "two_vs_single_mm2": -858
+}

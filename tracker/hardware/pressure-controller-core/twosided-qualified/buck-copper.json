@@ -1,0 +1,106 @@
+{
+  "board": "twosided-qualified.kicad_pcb",
+  "stackup_assumption": {
+    "copper_oz_outer": 1.0,
+    "copper_um": 35.0,
+    "note": "JLCPCB 2-layer 1.6 mm prototype default is 1 oz (35 um) outer copper; 2 oz and heavier are available at extra cost. The board file declares 2 copper layers; no stackup impedance claim is made because nothing here is impedance-controlled."
+  },
+  "sizing_method": "IPC-2221 external-layer chart, k=0.048, dT=10 C. ADVISORY sizing for an UNROUTED candidate, not a thermal simulation.",
+  "nets": {
+    "/USB5V": {
+      "current_a": 0.733,
+      "basis": "VIN input, 0.73 A (1 A out at 3.3/5.0 V, 90% eff)",
+      "width_1oz_10C_mm": 0.196,
+      "width_2oz_10C_mm": 0.098
+    },
+    "/BUCK_SW": {
+      "current_a": 1.0,
+      "basis": "switch node, 1.00 A",
+      "width_1oz_10C_mm": 0.3,
+      "width_2oz_10C_mm": 0.15
+    },
+    "/+3V3": {
+      "current_a": 1.0,
+      "basis": "VOUT, 1.00 A",
+      "width_1oz_10C_mm": 0.3,
+      "width_2oz_10C_mm": 0.15
+    },
+    "/GND": {
+      "current_a": 0.733,
+      "basis": "input/PGND return, 0.73 A",
+      "width_1oz_10C_mm": 0.196,
+      "width_2oz_10C_mm": 0.098
+    },
+    "/BUCK_FB": {
+      "current_a": 0.0,
+      "basis": "sense only, ~uA - size for noise, not current",
+      "width_1oz_10C_mm": null,
+      "width_2oz_10C_mm": null
+    }
+  },
+  "widest_required_trace_1oz_mm": 0.3,
+  "min_pad_edge_gap_between_different_buck_nets_mm": 0.758,
+  "tightest_pairs": [
+    {
+      "edge_gap_mm": 0.758,
+      "a": "U2.1",
+      "net_a": "/GND",
+      "b": "C4.1",
+      "net_b": "/USB5V"
+    },
+    {
+      "edge_gap_mm": 0.92,
+      "a": "U2.4",
+      "net_a": "/GND",
+      "b": "C4.1",
+      "net_b": "/USB5V"
+    },
+    {
+      "edge_gap_mm": 1.1,
+      "a": "C5.1",
+      "net_a": "/+3V3",
+      "b": "C6.2",
+      "net_b": "/GND"
+    },
+    {
+      "edge_gap_mm": 1.265,
+      "a": "L1.2",
+      "net_a": "/+3V3",
+      "b": "C6.2",
+      "net_b": "/GND"
+    },
+    {
+      "edge_gap_mm": 1.269,
+      "a": "L1.2",
+      "net_a": "/+3V3",
+      "b": "C5.2",
+      "net_b": "/GND"
+    },
+    {
+      "edge_gap_mm": 1.297,
+      "a": "R7.1",
+      "net_a": "/+3V3",
+      "b": "R8.1",
+      "net_b": "/BUCK_FB"
+    },
+    {
+      "edge_gap_mm": 1.315,
+      "a": "U2.5",
+      "net_a": "/BUCK_FB",
+      "b": "L1.1",
+      "net_b": "/BUCK_SW"
+    },
+    {
+      "edge_gap_mm": 1.315,
+      "a": "U2.6",
+      "net_a": "/+3V3",
+      "b": "L1.1",
+      "net_b": "/BUCK_SW"
+    }
+  ],
+  "design_min_clearance_mm": 0.0,
+  "verdict": "The tightest different-net pad gap in the buck cell (0.758 mm, U2.1/C4.1) accommodates the 0.600 mm needed for the widest required buck trace (0.300 mm) plus clearance; the wide traces must therefore leave the tight pads immediately rather than run between them. This is a ROUTING constraint, reported for the routing pass.",
+  "tightest_channel_fits_widest_buck_trace": true,
+  "tightest_channel_required_mm": 0.6,
+  "tightest_channel_available_mm": 0.758
+}
