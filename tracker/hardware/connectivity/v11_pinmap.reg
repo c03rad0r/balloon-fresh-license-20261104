@@ -189,25 +189,25 @@ U_C.18  GND  # v9 netlist (rails)
 # --- J_W1  (Wing_Tab_4P)
 J_W1.1  /W1_SOLAR_P  # v9 netlist (wing cut/solar)
 J_W1.2  GND  # v9 netlist (rails)
-J_W1.3  /CUT_SENSE_W1  # v9 netlist (wing cut/solar)
+J_W1.3  UNASSIGNED  # released by item 3: the cut loop left the wing tab; RF_FEED no longer carries cut drive or sense
 J_W1.4  /W1_SOLAR_N  # v9 netlist (wing cut/solar)
 
 # --- J_W2  (Wing_Tab_4P)
 J_W2.1  /W1_SOLAR_N  # v9 netlist (wing cut/solar)
 J_W2.2  GND  # v9 netlist (rails)
-J_W2.3  /CUT_SENSE_W2  # v9 netlist (wing cut/solar)
+J_W2.3  UNASSIGNED  # released by item 3, see J_W1.3
 J_W2.4  /W2_SOLAR_N  # v9 netlist (wing cut/solar)
 
 # --- J_W3  (Wing_Tab_4P)
 J_W3.1  /W2_SOLAR_N  # v9 netlist (wing cut/solar)
 J_W3.2  GND  # v9 netlist (rails)
-J_W3.3  /CUT_SENSE_W3  # v9 netlist (wing cut/solar)
+J_W3.3  UNASSIGNED  # released by item 3, see J_W1.3
 J_W3.4  /W3_SOLAR_N  # v9 netlist (wing cut/solar)
 
 # --- J_W4  (Wing_Tab_4P)
 J_W4.1  /W3_SOLAR_N  # v9 netlist (wing cut/solar)
 J_W4.2  GND  # v9 netlist (rails)
-J_W4.3  /CUT_SENSE_W4  # v9 netlist (wing cut/solar)
+J_W4.3  UNASSIGNED  # released by item 3, see J_W1.3
 J_W4.4  GND  # v9 netlist (rails)
 
 # --- U_LORA1280  (NiceRF LoRa1280, SX1280 12.5 dBm, ranging) - ADR-139
@@ -352,36 +352,12 @@ R_MON2.1  /F33_VSENSE  # ADR-129 D1 / ADR-047 s6
 R_MON2.2  GND  # ADR-129 D1 / ADR-047 s6 (F33 rail monitor, lower 4.7M)
 
 # --- U_CUT1
-U_CUT1.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 1 drive from raw supercap, PRE-LDO)
-U_CUT1.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 1 return)
-U_CUT1.3  /CUT_SENSE_W1  # ADR-129 D5 / ADR-051 s2.6 (cut 1 drive+sense; J_W1 pad 3 RF_FEED)
-U_CUT1.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT1.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT1.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
 # --- U_CUT2
-U_CUT2.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 2 drive from raw supercap, PRE-LDO)
-U_CUT2.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 2 return)
-U_CUT2.3  /CUT_SENSE_W2  # ADR-129 D5 / ADR-051 s2.6 (cut 2 drive+sense; J_W2 pad 3 RF_FEED)
-U_CUT2.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT2.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT2.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
 # --- U_CUT3
-U_CUT3.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 3 drive from raw supercap, PRE-LDO)
-U_CUT3.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 3 return)
-U_CUT3.3  /CUT_SENSE_W3  # ADR-129 D5 / ADR-051 s2.6 (cut 3 drive+sense; J_W3 pad 3 RF_FEED)
-U_CUT3.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT3.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT3.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
 # --- U_CUT4
-U_CUT4.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 4 drive from raw supercap, PRE-LDO)
-U_CUT4.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 4 return)
-U_CUT4.3  /CUT_SENSE_W4  # ADR-129 D5 / ADR-051 s2.6 (cut 4 drive+sense; J_W4 pad 3 RF_FEED)
-U_CUT4.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT4.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
-U_CUT4.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
 # =====================================================================
 # ADR-148 -- ANALOG SENSE.  Two ADS1115IDGS (C37593, VSSOP-10) on the EXISTING I2C bus,
@@ -405,10 +381,6 @@ U_CUT4.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, 
 U_ADC1.1  GND  # SBAS444E Table 7-2: ADDR->GND = 1001000b = 0x48
 U_ADC1.2  UNASSIGNED  # ALERT/RDY unused; SBAS444E s9.1.4 permits floating
 U_ADC1.3  GND  # SBAS444E pin 3
-U_ADC1.4  GND  # AIN0 RESERVED = cut-sense wing 1 (item 3). SBAS444E s9.1.4
-U_ADC1.5  GND  # AIN1 RESERVED = cut-sense wing 2 (item 3). SBAS444E s9.1.4
-U_ADC1.6  GND  # AIN2 RESERVED = cut-sense wing 3 (item 3). SBAS444E s9.1.4
-U_ADC1.7  GND  # AIN3 RESERVED = cut-sense wing 4 (item 3). SBAS444E s9.1.4
 U_ADC1.8  +3V3  # VDD; SBAS444E s5.3 operating 2..5.5 V
 U_ADC1.9  /I2C_SDA  # shared baro bus (U1.39)
 U_ADC1.10  /I2C_SCL  # shared baro bus (U1.38)
@@ -505,5 +477,154 @@ R_SOL6.2  GND
 C_SOL3.1  /W3_SOLAR_SENSE
 C_SOL3.2  GND
 
+# === BEGIN v11 SCOPE ITEM 3 (generated) ===
+# v11 SCOPE ITEM 3 -- FOUR NICHROME CUT CHANNELS (divider-only sense).
+# Generated from tracker/hardware/v11_cut_channels.json by
+# `python3 tracker/hardware/build_v11_cut.py --write-registry`. Do not hand-edit:
+# test_v11_cut_channels.py G2 fails if this block differs from the record.
 
-# UNASSIGNED pins on this board: 57 -> J_HUB_PV.3, U1."", U1.15, U1.16, U1.26, U1.27, U1.28, U1.29, U1.30, U1.35, U2.9, U2.10, U3.9, U3.10, U3.16, U3.17, U5.5, U5.11, U5.13, U5.14, U5.15, U5.16, U5.17, U5.18, U7.4, U_C.9, U_C.10, U_C.16, U_C.17, U_CUT1.4, U_CUT1.5, U_CUT1.6, U_CUT2.4, U_CUT2.5, U_CUT2.6, U_CUT3.4, U_CUT3.5, U_CUT3.6, U_CUT4.4, U_CUT4.5, U_CUT4.6, U_HUB_CVT."", U_HUB_CVT.4, U_HUB_CVT.5, U_HUB_CVT.6, U_HUB_CVT.7, U_HUB_CVT.8, U_HUB_CVT.9, U_HUB_CVT.10, U_HUB_CVT.11, U_HUB_CVT.12, U_HUB_CVT.13, U_HUB_CVT.14, U_HUB_CVT.15, U_HUB_CVT.16, U_HUB_CVT.17, U_LORA1280.9
+# --- GPIO spent by item 3 (3 of the 4 free pads per ADR-145)
+U1.15  /CUT_FIRE  # IO3/pad 15 - shared latch D. STRAPPING (JTAG source).
+U1.35  /CUT_A0  # IO42/pad 35 - decoder A (LSB), output capable
+U1.26  /CUT_A1  # IO45/pad 26 - decoder B (MSB). STRAPPING: VDD_SPI select, must be LOW at boot; R_A1PD 10k is both strap and idle level.
+
+# --- U_ADC1 AIN0..3: the four cut-sense currents (replaces PR546's GND placeholders)
+U_ADC1.4  /CUT_ADC1  # AIN0 = cut-sense wing 1 (scope item 3)
+U_ADC1.5  /CUT_ADC2  # AIN1 = cut-sense wing 2 (scope item 3)
+U_ADC1.6  /CUT_ADC3  # AIN2 = cut-sense wing 3 (scope item 3)
+U_ADC1.7  /CUT_ADC4  # AIN3 = cut-sense wing 4 (scope item 3)
+
+# --- CUT CHANNEL 1: latch + FET + shunt + divider + 2-conductor loop
+U_CUT1.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT1.2  GND  # SCES528F s5 pin 2
+U_CUT1.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT1.4  /CUT_LAT1  # Q -> R_G1
+U_CUT1.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT1.6  /CUT_OE1  # ~OE <- U_DEC.Y0
+Q_CUT1.1  /CUT_GATE1  # gate
+Q_CUT1.2  /CUT_SHUNT_H1  # SOURCE = shunt HIGH side = sense tap
+Q_CUT1.3  /CUT_HEAT_RET1  # DRAIN = heater return, into the shunt
+R_G1.1  /CUT_LAT1  # from U_CUT1 Q
+R_G1.2  /CUT_GATE1  # to gate
+R_GPD1.1  /CUT_GATE1  # fail-safe pull-down
+R_GPD1.2  GND
+R_SH1.1  /CUT_SHUNT_H1  # FORCE high: FET source / heater return
+R_SH1.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH1.2  /CUT_KELV_H1  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH1.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA1.1  /CUT_KELV_H1  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA1.2  /CUT_SENSE_DIV1
+R_SNSB1.1  /CUT_SENSE_DIV1
+R_SNSB1.2  GND
+R_SNS1.1  /CUT_SENSE_DIV1
+R_SNS1.2  /CUT_ADC1  # -> U_ADC1.AIN0
+C_SNS1.1  /CUT_ADC1
+C_SNS1.2  GND
+J_HT1.1  /VSCAP  # heater DRIVE conductor
+J_HT1.2  /CUT_HEAT_RET1  # dedicated heater RETURN conductor
+
+# --- CUT CHANNEL 2: latch + FET + shunt + divider + 2-conductor loop
+U_CUT2.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT2.2  GND  # SCES528F s5 pin 2
+U_CUT2.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT2.4  /CUT_LAT2  # Q -> R_G2
+U_CUT2.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT2.6  /CUT_OE2  # ~OE <- U_DEC.Y1
+Q_CUT2.1  /CUT_GATE2  # gate
+Q_CUT2.2  /CUT_SHUNT_H2  # SOURCE = shunt HIGH side = sense tap
+Q_CUT2.3  /CUT_HEAT_RET2  # DRAIN = heater return, into the shunt
+R_G2.1  /CUT_LAT2  # from U_CUT2 Q
+R_G2.2  /CUT_GATE2  # to gate
+R_GPD2.1  /CUT_GATE2  # fail-safe pull-down
+R_GPD2.2  GND
+R_SH2.1  /CUT_SHUNT_H2  # FORCE high: FET source / heater return
+R_SH2.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH2.2  /CUT_KELV_H2  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH2.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA2.1  /CUT_KELV_H2  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA2.2  /CUT_SENSE_DIV2
+R_SNSB2.1  /CUT_SENSE_DIV2
+R_SNSB2.2  GND
+R_SNS2.1  /CUT_SENSE_DIV2
+R_SNS2.2  /CUT_ADC2  # -> U_ADC1.AIN1
+C_SNS2.1  /CUT_ADC2
+C_SNS2.2  GND
+J_HT2.1  /VSCAP  # heater DRIVE conductor
+J_HT2.2  /CUT_HEAT_RET2  # dedicated heater RETURN conductor
+
+# --- CUT CHANNEL 3: latch + FET + shunt + divider + 2-conductor loop
+U_CUT3.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT3.2  GND  # SCES528F s5 pin 2
+U_CUT3.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT3.4  /CUT_LAT3  # Q -> R_G3
+U_CUT3.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT3.6  /CUT_OE3  # ~OE <- U_DEC.Y2
+Q_CUT3.1  /CUT_GATE3  # gate
+Q_CUT3.2  /CUT_SHUNT_H3  # SOURCE = shunt HIGH side = sense tap
+Q_CUT3.3  /CUT_HEAT_RET3  # DRAIN = heater return, into the shunt
+R_G3.1  /CUT_LAT3  # from U_CUT3 Q
+R_G3.2  /CUT_GATE3  # to gate
+R_GPD3.1  /CUT_GATE3  # fail-safe pull-down
+R_GPD3.2  GND
+R_SH3.1  /CUT_SHUNT_H3  # FORCE high: FET source / heater return
+R_SH3.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH3.2  /CUT_KELV_H3  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH3.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA3.1  /CUT_KELV_H3  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA3.2  /CUT_SENSE_DIV3
+R_SNSB3.1  /CUT_SENSE_DIV3
+R_SNSB3.2  GND
+R_SNS3.1  /CUT_SENSE_DIV3
+R_SNS3.2  /CUT_ADC3  # -> U_ADC1.AIN2
+C_SNS3.1  /CUT_ADC3
+C_SNS3.2  GND
+J_HT3.1  /VSCAP  # heater DRIVE conductor
+J_HT3.2  /CUT_HEAT_RET3  # dedicated heater RETURN conductor
+
+# --- CUT CHANNEL 4: latch + FET + shunt + divider + 2-conductor loop
+U_CUT4.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT4.2  GND  # SCES528F s5 pin 2
+U_CUT4.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT4.4  /CUT_LAT4  # Q -> R_G4
+U_CUT4.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT4.6  /CUT_OE4  # ~OE <- U_DEC.Y3
+Q_CUT4.1  /CUT_GATE4  # gate
+Q_CUT4.2  /CUT_SHUNT_H4  # SOURCE = shunt HIGH side = sense tap
+Q_CUT4.3  /CUT_HEAT_RET4  # DRAIN = heater return, into the shunt
+R_G4.1  /CUT_LAT4  # from U_CUT4 Q
+R_G4.2  /CUT_GATE4  # to gate
+R_GPD4.1  /CUT_GATE4  # fail-safe pull-down
+R_GPD4.2  GND
+R_SH4.1  /CUT_SHUNT_H4  # FORCE high: FET source / heater return
+R_SH4.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH4.2  /CUT_KELV_H4  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH4.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA4.1  /CUT_KELV_H4  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA4.2  /CUT_SENSE_DIV4
+R_SNSB4.1  /CUT_SENSE_DIV4
+R_SNSB4.2  GND
+R_SNS4.1  /CUT_SENSE_DIV4
+R_SNS4.2  /CUT_ADC4  # -> U_ADC1.AIN3
+C_SNS4.1  /CUT_ADC4
+C_SNS4.2  GND
+J_HT4.1  /VSCAP  # heater DRIVE conductor
+J_HT4.2  /CUT_HEAT_RET4  # dedicated heater RETURN conductor
+
+# --- SERIALISATION: one-hot decoder, exactly one latch enabled at any address
+U_DEC.1  /CUT_A0  # A (LSB)
+U_DEC.2  /CUT_A1  # B (MSB)
+U_DEC.4  GND  # SCES602E s5
+U_DEC.8  +3V3  # VCC 1.65..5.5 V
+U_DEC.7  /CUT_OE1  # Y0 -> U_CUT1 ~OE (Table 4: exactly one LOW)
+U_DEC.6  /CUT_OE2  # Y1 -> U_CUT2 ~OE (Table 4: exactly one LOW)
+U_DEC.5  /CUT_OE3  # Y2 -> U_CUT3 ~OE (Table 4: exactly one LOW)
+U_DEC.3  /CUT_OE4  # Y3 -> U_CUT4 ~OE (Table 4: exactly one LOW)
+R_A0PD.1  /CUT_A0
+R_A0PD.2  GND
+R_A1PD.1  /CUT_A1
+R_A1PD.2  GND
+R_FPD.1  /CUT_FIRE
+R_FPD.2  GND
+# === END v11 SCOPE ITEM 3 ===
+
+# UNASSIGNED pins on this board: 51 -> U1.15, U1.16, U1.26, U1.27, U1.28, U1.29, U1.30, U1.35, U1."", U2.9, U2.10, U3.9, U3.10, U3.16, U3.17, U5.5, U5.11, U5.13, U5.14, U5.15, U5.16, U5.17, U5.18, U7.4, U_C.9, U_C.10, U_C.16, U_C.17, J_W1.3, J_W2.3, J_W3.3, J_W4.3, U_LORA1280.9, U_HUB_CVT.4, U_HUB_CVT.5, U_HUB_CVT.6, U_HUB_CVT.7, U_HUB_CVT.8, U_HUB_CVT.9, U_HUB_CVT.10, U_HUB_CVT.11, U_HUB_CVT.12, U_HUB_CVT.13, U_HUB_CVT.14, U_HUB_CVT.15, U_HUB_CVT.16, U_HUB_CVT.17, U_HUB_CVT."", J_HUB_PV.3, U_ADC1.2, U_ADC2.2

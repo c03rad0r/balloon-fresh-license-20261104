@@ -230,13 +230,13 @@ def run(channel_json=None, sch_path=SCH, reg_path=REG):
     check("G6d shared ratio is true of the resistor VALUES (<1e-12 spread), "
           "not just a claim in the JSON", ok6d)
 
-    # ---- G7 cut-sense channels are not reused --------------------------
-    # NOTE ON THE TEST SHAPE: the four cut-sense inputs are ALL tied to GND in this
-    # revision, because the shunt that will drive them belongs to v11 item 3. So
-    # "the four channels are on four different nets" is FALSE today and asserting it
-    # would be asserting a design that does not exist. What must hold is that the four
-    # RESERVED IDENTITIES are distinct and disjoint from the rail channels -- that is what
-    # stops item 3 from silently re-using a channel.
+    # ---- G7 cut-sense channels: v11 SCOPE ITEM 3 NOW WIRES THEM -------------------
+    # HISTORY, kept because it explains the test shape. In PR546 these four inputs were ALL
+    # tied to GND, because the shunt that drives them belonged to item 3 and did not exist.
+    # Item 3 has now landed (tracker/hardware/build_v11_cut.py), so the correct assertion
+    # is the OPPOSITE of PR546's: the four AIN pins must each terminate on their own
+    # /CUT_ADC<n> net and must NOT be grounded. Leaving PR546's assertion in place would
+    # have passed only by not implementing item 3.
     cut_slots = [c["reserved_slot"] for c in dev["U_ADC1"]["channels"].values()]
     rail_slots = [c["reserved_slot"] for c in dev["U_ADC2"]["channels"].values()]
     rail_nets = [c["net"] for c in dev["U_ADC2"]["channels"].values()]
@@ -260,13 +260,29 @@ def run(channel_json=None, sch_path=SCH, reg_path=REG):
           all(c["pin"] in ("4", "5", "6", "7")
               for c in list(dev["U_ADC1"]["channels"].values())
               + list(dev["U_ADC2"]["channels"].values())))
-    # each reserved cut channel must be grounded NOW (SBAS444E s9.1.4), not floating
+    # Item 3: each AIN must now be on its own /CUT_ADC<n> net, and grounded NOWHERE.
     if nl:
         gnd = nl.get("GND", set())
-        grounded = [c for c in dev["U_ADC1"]["channels"].values()
-                    if ("U_ADC1", c["pin"]) in gnd]
-        check("G7e unwired cut-sense inputs are tied to GND per SBAS444E s9.1.4",
-              len(grounded) == 4, "%d/4 grounded" % len(grounded))
+        wired, on_gnd, on_own_net = [], [], []
+        for i, c in sorted(dev["U_ADC1"]["channels"].items()):
+            pin = c["pin"]
+            want = "/CUT_ADC%d" % (int(pin) - 3)      # AIN0=pin4 -> /CUT_ADC1
+            node = ("U_ADC1", pin)
+            if node in gnd:
+                on_gnd.append(pin)
+            own = {net for net, nodes in nl.items() if node in nodes}
+            if want in own:
+                on_own_net.append(pin)
+            wired.append((pin, want, sorted(own)))
+        check("G7e item 3 WIRES all four cut-sense inputs (PR546 grounded them)",
+              len(on_own_net) == 4,
+              "on own /CUT_ADC<n> net: %d/4 %s" % (len(on_own_net), wired))
+        check("G7f no cut-sense input is still grounded",
+              not on_gnd, "grounded pins: %s" % on_gnd)
+        # and the reverse control: PR546's grounding would now be a SHORT, not a reservation
+        check("G7g NEGATIVE CONTROL: a grounded AIN beside a live divider is REJECTED",
+              len(on_gnd) == 0 and len(on_own_net) == 4,
+              "if any AIN were still on GND while its divider drives it, this gate fails")
 
     # ---- G8 input protection bound ------------------------------------
     # TWO independent limits apply, and a protection claim is only as good as the

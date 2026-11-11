@@ -1,0 +1,294 @@
+{
+  "_comment": [
+    "v11 CUT-CHANNEL DESIGN RECORD -- the single machine-readable source for",
+    "v11 scope item 3 (four nichrome cut channels). Read by",
+    "tracker/hardware/build_v11_cut.py (generator component table) and by",
+    "tracker/hardware/test_v11_cut_channels.py (assertions + negative controls).",
+    "",
+    "ARCHITECTURE (B): DIVIDER-ONLY sense. The ADS1115 pin is bounded by passive",
+    "resistor division and nothing else. NO hold-up domain, NO analog switch, NO",
+    "supervisor. See docs/fab/V11-CUT-CHANNELS.md for the (A) rejection arithmetic.",
+    "",
+    "NO BOARD EXISTS for v11; this describes the SCHEMATIC, not routed copper.",
+    "NOT FAB READY."
+  ],
+
+  "status": {
+    "architecture": "B_divider_only",
+    "fab_ready": false,
+    "actuation_authorised": false,
+    "scope": "v11 scope item 3 only; items 1, 4 and the full re-route remain open"
+  },
+
+  "cut_channel": {
+    "wire": {
+      "alloy": "NiCr 80/20",
+      "gauge_awg": 36,
+      "diameter_mm": 0.127,
+      "length_mm": 25,
+      "resistance_ohm": 2.17,
+      "mass_mg": 2.66,
+      "source": "docs/analysis/wing-jettison.md s3.1-s3.3, reproduced in docs/analysis/V11-CUT-CHANNEL-RESISTORS.md s1",
+      "qualification": "alloy and rho_E are TODO(unverified) in wing-jettison s3.1; the 2.17 ohm is a calculation on an unverified rho, not a measurement of a wire"
+    },
+    "drive": {
+      "vscap_v": 5.4,
+      "vscap_basis": "2 x 2.7 V supercap (ADR-006); ADR-047 s2.1 raw node post-BAT54 pre-LDO",
+      "fet": "AO3400A",
+      "fet_lcsc": "C20917",
+      "fet_package": "SOT-23",
+      "fet_position": "LOW SIDE",
+      "fet_position_basis": "AO3400A is N-channel and its gate is driven from 3.3 V logic. A high-side N-channel needs Vgate > VSCAP + Vgs(th) = 5.4 + 1.45 = 6.85 V, which no 3.3 V gate driver here produces. docs/analysis/OPEN-25-ELECTRICAL-CONTRACT.md s3 states the same: 'An AO3400A alone driven by 3.3V cannot be assumed to be a high-side switch at 5.4 V.'",
+      "rds_on_max_ohm": 0.048,
+      "rds_on_basis": "AO3400A Rev 3.1 (July 2023) Electrical Characteristics, static: RDS(ON) max 32 mOhm at VGS=4.5 V, ID=5 A; max 48 mOhm at VGS=2.5 V, ID=3 A. At a 3.3 V gate the part is between those two spec points, so the CONSERVATIVE bound is the 2.5 V number, 48 mOhm. The 4.5 V figure would be an unsupported extrapolation upward.",
+      "vgsth_max_v": 1.45,
+      "id_25c_a": 5.7,
+      "id_70c_a": 4.7,
+      "pd_70c_w": 0.9,
+      "rthja_steady_max_c_per_w": 125.0,
+      "tj_max_c": 150.0,
+      "vgs_abs_max_v": 12.0,
+      "vds_abs_max_v": 30.0,
+      "source": "AOS AO3400A datasheet Rev 3.1 July 2023, Page 1 Absolute Maximum Ratings + Thermal Characteristics, Page 2 Electrical Characteristics"
+    },
+    "gate_network": {
+      "rg_ohm": 100.0,
+      "rg_role": "loop damping and switching speed ONLY; it is NOT a current limiter. The latch output is a small CMOS stage and the gate is 630 pF (Ciss). 100 ohm x 630 pF = 63 ns, against a 220 ms pulse.",
+      "pulldown_ohm": 100000.0,
+      "pulldown_role": "fail-safe: holds the gate below Vgs(th) while the latch output is high-impedance",
+      "pulldown_unqualified": "The latch IOZ max is +/-5 uA (SN74LVC1G373 SCES528F s6.5, VO = 0 to 5.5 V at VCC = 3.6 V). Across a 100 k pull-down that is 0.5 V, against a Vgs(th) MIN of 0.65 V -- 0.15 V of margin. A 10 k pull-down gives 50 mV and is the recommended change; it is NOT applied here because 100 k is the ADR-051 s2.5.1 value and changing it is a separate decision. RECORDED AS UNPROVEN, not silently tightened."
+    },
+    "series_arming_gate": {
+      "present": false,
+      "why": "ADR-051 s2.5.1 mandates 'a hardware series gate that requires an explicit arming sequence'. Implementing it needs a fourth output-capable GPIO (VSCAP-side P-channel switch plus its level shifter) and the ESP32-S3-WROOM-1U has only three: IO3/pad 15, IO42/pad 35, IO45/pad 26. All three are consumed by the decoder and the fire line. THIS IS THE LARGEST REMAINING GAP IN THE CUT CHANNEL and it is why the channel is not claimed to be safe against a stuck FIRE line.",
+      "candidate_part": "AO3401A (30 V P-channel, Vgs +/-12 V, ID -4.0 A @25 C / -3.2 A @70 C, RDS(ON) max 60 mOhm at Vgs -4.5 V, datasheet Rev 3.1 December 2023)",
+      "candidate_note": "named as the next change, NOT selected, NOT in this schematic"
+    }
+  },
+
+  "sense": {
+    "shunt": {
+      "ref_pattern": "R_SH<n>",
+      "value_ohm": 0.1,
+      "tolerance_pct": 1.0,
+      "package": "2512",
+      "min_power_w": 1.0,
+      "position": "in the dedicated per-wing return, between the low-side FET source and GND",
+      "why_0r1_and_not_10m": "A 10 mOhm shunt on the ADS1115's +/-4.096 V full scale (LSB 125 uV, SBAS444E Table 7-1) yields 24.8 mV = 198 counts, which is under 0.8 % of the code range. 0.1 ohm yields 466 counts at the same PGA setting -- 2.4x better -- while dropping only 4.3 % of the loop voltage. The 10 mOhm value in OPEN-25-CUTTER-ADC-PATH.md was computed against the +/-0.256 V PGA, which is NOT the FSR this board uses."
+    },
+    "divider": {
+      "ref_top_pattern": "R_SNSA<n>",
+      "ref_bottom_pattern": "R_SNSB<n>",
+      "div_net_pattern": "/CUT_SENSE_DIV<n>",
+      "adc_net_pattern": "/CUT_ADC<n>",
+      "gate_net_pattern": "/CUT_GATE<n>",
+      "r_top_ohm": 300000.0,
+      "r_bottom_ohm": 100000.0,
+      "ratio": 0.25,
+      "ratio_exact": "1/4 by resistor value, 1.0e5 / (3.0e5 + 1.0e5)",
+      "r_choice_note": "300k/100k, NOT 3M/1M, and the reason is LOADING not protection. The ADS1115 differential input impedance at FSR +/-4.096 V is 15 Mohm TYP (SBAS444E s5.5), so Thevenin 75 kohm gives 0.50 % gain error against 5.0 % for 3M/1M. On the powered-off stress the higher divider would be marginally BETTER (2.69 uA vs 26.6 uA of pin current, since a higher Thevenin resistance collapses the node further) -- but BOTH are 3 orders of magnitude below the 10 mA rating, so that is not the deciding term. Neither value repairs the powered-off VOLTAGE bound, which is a ratio property. Divider draw during a fire is 0.58 uA and during the 9.28 V fault 23.2 uA: both negligible.",
+      "series_ohm": 1000.0,
+      "cap_nf": 100.0,
+      "tap": "the FET SOURCE node /CUT_SHUNT_H<n>, i.e. the high side of the Kelvin shunt, which sits at 0 V whenever the switch is off"
+    },
+    "adc": {
+      "ref": "U_ADC1",
+      "part": "ADS1115IDGS",
+      "lcsc": "C37593",
+      "addr": 72,
+      "addr_hex": "0x48",
+      "fsr_v": 4.096,
+      "pga_code": 1,
+      "lsb_uv": 125.0,
+      "fsr_source": "PR546 / ADR-148; TI SBAS444E Table 7-1 (FSR +/-4.096 V -> LSB 125 uV)",
+      "channels": {
+        "AIN0": {"pin": "4", "net": "/CUT_ADC1", "wing": 1},
+        "AIN1": {"pin": "5", "net": "/CUT_ADC2", "wing": 2},
+        "AIN2": {"pin": "6", "net": "/CUT_ADC3", "wing": 3},
+        "AIN3": {"pin": "7", "net": "/CUT_ADC4", "wing": 4}
+      },
+      "dnp": false,
+      "dnp_note": "U_ADC1 was DNP in PR546 because its inputs were unwired. It is POPULATED here because every one of its four inputs now terminates on a real divider."
+    },
+    "absolute_max": {
+      "pin_above_vdd_v": 0.3,
+      "pin_below_gnd_v": 0.3,
+      "pin_current_ma": 10.0,
+      "source": "TI SBAS444E s5.1 Absolute Maximum Ratings: 'Analog input voltage AIN0..AIN3: GND - 0.3 to VDD + 0.3 V'; 'Input current, continuous, any pin except power supply pins: -10 to 10 mA'. s9.1.3 repeats 10 mA and calls it a stress rating.",
+      "powered_off": "TI PUBLISHES NO POWERED-OFF INPUT CHARACTERISTIC for this part. A full-document search of SBAS444E (57 pages) finds no Ioff, no partial-power-down spec, no back-drive limit, and no clamp-diode current rating. s10.1 'Power-Supply Sequencing' contains exactly one sentence -- 'Wait approximately 50us after VDD is stabilized before communicating with the device to allow the power-up reset process to complete' -- and says nothing about the analog inputs. The abs-max row 'VDD + 0.3' is undefined at VDD = 0. Any powered-off claim in this design is therefore a BOUNDED-STRESS argument, not a datasheet guarantee."
+    }
+  },
+
+  "serialisation": {
+    "enforced_in": "HARDWARE",
+    "mechanism": "one-hot decoder on the latch output-enables",
+    "decoder": {
+      "ref": "U_DEC",
+      "part": "SN74LVC1G139DCUR",
+      "package": "VSSOP-8 (DCU)",
+      "function": "2-to-4 line decoder, ACTIVE-LOW outputs",
+      "vcc_min_v": 1.65,
+      "vcc_max_v": 5.5,
+      "tpd_max_ns_at_3v3": 4.9,
+      "source": "TI SN74LVC1G139 SCES602E (rev January 2018) s5 Pin Functions, s9.4 Table 4 Function Table, s6.1 Absolute Maximum Ratings",
+      "one_hot_proof": "Table 4 Function Table: (B=L,A=L)->Y0=L others H; (L,H)->Y1=L others H; (H,L)->Y2=L others H; (H,H)->Y3=L others H. EXACTLY ONE output is low for every input combination. There is no input state that drives two outputs low, so no address exists at which two latches are simultaneously enabled."
+    },
+    "latch": {
+      "ref_pattern": "U_CUT<n>",
+      "replaces": "the v10/v11 placeholder CUT_CHANNEL symbol (3 pins, all TODO). U_CUT1..4 keep their reference designators; the PART changes from an unresolved provision to SN74LVC1G373DBVR, which is the operator-fixed part for these refs.",
+      "part": "SN74LVC1G373DBVR",
+      "lcsc": "C128413",
+      "package": "SOT-23-6 (DBV)",
+      "function": "single D-type transparent latch, 3-state output",
+      "vcc_min_v": 1.65,
+      "vcc_max_v": 5.5,
+      "ioz_max_ua": 5.0,
+      "has_clear_pin": false,
+      "source": "TI SN74LVC1G373 SCES528F (rev May 2017) s5 Pin Configuration, s6.1 Absolute Maximum Ratings, s6.5 Electrical Characteristics (IOZ, Ioff)",
+      "wiring": {
+        "pin1_LE": "+3V3 (tied high: the latch is TRANSPARENT)",
+        "pin2_GND": "GND",
+        "pin3_D": "/CUT_FIRE (shared, one net for all four channels)",
+        "pin4_Q": "/CUT_LAT<n> -> R_G<n> -> gate",
+        "pin5_VCC": "+3V3",
+        "pin6_OE_N": "/CUT_OE<n> <- U_DEC.Y<n>"
+      },
+      "latch_memory_unused": "LE is tied high, so Q follows D and no state is stored. The 3-state output is what does the work: when the decoder moves the address away, /OE goes high, Q goes high-impedance and the 100 k gate pull-down turns the FET off. That is STRONGER than a stored one-shot, because there is no stored level that can re-fire a channel when the address returns.",
+      "startup_state_unqualified": "The SN74LVC1G373 datasheet guarantees NO power-up state for Q. There is no CLR pin (pins are D, LE, OE, VCC, GND, Q only) and no power-on-reset specification. Q settles low because D is held low by R_FPD, but a transient on Q while VCC is ramping is NOT excluded by any datasheet number. THIS IS UNPROVEN. The recommended replacement is SN74LVC1G123, whose feature list claims 'Glitch-Free Power-Up Reset on Outputs' (TI SCES586E), but that part also changes the pulse-width mechanism and was not adopted here."
+    },
+    "decode_truth": {
+      "addr_0": {"A0": 0, "A1": 0, "asserted_output": "Y0", "pin": 7, "channel": 1},
+      "addr_1": {"A0": 1, "A1": 0, "asserted_output": "Y1", "pin": 6, "channel": 2},
+      "addr_2": {"A0": 0, "A1": 1, "asserted_output": "Y2", "pin": 5, "channel": 3},
+      "addr_3": {"A0": 1, "A1": 1, "asserted_output": "Y3", "pin": 3, "channel": 4},
+      "note": "Y0 is low for B=0,A=0 per Table 4; A is pin 1 (/CUT_A0), B is pin 2 (/CUT_A1)."
+    },
+    "firmware_contract": {
+      "in_scope": "only the on-time bound, the address sweep order and the post-fire D-low guarantee",
+      "not_proven_by_hardware": [
+        "the maximum on-time: nothing in this schematic terminates a pulse. A hung MCU with /CUT_FIRE held high leaves exactly one channel energised indefinitely.",
+        "no firing on I2C loss or brownout: no supervisor is fitted and none is claimed.",
+        "the inter-cut interval."
+      ],
+      "why_a_software_promise_is_still_acceptable_for_SERIALISATION_only": "Serialisation is the 212%-of-rating condition (four FETs conducting at once). That condition is eliminated by the decoder's one-hot function table before firmware runs, so no software defect can create it. The residual firmware-only items are on-time and retry lockout, and those are listed above as NOT hardware-bounded."
+    }
+  },
+
+  "two_conductor_loop": {
+    "requirement": "A dedicated heater drive conductor and a dedicated per-wing shunt return, per channel. Never the floating solar negative.",
+    "defect_avoided": "docs/analysis/OPEN-25-INDEPENDENT-REVIEW.md: 'Single-ended inputs require an actual ground-referenced shunt; stacked solar negative is not a general cutter return.' docs/analysis/OPEN-25-ELECTRICAL-CONTRACT.md s3: 'A grounded wing return bypassing the shunt invalidates it. Do not silently tie solar negative to GND: stacked solar interfaces may float.'",
+    "connector": {
+      "ref_pattern": "J_HT<n>",
+      "part": "Conn_01x02",
+      "pin1": "/VSCAP -- dedicated heater DRIVE conductor",
+      "pin2": "/CUT_HEAT_RET<n> -- dedicated heater RETURN conductor, which is the only path to the shunt",
+      "mechanical_consequence": "The existing 4-land wing tab (Tracker_Mechanical:Wing_Tab_4P) carries SOLAR_P / GND / RF_FEED / SOLAR_N. None of those four is free to be a heater return: pad 2 is the wing ground land and the socket spec ties it directly to the hub ground plane, and pad 4 on wing 4 IS the stack bottom. So the two-conductor loop NEEDS TWO CONDUCTORS THE 4-LAND TAB DOES NOT CARRY. Resolving that (grow the tab to 6 lands, or a 2-way pigtail) is a WING and LAYOUT decision. THIS CHANGE DOES NOT RESOLVE IT and does not pretend the 4-land socket suffices.",
+      "residual": "J_HT<n> is a schematic-level stand-in for that mechanical decision, not a validated connector. Its current rating is not established."
+    },
+    "loop_nets_per_channel": ["/VSCAP", "/CUT_HEAT_RET<n>", "/CUT_SHUNT_H<n>", "GND"],
+    "solar_nets_that_must_never_appear_in_the_loop": [
+      "/W1_SOLAR_P", "/W1_SOLAR_N", "/W2_SOLAR_N", "/W3_SOLAR_N",
+      "/W1_SOLAR_SENSE", "/W2_SOLAR_SENSE", "/W3_SOLAR_SENSE",
+      "/W1_SOLAR_DIV", "/W2_SOLAR_DIV", "/W3_SOLAR_DIV"
+    ]
+  },
+
+  "gpio": {
+    "fire": {"net": "/CUT_FIRE", "pad": "15", "gpio": 3, "note": "strapping pin: JTAG source select. Must be at the correct level at boot; R_FPD 100 k holds it low."},
+    "a0": {"net": "/CUT_A0", "pad": "35", "gpio": 42, "note": "no ADC, output capable"},
+    "a1": {"net": "/CUT_A1", "pad": "26", "gpio": 45, "note": "STRAPPING pin: selects VDD_SPI voltage at reset. Must be LOW at boot for 3.3 V flash; R_A1PD 10 k is both the boot strap and the decoder's idle level."},
+    "total_used": 3,
+    "still_free": ["pad 16 / IO46 (input only, no output, no ADC)"],
+    "source": "docs/adr/148-ads1115-analog-sense-and-rail-telemetry.md 'The measured constraint that makes this hard': pads 15, 16, 26, 35 are the only free pads; 28/29/30 are dead under octal PSRAM."
+  },
+
+  "computed": {
+    "_method": "Every number below is recomputed by test_v11_cut_channels.py from the component values above. None is transcribed from a previous document.",
+    "r_loop_ohm": 2.318,
+    "r_loop_basis": "R_heater 2.17 + R_SH 0.100 + RDS(on) 0.048 (conservative 2.5 V-gate spec point)",
+    "i_cut_a": 2.32959,
+    "v_shunt_v": 0.232959,
+    "p_shunt_w": 0.5426,
+    "p_fet_w": 0.2605,
+    "p_heater_w": 11.776,
+    "p_loop_w": 12.579,
+    "t_cut_s": 0.21994,
+    "t_cut_note": "ADR-051 s2.5.6 records 193 ms for 2.59 J. That figure has NO shunt and NO RDS(on). With the shunt and the FET in the loop the same 2.59 J into the WIRE takes 220 ms. The bank energy actually drawn is 12.579 W x 0.220 s = 2.767 J, i.e. 6.8 % more than the 2.59 J deposited in the wire.",
+    "v_pin_nominal_v": 0.0582398,
+    "counts_nominal": 465.9,
+    "counts_nominal_int": 465,
+    "ma_per_count": 5.0,
+    "counts_note": "465 counts is 1.76 % of the 0..3.3 V code span at FSR +/-4.096 V. That is ample to answer 'did it fire, and at what current' and to resolve a 100 mA threshold at 20 counts. It is NOT enough to resolve a 10 mA continuity threshold (2 counts) -- see threshold_10ma_resolvable.",
+    "threshold_10ma_resolvable": false,
+    "threshold_10ma_counts": 2.0,
+    "fault": {
+      "node_v": 9.28,
+      "node_basis": "PR546 s3: /VSCAP post-BAT54 at the documented cold open-circuit voltage. An ESTIMATE whose two cell coefficients are TODO(unverified) in wing-electrical s5.1.",
+      "v_pin_v": 2.32,
+      "abs_max_v_at_vdd_3v3": 3.6,
+      "margin_v": 1.28,
+      "max_node_v_for_absmax": 14.4,
+      "voltage_bound_source_v": 14.4,
+      "voltage_bound_ratio": 1.5517,
+      "v_pin_at_vdd_zero_v": 2.32,
+      "v_pin_at_vdd_zero_exceeds_absmax": true,
+      "pin_current_at_vdd_zero_ua": 26.58,
+      "pin_current_at_vdd_zero_basis": "(V_th - V_clamp)/(R_th + R_series) = (2.320 - 0.300)/(75k + 1k) = 26.6 uA, using the 0.3 V lower clamp bound as the pessimistic case.",
+      "pin_current_limit_ma": 10.0,
+      "stress_margin_x": 376.0,
+      "statement": "Powered normally (VDD 3.3 V) the pin tops out at 2.320 V against an absolute maximum of 3.6 V, and the ESD diode does not conduct at all: the clamp is idle across the whole design envelope up to a 14.4 V source (1.55x the documented 9.28 V). With VDD ABSENT the pin is still at 2.320 V against a VDD+0.3 bound that has collapsed to 0.3 V. THE VOLTAGE BOUND IS VIOLATED by 2.02 V. The CURRENT is not: 26.6 uA against the only number the datasheet gives (10 mA continuous, and that is a stress rating), i.e. 376x margin. TI publishes NO powered-off input characteristic for this part. This design therefore does NOT claim the ADC is safe unpowered. It claims the stress is BOUNDED BY RESISTOR DIVISION ALONE, which is a weaker and truthful statement.",
+      "fault_precondition": "The 9.28 V bound is reached by ONE fault: the 0.1 ohm shunt going OPEN while the channel conducts. With the shunt open there is no return current, so nothing drops the /VSCAP across the heater and the FET source floats up to the bank node -- the divider then bounds the pin to 2.320 V. A FET drain-source short is a DIFFERENT and milder case: the shunt still sets the node to I*R_SH = 0.238 V, so the pin sees 59.5 mV = 476 counts with no fire command asserted, which is directly observable. The 4:1 division exists FOR this fault case, not for ranging: it costs 2 bits of resolution and is what keeps a 9.28 V node inside a 3.6 V absolute maximum."
+    }
+  },
+
+  "architecture_decision": {
+    "chosen": "B_divider_only",
+    "option_A_rejected_arithmetic": {
+      "requirement": "Option (A) needs the ADS1115 to stay POWERED for the whole time the 5.4 V-side node can drive its input above VDD+0.3.",
+      "hazard_window_is_not_a_transient": "The offending node is the /VSCAP supercap bank: 2 x 3.3 F in series = 1.65 F holding the documented 16.63 J usable. With the LDO dead but the bank charged, /VSCAP sits above the divider hazard threshold for as long as the bank's standing load allows. At ADR-036's 100 uW night budget that is 16.63 J / 100 uW = 46 HOURS. A brown-out that kills +3V3 while /VSCAP survives is precisely the case where the two rails separate, and the bank is what keeps them separated.",
+      "holdup_cap_required_f": {
+        "formula": "C = I_VDD * t / (V_start - V_min), ADS1115 minimum VDD 2.0 V per SBAS444E s5.3, start 3.3 V, so dV = 1.3 V; I_VDD = 300 uA MAX over temperature (SBAS444E s5.5 POWER-SUPPLY, IVDD operating: 150 uA typ, 200 uA max at 25 C, 300 uA max over -40..125 C)",
+        "t_1_s": 0.000231,
+        "t_60_s": 0.0138,
+        "t_3600_s": 0.831,
+        "t_46_h": 38.2,
+        "verdict": "Even one HOUR of hold-up needs 0.83 F -- half the flight bank -- for a 300 uA load. The 46-hour case needs 38 F. Option (A) does not merely need a cap; it needs a second supercap bank larger than the one whose failure it is protecting against."
+      },
+      "why_a_supervisor_cannot_substitute": "TPS3808G33's SENSE-to-RESET delay is 20 us TYPICAL with NO guaranteed maximum (TI SBAS509). Even if that number were guaranteed, 20 us is 9 orders of magnitude short of the 46-hour hazard window. The supervisor would release the ADC into an unpowered state while the fault node is still live. The earlier work was right to refuse this, and this design does not use a supervisor at all.",
+      "why_not_a_switch": "TMUX1511's powered-off protection is 3.6 V (its own abs max), so it cannot stand off the 5.4 V cutter node when unpowered -- the constraint the earlier review established. A part with a genuine powered-off standoff would have to be selected and qualified on its own datasheet; none was, and this design does not invent one."
+    },
+    "option_B_claim": "The pin voltage is set by resistor division from the FET source node. When the switch is OFF the source sits at 0 V because the 0.1 ohm shunt returns it to GND, so the pin is at 0 V. The only way the pin rises is a drain-source short in the low-side FET, and then the divider bounds it to 2.320 V at the documented 9.28 V fault -- 1.28 V inside the powered absolute maximum. NOTHING in that chain depends on a supply rail, a supervisor or a sequencing order.",
+    "residual_unproven": "With VDD absent the pin is still 2.320 V against a collapsed 0.3 V bound. That is a VOLTAGE-BOUND VIOLATION. It is not repaired by this architecture and is not claimed to be. What is claimed is bounded stress: 26.6 uA through the 1 k series resistor against a 10 mA rating."
+  },
+
+  "power": {
+    "standing_draw_idle_ua_per_channel": 0.0,
+    "standing_draw_note": "The sense tap is the FET SOURCE, which the 0.1 ohm shunt holds at 0 V whenever the switch is off. The divider therefore carries no current at idle: the cut-sense dividers add ZERO to ADR-036's 100 uW night budget. This is a direct consequence of taking the tap after the shunt rather than on the floating heater-return node.",
+    "during_fire_ua_per_channel": 0.582,
+    "fault_draw_ua_per_channel": 23.2,
+    "fault_draw_note": "23.2 uA at the documented 9.28 V fault: 9.28 V / 400 kohm through the divider string. The PIN sees less, because R_SNSB shunts most of it to GND. Transient only: the bank cannot sustain 9.28 V across a 2.17 ohm heater."
+  },
+
+  "proven": [
+    "The pin voltage is a pure function of the source node and the divider ratio; it needs no supply state, no supervisor and no sequencing decision to hold.",
+    "Divider ratio is 1/4 by resistor value to better than 1e-12.",
+    "Nominal pulse resolves to 465 counts at FSR +/-4.096 V.",
+    "Exactly one decoder output is low for every input combination (Table 4), so exactly one latch /OE can be low, so at most one FET gate can be above Vgs(th). Serialisation is a property of a truth table, not of firmware.",
+    "The heater loop for every channel terminates on J_HT<n> pins only and touches no solar net.",
+    "The shunt is in the return and its low side is the only GND connection in the loop."
+  ],
+
+  "unqualified": [
+    "The 9.28 V cold open-circuit voltage is an ESTIMATE. The protection is robust to it being wrong by 1.55x; the REPORTED volts are not, and neither is the count-to-volts calibration.",
+    "With VDD absent the pin sits 2.02 V above the collapsed VDD+0.3 bound. Current is bounded at 2.02 mA; there is no datasheet powered-off rating for this part at all, so this is bounded stress, not proven safety.",
+    "SN74LVC1G373 guarantees no power-up state for Q and has no CLR pin. The D-low pull-down makes the steady state safe; a VCC-ramp transient is not excluded.",
+    "Latch IOZ max 5 uA across the 100 k gate pull-down is 0.5 V against Vgs(th) min 0.65 V: 0.15 V of margin. A 10 k pull-down fixes it and is not applied.",
+    "ADS1115 input impedance at FSR +/-4.096 V is 15 Mohm DIFFERENTIAL, TYP ONLY (SBAS444E s5.5). The 751 kohm source impedance gives a 4.77 % gain error that is systematic and calibratable but NOT bounded by any guaranteed limit.",
+    "No series arming gate exists (ADR-051 s2.5.1). GPIO budget, not oversight.",
+    "No hardware on-time bound. A hung MCU holding /CUT_FIRE high energises one channel indefinitely.",
+    "Nothing is qualified below -40 C. SBAS444E, the AO3400A and the LVC parts are all specified to -40 C or -55 C, against a -60 C ambient cold case.",
+    "The two-conductor mechanical interface does not exist on the 4-land wing tab. J_HT1..4 are schematic stand-ins with no established current rating.",
+    "The 2.59 J energy target rests on TODO(unverified) thermophysical constants in wing-jettison s3.2.",
+    "Nothing here has been bench-tested. No actuation was performed or authorised."
+  ]
+}

@@ -47,39 +47,57 @@
       "addr": 72,
       "addr_hex": "0x48",
       "addr_basis": "SBAS444E Table 7-2: ADDR->GND = 1001000b",
-      "wired_in_this_revision": false,
+      "wired_in_this_revision": true,
       "wired_note": [
-        "RESERVED, NOT WIRED. The cut-sense element is a 10 mOhm series shunt that",
-        "belongs to v11 item 3 (real cut driver), which is out of this change's scope.",
-        "ADS1115 input power-sequence qualification is also BLOCKED - see",
-        "docs/analysis/OPEN-25-CUTTER-ADC-SEQUENCE.md. Per SBAS444E s9.1.4 every",
-        "unused analog input is tied to GND, which is what the registry does. The",
-        "CHANNEL ALLOCATION is pinned here so item 3 cannot silently choose another."
+        "WIRED by v11 scope item 3 (tracker/hardware/build_v11_cut.py). PR546 left these four",
+        "inputs tied to GND because the shunt and driver did not exist yet; they now terminate",
+        "on four independent 300k/100k dividers driven from the per-channel shunt KELVIN pad.",
+        "Sense architecture is DIVIDER-ONLY (option B): no hold-up rail, no analog switch, no",
+        "supervisor. The pin is bounded by resistor division in the powered case (2.320 V at a",
+        "9.28 V fault, inside the 3.6 V absolute maximum) and by BOUNDED STRESS in the",
+        "unpowered case (26.6 uA through a 1 k series element, against a 10 mA rating). The",
+        "powered-off VOLTAGE bound is violated and is recorded as unproven, not claimed."
       ],
       "channels": {
         "AIN0": {
-          "net": "GND",
+          "net": "/CUT_ADC1",
           "pin": "4",
           "reserved_for": "/CUT_SENSE_W1",
-          "reserved_slot": "CUT_SENSE_W1"
+          "reserved_slot": "CUT_SENSE_W1",
+          "measures": "cut channel 1 heater current",
+          "divider": "D_CUT1",
+          "shunt_ref": "R_SH1",
+          "shunt_ohm": 0.1
         },
         "AIN1": {
-          "net": "GND",
+          "net": "/CUT_ADC2",
           "pin": "5",
           "reserved_for": "/CUT_SENSE_W2",
-          "reserved_slot": "CUT_SENSE_W2"
+          "reserved_slot": "CUT_SENSE_W2",
+          "measures": "cut channel 2 heater current",
+          "divider": "D_CUT2",
+          "shunt_ref": "R_SH2",
+          "shunt_ohm": 0.1
         },
         "AIN2": {
-          "net": "GND",
+          "net": "/CUT_ADC3",
           "pin": "6",
           "reserved_for": "/CUT_SENSE_W3",
-          "reserved_slot": "CUT_SENSE_W3"
+          "reserved_slot": "CUT_SENSE_W3",
+          "measures": "cut channel 3 heater current",
+          "divider": "D_CUT3",
+          "shunt_ref": "R_SH3",
+          "shunt_ohm": 0.1
         },
         "AIN3": {
-          "net": "GND",
+          "net": "/CUT_ADC4",
           "pin": "7",
           "reserved_for": "/CUT_SENSE_W4",
-          "reserved_slot": "CUT_SENSE_W4"
+          "reserved_slot": "CUT_SENSE_W4",
+          "measures": "cut channel 4 heater current",
+          "divider": "D_CUT4",
+          "shunt_ref": "R_SH4",
+          "shunt_ohm": 0.1
         }
       }
     },
