@@ -204,6 +204,23 @@ Chosen because ADR-088 §2 mandates two MS5611 with pair-specific calibration, a
 > **Calibration does not transfer.** Same part number ≠ calibrated pair. Offset must be determined at
 > equal pressure and validated against an independent manometer (ADR-088 §2).
 
+### Fill valve — SUPERSEDED AS A CANDIDATE by ADR-152
+
+> **This block is retained for its measurements, but the candidate it names is no longer a candidate.**
+> [ADR-152](../../../docs/adr/152-valve-selected-by-envelope-class.md) fixes the selection order as
+> **envelope class first**, and adds **D4: the valve must be direct-acting**, because ADR-150 **S1**
+> requires "de-energises closed" to be *provable* rather than dependent on pilot pressure.
+>
+> `VQZ1121` is a **4/5-port spool valve**. D4 excludes **pilot-operated** actuation, not spool bodies —
+> a *direct-acting* spool satisfies S1 the same way as a direct-acting poppet, because de-energising
+> removes the only opening force. So the question for `VQZ1121` is **which actuation type the exact
+> suffix is**, and that is unverified. The flow finding below (**~51× oversized for a pico envelope**)
+> is what disqualifies it for the small-envelope case regardless of actuation type.
+>
+> The three unverified items recorded here were correct and remain useful evidence: coil voltage 24 VDC
+> in every listing, "normally closed" not stated, helium behaviour unquantified. They are exactly the
+> reasons S1 could not be proven from a datasheet alone.
+
 ### Fill valve — CANDIDATE ONLY, three things unverified
 
 | item | candidate | spec | price | state |
@@ -270,3 +287,43 @@ its **original 44 footprints**, not below. Stated plainly so nobody budgets for 
 Valve and pump copper must not sit near the RF module, and the 2.4 GHz antenna keep-out (ADR-150 D5)
 must stay clear of the pneumatic connectors. A switching solenoid beside a −137 dBm receiver is an
 own-goal, and pump inrush browning out the radio rail is the residual ADR-147 concern (ADR-150 D4).
+
+---
+
+## §8 — The fill valve (ADR-152)
+
+**No valve is selected.** [ADR-152](../../../docs/adr/152-valve-selected-by-envelope-class.md) fixes
+the order: envelope class first, valve second.
+
+Run of `docs/analysis/valve_fill_flow_model.py`:
+
+| envelope | 120 s fill needs | vs SMC VQZ1121 (≈380 L/min air) |
+|---|---|---|
+| 18" DecoGlee Mylar (15 L) | **7.50 L/min** | **~51× oversized** |
+| 36" latex (400 L, sphere bound) | 200.16 L/min | adequate |
+| 60" Cymylar (1853 L, sphere bound) | 926.67 L/min | **cannot pass it** |
+
+Spread across those classes: **123.6×**. One part cannot be correct across it.
+
+**Withdrawn from this BOM:** the earlier leaning toward `SMC VQZ1121` as a default. It was never
+bought, so this is the withdrawal of a recommendation, not of a purchase.
+
+**When the envelope class is fixed, the valve must be:**
+
+| requirement | reason |
+|---|---|
+| **direct-acting** | so ADR-150 **S1** ("de-energises closed") is a structural property that can be **proven**, not a pilot-pressure dependency. S1 demands proof, not "usually". |
+| **normally-closed** | S1 |
+| **12 V DC** | matches the pump rail (ADR-151) |
+| **low single-digit L/min** | sized to the smallest envelope flown, not the largest |
+| **helium-compatible seat** | model flows are for air; helium leaks faster through small clearances |
+
+**Oversizing is a safety defect here, not conservatism.** ADR-088 keeps circumference as the Yokohama process
+endpoint and differential pressure as the measurement/safety-ceiling basis; **neither closes the loop in
+hardware** (`DIFFERENTIAL-PRESSURE-BASIS.md`: differential pressure is "the measurement/control basis for
+pressure functions and the safety ceiling", and the decision explicitly does not authorise replacing
+circumference with a pressure-only recipe). A valve that empties 15 L in seconds removes the operator's ability to stop in time — the
+JR01–JR06 over-pressure failure the interlock exists to prevent — and makes controlled ramp rate
+harder.
+
+**Not claimed:** any fill time. The pump is still unspecified; ADR-151 sized the rail, not the pump.
