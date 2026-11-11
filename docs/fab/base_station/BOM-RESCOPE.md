@@ -218,8 +218,24 @@ Chosen because ADR-088 §2 mandates two MS5611 with pair-specific calibration, a
 3. **Helium behaviour is unquantified.** Response time above is specified for **air**. A 0.35 W spool
    valve may be the wrong device for filling a Mylar envelope at a controlled rate.
 
-A small direct-acting 3.3–12 V DC valve would likely suit a pico-balloon better. It is left
-**unevaluated** rather than guessed, because flow must follow the UNKNOWN ΔP targets.
+A small direct-acting 3.3–12 V DC valve would likely suit a pico-balloon better. **That is now
+measured, not guessed** — see [`docs/analysis/fill-valve-selection.md`](../../analysis/fill-valve-selection.md)
+and its model `valve_fill_flow_model.py`:
+
+| envelope | volume | 120 s fill needs | vs VQZ1121 (~380 L/min air, ESTIMATE) |
+|---|---:|---:|---|
+| 18" DecoGlee Mylar | 15 L [CITED] | **7.50 L/min** | **51x oversized** |
+| 36" latex | 400 L [sphere bound] | 200 L/min | adequate |
+| 60" Cymylar | 1853 L [sphere bound] | **927 L/min** | **cannot pass it** |
+
+**The envelope is the decision variable, not the valve.** The same part is grossly oversized for a
+pico balloon and inadequate for a 60" — a 123x spread. A grossly oversized valve also makes
+controlled ramp harder, which matters because ADR-088's control variable is circumference held by a
+tape measure: a valve that fills 15 L in seconds removes the operator's ability to stop in time.
+
+**Second reason to prefer direct-acting:** with no pilot pressure, de-energising removes the only
+opening force, so S1's "de-energises closed" is physically easier to **prove** than on a
+pilot-operated spool valve, where it is merely usually true.
 
 ### Driver stage — deliberately unsized
 
