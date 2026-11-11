@@ -132,11 +132,27 @@ up, and no module has been bought, mounted or measured.
 
 ---
 
-## Open question that blocks the final BOM
+## Open question — RESOLVED 2026-11-11
 
-**The SX1276 breakout is 3.3 V logic only.** The `RP2040` is 3.3 V, so the SPI interface is
-compatible — but the board's 5 V rail and the module's `VIN` tolerance must be reconciled explicitly.
-Feeding 5 V to a 3.3 V-only breakout destroys it. This must be settled in the schematic, not assumed.
+~~The SX1276 breakout is 3.3 V logic only.~~ **This was wrong, and the correction matters because it
+was recorded as a blocker.**
+
+Measured from Adafruit's own product page (`adafruit.com/product/3073`, fetched 2026-11-11):
+
+> *"Each radio comes with some header, a **3.3V voltage regulator and levelshifter** that can handle
+> **3-5V DC power and logic** so you can use it with 3V or 5V devices."*
+
+So the RFM96W breakout **is** 3–5 V tolerant on both supply and logic. It can sit directly on the
+board's 5 V rail and talk SPI to the RP2040 without any interface circuitry, and without risk to the
+module.
+
+**What the error was:** I generalised from the bare RFM96/SX1276 *chip* (which is 3.3 V only) to the
+Adafruit *breakout*, which adds the regulator and shifter. The chip-level statement is true; applying
+it to the breakout was not.
+
+**What still needs care:** the board should feed the module from the **5 V rail** (the breakout's
+regulator then produces its own 3.3 V), and the SPI lines are already level-compatible in both
+directions. No level translator is added to the BOM.
 
 ---
 

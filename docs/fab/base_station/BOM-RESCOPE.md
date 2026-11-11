@@ -114,11 +114,20 @@ a nearby transmitter reaching it unfiltered will saturate it. Filter first, then
 
 ---
 
-## Open item that blocks the final BOM
+## Open item — RESOLVED 2026-11-11
 
-**The RFM96W breakout is 3.3 V logic only.** The RP2040 is 3.3 V, so SPI is compatible — but the
-board's 5 V rail and the module's `VIN` tolerance must be reconciled **explicitly in the schematic**.
-Applying 5 V to a 3.3 V-only breakout destroys it. This ADR does not assume it away.
+~~**The RFM96W breakout is 3.3 V logic only.**~~ **That was wrong.**
+
+Measured from Adafruit's own product page (`adafruit.com/product/3073`):
+
+> *"Each radio comes with some header, a **3.3V voltage regulator and levelshifter** that can handle
+> **3-5V DC power and logic** so you can use it with 3V or 5V devices."*
+
+The breakout is **3–5 V tolerant on both supply and logic**. It runs from the board's 5 V rail and talks
+SPI to the RP2040 with **no interface circuitry** — and **no level translator is added to the BOM**.
+
+The error was generalising from the bare RFM96/SX1276 *chip* (3.3 V only) to the Adafruit *breakout*,
+which adds the regulator and shifter. The chip-level statement is true; applying it to the breakout was not.
 
 ---
 
@@ -163,8 +172,12 @@ buck, and the pneumatic port keep-outs.
 
 ### Still open before a combined BOM can be finalised
 
-1. **The 3.3 V / 5 V reconciliation for the RF module** (inherited from ADR-149 — the RFM96W breakout
-   is 3.3 V logic only).
-2. **Pump current and inrush** — not specified anywhere in the repo; needed to size the shared rail.
+1. ~~**The 3.3 V / 5 V reconciliation for the RF module.**~~ **RESOLVED** — the Adafruit breakout has
+   its own 3.3 V regulator and level shifter and is 3–5 V tolerant. No translator in the BOM.
+2. ~~**Pump current and inrush** — not specified anywhere in the repo.~~ **RESOLVED as a decision by
+   [ADR-151](../../../docs/adr/151-pump-rail-and-actuation-power.md):** the pump rail is fed from
+   `VIN_GS` upstream of the 5 V buck and sized to an explicit **2.0 A continuous / 5.0 A inrush (10 ms)**
+   envelope with ≥220 µF bulk. No pump is selected — the envelope sits above the plausible pump range so
+   the rail is not the binding constraint; if the real pump exceeds it, the ADR is superseded and re-sized.
 3. **Which pneumatic interface** the combined board presents.
 4. **Whether both functions ship in one enclosure** — decides connector placement.
