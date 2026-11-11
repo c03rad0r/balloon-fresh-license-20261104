@@ -1,111 +1,91 @@
-# v11 — hub board status (NOT STARTED)
+# v11 — Hub board status
 
-**Status: specification only. No v11 board file exists, no schematic has been drawn, and nothing has
-been quoted or ordered.**
+**Status:** 📋 **SPECIFICATION ONLY — NO BOARD FILE EXISTS.**
+**Last measured:** 2026-11-11 on `origin/master` `ace09314`
+**Previous generation:** **[v10 status](V10-STATUS.md)**
 
-This page exists so the v11 state is shareable and unambiguous. The design content lives in
-[`docs/fab/V11-DESIGN-SPEC.md`](../V11-DESIGN-SPEC.md); this page is the status summary.
+> There is **no `hub_board_v11.kicad_pcb`**. Nothing has been routed, fabricated or ordered for v11.
+> This page exists so the v10 and v11 records are never confused: v10 is a real fabricated board
+> with known open routing; v11 is a measured change list that has not been built.
+>
+> Search that proves the point: `find . -name "*v11*.kicad_pcb"` returns only
+> `docs/analysis/bulk-route-20261107/v11-dbp2-spec.kicad_pcb`, a single-diode placement experiment,
+> **not a board**.
+
+**No render is shown on this page, because there is no board to render.** An image here would have
+to be invented, and an invented board image is indistinguishable from a real one.
 
 | | |
 |---|---|
-| Board | **does not exist** |
-| Schematic | not drawn |
-| Placement | not done |
+| Board file | **does not exist** |
+| Schematic | exists only as a change list, not a `.kicad_sch` |
 | Routing | not started |
 | DRC | n/a |
-| Render | **none available — there is no board to render** |
-| Quoted / ordered | no |
-| Blocked by | 2 unresolved inputs (below) |
+| Quoted / ordered | **no** |
+| Blocked by | 2 unresolved inputs (§5) |
 
 ---
 
-## Why there is no image on this page
+## 1. What v11 is
 
-Every other board status page on this project shows a render. This one cannot, and putting a "concept"
-image here would be worse than nothing — a rendered v11 would look real and be fiction.
+Straight from [`V11-DESIGN-SPEC.md`](../V11-DESIGN-SPEC.md):
 
-v11 is a **schematic change set**, not a re-place of v10. Four independent changes, three adding
-parts and all adding copper. Until the schematic is drawn there is no geometry to render.
+> **Status:** SPECIFICATION. No v11 board exists yet; this document defines what it must change and
+> what each change costs in copper. Every number below is measured on
+> `docs/analysis/bulk-route-20261107/work.kicad_pcb` (board `e3cb1860`), the v10 assembly source.
 
----
+And the reason it is a spec rather than an edit:
 
-## The five changes v11 must carry
-
-Taken from the specification, in dependency order.
-
-| # | Change | Parts added | Blocked by |
-|---|---|---|---|
-| 1 | ADR-146 — `D_BP1..4` move to the top face | 0 | nothing — **all four sited**, worst 1.42 mm |
-| 2 | `/SCAP_ADC` + cut sense + solar dividers via I²C ADC | **2 × ADS1115** | resolved (ADR-148) |
-| 3 | Real cut driver at `U_CUT1..4` | 4 × (latch + FET + Rg + Rsense) | **schematic** |
-| 4 | ADR-145 — GPIO expander for `U_C` | 1 × MCP23017 | **schematic** |
-| 5 | Full re-route | — | 1–4 |
-
-**Why it is not an afternoon's edit:** the v10 campaign took a 38-open board through roughly 20
-routing batches to reach 6 real opens. v11 starts with **more** to route than v10 ever had.
+> v11 is not "v10 with tweaks". It carries four independent schematic changes, three of which add
+> parts and all of which add copper. The v10 campaign took a 38-open board through ~20 routing
+> batches to reach 6 real opens; **v11 starts with MORE to route than v10 ever had.** Treating it as
+> an afternoon's edit would produce a board that looks finished and is not.
 
 ---
 
-## What v11 is fixing — measured on v10
+## 2. The change list, in dependency order
 
-### The four bypass diodes move to the top
-
-On v10 all four are **B.Cu-only**, which forces either double-sided PCBA setup or hand-soldering four
-SMA joints. A full-board search (not a 20 mm window) finds viable top-side sites for all four:
-
-| diode | sites found | best site | worst pad-to-copper |
-|---|---|---|---|
-| `D_BP1` | 387 | (3.0, 39.0) rot 90 | 0.30 mm |
-| `D_BP2` | 584 | (36.5, 77.0) rot 0 | 0.85 mm |
-| `D_BP3` | **194** | (67.5, 38.5) rot 270 | 1.42 mm |
-| `D_BP4` | 6154 | (49.5, 11.5) rot 0 | 0.11 mm |
-
-**A correction worth keeping:** an earlier version of the spec reported `D_BP3` as having **zero**
-sites and "needs new copper". That was an artefact of searching only a 20 × 20 mm window around its
-v10 position. `/W2_SOLAR_N` occupies y 44–77 and `/W3_SOLAR_N` occupies y 3–34, so nothing near the
-old site can reach both. v11 is a re-layout, and a full-board search finds 194 sites.
-
-**Layout instruction:** place the four diodes on the top face **before** routing anything else.
-
-### `/SCAP_ADC` measures nothing
-
-The net contains **exactly two pads** — `R_DIV1.2` and `R_DIV2.1`. It is a 2:1 divider from `/VSCAP`
-to GND whose midpoint goes **nowhere**. Firmware cannot read the storage rail. There is also no
-divider at all on the raw solar inputs.
-
-v10 had **exactly one** free ADC-capable pad (GPIO3), 28.6 mm from the divider midpoint on a
-two-layer poured board. **ADR-148 resolves this** with two `ADS1115IDGSR` (`C37593`) on the existing
-I²C bus: eight analog channels for **zero** new MCU pins, and GPIO3 is freed so the strapping-pin
-risk disappears.
-
-The cut sense is a **shunt, not a divider** — a divider measures pad voltage, which stays ~5.4 V
-whether or not the wire is intact, and therefore cannot detect a cut.
-
-### The cut driver has parts, not placeholders
-
-v10's `U_CUT1..4` value string is literally `latched cut driver + cut-sense (part TODO(unverified))`,
-and pads 4/5/6 have **no net at all**.
-
-| role | part | LCSC | package | unit |
+| # | change | parts added | copper added | blocked by |
 |---|---|---|---|---|
-| nichrome switch | `AO3400A` | `C20917` | SOT-23 | $0.0891 |
-| latch (holds after MCU death) | `SN74LVC1G373DBVR` | `C128413` | SOT-23-6 | $0.2779 |
+| 1 | **ADR-146** — `D_BP1..4` move to the top face | 0 | 8 pad connections, all four sited (worst 1.42 mm) | nothing |
+| 2 | `/SCAP_ADC` + cut sense + solar dividers via I²C ADC | **2 × ADS1115** | I²C taps + 8 analog nets | resolved (ADR-148) |
+| 3 | Real cut driver at `U_CUT1..4` | 4 × (latch + FET + Rg + Rsense) | 4 sub-circuits | schematic |
+| 4 | **ADR-145** — GPIO expander for `U_C` | 1 × MCP23017 | I²C tap + 2 traces | schematic |
+| 5 | **Full re-route** | — | — | items 1–4 |
 
-`AO3400A` was chosen deliberately **against** the cheaper `2N7002` ($0.0175), which fails on both
-load axes: `I_max` 115 mA against a 0.5–1.0 A requirement, and `RDS(on)` ~8–10 Ω at a 3.3 V gate,
-which at 1 A would drop 8–10 V from a 5.4 V rail. **Price ranks candidates that pass; it does not
-select the winner.**
+### §1 — the four wing bypass diodes move to the top
 
-### `U_C` needs an expander
+Measured on v10: all four `D_BP1..4` are **B.Cu-only**, which forces either 2 × $25 double-sided
+Standard PCBA setup or hand-soldering four SMA joints. v11 places them on the top face at layout
+time.
 
-`U_C` needs 4 control lines and has 2 free pins. The binding constraint is **escape geometry, not pin
-budget** — `U_C`'s four control pads span 19.81 mm on opposite faces. `MCP23017-E/SS` (`C506653`)
-costs zero new MCU pins because `/I2C_SCL` and `/I2C_SDA` are already routed. It must be placed next
-to `U_C` **at schematic time**, not retrofitted.
+**This is not a footprint flip.** The pads are B.Cu-only, so each diode needs both connections
+re-made on F.Cu. A full-board search (not a window) for positions where both pads land within 6 mm
+of same-net F.Cu copper, all four rotations:
+
+| diode | nets | sites found | best site | worst pad-to-copper |
+|---|---|---|---|---|
+| `D_BP1` | `/W1_SOLAR_P` / `/W1_SOLAR_N` | 387 | (3.0, 39.0) rot 90 | **0.30 mm** |
+| `D_BP2` | `/W1_SOLAR_N` / `/W2_SOLAR_N` | 584 | (36.5, 77.0) rot 0 | **0.85 mm** |
+| `D_BP3` | `/W2_SOLAR_N` / `/W3_SOLAR_N` | **194** | (67.5, 38.5) rot 270 | **1.42 mm** |
+| `D_BP4` | `/W3_SOLAR_N` / `GND` | 6154 | (49.5, 11.5) rot 0 | **0.11 mm** |
 
 ---
 
-## Three v10 defects v11 must not inherit
+## 3. Open items on v11
+
+### Independently re-verified this session
+
+Three claims from the spec were re-measured on the board of record rather than taken on trust:
+
+- **All four `D_BP1..4` are BOTTOM on v10.** Confirmed with `pcbnew` `IsFlipped()`. This is what
+  forces double-sided assembly — see the bottom render on the [v10 status](V10-STATUS.md).
+- **`/SCAP_ADC` really has exactly two pads** — `R_DIV2.1` and `R_DIV1.2` — and no MCU end. Firmware
+  genuinely cannot read the storage rail today.
+- **All four `U_CUT1..4` carry the literal value** `latched cut driver + cut-sense (part
+  TODO(unverified))`, with **pads 4/5/6 having no net at all**.
+
+### Three v10 defects v11 must not inherit
 
 1. **`/F33_VSENSE` is a 43.7 mm dead run** — `U1.21` isolated from a complete 51-item divider chain.
    It reads zero harmlessly because the rail's only load is the DNP F33 PA, but it is an unwired net.
@@ -113,29 +93,47 @@ to `U_C` **at schematic time**, not retrofitted.
    1.27 mm pitch. v11 should escape them at layout time or drop them deliberately.
 3. **`U_CUT1..4` as placeholders** — see above.
 
+### Record disagreement
+
+From [`V11-CUT-CHANNELS.md`](../V11-CUT-CHANNELS.md):
+
+> **NOT FAB READY.** v11 is unrouted and D_BP top placement is unresolved.
+
+That line is older than the §1 table above, which now sites all four diodes with a worst case of
+1.42 mm. **The placement half of that sentence is resolved; the "unrouted" half is not.** The two
+records disagree and this page records the disagreement rather than picking a winner — the board
+file, when it exists, is the tiebreaker.
+
+| item | state |
+|---|---|
+| routing | **not started** — no board file |
+| `D_BP` top placement | sited in spec (§1 above), not yet on a board |
+| cut-channel ADC protection | resolved in design (ADR-148), not on a board |
+| schematic | exists as a change list, not as a `.kicad_sch` |
+| fabrication | **nothing ordered** |
+
 ---
 
-## Blocked — two inputs needed before layout can start
+## 4. Blocked — two inputs needed before layout starts
 
 1. **Gate resistor and sense resistor values are not specified anywhere in the repo.** They need a
-   calculation from the nichrome's resistance and the target cut current. I cannot pick these
-   arbitrarily; the parts would be placed around a resistor I invented.
+   calculation from the nichrome's resistance and the target cut current. Picking them arbitrarily
+   would mean placing parts around a resistor I invented.
 2. **Nichrome specification** — gauge, length and resistance per metre for the actual tether in use.
 
 Everything else in the change list is either settled or is straightforward schematic work.
 
 ---
 
-## Sequence for whoever builds v11
+## 5. What must be true before v11 is called ready
 
-1. **Schematic first.** Settle the gate/sense resistor values, add the solar dividers, place the
-   expander next to `U_C`. No layout until ERC is clean.
-2. **Reserve the corners.** Place `D_BP1..4` on the top face before anything else.
-3. **Route the new nets first**, while the board is empty: `/SCAP_ADC`, the four cut-driver
-   sub-circuits, the expander fan-out.
-4. **Then** re-route inherited nets in batches, with the two checks that worked on v10:
-   previously-connected pairs not broken, and opens decreasing.
+1. A `hub_board_v11.kicad_pcb` exists and is derived from the v10 source, not hand-edited.
+2. All five change-list items are on the board, not just in a spec.
+3. `kicad-cli pcb drc --severity-all` reports **0 ERROR-severity** violations.
+4. Unconnected count is stated as a number and justified — for an unrouted board it must equal the
+   ratnest arithmetic `sum(pads-1)` over multi-pad non-GND nets, exactly as the base station does.
+5. 3D model coverage is measured and reported, because `kicad-cli pcb render` is silent when a
+   model is missing.
+6. Renders are attached to this page the same day the board lands.
 
----
-
-*Related: [v10 status](V10-STATUS.md) · [v11 design specification](../V11-DESIGN-SPEC.md)*
+Until all six are true, **v11 has no status worth sharing beyond "specified, not built."**
