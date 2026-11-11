@@ -15,6 +15,19 @@
 
 **Status:** ACCEPTED · 2026-11-10 · supersedes the assumption that the base station carries an ESP32
 
+> **SUPERSEDED IN PART — 2026-11-11, [ADR-150](150-merge-inflation-control-onto-base-station.md).**
+> **Decision 1 (REJECT the merge) no longer stands.** The operator chose the merge: *"Both on one
+> board, the inflator and the tracking radio share one PCB."* ADR-150 carries the safety partition
+> this record never had to consider.
+>
+> **What survives, and should be read as still true:**
+> - The finding that the base station carries an **RP2040, not an ESP32** is factually correct and is
+>   *why* ADR-150 adds a second MCU rather than reusing the RP2040 for pressure work.
+> - **Decision 2's cost finding stands**: JLCPCB already supports several designs in one basket, one
+>   payment, one shipment. The merge saves **no money** — it is justified on function and operator
+>   preference, not price.
+> - ADR-088's pressure-safety requirements are untouched and remain the authority.
+
 ## Context
 
 Operator proposal, in full:
