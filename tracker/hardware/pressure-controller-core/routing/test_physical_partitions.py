@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Negative controls for physical graph and locked geometry, real board fixtures."""
 import json
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
 import pcbnew
@@ -20,6 +22,45 @@ with tempfile.TemporaryDirectory() as tmp:
     p=Path(tmp)/'cut.kicad_pcb'; pcbnew.SaveBoard(str(p),b)
     broken=splits(before,partitions(p))
 assert any(x['net']=='/GND' for x in broken)
+# VIA-BRIDGE NEGATIVE CONTROL (2026-11-11). The graph now models a through-via as a barrel
+# bridging its own net across layers. That must be LOAD-BEARING: removing the barrel from an I2C
+# net on the routed candidate must split that net, otherwise the bridge is decorative and a
+# broken via would still read as connected.
+VIA_BOARD=ROOT/'route.kicad_pcb'
+vb=partitions(VIA_BOARD)
+vias=[t for t in pcbnew.LoadBoard(str(VIA_BOARD)).GetTracks() if isinstance(t,pcbnew.PCB_VIA)]
+assert vias, 'via control needs a board that has vias'
+victim_net=vias[0].GetNetname()
+with tempfile.TemporaryDirectory() as tmp:
+    # The vault removal runs in a SEPARATE PROCESS. PCB_TRACK::Remove() invalidates the SWIG
+    # wrappers for the owning BOARD (the B59 defect recorded in route_v10_astar.py); in-process
+    # it left a dangling board and segfaulted the run. A subprocess is the only version that
+    # cannot corrupt the graph objects this test still needs.
+    p=Path(tmp)/'novia.kicad_pcb'
+    # This subprocess does EXACTLY ONE thing after the removal: save. Any further pcbnew call in
+    # the same process raises "'SwigPyObject' object has no attribute" -- Remove() corrupts
+    # process-global pcbnew state, so verification of the result belongs to the parent.
+    subprocess.run([sys.executable,'-c',(
+        "import pcbnew,sys\n"
+        "b=pcbnew.LoadBoard(sys.argv[1])\n"
+        "net=sys.argv[3]\n"
+        "for t in [t for t in b.GetTracks() if isinstance(t,pcbnew.PCB_VIA) and t.GetNetname()==net]:\n"
+        "    b.Remove(t)\n"
+        "pcbnew.SaveBoard(sys.argv[2],b)\n"),
+        str(VIA_BOARD), str(p), victim_net], check=True,
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    via_cut=partitions(p)
+    # PROVE the removal actually happened, in the parent (clean pcbnew state): a control whose
+    # precondition silently failed would pass by testing an unmodified board.
+    remaining=[t for t in pcbnew.LoadBoard(str(p)).GetTracks()
+               if isinstance(t,pcbnew.PCB_VIA) and t.GetNetname()==victim_net]
+    assert not remaining, f'via removal precondition failed: {len(remaining)} {victim_net} vias remain'
+    via_broken=splits(vb,via_cut)
+assert any(x['net']==victim_net for x in via_broken), \
+    f'via barrel removal did not split {victim_net} -- the via bridge is not load-bearing'
+# And the UNMODIFIED candidate must show no split against itself (control is not always-red).
+assert not splits(vb,vb)
+
 # Every non-zone original object byte-normalized and preserved; refills may differ.
 a=objects(ROOT/'batch2.kicad_pcb'); c=objects(ROOT/'batch3.kicad_pcb')
 removed=[x for x in (a-c).elements() if not x.startswith('(zone ')]
