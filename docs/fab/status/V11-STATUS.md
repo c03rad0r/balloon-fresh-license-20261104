@@ -15,6 +15,15 @@
 **No render is shown on this page, because there is no board to render.** An image here would have
 to be invented, and an invented board image is indistinguishable from a real one.
 
+| | |
+|---|---|
+| Board file | **does not exist** |
+| Schematic | exists only as a change list, not a `.kicad_sch` |
+| Routing | not started |
+| DRC | n/a |
+| Quoted / ordered | **no** |
+| Blocked by | 2 unresolved inputs (§5) |
+
 ---
 
 ## 1. What v11 is
@@ -65,6 +74,27 @@ of same-net F.Cu copper, all four rotations:
 
 ## 3. Open items on v11
 
+### Independently re-verified this session
+
+Three claims from the spec were re-measured on the board of record rather than taken on trust:
+
+- **All four `D_BP1..4` are BOTTOM on v10.** Confirmed with `pcbnew` `IsFlipped()`. This is what
+  forces double-sided assembly — see the bottom render on the [v10 status](V10-STATUS.md).
+- **`/SCAP_ADC` really has exactly two pads** — `R_DIV2.1` and `R_DIV1.2` — and no MCU end. Firmware
+  genuinely cannot read the storage rail today.
+- **All four `U_CUT1..4` carry the literal value** `latched cut driver + cut-sense (part
+  TODO(unverified))`, with **pads 4/5/6 having no net at all**.
+
+### Three v10 defects v11 must not inherit
+
+1. **`/F33_VSENSE` is a 43.7 mm dead run** — `U1.21` isolated from a complete 51-item divider chain.
+   It reads zero harmlessly because the rail's only load is the DNP F33 PA, but it is an unwired net.
+2. **`/EN` and `/IO0` have no copper at all** — sealed by the ESP32-S3-WROOM-1U's 1.50 mm pads on
+   1.27 mm pitch. v11 should escape them at layout time or drop them deliberately.
+3. **`U_CUT1..4` as placeholders** — see above.
+
+### Record disagreement
+
 From [`V11-CUT-CHANNELS.md`](../V11-CUT-CHANNELS.md):
 
 > **NOT FAB READY.** v11 is unrouted and D_BP top placement is unresolved.
@@ -84,7 +114,18 @@ file, when it exists, is the tiebreaker.
 
 ---
 
-## 4. What must be true before v11 is called ready
+## 4. Blocked — two inputs needed before layout starts
+
+1. **Gate resistor and sense resistor values are not specified anywhere in the repo.** They need a
+   calculation from the nichrome's resistance and the target cut current. Picking them arbitrarily
+   would mean placing parts around a resistor I invented.
+2. **Nichrome specification** — gauge, length and resistance per metre for the actual tether in use.
+
+Everything else in the change list is either settled or is straightforward schematic work.
+
+---
+
+## 5. What must be true before v11 is called ready
 
 1. A `hub_board_v11.kicad_pcb` exists and is derived from the v10 source, not hand-edited.
 2. All five change-list items are on the board, not just in a spec.
