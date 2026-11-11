@@ -142,7 +142,7 @@ None.
 | 117 | `117-wing-airframe-foam-selection.md` | The wing airframe is a bought XPS/Depron sheet, end-mounted, 3 mm first build | Accepted by operator |
 | 118 | `118-flight-board-v10-directives.md` | Flight board v10: two-sided population, three LR2021 sites, E28-2G4M27SX ranging module, minimal outline, human placement gate, visual-first reporting | ACCEPTED — operator instruction, 2026-10-20 |
 | 119 | `119-v10-radio-sites.md` | v10 radio sites: three LR2021 slots (2× LP + 1× F33) + E28-2G4M27SX ranging module | ACCEPTED — operator instruction, 2026-10-20 |
-| 120 | `120-v10-placement-process.md` | v10 placement process: two-sided population, minimal outline, human placement gate, visual-first reporting | ACCEPTED — operator instruction, 2026-10-20 |
+| 120 | `120-v10-placement-process.md` | v10 placement process: population sides (measured per AGENTS §1b), minimal outline, human placement gate, visual-first reporting | ACCEPTED — operator instruction, 2026-10-20; R1 precedence added 2026-11-10 |
 | 121 | `121-programming-interface.md` | Programming/debug interface: 6-pin J_PROG header on every flight board | ACCEPTED — operator question and direction, 2026-10-21 |
 | 122 | `122-v10-esp32-radio-bus.md` | v10 ESP32-S3 ↔ four-radio interconnect: one shared SPI bus, four CS, 29-GPIO budget | SUPERSEDED by ADR-123 |
 | 123 | `123-v10-two-spi-buses.md` | v10 radio interconnect v2: TWO SPI buses, partitioned by band (bent-pipe capable) | ACCEPTED — operator instruction, 2026-10-21: *"make sure that one of the low power LR2021 is on one SPI bus and the F33 … on the other SPI bus so that we can have a real time bent pipe without being forced to do TDMA if we want to."* |

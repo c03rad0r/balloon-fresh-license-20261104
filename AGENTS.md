@@ -172,6 +172,82 @@ the payload does not.
 
 Full record: `docs/fab/ORDERING-CHANNEL-JLCONE.md`.
 
+### 1b. Board density: MEASURE whether a second side saves space, then use it
+
+**A board must not carry idle area that a second populated side would remove.** This is a
+measurement rule, not a preference: two-sided assembly costs an extra JLCPCB side setup, a second
+stencil/paste step, mirrored/rotated CPL entries and a taller bottom stack-up. It is only worth
+paying when the second side buys a **smaller outline**, and the only way to know is to compute it.
+
+**Every placement gate must report, with denominators:**
+
+| quantity | why |
+|---|---|
+| board area, top-side part count, bottom-side part count | the baseline; `top N / bottom 0` is a claim that must be printed, not implied |
+| courtyard area **per side**, clipped to the outline | occupancy of each side, not one merged number |
+| largest empty rectangle **outside intended reservations** | the actual free space, separated from deliberate keepouts |
+| area held by each declared reservation (motor/protection, antenna, port access) | a reservation is not waste, but its size must be justified by real parts |
+
+**Then:**
+
+1. **Start single-sided, then let the measurement decide.** Try to fit everything on one side at the
+   smallest outline that respects antenna keepouts, connector edge access, sensor/port access,
+   thermal separation and the tight switching loop of any regulator. Then compute the two-sided
+   outline as well. If two sides earn the threshold in point 3, **adopt them** — the only way to
+   stay single-sided is a recorded operator decision weighing assembly cost against the saved area.
+2. **If the binding constraint is a part count on one side rather than a reservation, move the
+   parts that do not need adjacency to B.Cu and re-measure.** Safe candidates are series/pull
+   resistors, straps and configuration parts. **Do not move decoupling capacitors away from their
+   IC** unless the via loop is shown to be harmless; do not split a buck cell (TI TPS6216x Rev E
+   §11.1) or move anything whose port/edge/thermal reason is physical.
+3. **Report the measured smallest outline each way**, single-sided and two-sided, and take the
+   smaller outline if it is materially smaller (default threshold: **≥10 % board area**). If two
+   sides do not buy that much, say so with numbers and stay single-sided — a second side that saves
+   a few millimetres is a cost with no benefit.
+4. **A reservation dominates the decision when it is larger than the parts.** Do not shrink a
+   reservation to win area; size it from the actual future circuit, and label an unsized
+   reservation explicitly as unqualified.
+
+**Mechanical rules for a genuinely two-sided board — these are checked, not assumed:**
+
+- SMD pads on opposite faces at the same XY do **not** short through the FR4 substrate. Only
+  *shared copper layers* collide.
+- **Plated through-hole lands are drilled through**: no bottom-side pad or part may sit beneath
+  them, plus the required clearance.
+- Courtyard collisions only count **within one side**; opposite-side courtyards may overlap.
+- Assembly-side consequences must be stated in the same report as the area saving: extra side
+  setup and stencil, bottom-side paste, CPL mirroring/rotation, and enclosure height under the
+  board.
+
+**Why this density rule exists.** Measured 2026-11-10 on the pressure controller: 80 × 60 mm carried **26 parts
+on top and none underneath**, with courtyards on only **16.35 %** of the board. The operator asked
+for a denser board. A 65 × 50 mm single-sided candidate fit (**32.3 % smaller**).
+
+**CORRECTION (measured the same day, supersedes the earlier conclusion in this section).** A
+two-sided candidate then measured **52 × 46 mm = 2392 mm², a further 26.4 % smaller** — past the
+≥10 % threshold above. The earlier text claimed two sides "would have bought almost nothing" while a
+*single-sided* board's free area outside the reservation was only 197.6 mm². **That measured the
+wrong quantity.** "Is the single-sided board packed?" and "would a second side buy a smaller
+outline?" are different questions, and only the second decides the board. The 197.6 mm² figure
+answered the first.
+
+**Operator decision on this board (2026-11-10) — a RECORDED EXCEPTION, not a silent one.** The
+pressure controller stays **single-sided at 65 × 50 mm** even though the two-sided measurement beats
+the ≥10 % threshold. The operator chose single-sided deliberately: one stencil/paste setup, one
+assembly side, no bottom-side CPL mirroring, and a simpler enclosure. That is a valid reason to
+decline a smaller outline, and it must be written down as such — **a threshold win that is declined
+is a decision with a name on it, never an omission.** The rule below therefore still requires the
+two-sided number to be *computed and reported* on every board; it does not force the smaller outline
+when the operator has weighed the assembly cost and said no. What the rule forbids is dismissing the
+second side **without** the measurement.
+
+**The reservation still dominates, and that is unchanged.** 720 mm² of the 2392 mm² board (30 %) is
+the unqualified motor/protection keep-out, so it — not the parts — is now the largest consumer. Point
+4 governs it: size that reservation from the real circuit, never shrink it to win area.
+
+**What actually decided this board was the measured pair**, 65 × 50 single-sided vs 52 × 46
+two-sided, not a preference about assembly cost. That is the standard this rule enforces.
+
 **Why this exists.** Measured 2026-10-18: the operator was asked to adjudicate a design fork ("move `U4` 2 mm
 or reassign pins") and answered from a summary that was **wrong three times over** — the direction was
 inverted, the move collided with `U1`, and the move would not have freed the pads at all because the
@@ -591,8 +667,16 @@ Rules:
 ## FLIGHT BOARD v10 — OPERATOR DIRECTIVES (2026-10-20) — BINDING
 ### ADR-118 (umbrella) · ADR-119 (radio sites) · ADR-120 (placement process + gates)
 
-1. **Two-sided population is the default.** Parts go on both sides; the outline shrinks to
-   what the two-sided placement needs. The 70x70 v9 outline is not a v10 constraint.
+1. **Population sides: resolved by measurement, per `§1b Board density` (which governs).** Parts go
+   on both sides **when the two-sided placement earns ≥10 % of board area** against the best
+   single-sided fit; otherwise the board stays single-sided. Every placement gate computes **both**
+   outlines and reports both, with per-side occupancy. The 70x70 v9 outline is not a v10 constraint.
+   Two-sided is therefore the default **to measure**, never a default to assume — and never
+   dismissible without the measurement. After a threshold win, staying single-sided is permitted
+   **only** as a recorded operator decision weighing assembly cost against the saved area (see the
+   pressure-controller exception in §1b), never as an agent's shorthand. A reservation larger than the
+   parts dominates the decision and must not be shrunk to win area. ADR-120 R1's measured two-sided
+   first pass and §1b are consistent: measure, then choose.
 2. **Four RF sites:** LoRa2021F33 (HP) + TWO bare LoRa2021 LP + **E28-2G4M27SX module**
    (SX1280+PA+LNA+matching on-module; datasheet at `docs/modules/e28-2g4m27sx/`).
    The bare-chip SX1280 + self-built match network is ABANDONED (measured fatal scatter,

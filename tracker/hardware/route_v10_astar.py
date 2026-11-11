@@ -190,9 +190,70 @@ def load_world(board_path):
                             (gb.GetX() + gb.GetWidth()) / UM,
                             (gb.GetY() + gb.GetHeight()) / UM)))
 
+    # RULE AREAS ARE OBSTACLES. A KiCad rule area ("keep-out zone") forbids tracks, vias,
+    # pours and/or footprints inside it -- and, unlike a clearance rule, NOTHING ELSE enforces
+    # it: kicad-cli reports a violation only after copper has already been placed. Measured
+    # 2026-11-10: the pressure-controller board reserves a 30 x 24 mm all-copper rule area for
+    # future motor/protection circuitry, and the router laid a legal-looking track straight
+    # through its centre because the grid had no model of it. The custom gates could not see it
+    # either. The reservation is a DESIGN CONSTRAINT on where copper may go, so it belongs in
+    # the router's world model alongside pads and edges.
+    #
+    # Only the prohibitions the area actually declares are marked: an area that allows copper
+    # but forbids footprints must not block routing. A rule area binds every copper layer it
+    # covers, and one with no copper layers in its set is skipped (it forbids nothing here).
+    rule_areas = []
+
+    def _collect_rule_area(z, label):
+        """Append a keep-out's rectangle if it forbids copper. Shared by both scan sites."""
+        if not (z.GetDoNotAllowTracks() or z.GetDoNotAllowVias()
+                or z.GetDoNotAllowCopperPour()):
+            return                        # only footprint/other restrictions: not a copper keep-out
+        zlays = set(z.GetLayerSet().Seq())
+        layers = tuple(ly for ly in (pcbnew.F_Cu, pcbnew.B_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu)
+                       if ly in zlays)
+        if not layers:
+            return
+        # A RULE AREA'S BOUNDING BOX IS ONLY A VALID OBSTACLE IF THE AREA IS A RECTANGLE.
+        # Comparing the outline's own area against its bounding-box area makes that a
+        # measurement instead of an assumption: for a rotated or L-shaped keep-out the box
+        # covers cells the design did NOT reserve, and the router would refuse legal space
+        # while still (correctly) blocking the shape. Refuse the ambiguous case rather than
+        # guess -- polygon marking must be implemented before such a board is routed.
+        outline = z.Outline()
+        poly_area = abs(outline.Area()) / 1e12          # nm^2 -> mm^2
+        zbb = z.GetBoundingBox()
+        box_area = (zbb.GetWidth() / UM) * (zbb.GetHeight() / UM)
+        if abs(poly_area - box_area) > 1e-3:
+            raise SystemExit(
+                f"REFUSED: keep-out {label} is not rectangular "
+                f"(polygon {poly_area:.3f} mm^2 vs box {box_area:.3f} mm^2). Modelling it as "
+                f"its bounding box would block cells the design does not reserve. Implement "
+                f"polygon marking before routing this board."
+            )
+        rule_areas.append((label, layers,
+                           (zbb.GetX() / UM, zbb.GetY() / UM,
+                            (zbb.GetX() + zbb.GetWidth()) / UM,
+                            (zbb.GetY() + zbb.GetHeight()) / UM)))
+
+    for i in range(b.GetAreaCount()):
+        z = b.GetArea(i)
+        if z.GetIsRuleArea():
+            _collect_rule_area(z, f"rule-area[{i}]")
+    # FOOTPRINT-OWNED RULE AREAS ARE KEEP-OUTS TOO, and the board-level scan above cannot see
+    # them. Measured 2026-11-10: the pressure-controller sensor ports and U1's antenna clearance
+    # are footprint-owned rule areas, so the router laid /I2C_SCL straight through both sensor
+    # ports and kicad-cli reported 6 x items_not_allowed -- after the copper existed, because a
+    # keep-out is only ever reported post-hoc. A footprint keep-out binds in BOARD coordinates and
+    # moves when the part moves, so it must be read from the placed footprint, not from a template.
+    for fp in b.GetFootprints():
+        for j, z in enumerate(fp.Zones()):
+            if z.GetIsRuleArea():
+                _collect_rule_area(z, f"{fp.GetReference()}.keepout[{j}]")
+
     return {"board": b, "origin": (ox, oy), "size": (w, h),
             "pads": pads, "bodies": bodies, "net_pads": net_pads,
-            "edges": edge_rects}
+            "edges": edge_rects, "rule_areas": rule_areas}
 
 
 def build_via_ok(blocked, nx, ny, pitch):
@@ -289,6 +350,14 @@ def build_grid(world, pitch):
     for eref, erect in world.get("edges", []):
         mark(F, erect, EDGE_KEEP)
         mark(B, erect, EDGE_KEEP)
+    # Rule areas (keep-out zones). A reserved area is a hard prohibition, so it is marked at
+    # ZERO growth: the boundary itself is the constraint, and growing it would refuse legal
+    # space next to the reservation. Unlike a pad there is no "own net" to reach into, so no
+    # unblock_own exception applies.
+    for _raref, ralayers, rarect in world.get("rule_areas", []):
+        for _ly in ralayers:
+            _l = F if _ly in (pcbnew.F_Cu, pcbnew.In1_Cu) else B
+            mark(_l, rarect, 0.0)
     return blocked, nx, ny
 
 

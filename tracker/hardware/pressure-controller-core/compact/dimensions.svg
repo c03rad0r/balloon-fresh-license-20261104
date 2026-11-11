@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1865" height="1212" viewBox="0 0 1865 1212">
+<style>.bg{fill:#ffffff}.title{font:bold 22px sans-serif;fill:#111}.sub{font:15px sans-serif;fill:#444}.dl{font:bold 15px monospace;fill:#111}.ml{font:12px monospace;fill:#7a4b00}.outline{fill:none;stroke-width:2.5}.fill{opacity:0.07}.dim{stroke:#111;stroke-width:1;fill:none}.motor{fill:#ffe9b0;stroke:#c08a00;stroke-width:1;stroke-dasharray:4 3}.note{font:14px monospace;fill:#333}.hdr{font:bold 26px sans-serif;fill:#111}</style>
+<rect class="bg" x="0" y="0" width="1865" height="1212"/>
+<text x="150" y="52" class="hdr">PCB dimension comparison — pressure controller core (candidate is placement only, unrouted)</text>
+<text x="150" y="76" class="note">Baseline: committed 80x60 checkpoint (source sha256 3d422fa0323c…). Candidate: 65x50 single-sided design candidate (sha256 2cc927b1021b…).</text>
+<text x="150" y="132" class="title">BASELINE (committed checkpoint)</text><text x="150" y="152" class="sub">80x60 = 4800 mm2 · courtyard 16.35% of board · 26 parts, all top · routed</text><rect x="150" y="190" width="720.0" height="540.0" class="outline" stroke="#b02020"/><rect x="150" y="190" width="720.0" height="540.0" class="fill" fill="#b02020"/><rect x="582.0" y="496.0" width="270.0" height="216.0" class="motor"/><text x="717.0" y="604.0" class="ml" text-anchor="middle">MOTOR 30x24</text><line x1="150" y1="772.0" x2="870.0" y2="772.0" class="dim"/><line x1="150" y1="767.0" x2="150" y2="777.0" class="dim"/><line x1="870.0" y1="767.0" x2="870.0" y2="777.0" class="dim"/><text x="510.0" y="765.0" class="dl" text-anchor="middle">80 mm</text><line x1="916.0" y1="190" x2="916.0" y2="730.0" class="dim"/><line x1="911.0" y1="190" x2="921.0" y2="190" class="dim"/><line x1="911.0" y1="730.0" x2="921.0" y2="730.0" class="dim"/><text x="908.0" y="460.0" class="dl" text-anchor="middle" transform="rotate(-90 908.0 460.0)">60 mm</text>
+<text x="1130.0" y="132" class="title">CANDIDATE (this study)</text><text x="1130.0" y="152" class="sub">65x50 = 3250 mm2 · courtyard 24.15% of board · 26 top / 0 bottom · UNROUTED</text><rect x="1130.0" y="190" width="585.0" height="450.0" class="outline" stroke="#1050b0"/><rect x="1130.0" y="190" width="585.0" height="450.0" class="fill" fill="#1050b0"/><rect x="1427.0" y="406.0" width="270.0" height="216.0" class="motor"/><text x="1562.0" y="514.0" class="ml" text-anchor="middle">MOTOR 30x24</text><line x1="1130.0" y1="682.0" x2="1715.0" y2="682.0" class="dim"/><line x1="1130.0" y1="677.0" x2="1130.0" y2="687.0" class="dim"/><line x1="1715.0" y1="677.0" x2="1715.0" y2="687.0" class="dim"/><text x="1422.5" y="675.0" class="dl" text-anchor="middle">65 mm</text><line x1="1761.0" y1="190" x2="1761.0" y2="640.0" class="dim"/><line x1="1756.0" y1="190" x2="1766.0" y2="190" class="dim"/><line x1="1756.0" y1="640.0" x2="1766.0" y2="640.0" class="dim"/><text x="1753.0" y="415.0" class="dl" text-anchor="middle" transform="rotate(-90 1753.0 415.0)">50 mm</text>
+<text x="150" y="880.0" class="title">Measured comparison</text>
+<text x="150" y="910.0" class="dl">metric</text>
+<text x="450" y="910.0" class="dl">baseline 80x60</text>
+<text x="620" y="910.0" class="dl">candidate 65x50</text>
+<text x="790" y="910.0" class="dl">delta / note</text>
+<text x="150" y="936.0" class="note">board area</text>
+<text x="450" y="936.0" class="note">4800 mm2</text>
+<text x="620" y="936.0" class="note">3250 mm2</text>
+<text x="790" y="936.0" class="note">-32.29%</text>
+<text x="150" y="962.0" class="note">courtyard area (all 26, clipped)</text>
+<text x="450" y="962.0" class="note">785.01 mm2</text>
+<text x="620" y="962.0" class="note">785.01 mm2</text>
+<text x="790" y="962.0" class="note">identical parts</text>
+<text x="150" y="988.0" class="note">courtyard occupancy</text>
+<text x="450" y="988.0" class="note">16.35%</text>
+<text x="620" y="988.0" class="note">24.15%</text>
+<text x="790" y="988.0" class="note">of own board area</text>
+<text x="150" y="1014.0" class="note">free courtyard area</text>
+<text x="450" y="1014.0" class="note">4014.99 mm2</text>
+<text x="620" y="1014.0" class="note">2464.99 mm2</text>
+<text x="790" y="1014.0" class="note">-1549.99 mm2</text>
+<text x="150" y="1040.0" class="note">largest empty rectangle</text>
+<text x="450" y="1040.0" class="note">1752.0 mm2</text>
+<text x="620" y="1040.0" class="note">953.438 mm2</text>
+<text x="790" y="1040.0" class="note">33.75x28.25 mm at (31.25,21.75)</text>
+<text x="150" y="1066.0" class="note">motor reservation</text>
+<text x="450" y="1066.0" class="note">30x24 at (48,34)</text>
+<text x="620" y="1066.0" class="note">30x24 at (33,24)</text>
+<text x="790" y="1066.0" class="note">size kept, moved</text>
+<text x="150" y="1092.0" class="note">sides</text>
+<text x="450" y="1092.0" class="note">26 top / 0 bottom</text>
+<text x="620" y="1092.0" class="note">26 top / 0 bottom</text>
+<text x="790" y="1092.0" class="note">single-sided, unchanged</text>
+<text x="150" y="1132.0" class="note">Candidate placement extents [2.75, 1.27, 61.9, 46.73] mm; tightest enclosing outline from this placement [61.9, 46.73] mm (both include the intentional U1 antenna overhang above y=0).</text>
+<text x="150" y="1156.0" class="note">No routing on the candidate: native DRC 77 unconnected records, 1 violation record(s) (lib_footprint_mismatch). Placement signoff required before any routing.</text>
+</svg>

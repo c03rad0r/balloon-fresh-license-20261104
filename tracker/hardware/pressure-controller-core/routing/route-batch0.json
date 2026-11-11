@@ -1,0 +1,44 @@
+{
+ "board": "routing/route.kicad_pcb",
+ "label": "strip baseline",
+ "opens_normalised": 77,
+ "opens_pairs": {
+  "/+3V3": 19,
+  "/BOOT": 3,
+  "/BUCK_FB": 2,
+  "/BUCK_SW": 1,
+  "/CC1": 1,
+  "/CC2": 1,
+  "/EN": 4,
+  "/GND": 30,
+  "/I2C_SCL": 3,
+  "/I2C_SDA": 3,
+  "/USB5V": 4,
+  "/USB_DN": 1,
+  "/USB_DN_CONN": 2,
+  "/USB_DP": 1,
+  "/USB_DP_CONN": 2
+ },
+ "opens_per_net": {
+  "/+3V3": 19,
+  "/BOOT": 3,
+  "/BUCK_FB": 2,
+  "/BUCK_SW": 1,
+  "/CC1": 1,
+  "/CC2": 1,
+  "/EN": 4,
+  "/GND": 30,
+  "/I2C_SCL": 3,
+  "/I2C_SDA": 3,
+  "/USB5V": 4,
+  "/USB_DN": 1,
+  "/USB_DN_CONN": 2,
+  "/USB_DP": 1,
+  "/USB_DP_CONN": 2
+ },
+ "violations": {
+  "lib_footprint_mismatch": 1
+ },
+ "hard_blocking": {},
+ "verdict": "PASS"
+}
