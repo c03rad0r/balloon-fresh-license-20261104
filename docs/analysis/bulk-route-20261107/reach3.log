@@ -1,0 +1,6 @@
+board latest.kicad_pcb  pads=301 tracks=1440
+/SPI1_MISO:U3.3:U_C.3: UNREACHABLE  cellsA=183 cellsB=189 compA=[1] compB=[]
+/SPI1_MOSI:U3.4:U_C.4: UNREACHABLE  cellsA=189 cellsB=189 compA=[1] compB=[]
++3V3:R_F1.1:J_PROG.2: REACHABLE  cellsA=44 cellsB=684 compA=[1] compB=[1]
+
+2/3 pairs UNREACHABLE at 0.1 mm pitch

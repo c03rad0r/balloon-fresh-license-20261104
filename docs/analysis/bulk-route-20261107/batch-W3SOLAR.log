@@ -1,0 +1,5 @@
+=== batch W3SOLAR  from ec2a7af859ddef6b
+world: pads=301 tracks=2019 edges=16 holes=188 origin=(-0.05, -0.05) size=(72.1, 80.1)
+REFUSED: no pad J_W3.3 on net /W3_SOLAR_N
+batch W3SOLAR: NOTHING ROUTED (rc=1) -- tree untouched
+rc=2

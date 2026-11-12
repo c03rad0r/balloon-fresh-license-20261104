@@ -1,0 +1,686 @@
+{
+ "A2_drc_solar_records": {
+  "diode_to_jw": {
+   "count": 8,
+   "records": [
+    {
+     "a": "J_W1.4",
+     "b": "D_BP2.1",
+     "index": 43
+    },
+    {
+     "a": "D_BP1.2",
+     "b": "J_W1.4",
+     "index": 44
+    },
+    {
+     "a": "D_BP2.1",
+     "b": "J_W2.1",
+     "index": 45
+    },
+    {
+     "a": "D_BP2.2",
+     "b": "J_W2.4",
+     "index": 48
+    },
+    {
+     "a": "J_W3.1",
+     "b": "D_BP3.1",
+     "index": 52
+    },
+    {
+     "a": "J_W4.1",
+     "b": "D_BP4.1",
+     "index": 54
+    },
+    {
+     "a": "J_W3.4",
+     "b": "D_BP3.2",
+     "index": 56
+    },
+    {
+     "a": "D_BP3.2",
+     "b": "J_W4.1",
+     "index": 57
+    }
+   ]
+  },
+  "jw_self_fb": {
+   "count": 7,
+   "records": [
+    {
+     "a": "J_W1.4",
+     "b": "J_W1.4",
+     "index": 42
+    },
+    {
+     "a": "J_W2.1",
+     "b": "J_W2.1",
+     "index": 46
+    },
+    {
+     "a": "J_W1.1",
+     "b": "J_W1.1",
+     "index": 47
+    },
+    {
+     "a": "J_W2.4",
+     "b": "J_W2.4",
+     "index": 49
+    },
+    {
+     "a": "J_W3.1",
+     "b": "J_W3.1",
+     "index": 51
+    },
+    {
+     "a": "J_W4.1",
+     "b": "J_W4.1",
+     "index": 53
+    },
+    {
+     "a": "J_W3.4",
+     "b": "J_W3.4",
+     "index": 55
+    }
+   ]
+  },
+  "jw_to_jw": {
+   "count": 1,
+   "records": [
+    {
+     "a": "J_W2.4",
+     "b": "J_W3.1",
+     "index": 50
+    }
+   ]
+  }
+ },
+ "A_pad_duplication": [
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/W1_SOLAR_P"
+   ],
+   "pad": "1",
+   "ref": "J_W1",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "GND"
+   ],
+   "pad": "2",
+   "ref": "J_W1",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/CUT_SENSE_W1"
+   ],
+   "pad": "3",
+   "ref": "J_W1",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/W1_SOLAR_N"
+   ],
+   "pad": "4",
+   "ref": "J_W1",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/W1_SOLAR_N"
+   ],
+   "pad": "1",
+   "ref": "J_W2",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "GND"
+   ],
+   "pad": "2",
+   "ref": "J_W2",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/CUT_SENSE_W2"
+   ],
+   "pad": "3",
+   "ref": "J_W2",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/W2_SOLAR_N"
+   ],
+   "pad": "4",
+   "ref": "J_W2",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/W2_SOLAR_N"
+   ],
+   "pad": "1",
+   "ref": "J_W3",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "GND"
+   ],
+   "pad": "2",
+   "ref": "J_W3",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/CUT_SENSE_W3"
+   ],
+   "pad": "3",
+   "ref": "J_W3",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/W3_SOLAR_N"
+   ],
+   "pad": "4",
+   "ref": "J_W3",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/W3_SOLAR_N"
+   ],
+   "pad": "1",
+   "ref": "J_W4",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "GND"
+   ],
+   "pad": "2",
+   "ref": "J_W4",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "/CUT_SENSE_W4"
+   ],
+   "pad": "3",
+   "ref": "J_W4",
+   "uuids_distinct": true
+  },
+  {
+   "instances": 2,
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "max_pairwise_delta_mm": 0.0,
+   "nets": [
+    "GND"
+   ],
+   "pad": "4",
+   "ref": "J_W4",
+   "uuids_distinct": true
+  }
+ ],
+ "B_diode_sides": [
+  {
+   "footprint_layer": "B.Cu",
+   "orientation_deg": 0.0,
+   "pads": {
+    "1": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "/W1_SOLAR_P",
+     "pos_mm": [
+      2.0,
+      33.0
+     ]
+    },
+    "2": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "/W1_SOLAR_N",
+     "pos_mm": [
+      6.0,
+      33.0
+     ]
+    }
+   },
+   "pos_mm": [
+    4.0,
+    33.0
+   ],
+   "ref": "D_BP1"
+  },
+  {
+   "footprint_layer": "B.Cu",
+   "orientation_deg": -90.0,
+   "pads": {
+    "1": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "/W1_SOLAR_N",
+     "pos_mm": [
+      29.0,
+      74.0
+     ]
+    },
+    "2": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "/W2_SOLAR_N",
+     "pos_mm": [
+      29.0,
+      78.0
+     ]
+    }
+   },
+   "pos_mm": [
+    29.0,
+    76.0
+   ],
+   "ref": "D_BP2"
+  },
+  {
+   "footprint_layer": "B.Cu",
+   "orientation_deg": 0.0,
+   "pads": {
+    "1": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "/W2_SOLAR_N",
+     "pos_mm": [
+      66.0,
+      33.0
+     ]
+    },
+    "2": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "/W3_SOLAR_N",
+     "pos_mm": [
+      70.0,
+      33.0
+     ]
+    }
+   },
+   "pos_mm": [
+    68.0,
+    33.0
+   ],
+   "ref": "D_BP3"
+  },
+  {
+   "footprint_layer": "B.Cu",
+   "orientation_deg": -90.0,
+   "pads": {
+    "1": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "/W3_SOLAR_N",
+     "pos_mm": [
+      29.0,
+      2.0
+     ]
+    },
+    "2": {
+     "layers": [
+      "B.Cu"
+     ],
+     "net": "GND",
+     "pos_mm": [
+      29.0,
+      6.0
+     ]
+    }
+   },
+   "pos_mm": [
+    29.0,
+    4.0
+   ],
+   "ref": "D_BP4"
+  }
+ ],
+ "C_solar_routing": {
+  "/W1_SOLAR_N": {
+   "track_segments": 0,
+   "vias": 0
+  },
+  "/W1_SOLAR_P": {
+   "track_segments": 15,
+   "vias": 1
+  },
+  "/W2_SOLAR_N": {
+   "track_segments": 0,
+   "vias": 0
+  },
+  "/W3_SOLAR_N": {
+   "track_segments": 0,
+   "vias": 0
+  }
+ },
+ "D_pairs": [
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP1.2",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W1.4",
+   "naive_single_instance_shared": [],
+   "net": "/W1_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP1.2",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W2.1",
+   "naive_single_instance_shared": [],
+   "net": "/W1_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP2.1",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W1.4",
+   "naive_single_instance_shared": [],
+   "net": "/W1_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP2.1",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W2.1",
+   "naive_single_instance_shared": [],
+   "net": "/W1_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP2.2",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W2.4",
+   "naive_single_instance_shared": [],
+   "net": "/W2_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP2.2",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W3.1",
+   "naive_single_instance_shared": [],
+   "net": "/W2_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP3.1",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W2.4",
+   "naive_single_instance_shared": [],
+   "net": "/W2_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP3.1",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W3.1",
+   "naive_single_instance_shared": [],
+   "net": "/W2_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP3.2",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W3.4",
+   "naive_single_instance_shared": [],
+   "net": "/W3_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP3.2",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W4.1",
+   "naive_single_instance_shared": [],
+   "net": "/W3_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP4.1",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W3.4",
+   "naive_single_instance_shared": [],
+   "net": "/W3_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "diode_layers": [
+    "B.Cu"
+   ],
+   "diode_pad": "D_BP4.1",
+   "jw_instances": 2,
+   "jw_layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "jw_pad": "J_W4.1",
+   "naive_single_instance_shared": [],
+   "net": "/W3_SOLAR_N",
+   "shared_layers": [
+    "B.Cu"
+   ]
+  }
+ ],
+ "D_summary": {
+  "pairs": 12,
+  "pairs_sharing_a_layer_when_all_instances_counted": 12,
+  "pairs_sharing_a_layer_when_only_the_F_Cu_instance_counts": 0
+ },
+ "board": "/home/c08r4d0r/worktrees/hub-solar-audit/docs/analysis/hub-repair-20261102/output/after/hub_board_v10_lora1280_7of9.kicad_pcb",
+ "kicad": "9.0.9-9.0.9~ubuntu24.04.1",
+ "sha256_after": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+ "sha256_before": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+ "sha256_matches_pinned": true,
+ "source_unmodified": true
+}

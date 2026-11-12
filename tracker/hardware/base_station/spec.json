@@ -1,7 +1,9 @@
 {
   "_why": "Base-station PCBA v1 -- schematic capture SPEC, transcribed from the frozen document docs/BASE-STATION-PCBA-D14-FREEZE.md. This is a MACHINE-READABLE transcription of an already-operator-frozen design, NOT a new design decision. Every element carries the row/section it came from so a reviewer can check the transcription rather than re-derive the design.",
+  "_correction": "Historical transcription only: ADR-086 supersedes TPS62162-as-5V and detector 15mA/316mA budget. Logical implementation uses TPS62163DSGR; conditional budget 465.625mA. See docs/analysis/base-station-bringup/5v-supply.md. 18V input and full qualification remain unsupported.",
   "_source": "docs/BASE-STATION-PCBA-D14-FREEZE.md (2026-10-09, DESIGN FREEZE NOTE)",
   "_status": "Not yet placed, routed or DRC'd. No KiCad layout exists as of 2026-10-14.",
+  "_mcu_supply_followup": "AP2112K-3.3TRG1 and per-pin MCU decoupling: docs/analysis/base-station-bringup/mcu-supply.md. Historical 50mA remains an unmeasured allowance, not a guaranteed total load. 18V input blocker retained.",
   "_gate_note": "The freeze's own verification gates (4 items at its section 'Verification gates before layout release') are NOT claimed to have passed.",
 
   "rails": {

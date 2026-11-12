@@ -1,0 +1,27 @@
+{
+  "/VSCAP:R_BAL1.1": {
+    "status": "NO PATH",
+    "reason": "search exhausted 37 steps",
+    "gap_mm": 1.594
+  },
+  "/F33_VSENSE:U1.21": {
+    "status": "NO PATH",
+    "reason": "search exhausted 138 steps",
+    "gap_mm": 41.434
+  },
+  "/EN:U1.3": {
+    "status": "NO PATH",
+    "reason": "search exhausted 164 steps",
+    "gap_mm": 30.712
+  },
+  "/CUT_SENSE_W1:J_W1.3": {
+    "status": "NO PATH",
+    "reason": "search exhausted 424 steps",
+    "gap_mm": 0.0
+  },
+  "/SPI1_MOSI:auto": {
+    "status": "NO PATH",
+    "reason": "search exhausted 3235 steps",
+    "gap_mm": 4.445
+  }
+}

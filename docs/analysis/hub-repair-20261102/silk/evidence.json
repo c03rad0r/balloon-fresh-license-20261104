@@ -1,0 +1,91 @@
+{
+  "base_sha256": "8bc4428aa4c62f01255ec065cf8033ef74397a51dba74c2c5d200764fd1218cb",
+  "chosen": {
+    "x_mm": 53.0,
+    "y_mm": 61.5,
+    "distance_mm": 3.2,
+    "board_sha256": "167ee53b9e9c71d0c9b599c139905e716b242600c3f0278b57fca82ec4455786"
+  },
+  "candidate_sha256": "167ee53b9e9c71d0c9b599c139905e716b242600c3f0278b57fca82ec4455786",
+  "canonical_all_tokens_except_target_text_sha256": "deae20e861a08a8fc15bab31a53f925035ed98dca69a24c472052693ed4b1d0c",
+  "counts": {
+    "before": {
+      "copper_edge_clearance": 16,
+      "silk_over_copper": 1,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8
+    },
+    "after": {
+      "copper_edge_clearance": 16,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8
+    }
+  },
+  "removed": {
+    "[\"silk_over_copper\", \"warning\", \"Silkscreen clipped by solder mask\", [[\"a9d40fa2-004f-4e15-93bb-ff812bf97689\", \"Footprint text of U_LORA1280 (U_LORA1280)\"]]]": 1
+  },
+  "unconnected": 86,
+  "tried": [
+    {
+      "x_mm": 53.0,
+      "y_mm": 61.5,
+      "distance_mm": 3.2,
+      "added": 0,
+      "removed": 1,
+      "silk_after": 0,
+      "unconnected": 86,
+      "board_sha256": "167ee53b9e9c71d0c9b599c139905e716b242600c3f0278b57fca82ec4455786"
+    },
+    {
+      "x_mm": 52.5,
+      "y_mm": 61.5,
+      "distance_mm": 3.239,
+      "added": 0,
+      "removed": 1,
+      "silk_after": 0,
+      "unconnected": 86,
+      "board_sha256": "39c4cdb2ea2b2688f97326dbdf53bff706742ab161f7963347bb00a643ce1a36"
+    },
+    {
+      "x_mm": 53.5,
+      "y_mm": 61.5,
+      "distance_mm": 3.239,
+      "added": 0,
+      "removed": 1,
+      "silk_after": 0,
+      "unconnected": 86,
+      "board_sha256": "ba3c7e933f6170742937e0c4958adbeec6f4bf6c363beb600737bdebaba5d76a"
+    },
+    {
+      "x_mm": 52.0,
+      "y_mm": 61.5,
+      "distance_mm": 3.353,
+      "added": 0,
+      "removed": 1,
+      "silk_after": 0,
+      "unconnected": 86,
+      "board_sha256": "c3795251f14ee5c189e8f2b1f75ee2565017eb0f96f91fd06a4b1f8ab5e3476b"
+    },
+    {
+      "x_mm": 54.0,
+      "y_mm": 61.5,
+      "distance_mm": 3.353,
+      "added": 0,
+      "removed": 1,
+      "silk_after": 0,
+      "unconnected": 86,
+      "board_sha256": "d906f40c78de8aa5791b35bcab0fc7b125d8aaaedd2751165f88f38e35e2f3c7"
+    },
+    {
+      "x_mm": 51.5,
+      "y_mm": 61.5,
+      "distance_mm": 3.534,
+      "added": 0,
+      "removed": 1,
+      "silk_after": 0,
+      "unconnected": 86,
+      "board_sha256": "4487abfa8451e3e5c2cdc6f2866b150e1f7eff201b8e968516e8ea8b42e2823e"
+    }
+  ],
+  "method": "analytic rectangle scan proposes, native DRC decides; a failed site means no legal site in this SAMPLE only"
+}

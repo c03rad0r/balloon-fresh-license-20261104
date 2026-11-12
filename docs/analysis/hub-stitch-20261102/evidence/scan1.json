@@ -1,0 +1,2965 @@
+{
+ "board": "hub_board_v10_lora1280_7of9.kicad_pcb",
+ "source_sha256": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+ "refilled_sha256": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+ "refill_byte_noop": true,
+ "native_unconnected": 86,
+ "graph_sigma": 86,
+ "graph_per_net_components": {
+  "+3V3": 16,
+  "/CUT_SENSE_W1": 2,
+  "/CUT_SENSE_W2": 2,
+  "/CUT_SENSE_W3": 2,
+  "/CUT_SENSE_W4": 2,
+  "/EN": 2,
+  "/F33_IRQ": 2,
+  "/F33_VSENSE": 4,
+  "/HUB_PV_MID1": 3,
+  "/HUB_PV_N": 3,
+  "/HUB_PV_P": 3,
+  "/SPI1_MISO": 3,
+  "/SPI1_MOSI": 3,
+  "/SPI1_SCK": 3,
+  "/SPI2_SCK": 2,
+  "/U3_IRQ": 2,
+  "/VSCAP": 6,
+  "/W1_SOLAR_N": 6,
+  "/W1_SOLAR_P": 2,
+  "/W2_SOLAR_N": 6,
+  "/W3_SOLAR_N": 6,
+  "GND": 28
+ },
+ "affected_nets": 22,
+ "island_total": 35,
+ "pinned_main": {
+  "GND": {
+   "n_members": 38,
+   "n_pads": 33
+  },
+  "/F33_VSENSE": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/W1_SOLAR_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/CUT_SENSE_W2": {
+   "n_members": 9,
+   "n_pads": 2
+  },
+  "/W2_SOLAR_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/HUB_PV_P": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/HUB_PV_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "+3V3": {
+   "n_members": 2,
+   "n_pads": 1
+  },
+  "/VSCAP": {
+   "n_members": 7,
+   "n_pads": 6
+  },
+  "/W1_SOLAR_P": {
+   "n_members": 19,
+   "n_pads": 3
+  },
+  "/HUB_PV_MID1": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/SPI1_MISO": {
+   "n_members": 40,
+   "n_pads": 2
+  },
+  "/SPI1_MOSI": {
+   "n_members": 18,
+   "n_pads": 2
+  },
+  "/SPI1_SCK": {
+   "n_members": 26,
+   "n_pads": 2
+  },
+  "/EN": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/SPI2_SCK": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/F33_IRQ": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/U3_IRQ": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/CUT_SENSE_W3": {
+   "n_members": 9,
+   "n_pads": 2
+  },
+  "/W3_SOLAR_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/CUT_SENSE_W4": {
+   "n_members": 12,
+   "n_pads": 2
+  },
+  "/CUT_SENSE_W1": {
+   "n_members": 14,
+   "n_pads": 2
+  }
+ },
+ "islands": [
+  {
+   "island_id": "GND_FCu|F.Cu|0",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:0",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 0.584876,
+   "bbox_mm": [
+    41.119272,
+    44.059155,
+    41.901326,
+    44.8995
+   ],
+   "centroid_mm": [
+    41.539359,
+    44.472125
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "d679052f-d84c-43f6-9a2d-ae774c3881e5"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "R_DIV2.2"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 41.510299,
+     "y": 44.479328,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 41.705812,
+     "y": 44.689414,
+     "annulus_overlap_component_mm2": 0.174291,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 41.705812,
+     "y": 44.269241,
+     "annulus_overlap_component_mm2": 0.172782,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 41.314786,
+     "y": 44.269241,
+     "annulus_overlap_component_mm2": 0.159099,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 41.314786,
+     "y": 44.689414,
+     "annulus_overlap_component_mm2": 0.140841,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|1",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:1",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 3117.190217,
+   "bbox_mm": [
+    0.5005,
+    0.5005,
+    71.4995,
+    79.4995
+   ],
+   "centroid_mm": [
+    40.97302,
+    33.790421
+   ],
+   "component_size": 38,
+   "is_main_body": true
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|2",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:2",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 225.124958,
+   "bbox_mm": [
+    29.374377,
+    61.4005,
+    60.3,
+    75.7995
+   ],
+   "centroid_mm": [
+    47.001159,
+    68.443418
+   ],
+   "component_size": 6,
+   "is_main_body": false,
+   "component_others": [
+    "0539d2d0-fa7c-4723-9dee-b8339727c6bd",
+    "44e6650b-6806-4f57-a7e5-9b2147a8235c",
+    "c00f8f35-4f37-4930-bcd1-df4af284b4bf",
+    "cd7dda3d-efdf-4c51-a1bb-35e982ddbf56",
+    "ff6d976a-fda7-44da-99de-bd7de96068e2"
+   ],
+   "component_other_count": 5,
+   "pads_in_component": [
+    "U_LORA1280.10",
+    "U_LORA1280.11",
+    "U_LORA1280.12",
+    "U_LORA1280.14",
+    "U_LORA1280.4"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 37.073881,
+     "y": 68.574258,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 37.105783,
+     "y": 65.00025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 52.568594,
+     "y": 65.00025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 52.568594,
+     "y": 72.19975,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 4,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|3",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:3",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 316.6248,
+   "bbox_mm": [
+    11.387836,
+    51.042457,
+    46.8995,
+    74.6995
+   ],
+   "centroid_mm": [
+    22.776505,
+    64.394386
+   ],
+   "component_size": 38,
+   "is_main_body": true
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|4",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:4",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 151.657962,
+   "bbox_mm": [
+    32.6005,
+    53.744974,
+    61.1995,
+    63.116525
+   ],
+   "centroid_mm": [
+    45.248626,
+    58.609262
+   ],
+   "component_size": 6,
+   "is_main_body": false,
+   "component_others": [
+    "6435972a-9a54-421d-a6e7-88fc9148f99c",
+    "859ec427-3901-47fa-ab4f-b6c8baaeb9e4",
+    "8ae691e1-7fba-4a05-b336-e90d34490dd9",
+    "b99c44e4-5689-4be2-a0b7-1d15273127d8",
+    "b9f78c14-1835-4b83-9b67-0d586b02d2c6"
+   ],
+   "component_other_count": 5,
+   "pads_in_component": [
+    "U6.2",
+    "U6.3",
+    "U6.6",
+    "U7.2",
+    "U_HUB_CVT.2"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 46.9,
+     "y": 58.43075,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 54.04975,
+     "y": 56.087862,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 54.04975,
+     "y": 60.773637,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 39.75025,
+     "y": 56.087862,
+     "annulus_overlap_component_mm2": 0.146643,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 39.75025,
+     "y": 60.773637,
+     "annulus_overlap_component_mm2": 0.08261,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|5",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:5",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 21.875731,
+   "bbox_mm": [
+    8.7005,
+    45.7005,
+    12.920567,
+    60.63665
+   ],
+   "centroid_mm": [
+    9.758998,
+    53.72698
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "5a3ae54c-3b36-4afd-8f8d-fb9d6e453a01"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U5.1"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 9.7203,
+     "y": 53.164239,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 9.755517,
+     "y": 56.902612,
+     "annulus_overlap_component_mm2": 0.19619,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 2,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|6",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:6",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 174.957236,
+   "bbox_mm": [
+    12.002814,
+    32.1005,
+    23.955025,
+    50.697185
+   ],
+   "centroid_mm": [
+    18.535697,
+    41.111412
+   ],
+   "component_size": 38,
+   "is_main_body": true
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|7",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:7",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 1.830048,
+   "bbox_mm": [
+    9.1005,
+    38.7845,
+    10.097185,
+    42.515485
+   ],
+   "centroid_mm": [
+    9.74412,
+    41.041605
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "4623d5ae-536b-43ae-82e1-27dfc870310d"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "C10.2"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 9.848014,
+     "y": 41.582739,
+     "annulus_overlap_component_mm2": 0.186411,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 9.848014,
+     "y": 39.717246,
+     "annulus_overlap_component_mm2": 0.161047,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 9.875,
+     "y": 40.239999,
+     "annulus_overlap_component_mm2": 0.159016,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 3,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|8",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:8",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 4.416625,
+   "bbox_mm": [
+    10.2505,
+    30.9505,
+    11.915127,
+    34.4595
+   ],
+   "centroid_mm": [
+    11.046147,
+    33.062562
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "4db1877f-a7f4-48ce-9d99-a5b1df0d2f66"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U1.1"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 10.666657,
+     "y": 33.58225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 11.075,
+     "y": 33.303,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 11.082814,
+     "y": 32.705,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 11.49897,
+     "y": 33.58225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 4,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|9",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:9",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 1.953663,
+   "bbox_mm": [
+    27.7005,
+    33.3005,
+    29.3995,
+    34.4595
+   ],
+   "centroid_mm": [
+    28.55,
+    33.88
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "c100cd39-74ca-4b79-b06f-f02d49b30cd6"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U1.40"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 28.12525,
+     "y": 33.59025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 28.12525,
+     "y": 34.16975,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 28.55,
+     "y": 33.88,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 28.97475,
+     "y": 33.59025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 28.97475,
+     "y": 34.16975,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|10",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:10",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 341.540465,
+   "bbox_mm": [
+    11.3005,
+    8.8005,
+    30.750123,
+    29.0995
+   ],
+   "centroid_mm": [
+    21.070738,
+    19.274491
+   ],
+   "component_size": 3,
+   "is_main_body": false,
+   "component_others": [
+    "1a14e8cc-c841-4b49-bb23-0d8301fb609c",
+    "6cb1da6a-51f0-41d5-90e3-d0f70d4c3bc0"
+   ],
+   "component_other_count": 2,
+   "pads_in_component": [
+    "U2.3",
+    "U2.4"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 16.162906,
+     "y": 13.87525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 16.162906,
+     "y": 24.02475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 21.025312,
+     "y": 18.95,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 25.887717,
+     "y": 13.87525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 25.887717,
+     "y": 24.02475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_FCu|F.Cu|11",
+   "target_key": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72:F.Cu:11",
+   "net": "GND",
+   "layer": "F.Cu",
+   "area_mm2": 5.909013,
+   "bbox_mm": [
+    18.9138,
+    8.353875,
+    22.6995,
+    10.3995
+   ],
+   "centroid_mm": [
+    21.028034,
+    9.576742
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "86cb9dff-cf96-4aab-80b1-e0769abc601b"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U2.2"
+   ],
+   "other_layer_main_layers": [
+    "In1.Cu",
+    "B.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 19.860225,
+     "y": 9.888094,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 20.80665,
+     "y": 9.376688,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 20.80665,
+     "y": 9.8,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 21.753075,
+     "y": 8.865281,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 21.753075,
+     "y": 9.888094,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "P3V3_BCu|B.Cu|0",
+   "target_key": "16f6e88f-2e9f-413c-ae4d-c257fffafae3:B.Cu:0",
+   "net": "+3V3",
+   "layer": "B.Cu",
+   "area_mm2": 1.364968,
+   "bbox_mm": [
+    10.0,
+    11.195,
+    11.99,
+    11.906129
+   ],
+   "centroid_mm": [
+    10.995516,
+    11.541792
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "44e3dc1d-48d6-4ae9-8d33-698698947611"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U3.1"
+   ],
+   "other_layer_main_layers": [],
+   "candidate_sites": [],
+   "candidate_site_count": 0,
+   "status": "NO_ANNULUS_OVERLAP_SITE"
+  },
+  {
+   "island_id": "P3V3_BCu|B.Cu|1",
+   "target_key": "16f6e88f-2e9f-413c-ae4d-c257fffafae3:B.Cu:1",
+   "net": "+3V3",
+   "layer": "B.Cu",
+   "area_mm2": 1.49839,
+   "bbox_mm": [
+    32.6005,
+    11.195,
+    34.79,
+    11.906129
+   ],
+   "centroid_mm": [
+    33.698601,
+    11.540923
+   ],
+   "component_size": 2,
+   "is_main_body": true
+  },
+  {
+   "island_id": "P3V3_BCu|B.Cu|2",
+   "target_key": "16f6e88f-2e9f-413c-ae4d-c257fffafae3:B.Cu:2",
+   "net": "+3V3",
+   "layer": "B.Cu",
+   "area_mm2": 1.460928,
+   "bbox_mm": [
+    18.7505,
+    4.25,
+    19.8,
+    5.75
+   ],
+   "centroid_mm": [
+    19.247936,
+    4.999995
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "2ba97357-8f51-43c0-ba2d-f3cd9429dda0"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "J_VCC.3"
+   ],
+   "other_layer_main_layers": [],
+   "candidate_sites": [],
+   "candidate_site_count": 0,
+   "status": "NO_ANNULUS_OVERLAP_SITE"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|0",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:0",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 4.294647,
+   "bbox_mm": [
+    34.1505,
+    75.005,
+    35.2495,
+    78.995
+   ],
+   "centroid_mm": [
+    34.707091,
+    76.999865
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "ab960e36-9533-4bf4-888b-6c3c5b82f1bb"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "J_W2.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 34.42525,
+     "y": 76.0025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.42525,
+     "y": 77.9975,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.7,
+     "y": 77.0,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.97475,
+     "y": 76.0025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.97475,
+     "y": 77.9975,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|1",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:1",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 0.876895,
+   "bbox_mm": [
+    36.48,
+    70.205,
+    37.794999,
+    70.8995
+   ],
+   "centroid_mm": [
+    37.137109,
+    70.546933
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "caae1b4a-33bb-4e1c-a474-22ebf547d93b"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U_CUT2.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 37.1375,
+     "y": 70.55225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 36.80875,
+     "y": 70.378625,
+     "annulus_overlap_component_mm2": 0.179103,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 37.466249,
+     "y": 70.378625,
+     "annulus_overlap_component_mm2": 0.179103,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 36.80875,
+     "y": 70.725875,
+     "annulus_overlap_component_mm2": 0.177122,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 37.466249,
+     "y": 70.725875,
+     "annulus_overlap_component_mm2": 0.177009,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|2",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:2",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 1.011458,
+   "bbox_mm": [
+    5.705,
+    46.563118,
+    7.1995,
+    47.294999
+   ],
+   "centroid_mm": [
+    6.459618,
+    46.945188
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "b37adf53-604d-4167-8e39-8f62ef30fda1"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U_CUT1.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 6.45225,
+     "y": 46.929058,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 6.078625,
+     "y": 47.112029,
+     "annulus_overlap_component_mm2": 0.182278,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 6.825875,
+     "y": 47.112029,
+     "annulus_overlap_component_mm2": 0.18033,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 6.825875,
+     "y": 46.746088,
+     "annulus_overlap_component_mm2": 0.167653,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 6.078625,
+     "y": 46.746088,
+     "annulus_overlap_component_mm2": 0.16651,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|3",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:3",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 8.174124,
+   "bbox_mm": [
+    16.605,
+    39.915,
+    20.0495,
+    43.3495
+   ],
+   "centroid_mm": [
+    18.330802,
+    41.735603
+   ],
+   "component_size": 38,
+   "is_main_body": true
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|4",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:4",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 4.294647,
+   "bbox_mm": [
+    67.005,
+    40.7505,
+    70.995,
+    41.8495
+   ],
+   "centroid_mm": [
+    68.999865,
+    41.292909
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "4971ec11-b7e6-4334-935a-7223847b7d40"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "J_W3.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 68.0025,
+     "y": 41.02525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 68.0025,
+     "y": 41.57475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 69.0,
+     "y": 41.3,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 69.9975,
+     "y": 41.02525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 69.9975,
+     "y": 41.57475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|5",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:5",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 0.876913,
+   "bbox_mm": [
+    62.205,
+    38.205,
+    62.8995,
+    39.519999
+   ],
+   "centroid_mm": [
+    62.54693,
+    38.862889
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "adbc804b-a5dd-4bcc-8ccb-8c5366a59c9a"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U_CUT3.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 62.55225,
+     "y": 38.8625,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 62.378625,
+     "y": 38.53375,
+     "annulus_overlap_component_mm2": 0.179103,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 62.378625,
+     "y": 39.191249,
+     "annulus_overlap_component_mm2": 0.179103,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 62.725875,
+     "y": 39.191249,
+     "annulus_overlap_component_mm2": 0.177122,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 62.725875,
+     "y": 38.53375,
+     "annulus_overlap_component_mm2": 0.177009,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|6",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:6",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 4.294647,
+   "bbox_mm": [
+    1.005,
+    38.1505,
+    4.995,
+    39.2495
+   ],
+   "centroid_mm": [
+    3.000134,
+    38.707091
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "5ed8afc5-cade-42dd-9864-739ceb034c85"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "J_W1.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 2.0025,
+     "y": 38.42525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 2.0025,
+     "y": 38.97475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 3.0,
+     "y": 38.7,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 3.9975,
+     "y": 38.42525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 3.9975,
+     "y": 38.97475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|7",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:7",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 3.018984,
+   "bbox_mm": [
+    9.8005,
+    19.874307,
+    11.9995,
+    21.263803
+   ],
+   "centroid_mm": [
+    10.899305,
+    20.569941
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "f36ec9fe-628a-4215-869e-1f949a45e106"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U3.8"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 10.35025,
+     "y": 20.221681,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 10.35025,
+     "y": 20.916429,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 10.9,
+     "y": 20.569055,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.010053
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.206324
+    },
+    {
+     "x": 11.44975,
+     "y": 20.221681,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 11.44975,
+     "y": 20.916429,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|8",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:8",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 2.937468,
+   "bbox_mm": [
+    32.6005,
+    19.875076,
+    34.79,
+    21.263803
+   ],
+   "centroid_mm": [
+    33.670892,
+    20.569953
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "81fc4816-9a95-4df1-a3eb-54dc40398170"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U_C.8"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 33.147875,
+     "y": 20.222258,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.147875,
+     "y": 20.916621,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.69525,
+     "y": 20.56944,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.242625,
+     "y": 20.222258,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.242625,
+     "y": 20.916621,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|9",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:9",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 5.025795,
+   "bbox_mm": [
+    29.81,
+    18.5905,
+    31.8995,
+    21.2595
+   ],
+   "centroid_mm": [
+    30.848152,
+    20.021595
+   ],
+   "component_size": 3,
+   "is_main_body": false,
+   "component_others": [
+    "15a80b85-337c-4337-9550-898ab136dc74",
+    "d566d44d-5151-4ae2-a1ab-12aefe6b8435"
+   ],
+   "component_other_count": 2,
+   "pads_in_component": [
+    "U3.11",
+    "U3.12"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 30.332375,
+     "y": 19.25775,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 30.332375,
+     "y": 20.59225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 30.85475,
+     "y": 19.925,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 31.377125,
+     "y": 19.25775,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 31.377125,
+     "y": 20.59225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|10",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:10",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 5.025915,
+   "bbox_mm": [
+    52.61,
+    18.5905,
+    54.6995,
+    21.2595
+   ],
+   "centroid_mm": [
+    53.648143,
+    20.021562
+   ],
+   "component_size": 3,
+   "is_main_body": false,
+   "component_others": [
+    "64e7a667-1927-48af-86ca-4b020ec7060a",
+    "c0e4b6e5-f2a6-4705-af45-a1478d171d72"
+   ],
+   "component_other_count": 2,
+   "pads_in_component": [
+    "U_C.11",
+    "U_C.12"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 53.132375,
+     "y": 19.25775,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 53.132375,
+     "y": 20.59225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 53.65475,
+     "y": 19.925,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 54.177125,
+     "y": 19.25775,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 54.177125,
+     "y": 20.59225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|11",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:11",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 2.937468,
+   "bbox_mm": [
+    32.6005,
+    12.135076,
+    34.79,
+    13.523803
+   ],
+   "centroid_mm": [
+    33.670892,
+    12.829953
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "7f16ec29-5e72-4cc0-a945-582ae9e79a02"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U_C.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 33.147875,
+     "y": 12.482258,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.147875,
+     "y": 13.176621,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.69525,
+     "y": 12.82944,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.242625,
+     "y": 12.482258,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 34.242625,
+     "y": 13.176621,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|12",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:12",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 2.592453,
+   "bbox_mm": [
+    10.0,
+    12.1405,
+    11.99,
+    13.5195
+   ],
+   "centroid_mm": [
+    10.995,
+    12.83
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "4bcfe33c-9d8e-4d9e-ac2c-33c9f0dd8cf9"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U3.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 10.4975,
+     "y": 12.48525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.186662
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.382933
+    },
+    {
+     "x": 10.4975,
+     "y": 13.17475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.186662
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.382933
+    },
+    {
+     "x": 10.995,
+     "y": 12.83,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 11.4925,
+     "y": 12.48525,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 11.4925,
+     "y": 13.17475,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|13",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:13",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 2.202412,
+   "bbox_mm": [
+    29.81,
+    11.0005,
+    31.8995,
+    12.2295
+   ],
+   "centroid_mm": [
+    30.902735,
+    11.681976
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "bbd614e4-75af-4f72-ad41-b725ce3bd543"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U3.18"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 30.332375,
+     "y": 11.92225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 30.85475,
+     "y": 11.615,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 31.377125,
+     "y": 11.92225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 31.377125,
+     "y": 11.30775,
+     "annulus_overlap_component_mm2": 0.172695,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    },
+    {
+     "x": 30.332375,
+     "y": 11.30775,
+     "annulus_overlap_component_mm2": 0.154742,
+     "lands_on": [
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.196271
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|14",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:14",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 1.975037,
+   "bbox_mm": [
+    52.61,
+    11.195,
+    54.6,
+    12.2295
+   ],
+   "centroid_mm": [
+    53.60487,
+    11.69916
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "0794dbd6-67fb-46ce-8f96-e5efe049a8f2"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U_C.18"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 53.1075,
+     "y": 11.453625,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 53.1075,
+     "y": 11.970875,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 53.605,
+     "y": 11.71225,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 54.1025,
+     "y": 11.453625,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 54.1025,
+     "y": 11.970875,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|15",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:15",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 4.3468,
+   "bbox_mm": [
+    36.7505,
+    1.005,
+    37.8495,
+    5.060574
+   ],
+   "centroid_mm": [
+    37.296659,
+    3.0235
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "43bbe40a-889c-4d19-ae52-d1e86ed55a34"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "J_W4.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 37.02525,
+     "y": 2.018894,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 37.02525,
+     "y": 4.04668,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 37.3,
+     "y": 3.032787,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 37.57475,
+     "y": 2.018894,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 37.57475,
+     "y": 4.04668,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|16",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:16",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 6.072192,
+   "bbox_mm": [
+    32.705,
+    1.005,
+    34.2495,
+    4.995
+   ],
+   "centroid_mm": [
+    33.469487,
+    3.000095
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "9ce32384-57c6-4383-9111-c8dfcdab5d4b"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "J_W4.4"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 33.091125,
+     "y": 2.0025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.091125,
+     "y": 3.9975,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.47725,
+     "y": 3.0,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.863375,
+     "y": 2.0025,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 33.863375,
+     "y": 3.9975,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "GND_BCu|B.Cu|17",
+   "target_key": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c:B.Cu:17",
+   "net": "GND",
+   "layer": "B.Cu",
+   "area_mm2": 0.876886,
+   "bbox_mm": [
+    41.205,
+    1.600499,
+    42.519999,
+    2.294999
+   ],
+   "centroid_mm": [
+    41.862886,
+    1.953076
+   ],
+   "component_size": 2,
+   "is_main_body": false,
+   "component_others": [
+    "94c08d46-3c66-4e11-96cc-0ec8db956956"
+   ],
+   "component_other_count": 1,
+   "pads_in_component": [
+    "U_CUT4.2"
+   ],
+   "other_layer_main_layers": [
+    "F.Cu",
+    "In1.Cu"
+   ],
+   "candidate_sites": [
+    {
+     "x": 41.8625,
+     "y": 1.947749,
+     "annulus_overlap_component_mm2": 0.196271,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 41.53375,
+     "y": 2.121374,
+     "annulus_overlap_component_mm2": 0.179103,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 42.191249,
+     "y": 2.121374,
+     "annulus_overlap_component_mm2": 0.179103,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 42.191249,
+     "y": 1.774124,
+     "annulus_overlap_component_mm2": 0.177126,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    },
+    {
+     "x": 41.53375,
+     "y": 1.774124,
+     "annulus_overlap_component_mm2": 0.177009,
+     "lands_on": [
+      [
+       "F.Cu",
+       0.196271
+      ],
+      [
+       "In1.Cu",
+       0.196271
+      ]
+     ],
+     "annulus_overlap_main_mm2": 0.392542
+    }
+   ],
+   "candidate_site_count": 5,
+   "status": "CANDIDATE_SITES_FOUND"
+  },
+  {
+   "island_id": "VSCAP_BCu|B.Cu|0",
+   "target_key": "73c9b043-ca4d-478d-a850-a6b449ae5465:B.Cu:0",
+   "net": "/VSCAP",
+   "layer": "B.Cu",
+   "area_mm2": 4785.011986,
+   "bbox_mm": [
+    0.5005,
+    0.5005,
+    71.4995,
+    79.4995
+   ],
+   "centroid_mm": [
+    37.145705,
+    39.787966
+   ],
+   "component_size": 7,
+   "is_main_body": true
+  },
+  {
+   "island_id": "GND_In1|In1.Cu|0",
+   "target_key": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539:In1.Cu:0",
+   "net": "GND",
+   "layer": "In1.Cu",
+   "area_mm2": 5414.961075,
+   "bbox_mm": [
+    0.5005,
+    0.5005,
+    71.4995,
+    79.4995
+   ],
+   "centroid_mm": [
+    36.067729,
+    39.645162
+   ],
+   "component_size": 38,
+   "is_main_body": true
+  }
+ ],
+ "rejected": [],
+ "isolated_total": 28,
+ "isolated_with_sites": 26,
+ "source_unchanged": true
+}

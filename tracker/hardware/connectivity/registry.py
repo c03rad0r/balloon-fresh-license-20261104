@@ -32,7 +32,16 @@ import pcbnew
 UM = 1_000_000.0
 HOLE_PREFIXES = ("H", "HW")
 HERE = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_BOARD = os.path.join(HERE, "..", "hub_board_v10.kicad_pcb")
+# THE BOARD OF RECORD. CORRECTED 2026-11-11.
+#
+# This defaulted to tracker/hardware/hub_board_v10.kicad_pcb, a SUPERSEDED file that was never
+# fabricated. It differs from the shipped board in its radio reference (U_E28 vs U_LORA1280), so
+# every default `registry.py check` run reported 18 phantom "pin absent" and 18 phantom "not on
+# board" drifts that described a board nobody built. The file is identified as the board of record
+# by its shipped drill: 196 holes at 0.200/0.300/1.000/2.500 mm (188 PTH + 8 NPTH), which only it
+# reproduces. Against it the registry agrees on 257/257 pins.
+DEFAULT_BOARD = os.path.join(
+    HERE, "..", "..", "..", "docs", "analysis", "bulk-route-20261107", "latest.kicad_pcb")
 DEFAULT_REG = os.path.join(HERE, "v10_pinmap.reg")
 
 

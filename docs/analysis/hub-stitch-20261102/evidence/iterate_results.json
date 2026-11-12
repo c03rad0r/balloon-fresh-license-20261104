@@ -1,0 +1,398 @@
+{
+ "source_sha256": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+ "global_baseline_sha": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+ "baseline_violations": 38,
+ "baseline_unconnected": 86,
+ "baseline_sigma": 86,
+ "baseline_violation_types": [
+  "copper_edge_clearance",
+  "lib_footprint_issues",
+  "lib_footprint_mismatch",
+  "silk_over_copper",
+  "starved_thermal"
+ ],
+ "original_pinned_main": {
+  "/SCAP_ADC": {
+   "n_members": 13,
+   "n_pads": 2
+  },
+  "GND": {
+   "n_members": 38,
+   "n_pads": 33
+  },
+  "/SCAP_MID": {
+   "n_members": 22,
+   "n_pads": 4
+  },
+  "/F33_VSENSE": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/W1_SOLAR_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/CUT_SENSE_W2": {
+   "n_members": 9,
+   "n_pads": 2
+  },
+  "/W2_SOLAR_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/HUB_PV_P": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/HUB_PV_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/GNSS_TX": {
+   "n_members": 41,
+   "n_pads": 2
+  },
+  "/GNSS_RX": {
+   "n_members": 116,
+   "n_pads": 2
+  },
+  "/GNSS_PPS": {
+   "n_members": 11,
+   "n_pads": 2
+  },
+  "+3V3": {
+   "n_members": 2,
+   "n_pads": 1
+  },
+  "/GNSS_VCC": {
+   "n_members": 24,
+   "n_pads": 3
+  },
+  "/F33_VCC": {
+   "n_members": 23,
+   "n_pads": 5
+  },
+  "/VSCAP": {
+   "n_members": 7,
+   "n_pads": 6
+  },
+  "/W1_SOLAR_P": {
+   "n_members": 19,
+   "n_pads": 3
+  },
+  "/HUB_PV_MID1": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/E28_DIO2": {
+   "n_members": 32,
+   "n_pads": 2
+  },
+  "/E28_DIO3": {
+   "n_members": 11,
+   "n_pads": 2
+  },
+  "/SPI1_MISO": {
+   "n_members": 40,
+   "n_pads": 2
+  },
+  "/SPI1_MOSI": {
+   "n_members": 18,
+   "n_pads": 2
+  },
+  "/SPI1_SCK": {
+   "n_members": 26,
+   "n_pads": 2
+  },
+  "/E28_CS_N": {
+   "n_members": 17,
+   "n_pads": 2
+  },
+  "/E28_RESET_N": {
+   "n_members": 24,
+   "n_pads": 2
+  },
+  "/E28_BUSY": {
+   "n_members": 16,
+   "n_pads": 2
+  },
+  "/E28_DIO1": {
+   "n_members": 29,
+   "n_pads": 2
+  },
+  "/EN": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/SPI2_SCK": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/SPI2_MOSI": {
+   "n_members": 12,
+   "n_pads": 2
+  },
+  "/SPI2_MISO": {
+   "n_members": 10,
+   "n_pads": 2
+  },
+  "/F33_CS_N": {
+   "n_members": 32,
+   "n_pads": 2
+  },
+  "/F33_BUSY": {
+   "n_members": 13,
+   "n_pads": 2
+  },
+  "/USB_DN": {
+   "n_members": 24,
+   "n_pads": 2
+  },
+  "/USB_DP": {
+   "n_members": 49,
+   "n_pads": 2
+  },
+  "/F33_IRQ": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/F33_RESET_N": {
+   "n_members": 44,
+   "n_pads": 2
+  },
+  "/U3_IRQ": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/U3_CS_N": {
+   "n_members": 108,
+   "n_pads": 2
+  },
+  "/U3_BUSY": {
+   "n_members": 28,
+   "n_pads": 2
+  },
+  "/U3_RESET_N": {
+   "n_members": 56,
+   "n_pads": 2
+  },
+  "/I2C_SCL": {
+   "n_members": 18,
+   "n_pads": 2
+  },
+  "/I2C_SDA": {
+   "n_members": 28,
+   "n_pads": 2
+  },
+  "/IO0": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/CUT_SENSE_W3": {
+   "n_members": 9,
+   "n_pads": 2
+  },
+  "/W3_SOLAR_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/CUT_SENSE_W4": {
+   "n_members": 12,
+   "n_pads": 2
+  },
+  "/CUT_SENSE_W1": {
+   "n_members": 14,
+   "n_pads": 2
+  },
+  "/U_C_CS_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/U_C_BUSY": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/VTCXO_VNTC": {
+   "n_members": 13,
+   "n_pads": 2
+  },
+  "/U_C_RESET_N": {
+   "n_members": 1,
+   "n_pads": 1
+  },
+  "/U_C_IRQ": {
+   "n_members": 1,
+   "n_pads": 1
+  }
+ },
+ "steps": [
+  {
+   "iteration": 0,
+   "board": "hub_board_v10_lora1280_7of9.kicad_pcb",
+   "board_sha": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+   "isolated": 28,
+   "sigma": 86,
+   "native": 86,
+   "islands_with_sites": 26
+  },
+  {
+   "iteration": 1,
+   "board": "hub_board_v10_lora1280_7of9.kicad_pcb",
+   "board_sha": "702a03c9ce6d34296978d8c1dc10bd6cc1cd91475b0a7c59d94aeaae93acd93e",
+   "isolated": 27,
+   "sigma": 85,
+   "native": 85,
+   "islands_with_sites": 25
+  }
+ ],
+ "rejections": [
+  {
+   "tag": "00-c",
+   "level": "cluster",
+   "islands": [
+    "GND_BCu|B.Cu|0",
+    "GND_BCu|B.Cu|2",
+    "GND_BCu|B.Cu|4",
+    "GND_BCu|B.Cu|5"
+   ],
+   "blockers": [
+    "c4: partition is not exactly the declared merge (merged 4, expected 4)"
+   ],
+   "new_identities": {}
+  },
+  {
+   "tag": "00-s1",
+   "level": "island",
+   "islands": [
+    "GND_BCu|B.Cu|2"
+   ],
+   "site_mm": [
+    6.45225,
+    46.929058
+   ],
+   "annulus_overlap_main_mm2": 0.392542,
+   "blockers": [
+    "c4: partition is not exactly the declared merge (merged 1, expected 1)"
+   ],
+   "new_identities": {}
+  },
+  {
+   "tag": "00-s2",
+   "level": "island",
+   "islands": [
+    "GND_BCu|B.Cu|4"
+   ],
+   "site_mm": [
+    68.0025,
+    41.02525
+   ],
+   "annulus_overlap_main_mm2": 0.392542,
+   "blockers": [
+    "c4: partition is not exactly the declared merge (merged 1, expected 1)"
+   ],
+   "new_identities": {}
+  },
+  {
+   "tag": "00-s3",
+   "level": "island",
+   "islands": [
+    "GND_BCu|B.Cu|5"
+   ],
+   "site_mm": [
+    62.55225,
+    38.8625
+   ],
+   "annulus_overlap_main_mm2": 0.392542,
+   "blockers": [
+    "c4: partition is not exactly the declared merge (merged 1, expected 1)"
+   ],
+   "new_identities": {}
+  },
+  {
+   "tag": "01-c",
+   "level": "cluster",
+   "islands": [
+    "GND_BCu|B.Cu|2",
+    "GND_BCu|B.Cu|4",
+    "GND_BCu|B.Cu|5",
+    "GND_BCu|B.Cu|6"
+   ],
+   "blockers": [
+    "c4: partition is not exactly the declared merge (merged 4, expected 4)"
+   ],
+   "new_identities": {}
+  },
+  {
+   "tag": "01-s1",
+   "level": "island",
+   "islands": [
+    "GND_BCu|B.Cu|4"
+   ],
+   "site_mm": [
+    68.0025,
+    41.02525
+   ],
+   "annulus_overlap_main_mm2": 0.392542,
+   "blockers": [
+    "c4: partition is not exactly the declared merge (merged 1, expected 1)"
+   ],
+   "new_identities": {}
+  },
+  {
+   "tag": "01-s2",
+   "level": "island",
+   "islands": [
+    "GND_BCu|B.Cu|5"
+   ],
+   "site_mm": [
+    62.55225,
+    38.8625
+   ],
+   "annulus_overlap_main_mm2": 0.392542,
+   "blockers": [
+    "c4: partition is not exactly the declared merge (merged 1, expected 1)"
+   ],
+   "new_identities": {}
+  }
+ ],
+ "final": {
+  "board": "/home/c08r4d0r/.hermes/profiles/manager/cache/scratch/stitch/iter/run-01-s0/hub_board_v10_lora1280_7of9.kicad_pcb",
+  "sha": "588da79b7f636b7ab0e207b241f0ada029da872a28ba45e2a3981f33ebf6fa94",
+  "unconnected": 84,
+  "violations": 38
+ },
+ "accepted": [
+  {
+   "tag": "00-s0",
+   "islands": [
+    "GND_BCu|B.Cu|0"
+   ],
+   "sites": [
+    {
+     "island_id": "GND_BCu|B.Cu|0",
+     "x": 34.42525,
+     "y": 76.0025,
+     "via_uuid": "2ab62978-dba6-4c1e-97c1-a62fdc2e570d"
+    }
+   ],
+   "unconnected": 85,
+   "board_sha": "702a03c9ce6d34296978d8c1dc10bd6cc1cd91475b0a7c59d94aeaae93acd93e"
+  },
+  {
+   "tag": "01-s0",
+   "islands": [
+    "GND_BCu|B.Cu|2"
+   ],
+   "sites": [
+    {
+     "island_id": "GND_BCu|B.Cu|2",
+     "x": 6.45225,
+     "y": 46.929058,
+     "via_uuid": "62e79418-f0ce-4d7f-b435-29cff5ef87b6"
+    }
+   ],
+   "unconnected": 84,
+   "board_sha": "588da79b7f636b7ab0e207b241f0ada029da872a28ba45e2a3981f33ebf6fa94"
+  }
+ ]
+}

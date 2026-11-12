@@ -1,0 +1,24 @@
+REQUESTED MODEL: moonshotai/kimi-k3.1-pro
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: True
+IMAGE: renders/hub_v10_front_2200.png
+USAGE: {"prompt_tokens": 5513, "completion_tokens": 13916, "total_tokens": 19429, "cost": 0.1402842, "is_byok": false, "prompt_tokens_details": {"cached_tokens": 5501, "cache_write_tokens": 0, "audio_tokens": 0, "video_tokens": 0}, "cost_details": {"upstream_inference_cost": 0.1402842, "upstream_inference_prompt_cost": 0.0011242, "upstream_inference_completions_cost": 0.13916}, "completion_tokens_details": {"reasoning_tokens": 13251, "image_tokens": 0, "audio_tokens": 0}}
+======================================================================
+1. **UNROUTED REGIONS — fail.** Several clearance-isolated pads have no visible F.Cu track, notably the pair near **(0.545 W, 0.386 H)** and **(0.584 W, 0.386 H)**. The largest notably empty/sparsely routed region is the **upper-right**, centered near **(0.66 W, 0.21 H)** and spanning approximately **0.46–0.83 W × 0.03–0.39 H**—roughly **20–25% of the board**. Its red fill is copper pour, not evidence of routing; other-layer connections cannot be excluded.
+
+2. **LAYER IDENTITY — no.** Only F.Cu is plotted, so the image cannot reveal back/inner-layer traces or establish a layer change at an apparent crossing; visible copper is front copper, but cross-layer connectivity cannot be inferred.
+
+3. **SILK LEGIBILITY — fail.** **R_MON1/C_MON1** overprint near **(0.264 W, 0.090 H)**. The reference/value groups for **J_W1, J_W4, J_W3 and J_W2** are respectively garbled or overprinted near **(0.21 W, 0.42 H), (0.56 W, 0.11 H), (0.76 W, 0.59 H)** and **(0.42 W, 0.89 H)**. Multiple small designators in the lower-central white-clearance band around **(0.54–0.68 W, 0.61–0.67 H)** are too faint or broken to read. Large capacitor polarity-silk areas also overlap pad areas near **(0.536 W, 0.470 H)** and **(0.652 W, 0.470 H)**.
+
+4. **COMPLETENESS — pass:** the outline is a closed rectangle, and the J_W1, J_W4, J_W3 and J_W2 connector bodies visibly terminate at the left, top, right and bottom edges respectively.
+
+5. **MISLEADING — yes.** Across the board, especially the empty-looking upper-right at **(0.66 W, 0.21 H)**, the continuous red pour and white clearance channels can be mistaken for a fully routed network, while the 86 ratsnest items are not displayed. Floating/displaced references such as **U_HUB_CVT** at **(0.80 W, 0.69 H)** and **C4/R_F1/R_BAL1** around **(0.17 W, 0.72–0.78 H)** also lack nearby corresponding footprints, making component association unclear.
+
+6. **What this image cannot prove:**
+- Net-by-net electrical connectivity or complete routing.
+- B.Cu/inner-layer routing, via connections or the four-layer stack-up.
+- Drill sizes, plating, soldermask and paste manufacturability.
+- Absolute 72 × 80 mm dimensions, tolerances or fabrication DRC compliance.
+
+VERDICT: DEFECTS_PRESENT 5
+done

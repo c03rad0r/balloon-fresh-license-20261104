@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "filename": "base_station_v1.kicad_pro",
+    "version": 1
+  },
+  "board": {},
+  "libraries": {
+    "pinned_footprint_libs": [],
+    "pinned_symbol_libs": []
+  },
+  "schematic": {
+    "legacy_lib_dir": "",
+    "legacy_lib_list": []
+  },
+  "sheets": [],
+  "_note": "minimal project: native ERC and netlist export only. No layout in this milestone and no PCB is derived from this file yet."
+}

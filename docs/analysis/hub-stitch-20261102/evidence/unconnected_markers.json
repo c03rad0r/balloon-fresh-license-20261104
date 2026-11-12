@@ -1,0 +1,1042 @@
+{
+ "counts": {
+  "pad": 102,
+  "zone": 54,
+  "real_solar": 16
+ },
+ "total": 172,
+ "marks": [
+  {
+   "x": 11.05,
+   "y": 35.16,
+   "cls": "pad",
+   "desc": "Pad 2 [+3V3] of U1 on F.Cu || Pad 1 [+3V3] of C10 on F.Cu"
+  },
+  {
+   "x": 9.5,
+   "y": 42.98,
+   "cls": "pad",
+   "desc": "Pad 2 [+3V3] of U1 on F.Cu || Pad 1 [+3V3] of C10 on F.Cu"
+  },
+  {
+   "x": 11.05,
+   "y": 35.16,
+   "cls": "pad",
+   "desc": "Pad 2 [+3V3] of U1 on F.Cu || Pad 1 [+3V3] of U3 on B.Cu"
+  },
+  {
+   "x": 10.995,
+   "y": 11.54,
+   "cls": "pad",
+   "desc": "Pad 2 [+3V3] of U1 on F.Cu || Pad 1 [+3V3] of U3 on B.Cu"
+  },
+  {
+   "x": 11.15,
+   "y": 59.9,
+   "cls": "pad",
+   "desc": "Pad 6 [+3V3] of U5 on F.Cu || Pad 7 [+3V3] of U5 on F.Cu"
+  },
+  {
+   "x": 11.15,
+   "y": 61.0,
+   "cls": "pad",
+   "desc": "Pad 6 [+3V3] of U5 on F.Cu || Pad 7 [+3V3] of U5 on F.Cu"
+  },
+  {
+   "x": 11.15,
+   "y": 59.9,
+   "cls": "pad",
+   "desc": "Pad 6 [+3V3] of U5 on F.Cu || Pad 1 [+3V3] of R_F1 on F.Cu"
+  },
+  {
+   "x": 22.5,
+   "y": 59.51,
+   "cls": "pad",
+   "desc": "Pad 6 [+3V3] of U5 on F.Cu || Pad 1 [+3V3] of R_F1 on F.Cu"
+  },
+  {
+   "x": 11.15,
+   "y": 59.9,
+   "cls": "pad",
+   "desc": "Pad 6 [+3V3] of U5 on F.Cu || Pad 1 [+3V3] of C10 on F.Cu"
+  },
+  {
+   "x": 9.5,
+   "y": 42.98,
+   "cls": "pad",
+   "desc": "Pad 6 [+3V3] of U5 on F.Cu || Pad 1 [+3V3] of C10 on F.Cu"
+  },
+  {
+   "x": 11.15,
+   "y": 63.2,
+   "cls": "pad",
+   "desc": "Pad 9 [+3V3] of U5 on F.Cu || Pad 7 [+3V3] of U5 on F.Cu"
+  },
+  {
+   "x": 11.15,
+   "y": 61.0,
+   "cls": "pad",
+   "desc": "Pad 9 [+3V3] of U5 on F.Cu || Pad 7 [+3V3] of U5 on F.Cu"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'P3V3_BCu' [+3V3] on B.Cu, priority 0 || Zone 'P3V3_BCu' [+3V3] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'P3V3_BCu' [+3V3] on B.Cu, priority 0 || Zone 'P3V3_BCu' [+3V3] on B.Cu, priority 0"
+  },
+  {
+   "x": 31.0,
+   "y": 57.24,
+   "cls": "pad",
+   "desc": "PTH pad 2 [+3V3] of J_PROG || Pad 1 [+3V3] of R_F1 on F.Cu"
+  },
+  {
+   "x": 22.5,
+   "y": 59.51,
+   "cls": "pad",
+   "desc": "PTH pad 2 [+3V3] of J_PROG || Pad 1 [+3V3] of R_F1 on F.Cu"
+  },
+  {
+   "x": 33.7289,
+   "y": 9.6,
+   "cls": "pad",
+   "desc": "Pad 5 [+3V3] of U2 on F.Cu || Pad 3 [+3V3] of J_VCC on B.Cu"
+  },
+  {
+   "x": 19.3,
+   "y": 5.0,
+   "cls": "pad",
+   "desc": "Pad 5 [+3V3] of U2 on F.Cu || Pad 3 [+3V3] of J_VCC on B.Cu"
+  },
+  {
+   "x": 33.795,
+   "y": 11.54,
+   "cls": "pad",
+   "desc": "Pad 1 [+3V3] of U_C on B.Cu || Pad 5 [+3V3] of U2 on F.Cu"
+  },
+  {
+   "x": 33.7289,
+   "y": 9.6,
+   "cls": "pad",
+   "desc": "Pad 1 [+3V3] of U_C on B.Cu || Pad 5 [+3V3] of U2 on F.Cu"
+  },
+  {
+   "x": 45.85,
+   "y": 65.1,
+   "cls": "pad",
+   "desc": "Pad 3 [+3V3] of U_LORA1280 on F.Cu || Pad 4 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 53.325,
+   "y": 58.675,
+   "cls": "pad",
+   "desc": "Pad 3 [+3V3] of U_LORA1280 on F.Cu || Pad 4 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 45.85,
+   "y": 65.1,
+   "cls": "pad",
+   "desc": "Pad 3 [+3V3] of U_LORA1280 on F.Cu || PTH pad 2 [+3V3] of J_PROG"
+  },
+  {
+   "x": 31.0,
+   "y": 57.24,
+   "cls": "pad",
+   "desc": "Pad 3 [+3V3] of U_LORA1280 on F.Cu || PTH pad 2 [+3V3] of J_PROG"
+  },
+  {
+   "x": 49.9375,
+   "y": 54.25,
+   "cls": "pad",
+   "desc": "Pad 5 [+3V3] of U7 on F.Cu || Pad 1 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 53.325,
+   "y": 54.925,
+   "cls": "pad",
+   "desc": "Pad 5 [+3V3] of U7 on F.Cu || Pad 1 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 53.325,
+   "y": 58.675,
+   "cls": "pad",
+   "desc": "Pad 4 [+3V3] of U6 on F.Cu || Pad 1 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 53.325,
+   "y": 54.925,
+   "cls": "pad",
+   "desc": "Pad 4 [+3V3] of U6 on F.Cu || Pad 1 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 55.475,
+   "y": 58.675,
+   "cls": "pad",
+   "desc": "Pad 5 [+3V3] of U6 on F.Cu || Pad 4 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 53.325,
+   "y": 58.675,
+   "cls": "pad",
+   "desc": "Pad 5 [+3V3] of U6 on F.Cu || Pad 4 [+3V3] of U6 on F.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 40.9,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W1] of J_W1 on F.Cu || Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 40.9,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W1] of J_W1 on F.Cu || Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu"
+  },
+  {
+   "x": 36.9,
+   "y": 77.0,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W2] of J_W2 on F.Cu || Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu"
+  },
+  {
+   "x": 36.9,
+   "y": 77.0,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W2] of J_W2 on F.Cu || Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 39.1,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu || Track [/CUT_SENSE_W3] on F.Cu, length 2.3500 mm"
+  },
+  {
+   "x": 69.0,
+   "y": 39.1,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu || Track [/CUT_SENSE_W3] on F.Cu, length 2.3500 mm"
+  },
+  {
+   "x": 35.1,
+   "y": 3.0,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W4] of J_W4 on F.Cu || Pad 3 [/CUT_SENSE_W4] of J_W4 on B.Cu"
+  },
+  {
+   "x": 35.1,
+   "y": 3.0,
+   "cls": "pad",
+   "desc": "Pad 3 [/CUT_SENSE_W4] of J_W4 on F.Cu || Pad 3 [/CUT_SENSE_W4] of J_W4 on B.Cu"
+  },
+  {
+   "x": 14.0844,
+   "y": 9.6,
+   "cls": "pad",
+   "desc": "Pad 18 [/F33_IRQ] of U2 on F.Cu || Pad 17 [/F33_IRQ] of U1 on F.Cu"
+  },
+  {
+   "x": 15.355,
+   "y": 51.65,
+   "cls": "pad",
+   "desc": "Pad 18 [/F33_IRQ] of U2 on F.Cu || Pad 17 [/F33_IRQ] of U1 on F.Cu"
+  },
+  {
+   "x": 11.05,
+   "y": 37.7,
+   "cls": "pad",
+   "desc": "Pad 4 [/SPI2_SCK] of U1 on F.Cu || Pad 12 [/SPI2_SCK] of U2 on F.Cu"
+  },
+  {
+   "x": 33.7289,
+   "y": 30.6,
+   "cls": "pad",
+   "desc": "Pad 4 [/SPI2_SCK] of U1 on F.Cu || Pad 12 [/SPI2_SCK] of U2 on F.Cu"
+  },
+  {
+   "x": 15.0,
+   "y": 6.99,
+   "cls": "pad",
+   "desc": "Pad 2 [/F33_VSENSE] of R_MON1 on F.Cu || Pad 1 [/F33_VSENSE] of C_MON on F.Cu"
+  },
+  {
+   "x": 14.0,
+   "y": 7.98,
+   "cls": "pad",
+   "desc": "Pad 2 [/F33_VSENSE] of R_MON1 on F.Cu || Pad 1 [/F33_VSENSE] of C_MON on F.Cu"
+  },
+  {
+   "x": 20.435,
+   "y": 51.65,
+   "cls": "pad",
+   "desc": "Pad 21 [/F33_VSENSE] of U1 on F.Cu || Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu"
+  },
+  {
+   "x": 22.0,
+   "y": 8.01,
+   "cls": "pad",
+   "desc": "Pad 21 [/F33_VSENSE] of U1 on F.Cu || Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu"
+  },
+  {
+   "x": 22.0,
+   "y": 8.01,
+   "cls": "pad",
+   "desc": "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu || Pad 2 [/F33_VSENSE] of R_MON1 on F.Cu"
+  },
+  {
+   "x": 15.0,
+   "y": 6.99,
+   "cls": "pad",
+   "desc": "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu || Pad 2 [/F33_VSENSE] of R_MON1 on F.Cu"
+  },
+  {
+   "x": 45.0,
+   "y": 52.0,
+   "cls": "pad",
+   "desc": "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu || Pad 1 [/HUB_PV_MID1] of D_HUB2 on F.Cu"
+  },
+  {
+   "x": 38.5,
+   "y": 59.5,
+   "cls": "pad",
+   "desc": "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu || Pad 1 [/HUB_PV_MID1] of D_HUB2 on F.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 66.54,
+   "cls": "pad",
+   "desc": "PTH pad 2 [/HUB_PV_MID1] of J_HUB_PV || Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu"
+  },
+  {
+   "x": 45.0,
+   "y": 52.0,
+   "cls": "pad",
+   "desc": "PTH pad 2 [/HUB_PV_MID1] of J_HUB_PV || Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu"
+  },
+  {
+   "x": 41.4375,
+   "y": 56.25,
+   "cls": "pad",
+   "desc": "Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu || Pad 2 [/HUB_PV_N] of D_HUB2 on F.Cu"
+  },
+  {
+   "x": 38.5,
+   "y": 55.5,
+   "cls": "pad",
+   "desc": "Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu || Pad 2 [/HUB_PV_N] of D_HUB2 on F.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 71.62,
+   "cls": "pad",
+   "desc": "PTH pad 4 [/HUB_PV_N] of J_HUB_PV || Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu"
+  },
+  {
+   "x": 41.4375,
+   "y": 56.25,
+   "cls": "pad",
+   "desc": "PTH pad 4 [/HUB_PV_N] of J_HUB_PV || Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu"
+  },
+  {
+   "x": 41.0,
+   "y": 52.0,
+   "cls": "pad",
+   "desc": "Pad 1 [/HUB_PV_P] of D_HUB1 on F.Cu || Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu"
+  },
+  {
+   "x": 41.4375,
+   "y": 55.25,
+   "cls": "pad",
+   "desc": "Pad 1 [/HUB_PV_P] of D_HUB1 on F.Cu || Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu"
+  },
+  {
+   "x": 41.4375,
+   "y": 55.25,
+   "cls": "pad",
+   "desc": "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu || PTH pad 1 [/HUB_PV_P] of J_HUB_PV"
+  },
+  {
+   "x": 69.0,
+   "y": 64.0,
+   "cls": "pad",
+   "desc": "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu || PTH pad 1 [/HUB_PV_P] of J_HUB_PV"
+  },
+  {
+   "x": 23.05,
+   "y": 10.75,
+   "cls": "pad",
+   "desc": "Track [/SPI1_MISO] on F.Cu, length 12.0000 mm || Pad 3 [/SPI1_MISO] of U3 on B.Cu"
+  },
+  {
+   "x": 10.995,
+   "y": 14.12,
+   "cls": "pad",
+   "desc": "Track [/SPI1_MISO] on F.Cu, length 12.0000 mm || Pad 3 [/SPI1_MISO] of U3 on B.Cu"
+  },
+  {
+   "x": 32.35,
+   "y": 49.45,
+   "cls": "pad",
+   "desc": "Track [/SPI1_MISO] on F.Cu, length 40.2000 mm || Pad 3 [/SPI1_MISO] of U_C on B.Cu"
+  },
+  {
+   "x": 33.795,
+   "y": 14.12,
+   "cls": "pad",
+   "desc": "Track [/SPI1_MISO] on F.Cu, length 40.2000 mm || Pad 3 [/SPI1_MISO] of U_C on B.Cu"
+  },
+  {
+   "x": 10.995,
+   "y": 15.41,
+   "cls": "pad",
+   "desc": "Pad 4 [/SPI1_MOSI] of U3 on B.Cu || Track [/SPI1_MOSI] on B.Cu, length 0.5000 mm"
+  },
+  {
+   "x": 11.05,
+   "y": 42.75,
+   "cls": "pad",
+   "desc": "Pad 4 [/SPI1_MOSI] of U3 on B.Cu || Track [/SPI1_MOSI] on B.Cu, length 0.5000 mm"
+  },
+  {
+   "x": 33.795,
+   "y": 15.41,
+   "cls": "pad",
+   "desc": "Pad 4 [/SPI1_MOSI] of U_C on B.Cu || Pad 4 [/SPI1_MOSI] of U3 on B.Cu"
+  },
+  {
+   "x": 10.995,
+   "y": 15.41,
+   "cls": "pad",
+   "desc": "Pad 4 [/SPI1_MOSI] of U_C on B.Cu || Pad 4 [/SPI1_MOSI] of U3 on B.Cu"
+  },
+  {
+   "x": 10.995,
+   "y": 16.7,
+   "cls": "pad",
+   "desc": "Pad 5 [/SPI1_SCK] of U3 on B.Cu || Track [/SPI1_SCK] on B.Cu, length 0.9000 mm"
+  },
+  {
+   "x": 19.8,
+   "y": 50.25,
+   "cls": "pad",
+   "desc": "Pad 5 [/SPI1_SCK] of U3 on B.Cu || Track [/SPI1_SCK] on B.Cu, length 0.9000 mm"
+  },
+  {
+   "x": 33.795,
+   "y": 16.7,
+   "cls": "pad",
+   "desc": "Pad 5 [/SPI1_SCK] of U_C on B.Cu || Pad 5 [/SPI1_SCK] of U3 on B.Cu"
+  },
+  {
+   "x": 10.995,
+   "y": 16.7,
+   "cls": "pad",
+   "desc": "Pad 5 [/SPI1_SCK] of U_C on B.Cu || Pad 5 [/SPI1_SCK] of U3 on B.Cu"
+  },
+  {
+   "x": 17.895,
+   "y": 51.65,
+   "cls": "pad",
+   "desc": "Pad 19 [/U3_IRQ] of U1 on F.Cu || Pad 15 [/U3_IRQ] of U3 on B.Cu"
+  },
+  {
+   "x": 30.805,
+   "y": 15.41,
+   "cls": "pad",
+   "desc": "Pad 19 [/U3_IRQ] of U1 on F.Cu || Pad 15 [/U3_IRQ] of U3 on B.Cu"
+  },
+  {
+   "x": 6.3625,
+   "y": 47.95,
+   "cls": "pad",
+   "desc": "Pad 1 [/VSCAP] of U_CUT1 on B.Cu || Pad 1 [/VSCAP] of D1 on F.Cu"
+  },
+  {
+   "x": 1.35,
+   "y": 46.0,
+   "cls": "pad",
+   "desc": "Pad 1 [/VSCAP] of U_CUT1 on B.Cu || Pad 1 [/VSCAP] of D1 on F.Cu"
+  },
+  {
+   "x": 36.0,
+   "y": 37.5,
+   "cls": "pad",
+   "desc": "PTH pad 1 [/VSCAP] of C_CAP1 || Pad 1 [/VSCAP] of R_BAL1 on F.Cu"
+  },
+  {
+   "x": 40.49,
+   "y": 43.5,
+   "cls": "pad",
+   "desc": "PTH pad 1 [/VSCAP] of C_CAP1 || Pad 1 [/VSCAP] of R_BAL1 on F.Cu"
+  },
+  {
+   "x": 40.49,
+   "y": 43.5,
+   "cls": "pad",
+   "desc": "Pad 1 [/VSCAP] of R_BAL1 on F.Cu || Pad 1 [/VSCAP] of R_DIV1 on F.Cu"
+  },
+  {
+   "x": 42.49,
+   "y": 43.5,
+   "cls": "pad",
+   "desc": "Pad 1 [/VSCAP] of R_BAL1 on F.Cu || Pad 1 [/VSCAP] of R_DIV1 on F.Cu"
+  },
+  {
+   "x": 42.49,
+   "y": 43.5,
+   "cls": "pad",
+   "desc": "Pad 1 [/VSCAP] of R_DIV1 on F.Cu || Pad 1 [/VSCAP] of U7 on F.Cu"
+  },
+  {
+   "x": 47.6625,
+   "y": 54.25,
+   "cls": "pad",
+   "desc": "Pad 1 [/VSCAP] of R_DIV1 on F.Cu || Pad 1 [/VSCAP] of U7 on F.Cu"
+  },
+  {
+   "x": 47.6625,
+   "y": 56.15,
+   "cls": "pad",
+   "desc": "Pad 3 [/VSCAP] of U7 on F.Cu || Pad 1 [/VSCAP] of U7 on F.Cu"
+  },
+  {
+   "x": 47.6625,
+   "y": 54.25,
+   "cls": "pad",
+   "desc": "Pad 3 [/VSCAP] of U7 on F.Cu || Pad 1 [/VSCAP] of U7 on F.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 42.7,
+   "cls": "pad",
+   "desc": "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu || Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 42.7,
+   "cls": "pad",
+   "desc": "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu || Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 42.7,
+   "cls": "real_solar",
+   "desc": "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu || Pad 1 [/W1_SOLAR_N] of D_BP2 on B.Cu"
+  },
+  {
+   "x": 29.0,
+   "y": 74.0,
+   "cls": "real_solar",
+   "desc": "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu || Pad 1 [/W1_SOLAR_N] of D_BP2 on B.Cu"
+  },
+  {
+   "x": 6.0,
+   "y": 33.0,
+   "cls": "real_solar",
+   "desc": "Pad 2 [/W1_SOLAR_N] of D_BP1 on B.Cu || Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 42.7,
+   "cls": "real_solar",
+   "desc": "Pad 2 [/W1_SOLAR_N] of D_BP1 on B.Cu || Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu"
+  },
+  {
+   "x": 29.0,
+   "y": 74.0,
+   "cls": "real_solar",
+   "desc": "Pad 1 [/W1_SOLAR_N] of D_BP2 on B.Cu || Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu"
+  },
+  {
+   "x": 33.3,
+   "y": 77.0,
+   "cls": "real_solar",
+   "desc": "Pad 1 [/W1_SOLAR_N] of D_BP2 on B.Cu || Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu"
+  },
+  {
+   "x": 33.3,
+   "y": 77.0,
+   "cls": "pad",
+   "desc": "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu || Pad 1 [/W1_SOLAR_N] of J_W2 on B.Cu"
+  },
+  {
+   "x": 33.3,
+   "y": 77.0,
+   "cls": "pad",
+   "desc": "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu || Pad 1 [/W1_SOLAR_N] of J_W2 on B.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 37.3,
+   "cls": "pad",
+   "desc": "Pad 1 [/W1_SOLAR_P] of J_W1 on F.Cu || Pad 1 [/W1_SOLAR_P] of J_W1 on B.Cu"
+  },
+  {
+   "x": 3.0,
+   "y": 37.3,
+   "cls": "pad",
+   "desc": "Pad 1 [/W1_SOLAR_P] of J_W1 on F.Cu || Pad 1 [/W1_SOLAR_P] of J_W1 on B.Cu"
+  },
+  {
+   "x": 29.0,
+   "y": 78.0,
+   "cls": "real_solar",
+   "desc": "Pad 2 [/W2_SOLAR_N] of D_BP2 on B.Cu || Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 77.0,
+   "cls": "real_solar",
+   "desc": "Pad 2 [/W2_SOLAR_N] of D_BP2 on B.Cu || Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 77.0,
+   "cls": "pad",
+   "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu || Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 77.0,
+   "cls": "pad",
+   "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu || Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 77.0,
+   "cls": "pad",
+   "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu || Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 42.7,
+   "cls": "pad",
+   "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu || Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 42.7,
+   "cls": "pad",
+   "desc": "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu || Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 42.7,
+   "cls": "pad",
+   "desc": "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu || Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 42.7,
+   "cls": "real_solar",
+   "desc": "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu || Pad 1 [/W2_SOLAR_N] of D_BP3 on B.Cu"
+  },
+  {
+   "x": 66.0,
+   "y": 33.0,
+   "cls": "real_solar",
+   "desc": "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu || Pad 1 [/W2_SOLAR_N] of D_BP3 on B.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 3.0,
+   "cls": "pad",
+   "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu || Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 3.0,
+   "cls": "pad",
+   "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu || Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 3.0,
+   "cls": "real_solar",
+   "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu || Pad 1 [/W3_SOLAR_N] of D_BP4 on B.Cu"
+  },
+  {
+   "x": 29.0,
+   "y": 2.0,
+   "cls": "real_solar",
+   "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu || Pad 1 [/W3_SOLAR_N] of D_BP4 on B.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 37.3,
+   "cls": "pad",
+   "desc": "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu || Pad 4 [/W3_SOLAR_N] of J_W3 on B.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 37.3,
+   "cls": "pad",
+   "desc": "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu || Pad 4 [/W3_SOLAR_N] of J_W3 on B.Cu"
+  },
+  {
+   "x": 69.0,
+   "y": 37.3,
+   "cls": "real_solar",
+   "desc": "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu || Pad 2 [/W3_SOLAR_N] of D_BP3 on B.Cu"
+  },
+  {
+   "x": 70.0,
+   "y": 33.0,
+   "cls": "real_solar",
+   "desc": "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu || Pad 2 [/W3_SOLAR_N] of D_BP3 on B.Cu"
+  },
+  {
+   "x": 70.0,
+   "y": 33.0,
+   "cls": "real_solar",
+   "desc": "Pad 2 [/W3_SOLAR_N] of D_BP3 on B.Cu || Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu"
+  },
+  {
+   "x": 38.7,
+   "y": 3.0,
+   "cls": "real_solar",
+   "desc": "Pad 2 [/W3_SOLAR_N] of D_BP3 on B.Cu || Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 29.0,
+   "y": 6.0,
+   "cls": "pad",
+   "desc": "Pad 2 [GND] of D_BP4 on B.Cu || Pad 4 [GND] of U2 on F.Cu"
+  },
+  {
+   "x": 29.8,
+   "y": 9.6,
+   "cls": "pad",
+   "desc": "Pad 2 [GND] of D_BP4 on B.Cu || Pad 4 [GND] of U2 on F.Cu"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 60.15,
+   "y": 65.1,
+   "cls": "zone",
+   "desc": "Pad 14 [GND] of U_LORA1280 on F.Cu || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Pad 14 [GND] of U_LORA1280 on F.Cu || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || PTH pad 5 [GND] of J_HUB_PV"
+  },
+  {
+   "x": 69.0,
+   "y": 74.16,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || PTH pad 5 [GND] of J_HUB_PV"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0 || Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 0.45,
+   "y": 0.45,
+   "cls": "zone",
+   "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0 || Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+  },
+  {
+   "x": 11.05,
+   "y": 36.43,
+   "cls": "pad",
+   "desc": "Pad 3 [/EN] of U1 on F.Cu || PTH pad 3 [/EN] of J_PROG"
+  },
+  {
+   "x": 31.0,
+   "y": 59.78,
+   "cls": "pad",
+   "desc": "Pad 3 [/EN] of U1 on F.Cu || PTH pad 3 [/EN] of J_PROG"
+  }
+ ]
+}

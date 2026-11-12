@@ -128,19 +128,6 @@ jobs:
             || python3 -m pip install --quiet --break-system-packages pytest
           python3 -m pytest tests/test_flrc_bt05_parity.py -v --tb=short
 
-      # ── Suite 8: PCB auto-route pipeline gates (t_80d91470) ──────
-      # The PCB-V2 Phase 1 card's five quality gates, expressed as
-      # assertions so they cannot silently rot (a previous run reported
-      # "zone=0" against a file containing two `zone` hits in prose).
-      # The static gates run anywhere.  The behavioural gates need
-      # pcbnew (KiCad) and self-skip on a runner without it — they are
-      # covered locally, where the pipeline is actually exercised.
-      - name: Run PCB pipeline gate tests
-        run: |
-          python3 -m pip install --quiet pytest \
-            || python3 -m pip install --quiet --break-system-packages pytest
-          python3 -m pytest tests/test_pcb_pipeline_gates.py -v --tb=short
-
       # ── Suite 10: v10 connectivity registry + routing gates (ADR-125/126) ─
       # The operator found a lane at 0.000mm over U_C.9, two dead-end stubs and 21.7mm of
       # copper through the F33's body. Each is now a test: the registry must match the
@@ -173,3 +160,97 @@ jobs:
           python3 -m pip install --quiet pytest \
             || python3 -m pip install --quiet --break-system-packages pytest
           python3 -m pytest tests/test_pcb_track_import.py -v --tb=short
+
+  # The four behavioural PCB pipeline gates need pcbnew. Installing KiCad in the
+  # shared host-tests job would also un-skip the v10 board gates, which carry
+  # pre-existing board/registry drift -- turning every PR red for an unrelated
+  # baseline. So the pipeline suite gets its own job, isolated on purpose.
+  #
+  # UPDATED 2026-11-11: the drift above is FIXED (registry now DRIFT 0 against the board of
+  # record), and this job also runs the v10 connectivity suite. That suite used to live in the
+  # host-tests job, which installs no KiCad, so 8 of its 10 tests silently skipped there -- the
+  # three real failures it was hiding had NEVER executed in CI. Running it here, with a
+  # fail-closed assertion that the pcbnew tests did not skip, is what makes it a gate.
+  pcb-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install KiCad python bindings
+        timeout-minutes: 8
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends kicad
+          # The pipeline is written against KiCad 9 (see full_pipeline.py); an
+          # image resolving an older pcbnew must fail here, loudly.
+          /usr/bin/python3 -c "import pcbnew; v = pcbnew.Version(); print('pcbnew', v); assert v.startswith('9.'), v"
+
+      - name: Run PCB pipeline gate tests
+        run: |
+          /usr/bin/python3 -m pip install --quiet pytest \
+            || /usr/bin/python3 -m pip install --quiet --break-system-packages pytest
+          /usr/bin/python3 -m pytest tests/test_pcb_pipeline_gates.py \
+            tests/test_adr142_socket_edge_tracks.py -v --tb=short \
+            --junitxml="$RUNNER_TEMP/pcb-pipeline.xml"
+
+      # The v10 connectivity suite. Moved here 2026-11-11 because it needs pcbnew: in the
+      # host-tests job 8 of its 10 tests skipped, so the 3 failures it had been carrying were
+      # never executed anywhere. There is no built-in "skip is a failure" flag here, so the
+      # step below asserts the real outcome from the JUnit XML instead of trusting the exit code.
+      - name: Run v10 connectivity suite (needs pcbnew)
+        run: |
+          /usr/bin/python3 -m pytest tests/test_v10_connectivity.py -v --tb=short \
+            --junitxml="$RUNNER_TEMP/v10-connectivity.xml"
+
+      # FAIL CLOSED. Same reasoning as the board-check assertion below: a skip is a missing
+      # check, not a pass. Requires 10 executed tests, 0 skipped, 0 failed -- so if the image
+      # loses pcbnew this job goes red instead of quietly testing nothing.
+      - name: Assert the v10 connectivity suite actually ran
+        run: |
+          /usr/bin/python3 - "$RUNNER_TEMP/v10-connectivity.xml" <<'PY'
+          import sys, xml.etree.ElementTree as ET
+          suites = ET.parse(sys.argv[1]).getroot()
+          cases = suites.iter('testcase')
+          total = skipped = failed = 0
+          for c in cases:
+              total += 1
+              if c.find('skipped') is not None:
+                  skipped += 1
+              if c.find('failure') is not None or c.find('error') is not None:
+                  failed += 1
+          print(f"v10 connectivity: {total} tests, {skipped} skipped, {failed} failed")
+          problems = []
+          if total != 10:
+              problems.append(f"expected 10 tests, got {total}")
+          if skipped:
+              problems.append(f"{skipped} test(s) SKIPPED -- pcbnew missing, so nothing was checked")
+          if failed:
+              problems.append(f"{failed} test(s) failed")
+          if problems:
+              sys.exit("FAIL CLOSED: " + "; ".join(problems))
+          print("OK: all 10 executed with pcbnew present")
+          PY
+
+      # FAIL CLOSED. The four behavioural checks used to skip silently when the
+      # binding was missing, which is how four real failures hid behind a green
+      # tick. A skip here is a missing check, not a pass.
+      - name: Assert the four board checks actually ran
+        run: |
+          /usr/bin/python3 scripts/assert_board_checks_ran.py \
+            "$RUNNER_TEMP/pcb-pipeline.xml"
+
+      # No setup-python here: pcbnew is built for the distro interpreter.
+      # Keep this blocking and unconditional, paired with test.yml's exclusion.
+      - name: Run native wing export tests
+        run: |
+          /usr/bin/python3 -c "import pcbnew; v = pcbnew.Version(); print('pcbnew', v); assert v.startswith('9.'), v"
+          /usr/bin/python3 -m pytest tests/test_wing_order_export.py -v --tb=short \
+            --junitxml="$RUNNER_TEMP/wing-export.xml"
+          /usr/bin/python3 scripts/assert_board_checks_ran.py \
+            "$RUNNER_TEMP/wing-export.xml" \
+            --require test_front_paste_has_six_diode_pads \
+            --require test_native_origin_and_asymmetric_pad_anchor \
+            --require test_each_reversed_diode_fails \
+            --require test_native_bypass_polarity

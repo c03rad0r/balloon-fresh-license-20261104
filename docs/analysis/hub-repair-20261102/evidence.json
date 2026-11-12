@@ -1,0 +1,33 @@
+{
+  "source_sha256": "732bfe889020b3c957fb778f1c30f2a84a3e96171cec37c1fa51dae58a9c6561",
+  "project_sha256": "01063b32bcba962ba2ee89fa5acbd55a96b006d78567a3037403b05965a75b02",
+  "canonical_all_tokens_except_two_layers_sha256": {
+    "before": "f24afe692adc5958e89a08df1274a2bc7de428ff54a88314d46c196bc7a60a25",
+    "after": "f24afe692adc5958e89a08df1274a2bc7de428ff54a88314d46c196bc7a60a25"
+  },
+  "before_sha256": "732bfe889020b3c957fb778f1c30f2a84a3e96171cec37c1fa51dae58a9c6561",
+  "after_sha256": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+  "added": {},
+  "removed": {
+    "[\"silk_over_copper\", \"warning\", \"Silkscreen clipped by solder mask\", [[\"1faf3492-15b9-4f0b-9396-c5d97f87f506\", \"Segment of U_LORA1280 on F.Silkscreen\"]]]": 1,
+    "[\"silk_over_copper\", \"warning\", \"Silkscreen clipped by solder mask\", [[\"e97516be-ca8a-4061-819e-9b66ff243826\", \"Segment of U_LORA1280 on F.Silkscreen\"]]]": 1
+  },
+  "counts": {
+    "before": {
+      "starved_thermal": 2,
+      "copper_edge_clearance": 16,
+      "silk_over_copper": 3,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8
+    },
+    "after": {
+      "starved_thermal": 2,
+      "copper_edge_clearance": 16,
+      "silk_over_copper": 1,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8
+    }
+  },
+  "unconnected": 86,
+  "copper_netlist_outline_drill_and_filled_zone_tokens_unchanged": true
+}

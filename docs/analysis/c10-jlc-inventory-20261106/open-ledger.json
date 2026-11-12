@@ -1,0 +1,1791 @@
+{
+  "base": "d5ced0ade0be7157420a89dfaea5db1e2cabdfdf",
+  "board_sha256": "b899ad04f1e61bd4693b52f9a5275b4a406d8dfc59b778138d598ce768b90fbd",
+  "records": [
+    {
+      "id": "O01",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "PTH pad 2 [+3V3] of J_PROG",
+            "pos": {
+              "x": 31.0,
+              "y": 57.24
+            },
+            "uuid": "31a3a989-fd2d-4e42-8238-be2929ac470e"
+          },
+          {
+            "description": "Pad 1 [+3V3] of R_F1 on F.Cu",
+            "pos": {
+              "x": 22.5,
+              "y": 59.51
+            },
+            "uuid": "f03f22eb-b4a2-4c36-8a78-4b82c66f2ff1"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          40
+        ],
+        [
+          63
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O02",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 3 [/CUT_SENSE_W1] of J_W1 on F.Cu",
+            "pos": {
+              "x": 3.0,
+              "y": 40.9
+            },
+            "uuid": "738b27c6-47cd-4170-a13c-2927e2f504db"
+          },
+          {
+            "description": "Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu",
+            "pos": {
+              "x": 3.0,
+              "y": 40.9
+            },
+            "uuid": "b3f8d59c-910e-4b94-8520-e4a53ab40bd2"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          130
+        ],
+        [
+          131
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W1.3",
+        "pads": [
+          {
+            "ref": "J_W1",
+            "number": "3",
+            "uuid": "738b27c6-47cd-4170-a13c-2927e2f504db",
+            "net": "/CUT_SENSE_W1",
+            "xy": [
+              3.0,
+              40.9
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W1",
+            "number": "3",
+            "uuid": "b3f8d59c-910e-4b94-8520-e4a53ab40bd2",
+            "net": "/CUT_SENSE_W1",
+            "xy": [
+              3.0,
+              40.9
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O03",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu",
+            "pos": {
+              "x": 36.9,
+              "y": 77.0
+            },
+            "uuid": "73363747-345c-4c31-b0a9-797cb41c837c"
+          },
+          {
+            "description": "Track [/CUT_SENSE_W2] on F.Cu, length 2.3500 mm",
+            "pos": {
+              "x": 36.9,
+              "y": 77.0
+            },
+            "uuid": "d4d21ff9-9247-4199-8252-1a1d7a9b48ee"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          17
+        ],
+        [
+          16
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W2.3",
+        "pads": [
+          {
+            "ref": "J_W2",
+            "number": "3",
+            "uuid": "73363747-345c-4c31-b0a9-797cb41c837c",
+            "net": "/CUT_SENSE_W2",
+            "xy": [
+              36.9,
+              77.0
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W2",
+            "number": "3",
+            "uuid": "bd860c07-7229-44fa-b27b-0f42a372bf62",
+            "net": "/CUT_SENSE_W2",
+            "xy": [
+              36.9,
+              77.0
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O04",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 3 [/CUT_SENSE_W3] of J_W3 on F.Cu",
+            "pos": {
+              "x": 69.0,
+              "y": 39.1
+            },
+            "uuid": "63cc25d3-ea5e-4f5e-805a-0641017adb5d"
+          },
+          {
+            "description": "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu",
+            "pos": {
+              "x": 69.0,
+              "y": 39.1
+            },
+            "uuid": "151c5cd9-1d48-4a77-bebb-9e28d4c1f156"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          117
+        ],
+        [
+          118
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W3.3",
+        "pads": [
+          {
+            "ref": "J_W3",
+            "number": "3",
+            "uuid": "63cc25d3-ea5e-4f5e-805a-0641017adb5d",
+            "net": "/CUT_SENSE_W3",
+            "xy": [
+              69.0,
+              39.1
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W3",
+            "number": "3",
+            "uuid": "151c5cd9-1d48-4a77-bebb-9e28d4c1f156",
+            "net": "/CUT_SENSE_W3",
+            "xy": [
+              69.0,
+              39.1
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O05",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 3 [/CUT_SENSE_W4] of J_W4 on B.Cu",
+            "pos": {
+              "x": 35.1,
+              "y": 3.0
+            },
+            "uuid": "0fcd77cf-66e4-4807-b7da-67be4e74b82f"
+          },
+          {
+            "description": "Track [/CUT_SENSE_W4] on F.Cu, length 0.1000 mm",
+            "pos": {
+              "x": 35.1,
+              "y": 3.0
+            },
+            "uuid": "030a0e40-1a84-42ea-bffa-8f7b92d2d447"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          128
+        ],
+        [
+          127
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W4.3",
+        "pads": [
+          {
+            "ref": "J_W4",
+            "number": "3",
+            "uuid": "0fcd77cf-66e4-4807-b7da-67be4e74b82f",
+            "net": "/CUT_SENSE_W4",
+            "xy": [
+              35.1,
+              3.0
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W4",
+            "number": "3",
+            "uuid": "2d35fd7a-74eb-4c87-b475-104a21198a9e",
+            "net": "/CUT_SENSE_W4",
+            "xy": [
+              35.1,
+              3.0
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O06",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 18 [/F33_IRQ] of U2 on F.Cu",
+            "pos": {
+              "x": 14.0844,
+              "y": 9.6
+            },
+            "uuid": "a04d5266-e3f6-4cd0-960a-447a76b9c404"
+          },
+          {
+            "description": "Pad 17 [/F33_IRQ] of U1 on F.Cu",
+            "pos": {
+              "x": 15.355,
+              "y": 51.65
+            },
+            "uuid": "2833c2bc-370f-4166-8aaa-3c0ab64b9d26"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          143
+        ],
+        [
+          88
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O07",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 4 [/SPI2_SCK] of U1 on F.Cu",
+            "pos": {
+              "x": 11.05,
+              "y": 37.7
+            },
+            "uuid": "24ef7af5-d6d8-4e93-ba4c-29cb7f2873d6"
+          },
+          {
+            "description": "Pad 12 [/SPI2_SCK] of U2 on F.Cu",
+            "pos": {
+              "x": 33.7289,
+              "y": 30.6
+            },
+            "uuid": "9585f437-31fa-4f77-b00b-2ede560e6814"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          79
+        ],
+        [
+          142
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O08",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Track [/F33_VSENSE] on F.Cu, length 0.3000 mm",
+            "pos": {
+              "x": 15.0,
+              "y": 7.0
+            },
+            "uuid": "cb24c400-0878-40f9-bbbb-f04a9b00a4af"
+          },
+          {
+            "description": "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu",
+            "pos": {
+              "x": 22.0,
+              "y": 8.01
+            },
+            "uuid": "4c2a2146-2485-48ff-b592-d79945c9cbf7"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          50
+        ],
+        [
+          13
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O09",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 21 [/F33_VSENSE] of U1 on F.Cu",
+            "pos": {
+              "x": 20.435,
+              "y": 51.65
+            },
+            "uuid": "65e6247f-6316-4698-9a8d-1e0900d52dcf"
+          },
+          {
+            "description": "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu",
+            "pos": {
+              "x": 22.0,
+              "y": 8.01
+            },
+            "uuid": "4c2a2146-2485-48ff-b592-d79945c9cbf7"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          92
+        ],
+        [
+          13
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O10",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu",
+            "pos": {
+              "x": 45.0,
+              "y": 52.0
+            },
+            "uuid": "33ee17e5-b446-4b4c-bfac-f2f0ec4f0840"
+          },
+          {
+            "description": "Pad 1 [/HUB_PV_MID1] of D_HUB2 on F.Cu",
+            "pos": {
+              "x": 38.5,
+              "y": 59.5
+            },
+            "uuid": "fb1cbe0d-0571-4108-9119-bbe2d0f444c3"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          134
+        ],
+        [
+          110
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O11",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "PTH pad 2 [/HUB_PV_MID1] of J_HUB_PV",
+            "pos": {
+              "x": 69.0,
+              "y": 66.54
+            },
+            "uuid": "3468ea70-e876-4af6-85b3-c6795a1e06ce"
+          },
+          {
+            "description": "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu",
+            "pos": {
+              "x": 45.0,
+              "y": 52.0
+            },
+            "uuid": "33ee17e5-b446-4b4c-bfac-f2f0ec4f0840"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          54
+        ],
+        [
+          134
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O12",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu",
+            "pos": {
+              "x": 41.4375,
+              "y": 56.25
+            },
+            "uuid": "8b33b57c-1d0f-43dd-934f-47cbc904eb7b"
+          },
+          {
+            "description": "PTH pad 4 [/HUB_PV_N] of J_HUB_PV",
+            "pos": {
+              "x": 69.0,
+              "y": 71.62
+            },
+            "uuid": "762bccf4-f2aa-4bd8-bff1-4fd3f130e125"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          21
+        ],
+        [
+          56
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O13",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 1 [/HUB_PV_P] of D_HUB1 on F.Cu",
+            "pos": {
+              "x": 41.0,
+              "y": 52.0
+            },
+            "uuid": "719db66a-e7c8-4d7e-9fe4-2cfe91c09d36"
+          },
+          {
+            "description": "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu",
+            "pos": {
+              "x": 41.4375,
+              "y": 55.25
+            },
+            "uuid": "21d816fb-f15d-4c1f-b5e8-f6571aba209d"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          133
+        ],
+        [
+          20
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O14",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu",
+            "pos": {
+              "x": 41.4375,
+              "y": 55.25
+            },
+            "uuid": "21d816fb-f15d-4c1f-b5e8-f6571aba209d"
+          },
+          {
+            "description": "PTH pad 1 [/HUB_PV_P] of J_HUB_PV",
+            "pos": {
+              "x": 69.0,
+              "y": 64.0
+            },
+            "uuid": "e9bfd230-5c35-4ea6-a350-fe028989b543"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          20
+        ],
+        [
+          53
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O15",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 3 [/SPI1_MISO] of U3 on B.Cu",
+            "pos": {
+              "x": 10.995,
+              "y": 14.12
+            },
+            "uuid": "d3b0c27b-8d4f-49e9-b046-56d82d873f72"
+          },
+          {
+            "description": "Track [/SPI1_MISO] on F.Cu, length 12.0000 mm",
+            "pos": {
+              "x": 23.05,
+              "y": 10.75
+            },
+            "uuid": "baf77062-d140-46ac-b41e-77a27400e744"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          164
+        ],
+        [
+          66
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O16",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Track [/SPI1_MISO] on F.Cu, length 40.2000 mm",
+            "pos": {
+              "x": 32.35,
+              "y": 49.45
+            },
+            "uuid": "81baf19b-502b-413b-9513-0c8786b5aa45"
+          },
+          {
+            "description": "Pad 3 [/SPI1_MISO] of U_C on B.Cu",
+            "pos": {
+              "x": 33.795,
+              "y": 14.12
+            },
+            "uuid": "3237afef-82f8-4949-a5bf-42db898621c2"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          66
+        ],
+        [
+          144
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O17",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 4 [/SPI1_MOSI] of U3 on B.Cu",
+            "pos": {
+              "x": 10.995,
+              "y": 15.41
+            },
+            "uuid": "4768d599-a9c2-4929-97ca-63830f1d92d9"
+          },
+          {
+            "description": "Track [/SPI1_MOSI] on B.Cu, length 0.5000 mm",
+            "pos": {
+              "x": 11.05,
+              "y": 42.75
+            },
+            "uuid": "bb79c209-65d6-4a3b-bed1-f7da59b287e9"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          165
+        ],
+        [
+          67
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O18",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 4 [/SPI1_MOSI] of U_C on B.Cu",
+            "pos": {
+              "x": 33.795,
+              "y": 15.41
+            },
+            "uuid": "0c41d907-f3fa-4464-b957-c1ad2046db73"
+          },
+          {
+            "description": "Pad 4 [/SPI1_MOSI] of U3 on B.Cu",
+            "pos": {
+              "x": 10.995,
+              "y": 15.41
+            },
+            "uuid": "4768d599-a9c2-4929-97ca-63830f1d92d9"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          145
+        ],
+        [
+          165
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O19",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 5 [/SPI1_SCK] of U3 on B.Cu",
+            "pos": {
+              "x": 10.995,
+              "y": 16.7
+            },
+            "uuid": "8e91e7c3-b1cf-4667-83d9-cc8c75a21b1a"
+          },
+          {
+            "description": "Track [/SPI1_SCK] on F.Cu, length 1.0500 mm",
+            "pos": {
+              "x": 20.85,
+              "y": 50.25
+            },
+            "uuid": "bde19c69-50a8-4bc8-aee4-1f051c81ea1e"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          166
+        ],
+        [
+          68
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O20",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 5 [/SPI1_SCK] of U_C on B.Cu",
+            "pos": {
+              "x": 33.795,
+              "y": 16.7
+            },
+            "uuid": "35f0135f-7f02-4bf9-b85b-8aad87e59a10"
+          },
+          {
+            "description": "Pad 5 [/SPI1_SCK] of U3 on B.Cu",
+            "pos": {
+              "x": 10.995,
+              "y": 16.7
+            },
+            "uuid": "8e91e7c3-b1cf-4667-83d9-cc8c75a21b1a"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          146
+        ],
+        [
+          166
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O21",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 19 [/U3_IRQ] of U1 on F.Cu",
+            "pos": {
+              "x": 17.895,
+              "y": 51.65
+            },
+            "uuid": "57a30bd8-5a6e-4ef9-b126-9367ba0ed91a"
+          },
+          {
+            "description": "Pad 15 [/U3_IRQ] of U3 on B.Cu",
+            "pos": {
+              "x": 30.805,
+              "y": 15.41
+            },
+            "uuid": "1182699f-6716-431a-afa2-eb191b75ab03"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          90
+        ],
+        [
+          169
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O22",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0",
+            "pos": {
+              "x": 0.45,
+              "y": 0.45
+            },
+            "uuid": "73c9b043-ca4d-478d-a850-a6b449ae5465"
+          },
+          {
+            "description": "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0",
+            "pos": {
+              "x": 0.45,
+              "y": 0.45
+            },
+            "uuid": "73c9b043-ca4d-478d-a850-a6b449ae5465"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          51,
+          61
+        ],
+        [
+          51,
+          61
+        ]
+      ],
+      "class": "unresolved",
+      "reason": "Native zone anchors do not identify the filled polygon. Saved graph shows multiple components for this zone UUID; exact native record-to-polygon attribution unresolved. Do not route toward anchor coordinates or collapse duplicated zone UUID records."
+    },
+    {
+      "id": "O23",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Via [/VSCAP] on F.Cu - B.Cu",
+            "pos": {
+              "x": 41.839423,
+              "y": 42.652152
+            },
+            "uuid": "a79fad88-9ed2-4cf4-ae45-6860f865ae8a"
+          },
+          {
+            "description": "Pad 1 [/VSCAP] of R_BAL1 on F.Cu",
+            "pos": {
+              "x": 40.49,
+              "y": 43.5
+            },
+            "uuid": "4142fa5f-663b-416e-a294-6209dfcb9e92"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          61
+        ],
+        [
+          135
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O24",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu",
+            "pos": {
+              "x": 3.0,
+              "y": 42.7
+            },
+            "uuid": "d25f4cde-dbfa-4c1b-8f78-dba2a352c552"
+          },
+          {
+            "description": "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu",
+            "pos": {
+              "x": 3.0,
+              "y": 42.7
+            },
+            "uuid": "7656e304-0273-4ef0-b688-28439d2db1d0"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          15
+        ],
+        [
+          132
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W1.4",
+        "pads": [
+          {
+            "ref": "J_W1",
+            "number": "4",
+            "uuid": "d25f4cde-dbfa-4c1b-8f78-dba2a352c552",
+            "net": "/W1_SOLAR_N",
+            "xy": [
+              3.0,
+              42.7
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W1",
+            "number": "4",
+            "uuid": "7656e304-0273-4ef0-b688-28439d2db1d0",
+            "net": "/W1_SOLAR_N",
+            "xy": [
+              3.0,
+              42.7
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O25",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Track [/W1_SOLAR_N] on B.Cu, length 1.3509 mm",
+            "pos": {
+              "x": 33.299999,
+              "y": 77.0
+            },
+            "uuid": "109ea6e6-97c4-4a4f-9d6e-f55713b71cb4"
+          },
+          {
+            "description": "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu",
+            "pos": {
+              "x": 33.3,
+              "y": 77.0
+            },
+            "uuid": "f53d24e0-f3ba-4de7-8dc9-e4bb9a918f16"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          15
+        ],
+        [
+          14
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W2.1",
+        "pads": [
+          {
+            "ref": "J_W2",
+            "number": "1",
+            "uuid": "47fa5d72-1d79-4136-a964-336a8295c732",
+            "net": "/W1_SOLAR_N",
+            "xy": [
+              33.3,
+              77.0
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W2",
+            "number": "1",
+            "uuid": "f53d24e0-f3ba-4de7-8dc9-e4bb9a918f16",
+            "net": "/W1_SOLAR_N",
+            "xy": [
+              33.3,
+              77.0
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O26",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 1 [/W1_SOLAR_P] of J_W1 on F.Cu",
+            "pos": {
+              "x": 3.0,
+              "y": 37.3
+            },
+            "uuid": "1ebad319-8e45-4855-a4d1-33830919cf73"
+          },
+          {
+            "description": "Pad 1 [/W1_SOLAR_P] of J_W1 on B.Cu",
+            "pos": {
+              "x": 3.0,
+              "y": 37.3
+            },
+            "uuid": "477661e4-400e-4a34-a8af-c88ffd3263ab"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          52
+        ],
+        [
+          129
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W1.1",
+        "pads": [
+          {
+            "ref": "J_W1",
+            "number": "1",
+            "uuid": "1ebad319-8e45-4855-a4d1-33830919cf73",
+            "net": "/W1_SOLAR_P",
+            "xy": [
+              3.0,
+              37.3
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W1",
+            "number": "1",
+            "uuid": "477661e4-400e-4a34-a8af-c88ffd3263ab",
+            "net": "/W1_SOLAR_P",
+            "xy": [
+              3.0,
+              37.3
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O27",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 2 [/W2_SOLAR_N] of D_BP2 on B.Cu",
+            "pos": {
+              "x": 29.0,
+              "y": 78.0
+            },
+            "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+          },
+          {
+            "description": "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 77.0
+            },
+            "uuid": "f8c950ff-ac8d-4187-861c-23a62944ac5f"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          160
+        ],
+        [
+          19
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O28",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 77.0
+            },
+            "uuid": "75db9ecf-9a7e-430e-a113-2ff1d948fc60"
+          },
+          {
+            "description": "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 77.0
+            },
+            "uuid": "f8c950ff-ac8d-4187-861c-23a62944ac5f"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          18
+        ],
+        [
+          19
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W2.4",
+        "pads": [
+          {
+            "ref": "J_W2",
+            "number": "4",
+            "uuid": "75db9ecf-9a7e-430e-a113-2ff1d948fc60",
+            "net": "/W2_SOLAR_N",
+            "xy": [
+              38.7,
+              77.0
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W2",
+            "number": "4",
+            "uuid": "f8c950ff-ac8d-4187-861c-23a62944ac5f",
+            "net": "/W2_SOLAR_N",
+            "xy": [
+              38.7,
+              77.0
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O29",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 77.0
+            },
+            "uuid": "f8c950ff-ac8d-4187-861c-23a62944ac5f"
+          },
+          {
+            "description": "Track [/W2_SOLAR_N] on B.Cu, length 0.8485 mm",
+            "pos": {
+              "x": 67.3,
+              "y": 42.7
+            },
+            "uuid": "fcacc1ec-e4f2-47f1-a8df-6757a08468ee"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          19
+        ],
+        [
+          116
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O30",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu",
+            "pos": {
+              "x": 69.0,
+              "y": 42.7
+            },
+            "uuid": "8f0a42a0-f366-48e9-b98b-7c25e2ca27e8"
+          },
+          {
+            "description": "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu",
+            "pos": {
+              "x": 69.0,
+              "y": 42.7
+            },
+            "uuid": "63145c0b-183b-4408-842c-58a0d4017c48"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          116
+        ],
+        [
+          115
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W3.1",
+        "pads": [
+          {
+            "ref": "J_W3",
+            "number": "1",
+            "uuid": "8f0a42a0-f366-48e9-b98b-7c25e2ca27e8",
+            "net": "/W2_SOLAR_N",
+            "xy": [
+              69.0,
+              42.7
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W3",
+            "number": "1",
+            "uuid": "63145c0b-183b-4408-842c-58a0d4017c48",
+            "net": "/W2_SOLAR_N",
+            "xy": [
+              69.0,
+              42.7
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O31",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 3.0
+            },
+            "uuid": "5839bb05-7264-4d71-9181-ecdbf26a66ef"
+          },
+          {
+            "description": "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 3.0
+            },
+            "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          125
+        ],
+        [
+          126
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W4.1",
+        "pads": [
+          {
+            "ref": "J_W4",
+            "number": "1",
+            "uuid": "5839bb05-7264-4d71-9181-ecdbf26a66ef",
+            "net": "/W3_SOLAR_N",
+            "xy": [
+              38.7,
+              3.0
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W4",
+            "number": "1",
+            "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714",
+            "net": "/W3_SOLAR_N",
+            "xy": [
+              38.7,
+              3.0
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O32",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 3.0
+            },
+            "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714"
+          },
+          {
+            "description": "Pad 1 [/W3_SOLAR_N] of D_BP4 on B.Cu",
+            "pos": {
+              "x": 29.0,
+              "y": 2.0
+            },
+            "uuid": "ab9ab768-1f42-4847-8d2c-5c9198a18521"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          126
+        ],
+        [
+          175
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O33",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 4 [/W3_SOLAR_N] of J_W3 on B.Cu",
+            "pos": {
+              "x": 69.0,
+              "y": 37.3
+            },
+            "uuid": "48391745-6a9e-4144-8896-e3f44884766e"
+          },
+          {
+            "description": "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu",
+            "pos": {
+              "x": 69.0,
+              "y": 37.3
+            },
+            "uuid": "3a568d7e-3e32-4524-b896-1dd35975c207"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          120
+        ],
+        [
+          119
+        ]
+      ],
+      "class": "documented assembly connection",
+      "proof": {
+        "socket": "J_W3.4",
+        "pads": [
+          {
+            "ref": "J_W3",
+            "number": "4",
+            "uuid": "48391745-6a9e-4144-8896-e3f44884766e",
+            "net": "/W3_SOLAR_N",
+            "xy": [
+              69.0,
+              37.3
+            ],
+            "layers": [
+              "B.Cu"
+            ],
+            "attribute": 1
+          },
+          {
+            "ref": "J_W3",
+            "number": "4",
+            "uuid": "3a568d7e-3e32-4524-b896-1dd35975c207",
+            "net": "/W3_SOLAR_N",
+            "xy": [
+              69.0,
+              37.3
+            ],
+            "layers": [
+              "F.Cu"
+            ],
+            "attribute": 1
+          }
+        ],
+        "document": "docs/WING-TO-HUB-SOCKET-SPEC.md:60-74,81-89",
+        "interpretation": "Two same-number, same-net, identical-XY outer-face SMD lands; distinct saved-graph components map exactly to this record, including track-anchored records. Both-face soldered wing tab is documented connection, not PCB copper. Conditional on that assembly; not a bare-board continuity pass or mechanical qualification."
+      }
+    },
+    {
+      "id": "O34",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Track [/W3_SOLAR_N] on B.Cu, length 0.2121 mm",
+            "pos": {
+              "x": 69.55,
+              "y": 33.4
+            },
+            "uuid": "600710fa-9269-4771-aa58-b0097affee08"
+          },
+          {
+            "description": "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+            "pos": {
+              "x": 38.7,
+              "y": 3.0
+            },
+            "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          120
+        ],
+        [
+          126
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O35",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 2 [GND] of D_BP4 on B.Cu",
+            "pos": {
+              "x": 29.0,
+              "y": 6.0
+            },
+            "uuid": "0b5d101b-cf4c-4c94-a581-5020ff4b1a7d"
+          },
+          {
+            "description": "Track [GND] on F.Cu, length 2.0403 mm",
+            "pos": {
+              "x": 29.0,
+              "y": 6.0
+            },
+            "uuid": "3785d7c4-b54b-4758-b0dc-3979b462f16c"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          176
+        ],
+        [
+          8
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    },
+    {
+      "id": "O36",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+            "pos": {
+              "x": 0.45,
+              "y": 0.45
+            },
+            "uuid": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72"
+          },
+          {
+            "description": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+            "pos": {
+              "x": 0.25,
+              "y": 0.25
+            },
+            "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          2,
+          8,
+          103
+        ],
+        [
+          8
+        ]
+      ],
+      "class": "unresolved",
+      "reason": "Native zone anchors do not identify the filled polygon. Saved graph shows multiple components for this zone UUID; exact native record-to-polygon attribution unresolved. Do not route toward anchor coordinates or collapse duplicated zone UUID records."
+    },
+    {
+      "id": "O37",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+            "pos": {
+              "x": 0.45,
+              "y": 0.45
+            },
+            "uuid": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c"
+          },
+          {
+            "description": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+            "pos": {
+              "x": 0.25,
+              "y": 0.25
+            },
+            "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          8,
+          156
+        ],
+        [
+          8
+        ]
+      ],
+      "class": "unresolved",
+      "reason": "Native zone anchors do not identify the filled polygon. Saved graph shows multiple components for this zone UUID; exact native record-to-polygon attribution unresolved. Do not route toward anchor coordinates or collapse duplicated zone UUID records."
+    },
+    {
+      "id": "O38",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+            "pos": {
+              "x": 0.25,
+              "y": 0.25
+            },
+            "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+          },
+          {
+            "description": "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+            "pos": {
+              "x": 0.45,
+              "y": 0.45
+            },
+            "uuid": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          8
+        ],
+        [
+          2,
+          8,
+          103
+        ]
+      ],
+      "class": "unresolved",
+      "reason": "Native zone anchors do not identify the filled polygon. Saved graph shows multiple components for this zone UUID; exact native record-to-polygon attribution unresolved. Do not route toward anchor coordinates or collapse duplicated zone UUID records."
+    },
+    {
+      "id": "O39",
+      "native_record": {
+        "description": "Missing connection between items",
+        "items": [
+          {
+            "description": "Pad 3 [/EN] of U1 on F.Cu",
+            "pos": {
+              "x": 11.05,
+              "y": 36.43
+            },
+            "uuid": "5e672328-5888-40f6-b19b-95ccb5c81f62"
+          },
+          {
+            "description": "PTH pad 3 [/EN] of J_PROG",
+            "pos": {
+              "x": 31.0,
+              "y": 59.78
+            },
+            "uuid": "17bb4f3d-b143-4474-bd55-7a711dedd338"
+          }
+        ],
+        "severity": "error",
+        "type": "unconnected_items"
+      },
+      "endpoint_components": [
+        [
+          78
+        ],
+        [
+          108
+        ]
+      ],
+      "class": "missing copper",
+      "reason": "Native open and disjoint saved graph components corroborate missing PCB copper. No exact documented assembly bridge for these endpoints; optional population is not a copper waiver."
+    }
+  ]
+}

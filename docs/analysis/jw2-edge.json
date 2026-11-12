@@ -1,0 +1,69 @@
+{
+  "rule_mm": 0.5,
+  "pads": [
+    {
+      "pad": "1",
+      "net": "/W1_SOLAR_N",
+      "x": 33.3,
+      "y": 77.0,
+      "layer": "F.Cu",
+      "gap_to_edge_mm": 1.0001
+    },
+    {
+      "pad": "1",
+      "net": "/W1_SOLAR_N",
+      "x": 33.3,
+      "y": 77.0,
+      "layer": "B.Cu",
+      "gap_to_edge_mm": 1.0001
+    },
+    {
+      "pad": "2",
+      "net": "GND",
+      "x": 35.1,
+      "y": 77.0,
+      "layer": "F.Cu",
+      "gap_to_edge_mm": 0.0502
+    },
+    {
+      "pad": "2",
+      "net": "GND",
+      "x": 35.1,
+      "y": 77.0,
+      "layer": "B.Cu",
+      "gap_to_edge_mm": 0.0502
+    },
+    {
+      "pad": "3",
+      "net": "/CUT_SENSE_W2",
+      "x": 36.9,
+      "y": 77.0,
+      "layer": "F.Cu",
+      "gap_to_edge_mm": 0.0502
+    },
+    {
+      "pad": "3",
+      "net": "/CUT_SENSE_W2",
+      "x": 36.9,
+      "y": 77.0,
+      "layer": "B.Cu",
+      "gap_to_edge_mm": 0.0502
+    },
+    {
+      "pad": "4",
+      "net": "/W2_SOLAR_N",
+      "x": 38.7,
+      "y": 77.0,
+      "layer": "F.Cu",
+      "gap_to_edge_mm": 1.0001
+    },
+    {
+      "pad": "4",
+      "net": "/W2_SOLAR_N",
+      "x": 38.7,
+      "y": 77.0,
+      "layer": "B.Cu",
+      "gap_to_edge_mm": 1.0001
+    }
+  ]
+}

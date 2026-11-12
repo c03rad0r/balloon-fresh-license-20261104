@@ -1,0 +1,815 @@
+{
+  "board": "twosided-qualified.kicad_pcb",
+  "board_sha256": "902e4ea49f79b59e70a974ecf3c812babdcd7d48bf25afa9536a2431cea67b87",
+  "source_board_sha256": "3d422fa0323c5d56c3916a3a80849f2069540dac461164e33223db3c398fbc8f",
+  "outline_mm": [
+    52.05,
+    46.05
+  ],
+  "a_antenna": {
+    "u1_courtyard_polygon_area_mm2": 1401.9,
+    "u1_courtyard_bounding_rect_mm2": 1977.6,
+    "antenna_bar_area_mm2": 1008.0,
+    "antenna_bar_on_board_mm2": 1.2,
+    "antenna_bar_off_board_mm2": 1006.8,
+    "module_body_on_board_mm2": 393.9,
+    "u1_has_antenna_pad": false,
+    "u1_antenna_pad_note": "ESP32-S3-WROOM-1 PCB-antenna variant carries no antenna pad; the lowest pad on the footprint is GND at y=1.04 mm. An \"antenna pad\" is therefore not an object that exists here, and the check is stated as not-applicable rather than passed.",
+    "parts_inside_courtyard_polygon": {},
+    "parts_inside_rf_clearance_area": {},
+    "parts_in_antenna_bar": {},
+    "rf_clearance_area_definition": {
+      "derived_from": "ESP32-S3 HDG Fig.26 printed dims Min15 / Max 2 / Max 1 / 6",
+      "area_mm2": 255.5,
+      "on_board_mm2": 0.913,
+      "note": "the clearance area is a base-board CUTOUT around the antenna; the binding question for placement is how much of it lands on copper board, because off-board area cannot be occupied at all."
+    },
+    "per_part": {
+      "C1": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          14.52,
+          5.27,
+          17.48,
+          6.73
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 0.77,
+        "dist_rf_clearance_area_mm": 5.27,
+        "dist_board_north_edge_mm": 5.27
+      },
+      "C2": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          14.52,
+          1.27,
+          17.48,
+          2.73
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 0.77,
+        "dist_rf_clearance_area_mm": 1.27,
+        "dist_board_north_edge_mm": 1.27
+      },
+      "C3": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          14.52,
+          3.27,
+          17.48,
+          4.73
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 0.77,
+        "dist_rf_clearance_area_mm": 3.27,
+        "dist_board_north_edge_mm": 3.27
+      },
+      "C4": {
+        "side": "bottom",
+        "courtyard_bbox_mm": [
+          14.7,
+          0.77,
+          17.9,
+          5.37
+        ],
+        "courtyard_area_mm2": 14.72,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 0.35,
+        "dist_rf_clearance_area_mm": 0.77,
+        "dist_board_north_edge_mm": 0.77
+      },
+      "C5": {
+        "side": "bottom",
+        "courtyard_bbox_mm": [
+          0.8,
+          0.8,
+          4.0,
+          5.4
+        ],
+        "courtyard_area_mm2": 14.72,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 14.25,
+        "dist_rf_clearance_area_mm": 0.8,
+        "dist_board_north_edge_mm": 0.8
+      },
+      "C6": {
+        "side": "bottom",
+        "courtyard_bbox_mm": [
+          0.8,
+          6.0,
+          4.0,
+          10.6
+        ],
+        "courtyard_area_mm2": 14.72,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 14.25,
+        "dist_rf_clearance_area_mm": 6.0,
+        "dist_board_north_edge_mm": 6.0
+      },
+      "C7": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          39.52,
+          13.77,
+          42.48,
+          15.23
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 1.77,
+        "dist_rf_clearance_area_mm": 13.77,
+        "dist_board_north_edge_mm": 13.77
+      },
+      "C8": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          46.52,
+          13.77,
+          49.48,
+          15.23
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 8.77,
+        "dist_rf_clearance_area_mm": 15.344,
+        "dist_board_north_edge_mm": 13.77
+      },
+      "J1": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          -1.58,
+          22.68,
+          7.36,
+          33.32
+        ],
+        "courtyard_area_mm2": 95.122,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 11.169,
+        "dist_rf_clearance_area_mm": 22.68,
+        "dist_board_north_edge_mm": 22.68
+      },
+      "L1": {
+        "side": "bottom",
+        "courtyard_bbox_mm": [
+          4.22,
+          0.92,
+          11.28,
+          8.18
+        ],
+        "courtyard_area_mm2": 51.256,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 6.97,
+        "dist_rf_clearance_area_mm": 0.92,
+        "dist_board_north_edge_mm": 0.92
+      },
+      "R1": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          14.52,
+          7.27,
+          17.48,
+          8.73
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 0.77,
+        "dist_rf_clearance_area_mm": 7.27,
+        "dist_board_north_edge_mm": 7.27
+      },
+      "R10": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          39.52,
+          19.07,
+          42.48,
+          20.53
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 1.77,
+        "dist_rf_clearance_area_mm": 19.07,
+        "dist_board_north_edge_mm": 19.07
+      },
+      "R2": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          43.02,
+          17.27,
+          45.98,
+          18.73
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 5.27,
+        "dist_rf_clearance_area_mm": 17.577,
+        "dist_board_north_edge_mm": 17.27
+      },
+      "R3": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          12.27,
+          34.52,
+          13.73,
+          37.48
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 15.016,
+        "dist_rf_clearance_area_mm": 34.52,
+        "dist_board_north_edge_mm": 34.52
+      },
+      "R4": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          12.27,
+          38.52,
+          13.73,
+          41.48
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 18.869,
+        "dist_rf_clearance_area_mm": 38.52,
+        "dist_board_north_edge_mm": 38.52
+      },
+      "R5": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          14.52,
+          15.27,
+          17.48,
+          16.73
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 0.77,
+        "dist_rf_clearance_area_mm": 15.27,
+        "dist_board_north_edge_mm": 15.27
+      },
+      "R6": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          14.52,
+          17.27,
+          17.48,
+          18.73
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 0.77,
+        "dist_rf_clearance_area_mm": 17.27,
+        "dist_board_north_edge_mm": 17.27
+      },
+      "R7": {
+        "side": "bottom",
+        "courtyard_bbox_mm": [
+          14.27,
+          8.82,
+          15.73,
+          11.78
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 2.52,
+        "dist_rf_clearance_area_mm": 8.82,
+        "dist_board_north_edge_mm": 8.82
+      },
+      "R8": {
+        "side": "bottom",
+        "courtyard_bbox_mm": [
+          11.02,
+          12.07,
+          13.98,
+          13.53
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 4.27,
+        "dist_rf_clearance_area_mm": 12.07,
+        "dist_board_north_edge_mm": 12.07
+      },
+      "R9": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          39.52,
+          16.77,
+          42.48,
+          18.23
+        ],
+        "courtyard_area_mm2": 4.322,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 1.77,
+        "dist_rf_clearance_area_mm": 16.77,
+        "dist_board_north_edge_mm": 16.77
+      },
+      "SW1": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          2.75,
+          9.0,
+          11.25,
+          15.0
+        ],
+        "courtyard_area_mm2": 51.0,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 7.0,
+        "dist_rf_clearance_area_mm": 9.0,
+        "dist_board_north_edge_mm": 9.0
+      },
+      "SW2": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          2.75,
+          15.5,
+          11.25,
+          21.5
+        ],
+        "courtyard_area_mm2": 51.0,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 7.0,
+        "dist_rf_clearance_area_mm": 15.5,
+        "dist_board_north_edge_mm": 15.5
+      },
+      "U2": {
+        "side": "bottom",
+        "courtyard_bbox_mm": [
+          11.4,
+          3.55,
+          14.6,
+          6.05
+        ],
+        "courtyard_area_mm2": 8.0,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 3.65,
+        "dist_rf_clearance_area_mm": 3.55,
+        "dist_board_north_edge_mm": 3.55
+      },
+      "U3": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          39.1,
+          6.2,
+          42.9,
+          11.8
+        ],
+        "courtyard_area_mm2": 21.28,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 1.35,
+        "dist_rf_clearance_area_mm": 6.2,
+        "dist_board_north_edge_mm": 6.2
+      },
+      "U4": {
+        "side": "top",
+        "courtyard_bbox_mm": [
+          46.1,
+          6.2,
+          49.9,
+          11.8
+        ],
+        "courtyard_area_mm2": 21.28,
+        "overlap_u1_courtyard_mm2": 0.0,
+        "overlap_module_body_mm2": 0.0,
+        "overlap_rf_clearance_area_mm2": 0.0,
+        "overlap_antenna_bar_mm2": 0.0,
+        "dist_module_body_mm": 8.35,
+        "dist_rf_clearance_area_mm": 8.875,
+        "dist_board_north_edge_mm": 6.2
+      }
+    },
+    "foreign_pad_copper_inside_rf_clearance": [],
+    "tracks_inside_rf_clearance": 0,
+    "total_tracks_on_board": 0,
+    "module_keepout_rule_area": {
+      "layer": "B.Cu",
+      "polygon_area_mm2": 803.4,
+      "on_board_mm2": 394.387,
+      "bbox_mm": [
+        18.25,
+        -21.0,
+        37.75,
+        20.2
+      ],
+      "no_routed_copper": true,
+      "no_vias": true,
+      "no_pours": true,
+      "footprints_allowed": true
+    }
+  },
+  "b_buck": {
+    "cell_parts": [
+      "U2",
+      "L1",
+      "C4",
+      "C5",
+      "C6",
+      "R7",
+      "R8"
+    ],
+    "cell_sides": {
+      "U2": "bottom",
+      "L1": "bottom",
+      "C4": "bottom",
+      "C5": "bottom",
+      "C6": "bottom",
+      "R7": "bottom",
+      "R8": "bottom"
+    },
+    "cell_is_single_sided": true,
+    "cell_side": "bottom",
+    "copper_width_requirement": {
+      "/USB5V": {
+        "current_a": 0.733,
+        "ipc2221_width_1oz_dt10_mm": 0.196,
+        "ipc2221_width_2oz_dt10_mm": 0.098
+      },
+      "/BUCK_SW": {
+        "current_a": 1.0,
+        "ipc2221_width_1oz_dt10_mm": 0.3,
+        "ipc2221_width_2oz_dt10_mm": 0.15
+      },
+      "/+3V3": {
+        "current_a": 1.0,
+        "ipc2221_width_1oz_dt10_mm": 0.3,
+        "ipc2221_width_2oz_dt10_mm": 0.15
+      },
+      "/GND": {
+        "current_a": 0.733,
+        "ipc2221_width_1oz_dt10_mm": 0.196,
+        "ipc2221_width_2oz_dt10_mm": 0.098
+      }
+    },
+    "widest_required_1oz_mm": 0.3,
+    "stackup": "2 copper layers, 1.6 mm; JLCPCB 2-layer prototype default is 1 oz (35 um) outer copper. Widths are IPC-2221 ADVISORY for the routing pass, not a thermal simulation, and the board is UNROUTED so no track exists yet.",
+    "tightest_diff_net_pad_gaps": [
+      {
+        "gap_mm": 0.758,
+        "a": "U2.1",
+        "net_a": "/GND",
+        "b": "C4.1",
+        "net_b": "/USB5V"
+      },
+      {
+        "gap_mm": 0.92,
+        "a": "U2.4",
+        "net_a": "/GND",
+        "b": "C4.1",
+        "net_b": "/USB5V"
+      },
+      {
+        "gap_mm": 1.1,
+        "a": "C5.1",
+        "net_a": "/+3V3",
+        "b": "C6.2",
+        "net_b": "/GND"
+      },
+      {
+        "gap_mm": 1.265,
+        "a": "L1.2",
+        "net_a": "/+3V3",
+        "b": "C6.2",
+        "net_b": "/GND"
+      },
+      {
+        "gap_mm": 1.269,
+        "a": "L1.2",
+        "net_a": "/+3V3",
+        "b": "C5.2",
+        "net_b": "/GND"
+      },
+      {
+        "gap_mm": 1.297,
+        "a": "R7.1",
+        "net_a": "/+3V3",
+        "b": "R8.1",
+        "net_b": "/BUCK_FB"
+      }
+    ],
+    "min_diff_net_pad_gap_mm": 0.758,
+    "widest_trace_fits_tightest_gap": true,
+    "heat_path": {
+      "u2_package": "WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias",
+      "u2_exposed_pad_mm": [
+        0.6,
+        0.6
+      ],
+      "u2_thermal_vias": 2,
+      "note": "U2 is a WSON-8 with an exposed thermal pad. On the BOTTOM the pad faces the enclosure, so heat leaves through the board into a still-air cavity rather than through a top-side plane coupled to the top copper."
+    },
+    "rework_access": "bottom-side cell is reachable only with the board lifted out; the top side is the service side (J1, U1, switches)."
+  },
+  "c_tht": {
+    "required_clearance_mm": 0.2,
+    "lands": [
+      {
+        "land": "J1.S1",
+        "drill_mm": 0.6,
+        "nearest_foreign_pad_mm": 2.317,
+        "nearest_foreign_pad": "SW2.2",
+        "nearest_foreign_courtyard_mm": 1.68,
+        "nearest_foreign_courtyard": "SW2",
+        "margin_mm": 1.68,
+        "pass": true
+      },
+      {
+        "land": "J1.S1",
+        "drill_mm": 0.6,
+        "nearest_foreign_pad_mm": 2.481,
+        "nearest_foreign_pad": "SW2.2",
+        "nearest_foreign_courtyard_mm": 1.831,
+        "nearest_foreign_courtyard": "SW2",
+        "margin_mm": 1.831,
+        "pass": true
+      },
+      {
+        "land": "J1.S1",
+        "drill_mm": 0.6,
+        "nearest_foreign_pad_mm": 6.294,
+        "nearest_foreign_pad": "R3.2",
+        "nearest_foreign_courtyard_mm": 5.905,
+        "nearest_foreign_courtyard": "R3",
+        "margin_mm": 5.905,
+        "pass": true
+      },
+      {
+        "land": "J1.S1",
+        "drill_mm": 0.6,
+        "nearest_foreign_pad_mm": 10.427,
+        "nearest_foreign_pad": "R3.2",
+        "nearest_foreign_courtyard_mm": 10.078,
+        "nearest_foreign_courtyard": "R3",
+        "margin_mm": 10.078,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 7.58,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 7.323,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 7.323,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 7.743,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 7.411,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 7.411,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 8.278,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 7.97,
+        "nearest_foreign_courtyard": "C4",
+        "margin_mm": 7.97,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 8.326,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 8.035,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 8.035,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 8.585,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 8.231,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 8.231,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 8.98,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 8.723,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 8.723,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 9.118,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 8.797,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 8.797,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 9.678,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 9.317,
+        "nearest_foreign_courtyard": "C4",
+        "margin_mm": 9.317,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 9.719,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 9.433,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 9.433,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 9.944,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 9.601,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 9.601,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 10.379,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 10.123,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 10.123,
+        "pass": true
+      },
+      {
+        "land": "U1.41",
+        "drill_mm": 0.2,
+        "nearest_foreign_pad_mm": 10.5,
+        "nearest_foreign_pad": "R1.2",
+        "nearest_foreign_courtyard_mm": 10.187,
+        "nearest_foreign_courtyard": "R1",
+        "margin_mm": 10.187,
+        "pass": true
+      },
+      {
+        "land": "U2.9",
+        "drill_mm": 0.25,
+        "nearest_foreign_pad_mm": 1.53,
+        "nearest_foreign_pad": "C1.1",
+        "nearest_foreign_courtyard_mm": 1.223,
+        "nearest_foreign_courtyard": "C1",
+        "margin_mm": 1.223,
+        "pass": true
+      },
+      {
+        "land": "U2.9",
+        "drill_mm": 0.25,
+        "nearest_foreign_pad_mm": 1.478,
+        "nearest_foreign_pad": "C3.1",
+        "nearest_foreign_courtyard_mm": 1.223,
+        "nearest_foreign_courtyard": "C3",
+        "margin_mm": 1.223,
+        "pass": true
+      }
+    ],
+    "worst_margin_mm": 1.223,
+    "worst_land": "U2.9",
+    "all_pass": true,
+    "n_lands": 18,
+    "footprints_with_lands": [
+      "J1",
+      "U1",
+      "U2"
+    ],
+    "lands_on_both_faces": 18
+  },
+  "d_assembly": {
+    "bottom_parts": [
+      "C4",
+      "C5",
+      "C6",
+      "L1",
+      "R7",
+      "R8",
+      "U2"
+    ],
+    "top_parts": [
+      "C1",
+      "C2",
+      "C3",
+      "C7",
+      "C8",
+      "J1",
+      "R1",
+      "R10",
+      "R2",
+      "R3",
+      "R4",
+      "R5",
+      "R6",
+      "R9",
+      "SW1",
+      "SW2",
+      "U1",
+      "U3",
+      "U4"
+    ],
+    "bottom_part_count": 7,
+    "top_part_count": 19,
+    "bottom_side_is_smt_only": false,
+    "paste_stencil_sides": 2,
+    "stencil_note": "two paste prints (top and bottom) mean two stencils or one double-print sequence; JLCPCB charges the double-side stencil fee.",
+    "cpl_rotation_note": "bottom-side CPL needs the mirrored rotation convention; KiCad reports footprint orientation as placed, so the bottom CPL must be emitted with the 180 deg / mirror transform applied or every bottom part is rotated wrongly on the line.",
+    "board_thickness_mm": 1600.0,
+    "copper_layers": [
+      "F.Cu",
+      "B.Cu"
+    ],
+    "bottom_part_heights_mm": [],
+    "min_enclosure_cavity_under_board_mm": null
+  }
+}

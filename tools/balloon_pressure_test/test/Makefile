@@ -20,9 +20,24 @@ check-interlock: test_interlock
 check-analysis:
 	python3 test_plot_pressure.py
 
-check: check-interlock check-analysis
+test_pressure_pair: test_pressure_pair.c $(MAIN)/pressure_pair.c $(MAIN)/pressure_pair.h
+	$(CC) $(CFLAGS) -I$(MAIN) -o $@ test_pressure_pair.c $(MAIN)/pressure_pair.c -lm
+
+check-pair: test_pressure_pair
+	./test_pressure_pair
+
+check-contract:
+	python3 test_pressure_contract.py
+
+test_ms5611: test_ms5611.c $(MAIN)/ms5611.c $(MAIN)/ms5611.h
+	$(CC) $(CFLAGS) -I$(MAIN) -o $@ test_ms5611.c $(MAIN)/ms5611.c
+
+check-ms5611: test_ms5611
+	./test_ms5611
+
+check: check-ms5611 check-interlock check-analysis check-pair check-contract
 
 clean:
-	rm -f test_interlock
+	rm -f test_interlock test_ms5611 test_pressure_pair
 
-.PHONY: all check check-interlock check-analysis clean
+.PHONY: all check check-ms5611 check-interlock check-analysis check-pair check-contract clean

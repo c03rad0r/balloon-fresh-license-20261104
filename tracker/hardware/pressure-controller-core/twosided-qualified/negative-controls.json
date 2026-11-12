@@ -1,0 +1,71 @@
+{
+  "board": "twosided-qualified.kicad_pcb",
+  "board_sha256": "902e4ea49f79b59e70a974ecf3c812babdcd7d48bf25afa9536a2431cea67b87",
+  "controls": [
+    {
+      "control": "p1",
+      "expected": "module keepout occupied",
+      "audit_accepted": false,
+      "audit_message": "ValueError: module keepout occupied (courtyard): {'C4': 14.72}",
+      "control_passed": true
+    },
+    {
+      "control": "p2",
+      "expected": "module keepout occupied",
+      "audit_accepted": false,
+      "audit_message": "ValueError: module keepout occupied (courtyard): {'C5': 14.72}",
+      "control_passed": true
+    },
+    {
+      "control": "p3",
+      "expected": "through-hole pad field",
+      "audit_accepted": false,
+      "audit_message": "ValueError: part C5 sits in the through-hole pad field of J1 (THT occupies both faces)",
+      "control_passed": true
+    },
+    {
+      "control": "p4",
+      "expected": "rigid body",
+      "audit_accepted": false,
+      "audit_message": "ValueError: buck cell is not a rigid body move: {'CIN_to_VIN_mm': 0.0, 'CIN_to_PGND_mm': 0.0, 'SW_to_L_mm': 0.08, 'L_to_COUT_mm': 0.06, 'COUT_to_VOS_mm': 0.0, 'FB_divider_to_FB_mm': 0.0}",
+      "control_passed": true
+    },
+    {
+      "control": "p5",
+      "expected": "courtyard overlap",
+      "audit_accepted": false,
+      "audit_message": "ValueError: courtyard overlap C7 U3",
+      "control_passed": true
+    },
+    {
+      "control": "p6",
+      "expected": "motor reservation occupied",
+      "audit_accepted": false,
+      "audit_message": "ValueError: motor reservation occupied R3",
+      "control_passed": true
+    },
+    {
+      "control": "p7",
+      "expected": "wrong side",
+      "audit_accepted": false,
+      "audit_message": "ValueError: wrong side: U2",
+      "control_passed": true
+    },
+    {
+      "control": "p8",
+      "expected": "module keepout rule area missing",
+      "audit_accepted": false,
+      "audit_message": "ValueError: module keepout rule area missing",
+      "control_passed": true
+    },
+    {
+      "control": "p0_clean_board",
+      "expected": "accept",
+      "audit_accepted": true,
+      "audit_message": "accepted: sides={'top': 19, 'bottom': 7}",
+      "control_passed": true
+    }
+  ],
+  "passed": 9,
+  "total": 9
+}

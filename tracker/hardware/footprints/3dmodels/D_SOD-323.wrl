@@ -1,0 +1,19 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : D_SOD-323
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of Diode_SMD:D_SOD-323 as committed; the drawn extent (6.821 mm) includes a fab annotation, so the X used is the SOD-323 nominal body width 1.700 mm
+# TODO(unverified):
+#   - X used as the nominal SOD-323 width rather than the raw F.Fab extent
+#   - Z 1.10 mm - SOD-323 body height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.5500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 1.7000 3.4480 1.1000 }
+    }
+  ]
+}

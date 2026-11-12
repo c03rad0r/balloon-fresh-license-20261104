@@ -1,0 +1,30 @@
+batch BRIDGE3 from live: opens=22 viol=24 errors=0
+
+/SPI1_SCK fragments:
+  frag0  12 segs   39.60 mm  layers ['F.Cu', 'B.Cu']
+  frag1  17 segs   46.23 mm  layers ['F.Cu', 'B.Cu']
+  frag2   1 segs    1.90 mm  layers ['F.Cu']
+  frag3   1 segs    2.75 mm  layers ['B.Cu']
+
+BRIDGING the two substantial halves: 28.939 mm
+  from (20.850, 50.250) to (29.550, 22.650)
+BRIDGED 42.61 mm, 388 seg, 2 via (1.7s)
+21:29:22: Debug: Adding duplicate image handler for 'PNG file'
+21:29:22: Debug: Adding duplicate image handler for 'JPEG file'
+21:29:22: Debug: Adding duplicate image handler for 'TIFF file'
+21:29:22: Debug: Adding duplicate image handler for 'GIF file'
+21:29:22: Debug: Adding duplicate image handler for 'PNM file'
+21:29:22: Debug: Adding duplicate image handler for 'PCX file'
+21:29:22: Debug: Adding duplicate image handler for 'IFF file'
+21:29:22: Debug: Adding duplicate image handler for 'Windows icon file'
+21:29:22: Debug: Adding duplicate image handler for 'Windows cursor file'
+21:29:22: Debug: Adding duplicate image handler for 'Windows animated cursor file'
+21:29:22: Debug: Adding duplicate image handler for 'TGA file'
+21:29:22: Debug: Adding duplicate image handler for 'XPM file'
+refilled 6 zone(s)
+
+native opens: 22 -> 21  (delta -1)
+violations: 24 -> 40   errors: 0 -> 16
+VERDICT: FAIL
+batch BRIDGE3: REJECTED -- tree untouched
+rc=2

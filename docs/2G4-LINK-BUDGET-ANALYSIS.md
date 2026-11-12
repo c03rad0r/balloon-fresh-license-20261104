@@ -1,5 +1,11 @@
 # 2.4 GHz Link Budget Analysis & Campaign Recommendation
 
+> **EXTERNAL REFERENCE (2026-11-08):** an independently published SX1280 2.4 GHz **FLRC**
+> dataset with measured NanoVNA S-parameters and conducted attenuation sweeps is available at
+> `10.5281/zenodo.21159006` (CC-BY-4.0). Its **insertion-loss measurements** are the
+> comparison material this analysis does not otherwise have. See
+> [`docs/external/OPENFLRC-ZENODO-21159006.md`](external/OPENFLRC-ZENODO-21159006.md).
+
 ## Date: 2026-08-24
 ## Author: RF Engineering Subagent
 ## Status: RECOMMENDATION — add 2.4 GHz tests to campaign

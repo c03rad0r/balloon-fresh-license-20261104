@@ -1,0 +1,6 @@
+{
+  "original_objects_unchanged": 1161,
+  "added_segments": [
+    "(segment\n\t\t(start 29 6)\n\t\t(end 31.040292 6)\n\t\t(width 0.2)\n\t\t(layer \"B.Cu\")\n\t\t(net 45)\n\t\t(uuid \"7c1ece7c-5e88-4c9a-8115-fa603bf4b476\")\n\t)"
+  ]
+}

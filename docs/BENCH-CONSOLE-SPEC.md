@@ -5,6 +5,12 @@
 **Consumers:** E80 bench fw (STM32F103C8 + LR2021), RP2040 bench fw, ESP32-C3 bench fw, all host sweep/ctl tools
 **Normative sources:** `firmware/e80-stm32-bench/src/{bench_cmd.c,bench_pkt.c,prbs.c,bench_payload.c}` — freestanding C, port VERBATIM (see §11)
 
+> **EXTERNAL REFERENCE (2026-11-08):** an independent ESP32-S3 + SX1280 FLRC implementation with
+> its own PlatformIO throughput/attenuation bench projects is published at
+> `10.5281/zenodo.21159006` (CC-BY-4.0). Useful as a **cross-check on FLRC configuration
+> parameters**, not as a base — see
+> [`docs/external/OPENFLRC-ZENODO-21159006.md`](external/OPENFLRC-ZENODO-21159006.md).
+
 This document is the single source of truth for the console protocol shared by all
 three bench boards. Where a board's firmware and this spec disagree, the spec wins;
 where this spec and the harmonization plan (`docs/bench/harmonization-plan-20260821.md`)

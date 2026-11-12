@@ -1,0 +1,352 @@
+{
+  "board_path": "tracker/hardware/wing_interconnect/wing_interconnect_v1.kicad_pcb",
+  "thickness_mm": 0.4,
+  "copper_layers": 2,
+  "edge": {
+    "xmin": 0.0,
+    "xmax": 34.6,
+    "ymin": 0.0,
+    "ymax": 20.0,
+    "width": 34.6,
+    "height": 20.0,
+    "segments": 4,
+    "arcs": 0,
+    "circles": 0,
+    "rects": 0,
+    "polys": 0,
+    "other": 0,
+    "item_count": 4
+  },
+  "tracks": 32,
+  "vias": [
+    {
+      "x": 31.85,
+      "y": 10.9,
+      "drill": 0.4,
+      "dia": 0.8,
+      "layers": "F.Cu->B.Cu"
+    },
+    {
+      "x": 7.5,
+      "y": 10.9,
+      "drill": 0.4,
+      "dia": 0.8,
+      "layers": "F.Cu->B.Cu"
+    }
+  ],
+  "footprints": [
+    {
+      "ref": "D1",
+      "value": "D_SMA_Wing",
+      "fpid": "D_SMA_Wing",
+      "layer": "F.Cu",
+      "x": 14.0,
+      "y": 6.0,
+      "rotation": 0.0,
+      "pads": [
+        {
+          "number": "1",
+          "net": "SOLAR_P",
+          "type": "1",
+          "x": 12.15,
+          "y": 6.0,
+          "local_dx": -1.85,
+          "local_dy": 0.0,
+          "size_x": 2.3,
+          "size_y": 1.55,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        },
+        {
+          "number": "2",
+          "net": "SOLAR_MID1",
+          "type": "1",
+          "x": 15.85,
+          "y": 6.0,
+          "local_dx": 1.85,
+          "local_dy": 0.0,
+          "size_x": 2.3,
+          "size_y": 1.55,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "J1",
+      "value": "Tab_2P",
+      "fpid": "Tab_2P",
+      "layer": "F.Cu",
+      "x": 3.6,
+      "y": 10.0,
+      "rotation": 0.0,
+      "pads": [
+        {
+          "number": "1",
+          "net": "SOLAR_P",
+          "type": "1",
+          "x": 3.6,
+          "y": 9.1,
+          "local_dx": 0.0,
+          "local_dy": -0.9,
+          "size_x": 4.0,
+          "size_y": 1.2,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        },
+        {
+          "number": "2",
+          "net": "SOLAR_N",
+          "type": "1",
+          "x": 3.6,
+          "y": 10.9,
+          "local_dx": 0.0,
+          "local_dy": 0.9,
+          "size_x": 4.0,
+          "size_y": 1.2,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "SC2",
+      "value": "SolarTail_2P",
+      "fpid": "SolarTail_2P",
+      "layer": "F.Cu",
+      "x": 22.0,
+      "y": 15.0,
+      "rotation": 0.0,
+      "pads": [
+        {
+          "number": "1",
+          "net": "SOLAR_MID1",
+          "type": "1",
+          "x": 20.15,
+          "y": 15.0,
+          "local_dx": -1.85,
+          "local_dy": 0.0,
+          "size_x": 2.2,
+          "size_y": 4.0,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        },
+        {
+          "number": "2",
+          "net": "SOLAR_MID2",
+          "type": "1",
+          "x": 23.85,
+          "y": 15.0,
+          "local_dx": 1.85,
+          "local_dy": 0.0,
+          "size_x": 2.2,
+          "size_y": 4.0,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "SC1",
+      "value": "SolarTail_2P",
+      "fpid": "SolarTail_2P",
+      "layer": "F.Cu",
+      "x": 14.0,
+      "y": 15.0,
+      "rotation": 0.0,
+      "pads": [
+        {
+          "number": "1",
+          "net": "SOLAR_P",
+          "type": "1",
+          "x": 12.15,
+          "y": 15.0,
+          "local_dx": -1.85,
+          "local_dy": 0.0,
+          "size_x": 2.2,
+          "size_y": 4.0,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        },
+        {
+          "number": "2",
+          "net": "SOLAR_MID1",
+          "type": "1",
+          "x": 15.85,
+          "y": 15.0,
+          "local_dx": 1.85,
+          "local_dy": 0.0,
+          "size_x": 2.2,
+          "size_y": 4.0,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "SC3",
+      "value": "SolarTail_2P",
+      "fpid": "SolarTail_2P",
+      "layer": "F.Cu",
+      "x": 30.0,
+      "y": 15.0,
+      "rotation": 0.0,
+      "pads": [
+        {
+          "number": "1",
+          "net": "SOLAR_MID2",
+          "type": "1",
+          "x": 28.15,
+          "y": 15.0,
+          "local_dx": -1.85,
+          "local_dy": 0.0,
+          "size_x": 2.2,
+          "size_y": 4.0,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        },
+        {
+          "number": "2",
+          "net": "SOLAR_N",
+          "type": "1",
+          "x": 31.85,
+          "y": 15.0,
+          "local_dx": 1.85,
+          "local_dy": 0.0,
+          "size_x": 2.2,
+          "size_y": 4.0,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "D2",
+      "value": "D_SMA_Wing",
+      "fpid": "D_SMA_Wing",
+      "layer": "F.Cu",
+      "x": 22.0,
+      "y": 6.0,
+      "rotation": 0.0,
+      "pads": [
+        {
+          "number": "1",
+          "net": "SOLAR_MID1",
+          "type": "1",
+          "x": 20.15,
+          "y": 6.0,
+          "local_dx": -1.85,
+          "local_dy": 0.0,
+          "size_x": 2.3,
+          "size_y": 1.55,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        },
+        {
+          "number": "2",
+          "net": "SOLAR_MID2",
+          "type": "1",
+          "x": 23.85,
+          "y": 6.0,
+          "local_dx": 1.85,
+          "local_dy": 0.0,
+          "size_x": 2.3,
+          "size_y": 1.55,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "D3",
+      "value": "D_SMA_Wing",
+      "fpid": "D_SMA_Wing",
+      "layer": "F.Cu",
+      "x": 30.0,
+      "y": 6.0,
+      "rotation": 0.0,
+      "pads": [
+        {
+          "number": "1",
+          "net": "SOLAR_MID2",
+          "type": "1",
+          "x": 28.15,
+          "y": 6.0,
+          "local_dx": -1.85,
+          "local_dy": 0.0,
+          "size_x": 2.3,
+          "size_y": 1.55,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        },
+        {
+          "number": "2",
+          "net": "SOLAR_N",
+          "type": "1",
+          "x": 31.85,
+          "y": 6.0,
+          "local_dx": 1.85,
+          "local_dy": 0.0,
+          "size_x": 2.3,
+          "size_y": 1.55,
+          "layers": [
+            "F.Cu",
+            "F.Mask",
+            "F.Paste"
+          ]
+        }
+      ]
+    }
+  ],
+  "drawing_counts": {
+    "F.Cu": 0,
+    "F.Mask": 0,
+    "B.Cu": 0,
+    "B.Mask": 0,
+    "f.silkscreen": 10,
+    "b.silkscreen": 0,
+    "Edge.Cuts": 4,
+    "Margin": 0,
+    "B.Courtyard": 0,
+    "F.Courtyard": 0
+  }
+}

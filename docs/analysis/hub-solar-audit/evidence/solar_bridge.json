@@ -1,0 +1,106 @@
+{
+ "after_straight_bcu_tracks": {
+  "solar_paired_records": 7,
+  "unconnected": 77,
+  "violation_types": {
+   "clearance": 22,
+   "copper_edge_clearance": 16,
+   "lib_footprint_issues": 8,
+   "lib_footprint_mismatch": 11,
+   "shorting_items": 8,
+   "silk_over_copper": 1,
+   "solder_mask_bridge": 15,
+   "starved_thermal": 2,
+   "tracks_crossing": 24
+  },
+  "violations": 107
+ },
+ "baseline": {
+  "solar_paired_records": 16,
+  "unconnected": 86,
+  "violation_types": {
+   "copper_edge_clearance": 16,
+   "lib_footprint_issues": 8,
+   "lib_footprint_mismatch": 11,
+   "silk_over_copper": 1,
+   "starved_thermal": 2
+  },
+  "violations": 38
+ },
+ "method": "straight B.Cu segments, one per net, no A*; proofs of layer compatibility only, NOT routeability",
+ "remaining_solar_records": [
+  [
+   "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu",
+   "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu"
+  ],
+  [
+   "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu",
+   "Track [/W1_SOLAR_N] on B.Cu, length 45.7666 mm"
+  ],
+  [
+   "Pad 1 [/W1_SOLAR_P] of J_W1 on F.Cu",
+   "Pad 1 [/W1_SOLAR_P] of J_W1 on B.Cu"
+  ],
+  [
+   "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+   "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu"
+  ],
+  [
+   "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu",
+   "Track [/W2_SOLAR_N] on B.Cu, length 45.7666 mm"
+  ],
+  [
+   "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+   "Track [/W3_SOLAR_N] on B.Cu, length 45.7666 mm"
+  ],
+  [
+   "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu",
+   "Track [/W3_SOLAR_N] on B.Cu, length 45.7666 mm"
+  ]
+ ],
+ "tracks_added": [
+  {
+   "length_mm": 47.011,
+   "net": "/W1_SOLAR_N"
+  },
+  {
+   "length_mm": 40.69,
+   "net": "/W1_SOLAR_N"
+  },
+  {
+   "length_mm": 45.767,
+   "net": "/W1_SOLAR_N"
+  },
+  {
+   "length_mm": 58.258,
+   "net": "/W2_SOLAR_N"
+  },
+  {
+   "length_mm": 51.781,
+   "net": "/W2_SOLAR_N"
+  },
+  {
+   "length_mm": 45.767,
+   "net": "/W2_SOLAR_N"
+  },
+  {
+   "length_mm": 51.4,
+   "net": "/W3_SOLAR_N"
+  },
+  {
+   "length_mm": 53.349,
+   "net": "/W3_SOLAR_N"
+  },
+  {
+   "length_mm": 45.767,
+   "net": "/W3_SOLAR_N"
+  }
+ ],
+ "violations_added": {
+  "clearance": 22,
+  "shorting_items": 8,
+  "solder_mask_bridge": 15,
+  "tracks_crossing": 24
+ },
+ "violations_removed": {}
+}

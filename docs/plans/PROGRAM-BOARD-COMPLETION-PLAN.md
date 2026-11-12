@@ -11,6 +11,67 @@ the order.
 
 ---
 
+## Current priority and tool-investigation backlog (2026-11-02)
+
+**P0: continue JLCPCB order preparation now.** Owner: balloon-hermes manager;
+status: ongoing. This update adds no research-before-order gate and no dependency
+from G0–G8 onto any investigation below. Existing electrical, RF, mechanical,
+review and fabrication gates remain binding; this is not a declaration that the
+board is ready to order. PR [#380](https://github.com/felixfelix-bot/balloon-fresh/pull/380)
+(zone-island analysis) stays separate and is not merged by this roadmap update.
+
+The sections below this backlog retain their dated October planning snapshot,
+not a live board census. In particular, old v9 counts, Python 3.14 instructions
+and model-library availability claims must not drive today's order. Use the
+current [agent rules](../../AGENTS.md), [ADR index](../adr/INDEX.md),
+[fab index](../fab/README.md) and the selected board's current gate evidence.
+
+### Order-prep boundary and immutable evidence
+
+- Continue the existing order-prep lane without waiting for tool evaluations.
+  Before an experiment, pin its input source commit and SHA-256 hashes of the
+  schematic, board, project/rules, netlist and relevant libraries in its evidence
+  record. Work only on an isolated copy; never regenerate the order source.
+- The order-prep owner freezes the selected source revision and records exact
+  SHA-256 hashes of the final Gerbers, drill, BOM, CPL and package archive in the
+  order evidence. Recheck hashes before submission. An experimental output cannot
+  replace that package without a separate reviewed change and complete re-gating.
+- Preserve 0.20 mm clearance and 0.50 mm copper-to-edge rules, including only
+  already-approved scoped exceptions. No automatic rule relaxation. Preserve RF
+  matching/impedance and return paths, keepouts, locked copper, connector/wing
+  interfaces, outline, placement and mechanical constraints.
+- JLCDFM is an adjunct manufacturing check, not proof of circuit correctness or
+  a substitute for ERC, connectivity, DRC, simulation or RF review. BOM approval
+  requires actual manufacturer part numbers, footprints and current sourcing/
+  availability evidence; generated substitutions are not approved parts.
+
+### Bounded investigations — none on the order critical path
+
+Owner for every row: **balloon-hermes manager** (may delegate read-only research;
+retains the decision). Status is **deferred / not started** unless stated otherwise.
+P2 starts only after the current order-prep handoff, or in independently available
+capacity with no contention for its tools, reviewers or compute. P3 follows P2.
+Budgets are cumulative wall-clock caps per row, not permission for retry loops;
+stop at the cap and record adopt / defer / reject plus evidence and next trigger.
+No account creation, paid job, purchase, external design upload or cloud routing
+is authorized by this roadmap. Money budget: **zero**; request separate approval
+for any paid/API inference work. Stop and defer immediately if order prep needs
+those resources. Model price/ranking claims are outside this evaluation.
+
+| ID / priority | Investigation and bounded budget | Exit criteria / evidence |
+|---|---|---|
+| T1 / P2 | **AI-PCB-Generator: 90 min** source inspection only. Its [README](https://github.com/22507260/AI-PCB-Generator) describes structured `CircuitSpec` and an internal A* fallback when Freerouting fails or produces no SES. Evaluate reusable ideas, not its production-readiness marketing. | Pin upstream commit; inspect implementation, license/dependencies, credential/network handling and tests. Identify whether failure/fallback is observable and independently validated. Produce a small reuse/reject list for structured specs, checks or export handling; no generated board adoption. Defer if safety or license cannot be established within budget. |
+| T2 / P2 | **Freerouting incremental evaluation: 90 min**, including at most one 30-min local routing trial. The [official README](https://github.com/freerouting/freerouting) documents DSN/SES CLI; the [MCP guide](https://github.com/freerouting/freerouting/blob/master/docs/API/MCP.md) documents integration options. Existing pipeline already uses Freerouting: compare only version/integration gains, not a wholesale migration. | Record existing and candidate versions, commands and hashes; compare the same frozen input using local execution only. Measure runtime, unconnected items, DRC classes, constraint/locked-copper preservation and deterministic export/re-import. Missing SES or failed run is a failure, never silent fallback success. Retain current pipeline unless repeatable benefit is demonstrated under unchanged rules. |
+| T3 / P2 | **Quilter feasibility: 60 min**, official-document review only. [Quickstart](https://docs.quilter.ai/get-started/quickstart) requires a complete schematic plus outline, footprints and netlist; pre-placed components and pre-routed copper are locked. | Document supported formats and constraint preservation; verify any supported API/CLI from official evidence before proposing automation. `quilter submit` is unverified and must not be used as an assumed command. If no official API evidence is found, record that limitation rather than invent an integration. Any later candidate run needs separate upload/account/spend approval, an isolated future-board copy and preserved RF/mechanical locks; it cannot gate this order. |
+| T4 / P3 | **Attic PcbRouter compatibility: 30 min** source/format review only. [README](https://github.com/The-OpenROAD-Project-Attic/PcbRouter) states KiCad 5.1.2-format support versus our KiCad 9.0.9 environment. | Establish a credible lossless KiCad-9 round trip before proposing a sandbox trial; otherwise park. Main OpenROAD silicon routing is not a drop-in PCB router. No board conversion on the order source. |
+| T5 / P3 | **Backplane: parked, 0 min execution budget** until a concrete primary-source repository/product URL is supplied. | Owner records the primary source and a new bounded proposal before evaluation. A name alone is not sufficient provenance; no dependency on it. |
+
+**DECISIONS:** retain the existing fabrication gate chain and order-prep priority;
+reject replacing it with research or production-ready marketing claims. Official
+sources above establish candidate capabilities, not suitability for this board.
+Adoption requires a separate evidence-backed review after the bounded evaluation;
+failed or inconclusive investigations are deferred, not added as order blockers.
+
 ## 0. Where the truth lives
 
 | Source | What it owns |

@@ -4,4 +4,5 @@
 	(lib (name "balloon_flight_v9")(type "KiCad")(uri "${KIPRJMOD}/v9_lib/balloon_flight_v9.pretty")(options "")(descr "v9 flight board footprints (F33 fixed pattern + bare LoRa2021 + SX1280 UNVERIFIED)"))
 	(lib (name "balloon_flight_v10")(type "KiCad")(uri "${KIPRJMOD}/v10_lib/balloon_flight_v10.pretty")(options "")(descr "v10 flight board footprints (E28 built from the sidecar pin map)"))
 	(lib (name "Tracker_Mechanical")(type "KiCad")(uri "${KIPRJMOD}/../../footprints/tracker_mechanical.pretty")(options "")(descr "Repo-local mechanical footprints: Wing_Tab_4P - ADR-046/ADR-048"))
+	(lib (name "balloon_flight_v11")(type "KiCad")(uri "${KIPRJMOD}/v11_lib/balloon_flight_v11.pretty")(options "")(descr "v11 flight board footprints"))
 )

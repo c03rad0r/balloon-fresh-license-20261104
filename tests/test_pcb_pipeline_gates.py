@@ -39,9 +39,41 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PIPELINE = REPO_ROOT / "tracker" / "hardware" / "full_pipeline.py"
 
-# The interpreter the pipeline must run under.  bare "python3" on this box is
-# a uv-managed 3.11 which segfaults importing pcbnew; the card pins 3.14.
-PIPELINE_PYTHON = Path("/usr/bin/python3.14")
+# The interpreter the pipeline runs under: the distro python that owns the
+# KiCad bindings. A pinned minor version can exist on a runner WITHOUT pcbnew
+# in its site-packages (measured 2026-11-02: ubuntu-latest has 3.14 and no
+# KiCad), so the version is not the thing to name here -- capability is, and
+# the probe below checks it. Never import pcbnew in-process: an ABI mismatch
+# can segfault the whole run.
+PIPELINE_PYTHON = Path("/usr/bin/python3")
+
+
+def _pcbnew_usable() -> bool:
+    """The interpreter must EXIST *and* be able to import pcbnew.
+
+    The original guard only checked existence. Measured 2026-11-02 on the
+    ubuntu-latest runner image: the pinned /usr/bin/python3.14 exists there but
+    KiCad is not installed, so every behavioural gate ran and failed with
+    ``ModuleNotFoundError: pcbnew`` -- a red suite that says nothing about this
+    repository. Existence is not capability, and capability is not optional:
+    the ``pcb-pipeline`` CI job installs KiCad and runs the four board checks
+    for real, so the skip can only fire on a host that genuinely lacks the
+    binding -- never on the job that owns these gates.
+    """
+    if not PIPELINE_PYTHON.exists():
+        return False
+    try:
+        proc = subprocess.run(
+            [str(PIPELINE_PYTHON), "-c", "import pcbnew"],
+            capture_output=True,
+            timeout=120,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return proc.returncode == 0
+
+
+PCB_NEW_USABLE = _pcbnew_usable()
 
 
 @pytest.fixture(scope="module")
@@ -127,6 +159,27 @@ class TestNoCopperPours:
 # --------------------------------------------------------------------------
 
 class TestInterpreterPinning:
+    def test_probe_refuses_existing_interpreter_without_pcbnew(self, monkeypatch, tmp_path) -> None:
+        """The behavioural-gate guard must fail on CAPABILITY, not just existence.
+
+        Poison test: an existing, executable interpreter that cannot import
+        pcbnew must read as NOT usable. Before this probe the gate ran and the
+        suite went red on a runner where KiCad was simply absent.
+        """
+        fake = tmp_path / "python3"
+        fake.write_text("#!/bin/sh\nexit 1\n")
+        fake.chmod(0o755)
+        monkeypatch.setattr(sys.modules[__name__], "PIPELINE_PYTHON", fake)
+        assert fake.exists()
+        assert _pcbnew_usable() is False
+
+    def test_probe_accepts_interpreter_that_can_import_pcbnew(self, monkeypatch, tmp_path) -> None:
+        fake = tmp_path / "python3"
+        fake.write_text("#!/bin/sh\nexit 0\n")
+        fake.chmod(0o755)
+        monkeypatch.setattr(sys.modules[__name__], "PIPELINE_PYTHON", fake)
+        assert _pcbnew_usable() is True
+
     def test_gate4_shebang_is_python314(self, pipeline_src: str) -> None:
         """Gate 4: the shebang pins /usr/bin/python3.14."""
         first_line = pipeline_src.splitlines()[0]
@@ -169,8 +222,8 @@ def _run_pipeline(board_type: str, out: Path, timeout: int = 300):
 
 
 @pytest.mark.skipif(
-    not PIPELINE_PYTHON.exists(),
-    reason=f"{PIPELINE_PYTHON} not installed (pcbnew 9.x runtime)",
+    not PCB_NEW_USABLE,
+    reason=f"{PIPELINE_PYTHON} cannot import pcbnew on this host (KiCad not installed)",
 )
 @pytest.mark.parametrize(
     "board_type,expected_footprints,expected_nets",
@@ -223,8 +276,8 @@ def test_pipeline_creates_board_headless(
 
 
 @pytest.mark.skipif(
-    not PIPELINE_PYTHON.exists(),
-    reason=f"{PIPELINE_PYTHON} not installed (pcbnew 9.x runtime)",
+    not PCB_NEW_USABLE,
+    reason=f"{PIPELINE_PYTHON} cannot import pcbnew on this host (KiCad not installed)",
 )
 def test_v2_adc_board_has_vdiv_mid_net(tmp_path: Path) -> None:
     """v2-adc carries the supercap divider midpoint (card t_3fea9ac6)."""
@@ -237,8 +290,8 @@ def test_v2_adc_board_has_vdiv_mid_net(tmp_path: Path) -> None:
 
 
 @pytest.mark.skipif(
-    not PIPELINE_PYTHON.exists(),
-    reason=f"{PIPELINE_PYTHON} not installed (pcbnew 9.x runtime)",
+    not PCB_NEW_USABLE,
+    reason=f"{PIPELINE_PYTHON} cannot import pcbnew on this host (KiCad not installed)",
 )
 def test_board_outline_is_50x40mm(tmp_path: Path) -> None:
     """The outline is the specified 50x40mm rectangle (card gates 3/4)."""

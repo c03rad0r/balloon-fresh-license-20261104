@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "kicad-cli",
+    "pcb",
+    "drc",
+    "--format",
+    "json",
+    "--severity-all",
+    "--exit-code-violations",
+    "-o",
+    "/home/c08r4d0r/worktrees/hub-repair-candidate/docs/analysis/hub-repair-20261102/silk/cand_52.0_61.5/drc.json",
+    "/home/c08r4d0r/worktrees/hub-repair-candidate/docs/analysis/hub-repair-20261102/silk/cand_52.0_61.5/hub_board_v10_lora1280_7of9.kicad_pcb"
+  ],
+  "exit": 5,
+  "stdout": "Found 35 violations\nFound 86 unconnected items\nSaved DRC Report to /home/c08r4d0r/worktrees/hub-repair-candidate/docs/analysis/hub-repair-20261102/silk/cand_52.0_61.5/drc.json\n",
+  "stderr": ""
+}

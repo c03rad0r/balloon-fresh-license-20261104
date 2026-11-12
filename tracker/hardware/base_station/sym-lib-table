@@ -1,0 +1,1 @@
+(sym_lib_table (lib (name "BaseStation")(type "KiCad")(uri "${KIPRJMOD}/BaseStation.kicad_sym")(options "")(descr "LOCAL base-station symbols; pin numbers copied from the generator, not datasheet-verified")))

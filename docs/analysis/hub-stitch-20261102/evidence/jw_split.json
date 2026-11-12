@@ -1,0 +1,136 @@
+{
+ "same_land": 10,
+ "distinct": 9,
+ "same_land_records": [
+  {
+   "ref": "J_W2",
+   "pad": "3",
+   "net": "/CUT_SENSE_W2",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    36.9,
+    77.0
+   ]
+  },
+  {
+   "ref": "J_W3",
+   "pad": "3",
+   "net": "/CUT_SENSE_W3",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    69.0,
+    39.1
+   ]
+  },
+  {
+   "ref": "J_W4",
+   "pad": "3",
+   "net": "/CUT_SENSE_W4",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    35.1,
+    3.0
+   ]
+  },
+  {
+   "ref": "J_W1",
+   "pad": "4",
+   "net": "/W1_SOLAR_N",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    3.0,
+    42.7
+   ]
+  },
+  {
+   "ref": "J_W2",
+   "pad": "1",
+   "net": "/W1_SOLAR_N",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    33.3,
+    77.0
+   ]
+  },
+  {
+   "ref": "J_W1",
+   "pad": "1",
+   "net": "/W1_SOLAR_P",
+   "layers": [
+    "B.Cu",
+    "F.Cu"
+   ],
+   "pos_mm": [
+    3.0,
+    37.3
+   ]
+  },
+  {
+   "ref": "J_W2",
+   "pad": "4",
+   "net": "/W2_SOLAR_N",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    38.7,
+    77.0
+   ]
+  },
+  {
+   "ref": "J_W3",
+   "pad": "1",
+   "net": "/W2_SOLAR_N",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    69.0,
+    42.7
+   ]
+  },
+  {
+   "ref": "J_W4",
+   "pad": "1",
+   "net": "/W3_SOLAR_N",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    38.7,
+    3.0
+   ]
+  },
+  {
+   "ref": "J_W3",
+   "pad": "4",
+   "net": "/W3_SOLAR_N",
+   "layers": [
+    "F.Cu",
+    "B.Cu"
+   ],
+   "pos_mm": [
+    69.0,
+    37.3
+   ]
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : SolarCell_SMALL_52.07x19.65
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y/Z: 52.07 x 19.65 x 0.20-0.21 mm - ADR-049 s'Measured inputs' outline row ('52.07 x 19.65 x 0.20-0.21 mm', 10.23 cm2).  0.21 mm (the upper end of the recorded range) is used.
+# FACE      : dark blue / bus-bar frame - deliberate, so a cell never reads as copper or silkscreen (the confabulation this file exists to stop)
+# TODO(unverified):
+#   - the thickness is a RANGE (0.20-0.21 mm) in ADR-049; 0.21 is used
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.1050
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.050 0.080 0.340 } }
+      geometry Box { size 52.0700 19.6500 0.2100 }
+    }
+  ]
+}
+Transform {
+  translation 0.0000 9.5250 0.2200
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.420 0.460 0.520 } }
+      geometry Box { size 52.0700 0.6000 0.0200 }
+    }
+  ]
+}
+Transform {
+  translation 0.0000 -9.5250 0.2200
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.420 0.460 0.520 } }
+      geometry Box { size 52.0700 0.6000 0.0200 }
+    }
+  ]
+}
+Transform {
+  translation 25.7350 0.0000 0.2200
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.420 0.460 0.520 } }
+      geometry Box { size 0.6000 19.6500 0.0200 }
+    }
+  ]
+}
+Transform {
+  translation -25.7350 0.0000 0.2200
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.420 0.460 0.520 } }
+      geometry Box { size 0.6000 19.6500 0.0200 }
+    }
+  ]
+}
+Transform {
+  translation 23.0350 0.0000 0.2250
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.420 0.460 0.520 } }
+      geometry Box { size 2.0000 6.8775 0.0300 }
+    }
+  ]
+}
+Transform {
+  translation -23.0350 0.0000 0.2250
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.420 0.460 0.520 } }
+      geometry Box { size 2.0000 6.8775 0.0300 }
+    }
+  ]
+}

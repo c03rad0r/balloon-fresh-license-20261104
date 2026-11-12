@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : CP_Radial_D10.0mm_P5.00mm
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of Capacitor_THT:CP_Radial_D10.0mm_P5.00mm as committed (10.100 x 10.100 mm); the library item name fixes the lead pitch at 5.00 mm and the can diameter at 10.0 mm.  The part is the 3.3F 2.7 V AVX SCC supercap (hub_board_v9 value field).
+# TODO(unverified):
+#   - Z 7.00 mm - the supercap can height is NOT stated in any in-repo record and 7.00 mm is a DISPLAY DEFAULT, not a claim
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 3.5000
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Box { size 10.1000 10.1000 7.0000 }
+    }
+  ]
+}

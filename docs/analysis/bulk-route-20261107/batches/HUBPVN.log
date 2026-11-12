@@ -1,0 +1,4 @@
+=== HUBPVN   from 9a9c6c12edb72839
+world: pads=301 tracks=1314 edges=16 holes=161 origin=(-0.05, -0.05) size=(72.1, 80.1)
+UNROUTED /HUB_PV_N:U_HUB_CVT.3:J_HUB_PV.4: no path on any layer pair (64.62s)
+HUBPVN: NOTHING WRITTEN -- tree untouched, latest.kicad_pcb unchanged

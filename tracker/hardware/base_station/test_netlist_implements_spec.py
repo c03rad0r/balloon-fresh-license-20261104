@@ -17,7 +17,9 @@ import json
 import re
 import sys
 
-HERE = "/home/c08r4d0r/worktrees/v9-route/tracker/hardware/base_station"
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
 net = open(f"{HERE}/base_station_v1.net").read()
 spec = json.load(open(f"{HERE}/spec.json"))
 

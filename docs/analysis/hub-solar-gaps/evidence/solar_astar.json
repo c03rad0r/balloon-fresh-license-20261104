@@ -1,0 +1,89 @@
+{
+ "results": [
+  {
+   "net": "/W1_SOLAR_N",
+   "a": "J_W1.4@B.Cu",
+   "b": "D_BP2.1@B.Cu",
+   "same_layer": true,
+   "path": "no",
+   "length_mm": null,
+   "layers": null
+  },
+  {
+   "net": "/W1_SOLAR_N",
+   "a": "D_BP1.2@B.Cu",
+   "b": "J_W1.4@B.Cu",
+   "same_layer": true,
+   "path": "no",
+   "length_mm": null,
+   "layers": null
+  },
+  {
+   "net": "/W1_SOLAR_N",
+   "a": "D_BP2.1@B.Cu",
+   "b": "J_W2.1@F.Cu",
+   "same_layer": false,
+   "path": "no",
+   "length_mm": null,
+   "layers": null
+  },
+  {
+   "net": "/W2_SOLAR_N",
+   "a": "D_BP2.2@B.Cu",
+   "b": "J_W2.4@B.Cu",
+   "same_layer": true,
+   "path": "no",
+   "length_mm": null,
+   "layers": null
+  },
+  {
+   "net": "/W2_SOLAR_N",
+   "a": "J_W3.1@B.Cu",
+   "b": "D_BP3.1@B.Cu",
+   "same_layer": true,
+   "path": "no",
+   "length_mm": null,
+   "layers": null
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "a": "J_W4.1@F.Cu",
+   "b": "D_BP4.1@B.Cu",
+   "same_layer": false,
+   "path": "yes",
+   "length_mm": 13.18,
+   "layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "a": "J_W3.4@F.Cu",
+   "b": "D_BP3.2@B.Cu",
+   "same_layer": false,
+   "path": "no",
+   "length_mm": null,
+   "layers": null
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "a": "D_BP3.2@B.Cu",
+   "b": "J_W4.1@F.Cu",
+   "same_layer": false,
+   "path": "yes",
+   "length_mm": 69.64,
+   "layers": [
+    "B.Cu"
+   ]
+  },
+  {
+   "net": "GND",
+   "a": "D_BP4.2@B.Cu",
+   "b": "U2.4@F.Cu",
+   "same_layer": false,
+   "path": "no",
+   "length_mm": null,
+   "layers": null
+  }
+ ]
+}

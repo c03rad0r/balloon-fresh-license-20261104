@@ -1,0 +1,77 @@
+{
+ "method": "check_preservation.py normalized native serialization; fails closed on undeclared change",
+ "pairs": [
+  {
+   "pair": [
+    "route",
+    "rail-gnd-bcu"
+   ],
+   "rc": 0,
+   "unchanged": 225,
+   "removed_or_modified": 0,
+   "added": {
+    "zone": 1
+   }
+  },
+  {
+   "pair": [
+    "rail-gnd-bcu",
+    "rail-gnd-fcu"
+   ],
+   "rc": 0,
+   "unchanged": 226,
+   "removed_or_modified": 0,
+   "added": {
+    "zone": 1
+   }
+  },
+  {
+   "pair": [
+    "rail-gnd-fcu",
+    "rail-gnd-padlocal"
+   ],
+   "rc": 1,
+   "verdict": "DECLARED EXCEPTION: pad-local connection attributes"
+  },
+  {
+   "pair": [
+    "rail-gnd-padlocal",
+    "rail-gnd-stitch"
+   ],
+   "rc": 0,
+   "unchanged": 227,
+   "removed_or_modified": 0,
+   "added": {
+    "via": 1
+   }
+  },
+  {
+   "pair": [
+    "rail-gnd-stitch",
+    "rail-3v3-tree"
+   ],
+   "rc": 0,
+   "unchanged": 228,
+   "removed_or_modified": 0,
+   "added": {
+    "segment": 6
+   }
+  }
+ ],
+ "declared_exceptions": [
+  {
+   "stage": "2.5 rail-gnd-fcu -> rail-gnd-padlocal",
+   "what": "local_zone_connection on 6 named pads: unset(-1) -> direct(2)",
+   "pads": [
+    "U4.3",
+    "J1.A1",
+    "J1.B12",
+    "U2.1",
+    "U2.9",
+    "U3.3"
+   ],
+   "proof": "pad attribute comparison: exactly 6 pads differ, exactly 1 attribute each; net/position/size identical for every pad; no footprint-level change"
+  }
+ ],
+ "why": "a 1-spoke thermal relief is starved_thermal and the baseline has none, so the pour would be a regression if left thermal"
+}

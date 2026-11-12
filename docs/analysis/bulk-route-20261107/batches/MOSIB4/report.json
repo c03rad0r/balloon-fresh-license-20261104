@@ -1,0 +1,13 @@
+{
+  "status": "BRIDGED",
+  "gap_mm": 26.8,
+  "length_mm": 28.91,
+  "segments": 272,
+  "vias": 2,
+  "opens_before": 16,
+  "opens_after": 15,
+  "viol_before": 20,
+  "viol_after": 16,
+  "errors_after": 0,
+  "verdict": "PASS"
+}

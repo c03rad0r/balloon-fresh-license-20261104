@@ -1,0 +1,33 @@
+{
+ "board": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/LONGF33/board.kicad_pcb",
+ "pitch": 0.1,
+ "pairs": [
+  {
+   "spec": "/SPI2_SCK:U1.4:U2.12",
+   "net": "/SPI2_SCK",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "seconds": 46.17,
+   "result": "UNROUTED",
+   "reason": "no path on any layer pair"
+  },
+  {
+   "spec": "/F33_VSENSE:U1.21:R_MON2.1",
+   "net": "/F33_VSENSE",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "seconds": 38.61,
+   "result": "UNROUTED",
+   "reason": "no path on any layer pair"
+  },
+  {
+   "spec": "/EN:U1.3:J_PROG.3",
+   "net": "/EN",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "seconds": 43.73,
+   "result": "UNROUTED",
+   "reason": "no path on any layer pair"
+  }
+ ]
+}

@@ -30,7 +30,7 @@ U1.23  /GNSS_PPS  # v9 netlist (MAX-M10S)
 U1.24  /U3_BUSY  # v9 netlist + ADR-123
 U1.25  /U3_RESET_N  # v9 netlist + ADR-123
 U1.26  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
-U1.27  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.27  /IO0  # added by 321617cd (board) -- registry was never updated; boot strap, no copper (ADR-150)
 U1.28  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U1.29  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U1.30  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
@@ -56,7 +56,7 @@ U2.5  +3V3  # v9 netlist (rails)
 U2.6  GND  # v9 netlist (rails)
 U2.7  GND  # v9 netlist (rails)
 U2.8  GND  # v9 netlist (rails)
-U2.9  /ANT1_433_TX  # ADR-119 (Site A antenna)
+U2.9  UNASSIGNED  # ADR-137: /ANT1_433_TX was an antenna feed on our copper; deleted (antenna attaches AT the module)
 U2.10  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U2.11  GND  # v9 netlist (rails)
 U2.12  /SPI2_SCK  # ADR-123 (433MHz bus: F33 alone)
@@ -77,7 +77,7 @@ U3.6  /U3_CS_N  # v9 netlist + ADR-123
 U3.7  /U3_BUSY  # v9 netlist + ADR-123
 U3.8  GND  # v9 netlist (rails)
 U3.9  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
-U3.10  /ANT3_2G4_RX  # ADR-119 (Site B antenna)
+U3.10  UNASSIGNED  # ADR-137: /ANT3_2G4_RX was an antenna feed on our copper; deleted (antenna attaches AT the module)
 U3.11  GND  # v9 netlist (rails)
 U3.12  GND  # v9 netlist (rails)
 U3.13  /VTCXO_VNTC  # v9 netlist (unclassified)
@@ -98,7 +98,7 @@ U5.7  +3V3  # v9 netlist (rails)
 U5.8  /GNSS_VCC  # v9 netlist (MAX-M10S)
 U5.9  +3V3  # v9 netlist (rails)
 U5.10  GND  # v9 netlist (rails)
-U5.11  /ANT4_GNSS_L1  # ADR-119 (GNSS antenna)
+U5.11  UNASSIGNED  # ADR-137: /ANT4_GNSS_L1 was an antenna feed on our copper; deleted (antenna attaches AT the module)
 U5.12  GND  # v9 netlist (rails)
 U5.13  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U5.14  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
@@ -134,7 +134,7 @@ U_C.6  /U_C_CS_N  # ADR-119 Site C control (copied by pad number)
 U_C.7  /U_C_BUSY  # ADR-119 Site C control (copied by pad number)
 U_C.8  GND  # v9 netlist (rails)
 U_C.9  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
-U_C.10  /ANT_C_2G4  # ADR-119 (Site C antenna, split from U3 feed)
+U_C.10  UNASSIGNED  # ADR-137: /ANT_C_2G4 deleted with ANT1..ANT4 (antenna at the module)
 U_C.11  GND  # v9 netlist (rails)
 U_C.12  GND  # v9 netlist (rails)
 U_C.13  /VTCXO_VNTC  # v9 netlist (unclassified)
@@ -144,22 +144,22 @@ U_C.16  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U_C.17  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U_C.18  GND  # v9 netlist (rails)
 
-# --- ANT1  (U.FL_Molex_MCRF_73412-0110_Vertical)
-ANT1.1  /ANT1_433_TX  # ADR-119 (Site A antenna)
-ANT1.2  GND  # v9 netlist (rails)
-
-# --- ANT2  (U.FL_Molex_MCRF_73412-0110_Vertical)
-ANT2.1  /ANT2_2G4_RANGE  # ADR-119 (Site D antenna)
-ANT2.2  GND  # v9 netlist (rails)
-
-# --- ANT3  (U.FL_Molex_MCRF_73412-0110_Vertical)
-ANT3.1  /ANT3_2G4_RX  # ADR-119 (Site B antenna)
-ANT3.2  GND  # v9 netlist (rails)
-
-# --- ANT4  (U.FL_Molex_MCRF_73412-0110_Vertical)
-ANT4.1  /ANT4_GNSS_L1  # ADR-119 (GNSS antenna)
-ANT4.2  GND  # v9 netlist (rails)
-
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
 # --- J_W1  (Wing_Tab_4P)
 J_W1.1  /W1_SOLAR_P  # v9 netlist (wing cut/solar)
 J_W1.2  GND  # v9 netlist (rails)
@@ -184,23 +184,30 @@ J_W4.2  GND  # v9 netlist (rails)
 J_W4.3  /CUT_SENSE_W4  # v9 netlist (wing cut/solar)
 J_W4.4  GND  # v9 netlist (rails)
 
-# --- U_E28  (E28-2G4M27SX)
-U_E28.1  +3V3  # v9 netlist (rails)
-U_E28.2  GND  # v9 netlist (rails)
-U_E28.3  /SPI1_MISO  # ADR-123 (2.4GHz bus: U3+U_C+E28)
-U_E28.4  /SPI1_MOSI  # ADR-123 (2.4GHz bus: U3+U_C+E28)
-U_E28.5  /SPI1_SCK  # ADR-123 (2.4GHz bus: U3+U_C+E28)
-U_E28.6  /E28_CS_N  # ADR-118 + E28 sidecar pin map
-U_E28.7  GND  # v9 netlist (rails)
-U_E28.8  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
-U_E28.9  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
-U_E28.10  GND  # v9 netlist (rails)
-U_E28.11  /E28_RESET_N  # ADR-118 + E28 sidecar pin map
-U_E28.12  /E28_BUSY  # ADR-118 + E28 sidecar pin map
-U_E28.13  /E28_DIO1  # ADR-118 + E28 sidecar pin map
-U_E28.14  /E28_DIO2  # ADR-118 + E28 sidecar pin map
-U_E28.15  /E28_DIO3  # ADR-118 + E28 sidecar pin map
-U_E28.16  GND  # v9 netlist (rails)
+# --- U_LORA1280  (NiceRF LoRa1280, SX1280 12.5 dBm, ranging) - ADR-139
+# ADR-139 replaced the E28-2G4M27SX on the BOARD; this block is the same
+# change applied to the registry, pin for pin, from the remap table in
+# tracker/hardware/swap_u_e28_to_lora1280.py. The /E28_* NET NAMES are
+# retained deliberately: they are net names, not part names, and renaming
+# them would invalidate every routed segment on the board for no
+# electrical change. Pads 8/9 (RX_EN/TX_EN) do not exist on this part;
+# OPEN-E28-EN is therefore CLOSED by ADR-139, not waived.
+U_LORA1280.1  /E28_DIO2  # ADR-139 pin remap (E28 14 DIO2); net name retained from ADR-118
+U_LORA1280.2  /E28_DIO3  # ADR-139 pin remap (E28 15 DIO3); net name retained from ADR-118
+U_LORA1280.3  +3V3  # ADR-139 pin remap (E28 1 VCC)
+U_LORA1280.4  GND  # ADR-139 pin remap (E28 2/7/10/16 -> L1280 4/10/11/12/14)
+U_LORA1280.5  /SPI1_MISO  # ADR-123 (2.4GHz bus: U3+U_C+site D) + ADR-139 pin remap (E28 3)
+U_LORA1280.6  /SPI1_MOSI  # ADR-123 (2.4GHz bus: U3+U_C+site D) + ADR-139 pin remap (E28 4)
+U_LORA1280.7  /SPI1_SCK  # ADR-123 (2.4GHz bus: U3+U_C+site D) + ADR-139 pin remap (E28 5)
+U_LORA1280.8  /E28_CS_N  # ADR-139 pin remap (E28 6 NSS_CTS); net name retained from ADR-118
+U_LORA1280.9  UNASSIGNED  # ADR-139: the LoRa1280 ANTENNA pad - no net, ADR-137 (antenna at the module)
+U_LORA1280.10  GND  # ADR-139 pin remap
+U_LORA1280.11  GND  # ADR-139 pin remap
+U_LORA1280.12  GND  # ADR-139 pin remap
+U_LORA1280.13  /E28_RESET_N  # ADR-139 pin remap (E28 11 NRESET); net name retained from ADR-118
+U_LORA1280.14  GND  # ADR-139 pin remap
+U_LORA1280.15  /E28_BUSY  # ADR-139 pin remap (E28 12 BUSY); net name retained from ADR-118
+U_LORA1280.16  /E28_DIO1  # ADR-139 pin remap (E28 13 DIO1); net name retained from ADR-118
 
 # --- C_CAP1  (CP_Radial_D10.0mm_P5.00mm)
 C_CAP1.1  /VSCAP  # v9 netlist (harvest storage)
@@ -330,20 +337,32 @@ R_MON2.2  GND  # ADR-129 D1 / ADR-047 s6 (F33 rail monitor, lower 4.7M)
 U_CUT1.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 1 drive from raw supercap, PRE-LDO)
 U_CUT1.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 1 return)
 U_CUT1.3  /CUT_SENSE_W1  # ADR-129 D5 / ADR-051 s2.6 (cut 1 drive+sense; J_W1 pad 3 RF_FEED)
+U_CUT1.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT1.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT1.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
 # --- U_CUT2
 U_CUT2.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 2 drive from raw supercap, PRE-LDO)
 U_CUT2.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 2 return)
 U_CUT2.3  /CUT_SENSE_W2  # ADR-129 D5 / ADR-051 s2.6 (cut 2 drive+sense; J_W2 pad 3 RF_FEED)
+U_CUT2.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT2.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT2.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
 # --- U_CUT3
 U_CUT3.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 3 drive from raw supercap, PRE-LDO)
 U_CUT3.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 3 return)
 U_CUT3.3  /CUT_SENSE_W3  # ADR-129 D5 / ADR-051 s2.6 (cut 3 drive+sense; J_W3 pad 3 RF_FEED)
+U_CUT3.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT3.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT3.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
 # --- U_CUT4
 U_CUT4.1  /VSCAP  # ADR-129 D5 / ADR-047 s2.1 (cut 4 drive from raw supercap, PRE-LDO)
 U_CUT4.2  GND  # ADR-129 D5 / ADR-051 s2.5 (cut 4 return)
 U_CUT4.3  /CUT_SENSE_W4  # ADR-129 D5 / ADR-051 s2.6 (cut 4 drive+sense; J_W4 pad 3 RF_FEED)
+U_CUT4.4  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT4.5  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
+U_CUT4.6  UNASSIGNED  # OPEN-31 (part TODO(unverified); pad exists on the land, no net assigned)
 
-# UNASSIGNED pins on this board: 42 -> U1.15, U1.16, U1.26, U1.27, U1.28, U1.29, U1.30, U1.35, U1."", U2.10, U3.9, U3.16, U3.17, U5.5, U5.13, U5.14, U5.15, U5.16, U5.17, U5.18, U7.4, U_C.9, U_C.16, U_C.17, U_E28.8, U_E28.9, U_HUB_CVT.4, U_HUB_CVT.5, U_HUB_CVT.6, U_HUB_CVT.7, U_HUB_CVT.8, U_HUB_CVT.9, U_HUB_CVT.10, U_HUB_CVT.11, U_HUB_CVT.12, U_HUB_CVT.13, U_HUB_CVT.14, U_HUB_CVT.15, U_HUB_CVT.16, U_HUB_CVT.17, U_HUB_CVT."", J_HUB_PV.3
+# UNASSIGNED pins on this board: 57 -> J_HUB_PV.3, U1."", U1.15, U1.16, U1.26, U1.27, U1.28, U1.29, U1.30, U1.35, U2.9, U2.10, U3.9, U3.10, U3.16, U3.17, U5.5, U5.11, U5.13, U5.14, U5.15, U5.16, U5.17, U5.18, U7.4, U_C.9, U_C.10, U_C.16, U_C.17, U_CUT1.4, U_CUT1.5, U_CUT1.6, U_CUT2.4, U_CUT2.5, U_CUT2.6, U_CUT3.4, U_CUT3.5, U_CUT3.6, U_CUT4.4, U_CUT4.5, U_CUT4.6, U_HUB_CVT."", U_HUB_CVT.4, U_HUB_CVT.5, U_HUB_CVT.6, U_HUB_CVT.7, U_HUB_CVT.8, U_HUB_CVT.9, U_HUB_CVT.10, U_HUB_CVT.11, U_HUB_CVT.12, U_HUB_CVT.13, U_HUB_CVT.14, U_HUB_CVT.15, U_HUB_CVT.16, U_HUB_CVT.17, U_LORA1280.9

@@ -1,0 +1,48 @@
+{
+ "baseline_sha256": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+ "controls": [
+  {
+   "case": "N1",
+   "description": "via not on the claimed net",
+   "caught": true
+  },
+  {
+   "case": "N2",
+   "description": "via 5 mm outside the claimed island",
+   "caught": true
+  },
+  {
+   "case": "N3",
+   "description": "via inside island 8 declared as a join for island 9",
+   "caught": true
+  },
+  {
+   "case": "N4",
+   "description": "two vias added but only one declared",
+   "caught": true
+  },
+  {
+   "case": "N5",
+   "description": "target already inside the pinned main",
+   "caught": true
+  },
+  {
+   "case": "N6",
+   "description": "a via added but none declared",
+   "caught": true
+  },
+  {
+   "case": "N7",
+   "description": "false target declaration (island 9 named, island 5 joined)",
+   "caught": true
+  },
+  {
+   "case": "N8",
+   "description": "genuine single join (must be ACCEPTED)",
+   "caught": true
+  }
+ ],
+ "red_all_refused": true,
+ "green_accepted": true,
+ "gate_is_discriminating": true
+}

@@ -2791,6 +2791,14 @@ V10_REG = os.path.join(REPO, "tracker", "hardware", "connectivity",
                        "v10_pinmap.reg")
 V10_E28_FP = os.path.join(REPO, "tracker", "hardware", "footprints", "e28",
                           "E28-2G4M27SX.kicad_mod")
+# ADR-139 replacement part. The BOARD carries this footprint as `NiceRF:LoRa1280` (set by
+# swap_u_e28_to_lora1280.py); the SCHEMATIC copies it into the generated
+# balloon_flight_v10 library like every other v10 part, because that is the only fp library the
+# v10 sheet's fp-lib-table declares. Pointing the symbol at `NiceRF:LoRa1280` instead produces
+# an ERC `footprint_link_issues` on U_LORA1280 (measured 2026-11-02), which is a library-table
+# problem, not a design problem.
+V10_LORA1280_FP = os.path.join(REPO, "tracker", "hardware", "footprints", "lora1280",
+                               "LoRa1280.kicad_mod")
 
 # Tokens the registry uses for "this pin has no net".
 V10_NETLESS_TOKENS = ("NC", "UNASSIGNED", "-", "N/A", "NONE")
@@ -2805,23 +2813,23 @@ V10_NETLESS_TOKENS = ("NC", "UNASSIGNED", "-", "N/A", "NONE")
 # are NEW versus the bare SX1280 and are registered UNASSIGNED - see
 # connectivity/OPEN-ITEMS.md OPEN-E28-EN.  They are NOT guessed here; leaving
 # a PA/LNA enable unasserted is a wiring decision, not a schematic default.
-V10_E28_PINS = [
-    ("1", "VCC", "power_in"),
-    ("2", "GND", "power_in"),
-    ("3", "MISO_TX", "tri_state"),
-    ("4", "MOSI_RX", "input"),
-    ("5", "SCK_RTSN", "input"),
-    ("6", "NSS_CTS", "input"),
-    ("7", "GND", "power_in"),
-    ("8", "RX_EN", "input"),
-    ("9", "TX_EN", "input"),
+V10_LORA1280_PINS = [
+    ("1", "DIO2", "bidirectional"),
+    ("2", "DIO3", "bidirectional"),
+    ("3", "VCC", "power_in"),
+    ("4", "GND", "power_in"),
+    ("5", "MISO", "tri_state"),
+    ("6", "MOSI", "input"),
+    ("7", "SCK", "input"),
+    ("8", "NSS", "input"),
+    ("9", "ANT", "passive"),
     ("10", "GND", "power_in"),
-    ("11", "NRESET", "input"),
-    ("12", "BUSY", "output"),
-    ("13", "DIO1", "bidirectional"),
-    ("14", "DIO2", "bidirectional"),
-    ("15", "DIO3", "bidirectional"),
-    ("16", "GND", "power_in"),
+    ("11", "GND", "power_in"),
+    ("12", "GND", "power_in"),
+    ("13", "NRESET", "input"),
+    ("14", "GND", "power_in"),
+    ("15", "BUSY", "output"),
+    ("16", "DIO1", "bidirectional"),
 ]
 
 # --- U_HUB_CVT: the hub array's OWN converter / harvester input provision
@@ -2938,12 +2946,14 @@ V10_COMPONENTS = [
      "Identical part to U3, so it REUSES the v9 U3 symbol (per ADR-128 task "
      "note); only its per-site control nets differ (/U_C_CS_N, /U_C_BUSY, "
      "/U_C_RESET_N, /U_C_IRQ) - see ADR-119."),
-    ("U_E28", "balloon_flight_v10:E28_2G4M27SX", "E28-2G4M27SX",
-     "balloon_flight_v10:E28-2G4M27SX", False,
-     "ADR-118: Ebyte E28-2G4M27SX (SX1280 + PA + LNA, 27 dBm) at site D. "
-     "NEW part - symbol built here from the sidecar pin map; the E28's UART "
-     "control pins are NOT used (module default), and pads 8/9 (RX_EN/TX_EN) "
-     "are UNASSIGNED (OPEN-E28-EN)."),
+    ("U_LORA1280", "balloon_flight_v10:LoRa1280", "LoRa1280",
+     "balloon_flight_v10:LoRa1280", False,
+     "ADR-139: G-NiceRF LoRa1280 (SX1280, 12.5 dBm, ranging: YES) replaced the "
+     "E28-2G4M27SX at site D. The E28's PA/LNA enables (8/9) do not exist on "
+     "this part, which CLOSES OPEN-E28-EN rather than waiving it. Pin 9 is the "
+     "module's own antenna pad - netless by design per ADR-137 (the antenna "
+     "attaches AT the module). Pin order from LoRa128X Rev2.2 s7 via "
+     "build_lora1280_footprint.py."),
     ("U5", "RF_GPS:MAX-M10S", "MAX-M10S", "RF_GPS:ublox_MAX", False,
      "ADR-029 D2b: GNSS L1, UART (not I2C) - pins 5 and 13..18 UNASSIGNED."),
     ("U6", "balloon_flight_v10:MS5611_BARO", "MS5611-01BA",
@@ -2975,21 +2985,6 @@ V10_COMPONENTS = [
      "ADR-121: 1 GND, 2 +3V3, 3 /EN, 4 /USB_DN, 5 /USB_DP, 6 /IO0. This "
      "header is what FINALLY nets U1 pins 3/13/14, which were the last three "
      "pin_not_connected errors on the v9 sheet."),
-    ("ANT1", "Connector:Conn_Coaxial", "U.FL_433_TX",
-     "Connector_Coaxial:U.FL_Molex_MCRF_73412-0110_Vertical", False,
-     "ADR-119 site A: 433 MHz TX feed, straight off U2 pin 9."),
-    ("ANT2", "Connector:Conn_Coaxial", "U.FL_2G4_RANGE",
-     "Connector_Coaxial:U.FL_Molex_MCRF_73412-0110_Vertical", False,
-     "ADR-119 site D: the E28's U.FL. NOTE - the E28 carries an ON-MODULE "
-     "IPEX connector and the board carries NO RF network for it "
-     "(E28-2G4M27SX.md keep-outs); the ANT2 feed is the site-D "
-     "provision."),
-    ("ANT3", "Connector:Conn_Coaxial", "U.FL_2G4_RX",
-     "Connector_Coaxial:U.FL_Molex_MCRF_73412-0110_Vertical", False,
-     "ADR-119 site B: 2.4 GHz RX feed of the bare LoRa2021 U3 (pin 10)."),
-    ("ANT4", "Connector:Conn_Coaxial", "U.FL_GNSS_L1",
-     "Connector_Coaxial:U.FL_Molex_MCRF_73412-0110_Vertical", False,
-     "ADR-119: GNSS L1 feed off U5 pin 11."),
     # --- ADR-046 / ADR-048: the FOUR wing-mount interfaces ----------------
     ("J_W1", "balloon_flight_v10:WING_SOCKET_4P",
      "WING_SOCKET_4P (hub wing interface 1)", "Tracker_Mechanical:Wing_Tab_4P",
@@ -3151,10 +3146,9 @@ V10_COLUMNS = [
     ["U2"],
     ["U3"],
     ["U_C"],
-    ["U_E28"],
+    ["U_LORA1280"],
     ["C_CAP1", "C_CAP2"],
     ["J_PROG"],
-    ["ANT1", "ANT2", "ANT3", "ANT4"],
     ["J_W1", "J_W2", "J_W3", "J_W4"],
     ["U_HUB_CVT"],
     # ADR-129: the restored power-management block, the per-cell bypass
@@ -3171,11 +3165,9 @@ V10_COL_TITLES = [
     "U2 LoRa2021F33-2G4 (433 MHz TX, site A)",
     "U3 bare LoRa2021 (2.4 GHz RX, site B)",
     "U_C bare LoRa2021 (site C, ADR-119)",
-    "U_E28 E28-2G4M27SX (2.4 GHz ranging, site D, ADR-118)",
+    "U_LORA1280 LoRa1280 (2.4 GHz ranging, site D, ADR-139)",
     "SUPERCAP BANK (2 x 3.3 F in series)",
     "J_PROG programming / USB header (ADR-121)",
-    "U.FL ANTENNAS (4 feeds: ANT1 433 TX / ANT2 2.4 ranging / ANT3 2.4 RX "
-    "/ ANT4 GNSS L1) - ADR-119",
     "FOUR WING INTERFACES at 90 deg (ADR-046 / ADR-048 / ADR-085)",
     "INDEPENDENT HUB ARRAY CONVERTER INPUT (ADR-051 s2.1)",
     "ADR-129 D1: POWER MANAGEMENT restored (J_VCC / D1 / balancing / bulk / "
@@ -3203,12 +3195,11 @@ V10_TODO = [
      "in PR #266). Workaround in force: flashing works over USB-Serial-JTAG "
      "via EN + USB D+-, which needs no GPIO0. Closes when the Espressif pin "
      "table is read off a physical module."),
-    ("OPEN-E28-EN U_E28 pads 8 (RX_EN) / 9 (TX_EN)",
-     "These are the E28 module's LNA / PA enables - NEW versus the bare "
-     "SX1280, so no v9 pin carried over. ADR-123 budgeted two spare GPIOs "
-     "but named no pads, so they are registered UNASSIGNED and drawn "
-     "floating. Leaving a PA/LNA enable unasserted is a deliberate "
-     "non-decision, not an omission."),
+    ("CLOSED-ADR-139 the E28 PA/LNA enables no longer exist",
+     "OPEN-E28-EN asked which GPIOs drive the E28-2G4M27SX's RX_EN (8) and "
+     "TX_EN (9). ADR-139 replaced that module with the LoRa1280, which has no "
+     "PA, no LNA and therefore no enables: the question is CLOSED by the part "
+     "change, not waived. If the E28 is ever reinstated the item reopens."),
     ("U_C SITE-C CONTROL NETS",
      "/U_C_CS_N, /U_C_BUSY, /U_C_RESET_N and /U_C_IRQ are single-ended nets: "
      "they leave U_C and have NO destination on v10, because no U1 GPIO is "
@@ -3256,16 +3247,16 @@ def v10_custom_symbols():
             "2.4 GHz). Pin table reused from v9 UNCHANGED; instantiated "
             "twice on v10 - U3 (site B) and U_C (site C, ADR-119).",
             "", V9_BARE_PINS),
-        "balloon_flight_v10:E28_2G4M27SX": _v9_symbol(
-            V10_LIBNAME, "E28_2G4M27SX", "E28-2G4M27SX",
-            "e28:E28-2G4M27SX",
-            "Ebyte E28-2G4M27SX: SX1280 + PA + LNA + antenna switch, "
-            "+27 dBm, 2.4 GHz, 16 castellated pads at 1.27 mm, 15 x 20 mm. "
-            "Antenna is an ON-MODULE IPEX, so the board carries no RF network "
-            "for this radio. Pin map from "
-            "tracker/hardware/footprints/e28/E28-2G4M27SX.md (datasheet ch.3); "
-            "pads 8/9 UNASSIGNED (OPEN-E28-EN).",
-            "", V10_E28_PINS),
+        "balloon_flight_v10:LoRa1280": _v9_symbol(
+            V10_LIBNAME, "LoRa1280", "LoRa1280",
+            "NiceRF:LoRa1280",
+            "G-NiceRF LoRa1280: SX1280, 12.5 dBm, ranging supported, no PA and "
+            "no LNA, 16 x 16 mm, 16 pads. Chosen by ADR-139 over the 27 dBm "
+            "E28 because two vendors rate the PA-class modules as NOT "
+            "supporting ranging, and the 2.4 GHz legal ceiling (10 dBm EIRP) "
+            "makes the PA unusable here anyway. Pin 9 is the antenna pad; the "
+            "board carries no RF network for it (ADR-137).",
+            "", V10_LORA1280_PINS),
         "balloon_flight_v10:TPS7A0233": _v9_symbol(
             V10_LIBNAME, "TPS7A0233", "TPS7A02",
             "Package_TO_SOT_SMD:SOT-23-5",
@@ -3425,7 +3416,7 @@ def v10_emit():
          "LoRa2021F33_2G4"),
         (os.path.join(V9_FPLIB, "LoRa2021_Castellated.kicad_mod"),
          "LoRa2021_Castellated"),
-        (V10_E28_FP, "E28-2G4M27SX"),
+        (V10_LORA1280_FP, "LoRa1280"),
     ]
     written = []
     for src, leaf in fp_sources:
@@ -3489,10 +3480,11 @@ def v10_emit():
                                              len(V10_NC), uid()),
             '\t(text "PARTS (ADR-118/119/121/123): U1 ESP32-S3-WROOM-1U-N8R8; '
             'U2 LoRa2021F33-2G4 = 433 MHz TX (site A); U3 bare LoRa2021 = '
-            '2.4 GHz RX (site B); U_C bare LoRa2021 (site C); U_E28 '
-            'E28-2G4M27SX = 2.4 GHz ranging (site D); U5 MAX-M10S GNSS; '
-            'U6 MS5611 baro; U7 TPS7A02 LDO; C_CAP1/C_CAP2 supercap bank; '
-            'J_PROG prog+USB header; J_W1..J_W4 wing sockets; ANT1..ANT4 U.FL."'
+            '2.4 GHz RX (site B); U_C bare LoRa2021 (site C); U_LORA1280 '
+            'NiceRF LoRa1280 = 2.4 GHz ranging, ADR-139 (site D); U5 MAX-M10S '
+            'GNSS; U6 MS5611 baro; U7 TPS7A02 LDO; C_CAP1/C_CAP2 supercap '
+            'bank; J_PROG prog+USB header; J_W1..J_W4 wing sockets. NO ANT '
+            'connectors - ADR-137, antenna at the module."'
             '\n\t\t(exclude_from_sim no)\n'
             '\t\t(at 30.48 26.67 0)\n\t\t(effects\n\t\t\t(font\n\t\t\t\t'
             '(size 1.27 1.27)\n\t\t\t)\n\t\t\t(justify left bottom)\n'

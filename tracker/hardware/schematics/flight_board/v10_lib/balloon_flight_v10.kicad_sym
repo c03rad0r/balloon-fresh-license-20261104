@@ -784,7 +784,7 @@
 			)
 		)
 	)
-	(symbol "E28_2G4M27SX"
+	(symbol "LoRa1280"
 		(pin_names
 			(offset 1.016)
 			(hide no)
@@ -800,7 +800,7 @@
 				)
 			)
 		)
-		(property "Value" "E28-2G4M27SX"
+		(property "Value" "LoRa1280"
 			(at 0 -13.97 0)
 			(effects
 				(font
@@ -808,7 +808,7 @@
 				)
 			)
 		)
-		(property "Footprint" "e28:E28-2G4M27SX"
+		(property "Footprint" "NiceRF:LoRa1280"
 			(at 0 0 0)
 			(effects
 				(font
@@ -826,7 +826,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ebyte E28-2G4M27SX: SX1280 + PA + LNA + antenna switch, +27 dBm, 2.4 GHz, 16 castellated pads at 1.27 mm, 15 x 20 mm. Antenna is an ON-MODULE IPEX, so the board carries no RF network for this radio. Pin map from tracker/hardware/footprints/e28/E28-2G4M27SX.md (datasheet ch.3); pads 8/9 UNASSIGNED (OPEN-E28-EN)."
+		(property "Description" "G-NiceRF LoRa1280: SX1280, 12.5 dBm, ranging supported, no PA and no LNA, 16 x 16 mm, 16 pads. Chosen by ADR-139 over the 27 dBm E28 because two vendors rate the PA-class modules as NOT supporting ranging, and the 2.4 GHz legal ceiling (10 dBm EIRP) makes the PA unusable here anyway. Pin 9 is the antenna pad; the board carries no RF network for it (ADR-137)."
 			(at 0 0 0)
 			(effects
 				(font
@@ -835,7 +835,7 @@
 				(hide yes)
 			)
 		)
-		(symbol "E28_2G4M27SX_0_1"
+		(symbol "LoRa1280_0_1"
 			(rectangle
 				(start -12.7 11.43)
 				(end 12.7 -11.43)
@@ -848,11 +848,11 @@
 				)
 			)
 		)
-		(symbol "E28_2G4M27SX_1_1"
-			(pin power_in line
+		(symbol "LoRa1280_1_1"
+			(pin bidirectional line
 				(at -15.24 8.89 0)
 				(length 2.54)
-				(name "VCC"
+				(name "DIO2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -867,10 +867,10 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin bidirectional line
 				(at -15.24 6.35 0)
 				(length 2.54)
-				(name "GND"
+				(name "DIO3"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -885,10 +885,10 @@
 					)
 				)
 			)
-			(pin tri_state line
+			(pin power_in line
 				(at -15.24 3.81 0)
 				(length 2.54)
-				(name "MISO_TX"
+				(name "VCC"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -903,10 +903,10 @@
 					)
 				)
 			)
-			(pin input line
+			(pin power_in line
 				(at -15.24 1.27 0)
 				(length 2.54)
-				(name "MOSI_RX"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -921,10 +921,10 @@
 					)
 				)
 			)
-			(pin input line
+			(pin tri_state line
 				(at -15.24 -1.27 0)
 				(length 2.54)
-				(name "SCK_RTSN"
+				(name "MISO"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -942,7 +942,7 @@
 			(pin input line
 				(at -15.24 -3.81 0)
 				(length 2.54)
-				(name "NSS_CTS"
+				(name "MOSI"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -957,10 +957,10 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin input line
 				(at -15.24 -6.35 0)
 				(length 2.54)
-				(name "GND"
+				(name "SCK"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -978,7 +978,7 @@
 			(pin input line
 				(at -15.24 -8.89 0)
 				(length 2.54)
-				(name "RX_EN"
+				(name "NSS"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -993,10 +993,10 @@
 					)
 				)
 			)
-			(pin input line
+			(pin passive line
 				(at 15.24 8.89 180)
 				(length 2.54)
-				(name "TX_EN"
+				(name "ANT"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1029,10 +1029,10 @@
 					)
 				)
 			)
-			(pin input line
+			(pin power_in line
 				(at 15.24 3.81 180)
 				(length 2.54)
-				(name "NRESET"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1047,10 +1047,10 @@
 					)
 				)
 			)
-			(pin output line
+			(pin power_in line
 				(at 15.24 1.27 180)
 				(length 2.54)
-				(name "BUSY"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1065,10 +1065,10 @@
 					)
 				)
 			)
-			(pin bidirectional line
+			(pin input line
 				(at 15.24 -1.27 180)
 				(length 2.54)
-				(name "DIO1"
+				(name "NRESET"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1083,10 +1083,10 @@
 					)
 				)
 			)
-			(pin bidirectional line
+			(pin power_in line
 				(at 15.24 -3.81 180)
 				(length 2.54)
-				(name "DIO2"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1101,10 +1101,10 @@
 					)
 				)
 			)
-			(pin bidirectional line
+			(pin output line
 				(at 15.24 -6.35 180)
 				(length 2.54)
-				(name "DIO3"
+				(name "BUSY"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1119,10 +1119,10 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin bidirectional line
 				(at 15.24 -8.89 180)
 				(length 2.54)
-				(name "GND"
+				(name "DIO1"
 					(effects
 						(font
 							(size 1.27 1.27)

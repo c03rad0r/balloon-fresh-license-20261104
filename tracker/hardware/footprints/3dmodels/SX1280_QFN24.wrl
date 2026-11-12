@@ -1,0 +1,19 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : SX1280_QFN24
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: 4.0 x 4.0 mm - the `descr` of balloon_flight_v9:SX1280_QFN24 ('QFN-24 4x4mm 0.5mm pitch'); the committed footprint's own courtyard is 4.450 x 4.450 mm and its descr is explicitly '*** GEOMETRY NOT VERIFIED ***'
+# TODO(unverified):
+#   - the whole SX1280 land pattern is an unverified placeholder - the Semtech datasheet was never retrieved on this host
+#   - Z 0.90 mm - QFN-24 body height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.4500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 4.0000 4.0000 0.9000 }
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+# Astra visual review
+
+Served model: gpt-6-astra
+Images: /home/c08r4d0r/.hermes/profiles/manager/cache/scratch/ms5611-p15.png, /home/c08r4d0r/.hermes/profiles/manager/cache/scratch/ms5611-p16.png
+
+**The proposed dimensions and top-view handedness are correct. The main omission is the manufacturer’s reserved/no-track area, if it has not been implemented elsewhere.** The courtyard meets your stated policy.
+
+### Source-dimension and orientation checks
+
+| Item | Check |
+|---|---|
+| PCB lands | Page 16 specifies **1.1 × 0.6 mm**, with **2.2 mm column-center spacing** and **1.25 mm row pitch**. Your centers at \(x=\pm1.1\), \(y=-1.875,-0.625,+0.625,+1.875\) match. |
+| Package terminals versus PCB lands | Page 15’s **8 × 0.90** and **8 × 0.50** describe package contacts, **not** the recommended PCB lands. Do not substitute those smaller dimensions. |
+| Body | **3 × 5 mm nominal**, with the drawing’s general tolerance **±0.05 mm**. Correct. |
+| Numbering | The page-15 cap/top view shows **1,2,3,4 down the left** and **8,7,6,5 down the right**. Your PCB top view matches; it is not mirrored. The adjacent underside drawing reverses the columns. |
+| Cap ports | The top view places the ports upper-right and lower-left. Thus, with KiCad \(+y\) downward, **(+0.65, −1.65)** and **(−0.65, +1.65)** are correct. Diameter **0.50 mm** matches. |
+| Port implementation | **F.Fab graphics only, no PCB drills**, is correct. “THRU” refers to holes in the sensor cap, not holes to manufacture in the PCB. |
+
+The resulting pad mapping is:
+
+```text
+             Top view, KiCad y down
+        1                         8     y = −1.875
+        2                         7     y = −0.625
+        3                         6     y = +0.625
+        4                         5     y = +1.875
+     x = −1.1                  x = +1.1
+```
+
+### Courtyard check
+
+For your **0.25 mm outside worst-case body/copper** policy:
+
+- Copper reaches \(x=\pm(1.1+0.55)=\pm1.65\) and \(y=\pm(1.875+0.30)=\pm2.175\).
+- Maximum centered body reaches \(x=\pm1.525\), \(y=\pm2.525\).
+- Required courtyard half-extents are therefore:
+  - X: \(1.65+0.25=\mathbf{1.90}\) mm.
+  - Y: \(2.525+0.25=\mathbf{2.775}\) mm.
+
+Your **±1.9, ±2.8 mm** courtyard passes. X is exactly at the required clearance; Y has 0.025 mm extra.
+
+### Defects / remaining checks
+
+1. **Reserved routing area must be accounted for.**  
+   Page 16 explicitly says **“Reserved area: Please do not route tracks between pads.”** A footprint containing only the listed pads, body, ports and courtyard omits this requirement. Add an appropriate front-copper track keepout/rule area between the lands, or enforce and document it at board level. Do not turn the entire footprint into a copper prohibition that disallows its own pads; the source specifically prohibits tracks in the reserved area.
+
+2. **Zero mask/paste is a provisional process setting, not a source-derived recommendation.**  
+   Your stated qualification is correct. However, **verify the effective KiCad settings and generated mask/paste apertures**: zero local margin values can mean inheritance from footprint/board settings rather than a forced zero expansion. Paste ratio settings can also affect the result. If your intent is exactly pad-sized apertures, verify that outcome explicitly.
+
+3. **Provide an unambiguous pin-1 indicator.**  
+   If not already present, add a Fab pin-1 mark and an appropriate visible assembly/silkscreen indicator. The diagonal cap ports alone are not a reliable pin-1 indicator because their pattern is invariant under a 180° rotation.
+
+**Bottom line:** no correction is needed to the proposed land geometry, numbering, port coordinates, or courtyard. Address the reserved-area requirement and verify the effective manufacturing-layer settings before release.

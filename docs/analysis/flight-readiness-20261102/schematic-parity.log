@@ -1,0 +1,12 @@
+   PASS  G1 SCHEMATIC EXISTS: v10_flight.kicad_sch
+   PASS  G2 ERC: ERC 11 error(s); found [label_dangling:7, pin_not_driven:2, power_pin_not_driven:2], within the documented allowance {'label_dangling': 7, 'pin_not_driven': 2, 'power_pin_not_driven': 2}
+   info  schematic nets: 58   board nets: 53
+   FAIL  G3 NET PARITY sch-only: ['ANT1_433_TX', 'ANT2_2G4_RANGE', 'ANT3_2G4_RX', 'ANT4_GNSS_L1', 'ANT_C_2G4']
+   FAIL  G4 NODE PARITY +3V3: board-only [('U_LORA1280', '3')] sch-only [('U_E28', '1')]
+   FAIL  G4 NODE PARITY E28_BUSY: board-only [('U_LORA1280', '15')] sch-only [('U_E28', '12')]
+   FAIL  G4 NODE PARITY E28_CS_N: board-only [('U_LORA1280', '8')] sch-only [('U_E28', '6')]
+   FAIL  G4 NODE PARITY E28_DIO1: board-only [('U_LORA1280', '16')] sch-only [('U_E28', '13')]
+   FAIL  G4 NODE PARITY E28_DIO2: board-only [('U_LORA1280', '1')] sch-only [('U_E28', '14')]
+   FAIL  G4 NODE PARITY E28_DIO3: board-only [('U_LORA1280', '2')] sch-only [('U_E28', '15')]
+   PASS  G5 REGISTRY AGREEMENT: 58 registry net(s) present in the schematic
+PARITY: 7 failure(s)

@@ -1,0 +1,121 @@
+{
+  "board_mm": [
+    52.0,
+    46.0
+  ],
+  "board_area_mm2": 2392.0,
+  "references": 26,
+  "exported_endpoints": 125,
+  "nets": 51,
+  "side_counts": {
+    "top": 12,
+    "bottom": 14
+  },
+  "top_refs": [
+    "C7",
+    "C8",
+    "J1",
+    "R10",
+    "R3",
+    "R4",
+    "R9",
+    "SW1",
+    "SW2",
+    "U1",
+    "U3",
+    "U4"
+  ],
+  "bottom_refs": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "L1",
+    "R1",
+    "R2",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "U2"
+  ],
+  "courtyard_area_total_mm2": 1809.821,
+  "courtyard_area_inside_board_mm2": 785.01,
+  "motor_reservation_mm": [
+    22.0,
+    22.0,
+    52.0,
+    46.0
+  ],
+  "motor_area_mm2": 720,
+  "antenna_keepout_mm": [
+    4.0,
+    -21.025,
+    52.0,
+    0.0
+  ],
+  "sensor_port_keepout_boxes_mm": {
+    "U3": [
+      39.5,
+      6.5,
+      42.5,
+      11.5
+    ],
+    "U4": [
+      46.5,
+      6.5,
+      49.5,
+      11.5
+    ]
+  },
+  "buck_rigid_transform": {
+    "mirror_x_mm": 0.0,
+    "translate_mm": [
+      28.5,
+      -33.2
+    ],
+    "note": "global reflection then translation preserves every internal pad-centre metric exactly"
+  },
+  "power_loop_mm": {
+    "CIN_to_VIN_mm": 2.35,
+    "CIN_to_PGND_mm": 3.4,
+    "SW_to_L_mm": 2.28,
+    "L_to_COUT_mm": 3.33,
+    "COUT_to_VOS_mm": 9.66,
+    "FB_divider_to_FB_mm": 4.91,
+    "sensor_to_inductor_mm": 31.77,
+    "sensor_to_S3shield_mm": 14.86
+  },
+  "tracks": 0,
+  "vias": 0,
+  "courtyard_overlaps": 0,
+  "pad_bbox_overlaps": 0,
+  "collision_scope": "per face (top vs top, bottom vs bottom)",
+  "board_sha256": "15a93234b38e25e3584ca3c2ed2e4feddb05ece1401c9f74e6fbe370a2ff46d2",
+  "source_board": "compact/compact.kicad_pcb",
+  "source_board_sha256": "2cc927b1021bc0953c2d458c3d18fbd991d57e48927daea0c32aeed3d17f47e7",
+  "native_violations": {
+    "lib_footprint_mismatch": 1
+  },
+  "native_unconnected_records": 77,
+  "native_opens_by_net": {
+    "/+3V3": 19,
+    "/BOOT": 3,
+    "/BUCK_FB": 2,
+    "/BUCK_SW": 1,
+    "/CC1": 1,
+    "/CC2": 1,
+    "/EN": 4,
+    "/GND": 30,
+    "/I2C_SCL": 3,
+    "/I2C_SDA": 3,
+    "/USB5V": 4,
+    "/USB_DN": 1,
+    "/USB_DN_CONN": 2,
+    "/USB_DP": 1,
+    "/USB_DP_CONN": 2
+  },
+  "opens_note": "DRC spanning-edge accounting, not endpoint connectivity; the per-net split moves with placement geometry"
+}

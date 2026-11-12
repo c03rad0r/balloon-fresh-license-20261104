@@ -1,0 +1,16 @@
+{
+  "as_is": {
+    "opens": 22,
+    "violations": 24,
+    "errors": 0,
+    "warnings": 24,
+    "error_types": {}
+  },
+  "refilled": {
+    "opens": 22,
+    "violations": 24,
+    "errors": 0,
+    "warnings": 24,
+    "error_types": {}
+  }
+}

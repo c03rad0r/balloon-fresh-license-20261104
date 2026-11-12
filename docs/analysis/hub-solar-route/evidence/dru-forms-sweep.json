@@ -1,0 +1,44 @@
+{
+ "A_none": {
+  "total_edge": 20,
+  "track_at_edge": 4,
+  "violations": 42,
+  "unconnected": 80
+ },
+ "B_conditionless": {
+  "total_edge": 4,
+  "track_at_edge": 4,
+  "violations": 26,
+  "unconnected": 80
+ },
+ "C_type_track": {
+  "total_edge": 20,
+  "track_at_edge": 4,
+  "violations": 42,
+  "unconnected": 80
+ },
+ "D_type_track_solar": {
+  "total_edge": 20,
+  "track_at_edge": 4,
+  "violations": 42,
+  "unconnected": 80
+ },
+ "E_reference": {
+  "total_edge": 20,
+  "track_at_edge": 4,
+  "violations": 42,
+  "unconnected": 80
+ },
+ "F_type_track_B": {
+  "total_edge": 20,
+  "track_at_edge": 4,
+  "violations": 42,
+  "unconnected": 80
+ },
+ "G_either_side_track": {
+  "total_edge": 20,
+  "track_at_edge": 4,
+  "violations": 42,
+  "unconnected": 80
+ }
+}

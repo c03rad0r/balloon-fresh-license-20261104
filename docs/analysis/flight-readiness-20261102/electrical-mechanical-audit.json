@@ -1,0 +1,43 @@
+{
+  "board": "repair/refill-out.kicad_pcb",
+  "outline_mm": [
+    72.1,
+    80.1
+  ],
+  "via_count": 41,
+  "via_histogram": {
+    "d0.5/dr0.25": 22,
+    "d0.54/dr0.3": 13,
+    "d0.6/dr0.3": 6
+  },
+  "min_via_annular_ring_mm": 0.12000000000000002,
+  "via_below_frozen_0_60": [
+    "d0.5/dr0.25",
+    "d0.54/dr0.3"
+  ],
+  "via_drill_below_0_30": [
+    "d0.5/dr0.25"
+  ],
+  "track_width_histogram": {
+    "0.2": 827,
+    "0.3": 16
+  },
+  "min_track_width_mm": 0.2,
+  "pad_drill_histogram": {
+    "0.2": 12,
+    "1.0": 15,
+    "2.5": 8
+  },
+  "min_pad_drill_mm": 0.2,
+  "min_hole_to_hole_edge_mm": 0.7899,
+  "min_hole_to_hole_pair": [
+    "U1.41@(17.6,40.21)",
+    "U1.41@(18.3,40.91)"
+  ],
+  "min_non_wingseat_copper_to_edge_mm": 0.4375,
+  "min_copper_to_edge_what": "pad U_CUT4.3",
+  "flags": [
+    "vias below frozen 0.60 mm: ['d0.5/dr0.25', 'd0.54/dr0.3']",
+    "via drills below 0.30 mm: ['d0.5/dr0.25']"
+  ]
+}

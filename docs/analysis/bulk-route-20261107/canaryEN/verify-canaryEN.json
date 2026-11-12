@@ -1,0 +1,325 @@
+{
+ "label": "canaryEN",
+ "opens_before": 37,
+ "opens_after": 36,
+ "closed": [
+  [
+   [
+    "Pad 2 [/W2_SOLAR_N] of D_BP2 on B.Cu",
+    29.0,
+    78.0
+   ],
+   [
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+    38.7,
+    77.0
+   ]
+  ],
+  [
+   [
+    "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu",
+    33.3,
+    77.0
+   ],
+   [
+    "Track [/W1_SOLAR_N] on B.Cu, length 1.3509 mm",
+    33.299999,
+    77.0
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu",
+    69.0,
+    39.1
+   ],
+   [
+    "Pad 3 [/CUT_SENSE_W3] of J_W3 on F.Cu",
+    69.0,
+    39.1
+   ]
+  ],
+  [
+   [
+    "PTH pad 3 [/EN] of J_PROG",
+    31.0,
+    59.78
+   ],
+   [
+    "Pad 3 [/EN] of U1 on F.Cu",
+    11.05,
+    36.43
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/SPI1_MISO] of U_C on B.Cu",
+    33.795,
+    14.12
+   ],
+   [
+    "Track [/SPI1_MISO] on F.Cu, length 40.2000 mm",
+    32.35,
+    49.45
+   ]
+  ],
+  [
+   [
+    "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu",
+    3.0,
+    42.7
+   ],
+   [
+    "Track [/W1_SOLAR_N] on B.Cu, length 1.7507 mm",
+    3.0,
+    42.7
+   ]
+  ],
+  [
+   [
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+    38.7,
+    3.0
+   ],
+   [
+    "Track [/W3_SOLAR_N] on B.Cu, length 0.2121 mm",
+    69.55,
+    33.4
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu",
+    36.9,
+    77.0
+   ],
+   [
+    "Pad 3 [/CUT_SENSE_W2] of J_W2 on F.Cu",
+    36.9,
+    77.0
+   ]
+  ],
+  [
+   [
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+    38.7,
+    77.0
+   ],
+   [
+    "Track [/W2_SOLAR_N] on B.Cu, length 0.8485 mm",
+    67.3,
+    42.7
+   ]
+  ],
+  [
+   [
+    "Pad 5 [/SPI1_SCK] of U3 on B.Cu",
+    10.995,
+    16.7
+   ],
+   [
+    "Track [/SPI1_SCK] on B.Cu, length 0.9000 mm",
+    19.8,
+    50.25
+   ]
+  ],
+  [
+   [
+    "Pad 1 [/W3_SOLAR_N] of D_BP4 on B.Cu",
+    29.0,
+    2.0
+   ],
+   [
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+    38.7,
+    3.0
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu",
+    3.0,
+    40.9
+   ],
+   [
+    "Track [/CUT_SENSE_W1] on F.Cu, length 0.8500 mm",
+    3.0,
+    40.9
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/SPI1_MISO] of U3 on B.Cu",
+    10.995,
+    14.12
+   ],
+   [
+    "Track [/SPI1_MISO] on F.Cu, length 12.0000 mm",
+    23.05,
+    10.75
+   ]
+  ]
+ ],
+ "new_opens": [
+  [
+   [
+    "Pad 2 [/W2_SOLAR_N] of D_BP2 on B.Cu",
+    29.0,
+    78.0
+   ],
+   [
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu",
+    38.7,
+    77.0
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu",
+    69.0,
+    39.1
+   ],
+   [
+    "Track [/CUT_SENSE_W3] on F.Cu, length 2.3500 mm",
+    69.0,
+    39.1
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/SPI1_MISO] of U_C on B.Cu",
+    33.795,
+    14.12
+   ],
+   [
+    "Track [/SPI1_MISO] on F.Cu, length 1.4000 mm",
+    32.35,
+    9.25
+   ]
+  ],
+  [
+   [
+    "Pad 1 [/W1_SOLAR_N] of J_W2 on B.Cu",
+    33.3,
+    77.0
+   ],
+   [
+    "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu",
+    33.3,
+    77.0
+   ]
+  ],
+  [
+   [
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+    38.7,
+    3.0
+   ],
+   [
+    "Track [/W3_SOLAR_N] on B.Cu, length 0.2121 mm",
+    69.55,
+    33.4
+   ]
+  ],
+  [
+   [
+    "Pad 1 [/W3_SOLAR_N] of D_BP4 on B.Cu",
+    29.0,
+    2.0
+   ],
+   [
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+    38.7,
+    3.0
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu",
+    36.9,
+    77.0
+   ],
+   [
+    "Track [/CUT_SENSE_W2] on F.Cu, length 2.3500 mm",
+    36.9,
+    77.0
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu",
+    3.0,
+    40.9
+   ],
+   [
+    "Pad 3 [/CUT_SENSE_W1] of J_W1 on F.Cu",
+    3.0,
+    40.9
+   ]
+  ],
+  [
+   [
+    "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu",
+    3.0,
+    42.7
+   ],
+   [
+    "Track [/W1_SOLAR_N] on B.Cu, length 1.6000 mm",
+    3.0,
+    42.7
+   ]
+  ],
+  [
+   [
+    "Pad 5 [/SPI1_SCK] of U3 on B.Cu",
+    10.995,
+    16.7
+   ],
+   [
+    "Track [/SPI1_SCK] on F.Cu, length 1.0500 mm",
+    20.85,
+    50.25
+   ]
+  ],
+  [
+   [
+    "Pad 3 [/SPI1_MISO] of U3 on B.Cu",
+    10.995,
+    14.12
+   ],
+   [
+    "Track [/SPI1_MISO] on F.Cu, length 11.9000 mm",
+    11.05,
+    10.75
+   ]
+  ],
+  [
+   [
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu",
+    38.7,
+    77.0
+   ],
+   [
+    "Track [/W2_SOLAR_N] on B.Cu, length 0.8485 mm",
+    67.3,
+    42.7
+   ]
+  ]
+ ],
+ "broken_pairs": [],
+ "newly_joined_pairs": 1,
+ "violations_before": {
+  "silk_over_copper": 3,
+  "lib_footprint_mismatch": 11,
+  "lib_footprint_issues": 8,
+  "via_dangling": 2
+ },
+ "violations_after": {
+  "silk_over_copper": 3,
+  "lib_footprint_mismatch": 11,
+  "lib_footprint_issues": 8,
+  "via_dangling": 2
+ },
+ "new_violations": [],
+ "verdict": "PASS"
+}

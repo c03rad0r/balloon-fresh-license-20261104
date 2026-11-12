@@ -1,0 +1,30 @@
+{
+ "board": "/home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/SOLARPAIR/board.kicad_pcb",
+ "pitch": 0.1,
+ "pairs": [
+  {
+   "spec": "/W2_SOLAR_N:D_BP2.2:J_W2.4",
+   "net": "/W2_SOLAR_N",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "astar": "",
+   "seconds": 112.03,
+   "segments": 18,
+   "vias": 5,
+   "length_mm": 21.2,
+   "result": "ROUTED"
+  },
+  {
+   "spec": "/W3_SOLAR_N:J_W4.1:D_BP4.1",
+   "net": "/W3_SOLAR_N",
+   "agreement": "4000 free cells all accepted by the validator",
+   "agreement_ok": true,
+   "astar": "",
+   "seconds": 62.01,
+   "segments": 10,
+   "vias": 1,
+   "length_mm": 20.4,
+   "result": "ROUTED"
+  }
+ ]
+}

@@ -146,13 +146,21 @@ jobs:
       # The PCB-V2 Phase 1 card's five quality gates, expressed as
       # assertions so they cannot silently rot (a previous run reported
       # "zone=0" against a file containing two `zone` hits in prose).
-      # The static gates run anywhere.  The behavioural gates need
-      # pcbnew (KiCad) and self-skip on a container without it.
-      - name: Run PCB pipeline gate tests
+      # The static gates run anywhere.  The four behavioural board checks need
+      # pcbnew, which the stock act image does not carry, and they no longer
+      # skip on a missing binding (a silent skip hid four real failures).  This
+      # lane therefore deselects them BY NAME and says so in the log; they run
+      # for real in the `pcb-pipeline` job on GitHub Actions, which installs
+      # KiCad.  Deselecting here is not a pass for those four checks.
+      - name: Run PCB pipeline static gates
         run: |
           python3 -m pip install --quiet pytest \
             || python3 -m pip install --quiet --break-system-packages pytest
-          python3 -m pytest tests/test_pcb_pipeline_gates.py -v --tb=short
+          echo "act lane: deselecting the 4 pcbnew board checks (see step comment)"
+          python3 -m pytest tests/test_pcb_pipeline_gates.py -v --tb=short \
+            -k "not test_pipeline_creates_board_headless \
+                and not test_v2_adc_board_has_vdiv_mid_net \
+                and not test_board_outline_is_50x40mm"
 
       # ── Suite 9: auto-BOOTSEL interposer board (t_48a0fa82) ───────
       # The interposer PCB's 28 assertions.  The netlist, orientation,

@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : SOT-23-5
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of Package_TO_SOT_SMD:SOT-23-5 as committed (1.700 x 3.000 mm) - the TPS7A02 (U7) land
+# TODO(unverified):
+#   - Z 1.10 mm - SOT-23-5 body height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.5500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 1.7000 3.0000 1.1000 }
+    }
+  ]
+}

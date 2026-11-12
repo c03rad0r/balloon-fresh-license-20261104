@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : U.FL_Molex_MCRF_73412-0110_Vertical
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab drawing of Connector_Coaxial:U.FL_Molex_MCRF_73412-0110_Vertical as committed (3.869 x 5.698 mm, includes the drawn feed spur)
+# TODO(unverified):
+#   - Z 1.20 mm - U.FL mated height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.6000
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 3.8690 5.6980 1.2000 }
+    }
+  ]
+}

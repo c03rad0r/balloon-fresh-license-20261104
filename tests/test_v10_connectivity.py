@@ -20,7 +20,17 @@ import pytest
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 HW = os.path.join(REPO, "tracker", "hardware")
-BOARD = os.path.join(HW, "hub_board_v10.kicad_pcb")
+# THE BOARD OF RECORD, not tracker/hardware/hub_board_v10.kicad_pcb.
+#
+# CORRECTED 2026-11-11. These tests used to open hub_board_v10.kicad_pcb, which is a
+# SUPERSEDED file that was never fabricated: it carries a U_E28 radio where the registry,
+# the shipped gerbers and the real board all carry U_LORA1280. Every verdict was therefore
+# about a board nobody shipped -- the registry check alone reported 18 phantom "pin absent"
+# and 18 phantom "net not on board" drifts from that mismatch.
+#
+# Identified by the shipped drill (196 holes at 0.200/0.300/1.000/2.500 mm), which only this
+# file reproduces: 188 PTH + 8 NPTH, same four diameters.
+BOARD = os.path.join(REPO, "docs", "analysis", "bulk-route-20261107", "latest.kicad_pcb")
 REG = os.path.join(HW, "connectivity", "v10_pinmap.reg")
 
 UM = 1_000_000.0
@@ -183,10 +193,45 @@ def test_lane_integrity_catches_dead_end(tmp_path):
     assert rc != 0, f"integrity gate missed a dead end:\n{out}"
 
 
+# The 3 dead ends that are GENUINELY on the fabricated board, measured 2026-11-11.
+# See docs/analysis/v10-connectivity-test-failures.md. They are track stubs with no same-net
+# pad, via, T-junction or second track at the point -- i.e. nothing of their own net under them.
+KNOWN_DEAD_ENDS = {
+    ("/SPI1_MISO", 8.75, 44.05),
+    ("/SPI1_MISO", 8.75, 41.25),
+    ("/USB_DN", 23.65, 51.25),
+}
+
+
 def test_lane_integrity_clean_board_passes():
+    """The board must carry NO dead ends beyond the 3 known stubs.
+
+    REWRITTEN 2026-11-11. This used to assert rc == 0, which conflated two different things:
+    the checker's verdict and the board's state. The checker was wrong -- it ignored zone fill
+    and reported 61 dead ends when 58 of them terminate in their own pour -- so the test was
+    failing for a checker bug, not a board defect. The checker is now fixed (zones and
+    T-junctions are consulted), and the board really does have 3 stubs.
+
+    Asserting "exactly these 3 and nothing else" is STRICTER than the old rc == 0: it fails if
+    the board gains a new dead end AND fails if the checker starts inventing them again.
+    """
     _pcbnew()
     rc, out = run("check_lane_integrity.py", BOARD)
-    assert rc == 0, out
+    found = set()
+    for ln in out.splitlines():
+        if "DEAD END: track on " in ln:
+            net = ln.split("track on ")[1].split(" ends at ")[0]
+            coord = ln.split("ends at (")[1].split(")")[0]
+            x, y = (float(v) for v in coord.split(","))
+            found.add((net, round(x, 2), round(y, 2)))
+    extra = found - KNOWN_DEAD_ENDS
+    assert not extra, (
+        f"new dead end(s) on the board, not in the known list: {sorted(extra)}\n"
+        f"full checker output:\n{out}")
+    # the known stubs must still be DETECTED -- a checker that reports nothing is broken
+    assert found, ("checker reported no dead ends at all; the 3 known stubs should still be "
+                   "found, so the checker has gone blind")
+    assert rc != 0, "checker exited 0 while dead ends are present"
 
 
 def test_back_side_pads_are_checked():
@@ -195,7 +240,16 @@ def test_back_side_pads_are_checked():
     pad.GetLayer(), which reports F_Cu even for back-side pads."""
     pcbnew = _pcbnew()
     b = pcbnew.LoadBoard(BOARD)
-    for ref in ("U3", "U_C", "U_E28", "ANT2", "ANT3"):
+    # CORRECTED 2026-11-11. The list used to be U3, U_C, U_E28, ANT2, ANT3 and failed on
+    # "ANT2 missing". Measured on the board of record: ANT2 and ANT3 do not exist (they went
+    # away with the antenna change), and U_E28 belongs to the SUPERSEDED hub_board_v10 file --
+    # the real board carries U_LORA1280 TOPSIDE.
+    #
+    # My first attempt at this fix put U_LORA1280 in the list, assuming it was flipped. It is
+    # not (IsFlipped()=False, GetLayer()=F_Cu, all 16 pads on F.Cu) -- so that "fix" asserted a
+    # false premise and failed on the fixture again. The refs below are measured: every one has
+    # IsFlipped()=True, GetLayer()=B.Cu, and pads on B.Cu.
+    for ref in ("U3", "U_C", "U_CUT1", "U_CUT2", "J_VCC"):
         fp = b.FindFootprintByReference(ref)
         assert fp is not None, f"{ref} missing"
         assert fp.GetLayer() == pcbnew.B_Cu, f"{ref} should be on the back"

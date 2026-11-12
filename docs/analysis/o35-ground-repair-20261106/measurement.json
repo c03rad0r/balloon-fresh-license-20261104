@@ -1,0 +1,579 @@
+{
+  "stale_committed_netlist_delta": {
+    "/SPI2_MISO": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "U3",
+          "3"
+        ]
+      ]
+    },
+    "/E28_DIO1": {
+      "export_only": [
+        [
+          "U_LORA1280",
+          "16"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "13"
+        ]
+      ]
+    },
+    "/ANT3_2G4_RX": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "ANT3",
+          "1"
+        ],
+        [
+          "U3",
+          "10"
+        ]
+      ]
+    },
+    "/NTC_SENSE": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "R_NTC1",
+          "2"
+        ],
+        [
+          "TH_NTC1",
+          "1"
+        ]
+      ]
+    },
+    "/E28_CS_N": {
+      "export_only": [
+        [
+          "U_LORA1280",
+          "8"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "6"
+        ]
+      ]
+    },
+    "/E28_DIO2": {
+      "export_only": [
+        [
+          "U_LORA1280",
+          "1"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "14"
+        ]
+      ]
+    },
+    "/E28_RESET_N": {
+      "export_only": [
+        [
+          "U_LORA1280",
+          "13"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "11"
+        ]
+      ]
+    },
+    "/VTCXO_VNTC": {
+      "export_only": [
+        [
+          "U_C",
+          "13"
+        ]
+      ],
+      "committed_only": [
+        [
+          "R_NTC1",
+          "1"
+        ]
+      ]
+    },
+    "/ANT2_2G4_RANGE": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "ANT2",
+          "1"
+        ]
+      ]
+    },
+    "/U_C_RESET_N": {
+      "export_only": [
+        [
+          "U_C",
+          "14"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/HUB_PV_P": {
+      "export_only": [
+        [
+          "J_HUB_PV",
+          "1"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/ANT4_GNSS_L1": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "ANT4",
+          "1"
+        ],
+        [
+          "U5",
+          "11"
+        ]
+      ]
+    },
+    "/HUB_PV_N": {
+      "export_only": [
+        [
+          "J_HUB_PV",
+          "4"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SX1280_RF_FILT": {
+      "export_only": [],
+      "committed_only": []
+    },
+    "/SX1280_DCC_SW": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "L4",
+          "1"
+        ]
+      ]
+    },
+    "/U_C_IRQ": {
+      "export_only": [
+        [
+          "U_C",
+          "15"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SX1280_XTA": {
+      "export_only": [],
+      "committed_only": []
+    },
+    "/SX1280_VBAT_IO": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "C8",
+          "1"
+        ],
+        [
+          "R15",
+          "2"
+        ]
+      ]
+    },
+    "/EN": {
+      "export_only": [
+        [
+          "J_PROG",
+          "3"
+        ],
+        [
+          "U1",
+          "3"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SPI1_SCK": {
+      "export_only": [
+        [
+          "U3",
+          "5"
+        ],
+        [
+          "U_C",
+          "5"
+        ],
+        [
+          "U_LORA1280",
+          "7"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "5"
+        ]
+      ]
+    },
+    "/E28_DIO3": {
+      "export_only": [
+        [
+          "U_LORA1280",
+          "2"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "15"
+        ]
+      ]
+    },
+    "/USB_DP": {
+      "export_only": [
+        [
+          "J_PROG",
+          "5"
+        ],
+        [
+          "U1",
+          "14"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SPI1_MOSI": {
+      "export_only": [
+        [
+          "U3",
+          "4"
+        ],
+        [
+          "U_C",
+          "4"
+        ],
+        [
+          "U_LORA1280",
+          "6"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "4"
+        ]
+      ]
+    },
+    "/SPI1_MISO": {
+      "export_only": [
+        [
+          "U3",
+          "3"
+        ],
+        [
+          "U_C",
+          "3"
+        ],
+        [
+          "U_LORA1280",
+          "5"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "3"
+        ]
+      ]
+    },
+    "GND": {
+      "export_only": [
+        [
+          "J_HUB_PV",
+          "5"
+        ],
+        [
+          "J_PROG",
+          "1"
+        ],
+        [
+          "U_C",
+          "11"
+        ],
+        [
+          "U_C",
+          "12"
+        ],
+        [
+          "U_C",
+          "18"
+        ],
+        [
+          "U_C",
+          "2"
+        ],
+        [
+          "U_C",
+          "8"
+        ],
+        [
+          "U_LORA1280",
+          "10"
+        ],
+        [
+          "U_LORA1280",
+          "11"
+        ],
+        [
+          "U_LORA1280",
+          "12"
+        ],
+        [
+          "U_LORA1280",
+          "14"
+        ],
+        [
+          "U_LORA1280",
+          "4"
+        ]
+      ],
+      "committed_only": [
+        [
+          "ANT1",
+          "2"
+        ],
+        [
+          "ANT2",
+          "2"
+        ],
+        [
+          "ANT3",
+          "2"
+        ],
+        [
+          "ANT4",
+          "2"
+        ],
+        [
+          "C5",
+          "2"
+        ],
+        [
+          "C6",
+          "2"
+        ],
+        [
+          "C8",
+          "2"
+        ],
+        [
+          "C9",
+          "2"
+        ],
+        [
+          "D_CLAMP",
+          "2"
+        ],
+        [
+          "TH_NTC1",
+          "2"
+        ],
+        [
+          "U_E28",
+          "0"
+        ]
+      ]
+    },
+    "/F33_VCC": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "D_CLAMP",
+          "1"
+        ]
+      ]
+    },
+    "/U_C_CS_N": {
+      "export_only": [
+        [
+          "U_C",
+          "6"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/IO0": {
+      "export_only": [
+        [
+          "J_PROG",
+          "6"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SX1280_RF_MATCH": {
+      "export_only": [],
+      "committed_only": []
+    },
+    "/HUB_PV_MID1": {
+      "export_only": [
+        [
+          "J_HUB_PV",
+          "2"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SX1280_RF": {
+      "export_only": [],
+      "committed_only": []
+    },
+    "+3V3": {
+      "export_only": [
+        [
+          "J_PROG",
+          "2"
+        ],
+        [
+          "U_C",
+          "1"
+        ],
+        [
+          "U_LORA1280",
+          "3"
+        ]
+      ],
+      "committed_only": [
+        [
+          "R15",
+          "1"
+        ],
+        [
+          "U_E28",
+          "1"
+        ]
+      ]
+    },
+    "/ANT1_433_TX": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "ANT1",
+          "1"
+        ],
+        [
+          "U2",
+          "9"
+        ]
+      ]
+    },
+    "/SX1280_VDD": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "C6",
+          "1"
+        ],
+        [
+          "C9",
+          "1"
+        ],
+        [
+          "L4",
+          "2"
+        ]
+      ]
+    },
+    "/SX1280_VR_PA": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "C5",
+          "1"
+        ]
+      ]
+    },
+    "/U_C_BUSY": {
+      "export_only": [
+        [
+          "U_C",
+          "7"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SPI2_SCK": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "U3",
+          "5"
+        ]
+      ]
+    },
+    "/SX1280_XTB": {
+      "export_only": [],
+      "committed_only": []
+    },
+    "/USB_DN": {
+      "export_only": [
+        [
+          "J_PROG",
+          "4"
+        ],
+        [
+          "U1",
+          "13"
+        ]
+      ],
+      "committed_only": []
+    },
+    "/SPI2_MOSI": {
+      "export_only": [],
+      "committed_only": [
+        [
+          "U3",
+          "4"
+        ]
+      ]
+    },
+    "/E28_BUSY": {
+      "export_only": [
+        [
+          "U_LORA1280",
+          "15"
+        ]
+      ],
+      "committed_only": [
+        [
+          "U_E28",
+          "12"
+        ]
+      ]
+    }
+  },
+  "pad_bounds_mm": [
+    28.1,
+    4.75,
+    29.9,
+    7.25
+  ],
+  "existing_via_diameter_mm": 0.6,
+  "existing_via_drill_mm": 0.3,
+  "via_edge_to_pad_copper_mm": 0.8402920000000023,
+  "added_track_length_mm": 2.040292,
+  "new_vias": 0
+}

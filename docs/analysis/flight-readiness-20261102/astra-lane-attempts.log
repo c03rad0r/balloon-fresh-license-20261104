@@ -1,0 +1,73 @@
+=== attempt 10 22:05:48
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 1 22:05:53
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 11 22:06:35
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 2 22:06:47
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 12 22:07:22
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 3 22:07:30
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 13 22:08:09
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 4 22:08:24
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 14 22:08:54
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 5 22:09:13
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+ASTRA-LANE-UNAVAILABLE after 14 attempts
+=== attempt 6 22:10:03
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 7 22:10:59
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 8 22:11:56
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png
+=== attempt 9 22:12:41
+LANE-FAIL gpt-6-astra: HTTP 503 b'{"error": "all providers exhausted (flat router)", "capacity_exhausted": true, "model": "gpt-6-astra", "candidates_tried": ["openai_codex"], "candidates_considered": ["openai_codex"], "candidates_skipped_undeliverable": [], "no_candidate_lane": false}'
+=== attempt 10 22:13:38
+REQUESTED MODEL: gpt-6-astra
+SERVED MODEL:    moonshotai/kimi-k3.1-pro
+SERVED MATCHES REQUEST: False
+IMAGE: renders/vision-control.png

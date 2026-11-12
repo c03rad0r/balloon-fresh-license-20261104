@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : D_SOD-123
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of Diode_SMD:D_SOD-123 as committed (2.900 x 3.798 mm; package code SOD-123)
+# TODO(unverified):
+#   - Z 1.35 mm - SOD-123 body height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.6750
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 2.9000 3.7980 1.3500 }
+    }
+  ]
+}

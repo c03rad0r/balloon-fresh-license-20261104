@@ -1,0 +1,128 @@
+[
+ {
+  "net": "/W1_SOLAR_N",
+  "a": "J_W1.4",
+  "b": "D_BP2.1",
+  "a_layers": [
+   "F.Cu"
+  ],
+  "b_layers": [
+   "B.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "/W1_SOLAR_N",
+  "a": "D_BP1.2",
+  "b": "J_W1.4",
+  "a_layers": [
+   "B.Cu"
+  ],
+  "b_layers": [
+   "F.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "/W1_SOLAR_N",
+  "a": "D_BP2.1",
+  "b": "J_W2.1",
+  "a_layers": [
+   "B.Cu"
+  ],
+  "b_layers": [
+   "F.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "/W2_SOLAR_N",
+  "a": "D_BP2.2",
+  "b": "J_W2.4",
+  "a_layers": [
+   "B.Cu"
+  ],
+  "b_layers": [
+   "F.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "/W2_SOLAR_N",
+  "a": "J_W3.1",
+  "b": "D_BP3.1",
+  "a_layers": [
+   "F.Cu"
+  ],
+  "b_layers": [
+   "B.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "/W3_SOLAR_N",
+  "a": "J_W4.1",
+  "b": "D_BP4.1",
+  "a_layers": [
+   "F.Cu"
+  ],
+  "b_layers": [
+   "B.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "/W3_SOLAR_N",
+  "a": "J_W3.4",
+  "b": "D_BP3.2",
+  "a_layers": [
+   "F.Cu"
+  ],
+  "b_layers": [
+   "B.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "/W3_SOLAR_N",
+  "a": "D_BP3.2",
+  "b": "J_W4.1",
+  "a_layers": [
+   "B.Cu"
+  ],
+  "b_layers": [
+   "F.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ },
+ {
+  "net": "GND",
+  "a": "D_BP4.2",
+  "b": "U2.4",
+  "a_layers": [
+   "B.Cu"
+  ],
+  "b_layers": [
+   "F.Cu"
+  ],
+  "shared": [],
+  "a_attr": "SMD",
+  "b_attr": "SMD"
+ }
+]

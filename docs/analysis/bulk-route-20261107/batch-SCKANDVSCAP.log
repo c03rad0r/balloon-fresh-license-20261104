@@ -1,0 +1,6 @@
+=== batch SCKANDVSCAP  from a1d769d57ee6585d
+world: pads=301 tracks=1462 edges=16 holes=175 origin=(-0.05, -0.05) size=(72.1, 80.1)
+ROUTED /SPI1_SCK:U3.5:U_C.5: 12 seg / 4 via / 39.6 mm (238.16s)
+REFUSED: no pad U_HUB_CVT.1 on net /VSCAP
+batch SCKANDVSCAP: NOTHING ROUTED (rc=1) -- tree untouched
+rc=2

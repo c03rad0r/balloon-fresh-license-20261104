@@ -1,0 +1,1025 @@
+{
+ "unconnected": 86,
+ "categories": {
+  "other": 66,
+  "J_W (ADR-136 retained-unused pads)": 20
+ },
+ "per_net": {
+  "+3V3": 15,
+  "/CUT_SENSE_W1": 1,
+  "/CUT_SENSE_W2": 1,
+  "/CUT_SENSE_W3": 1,
+  "/CUT_SENSE_W4": 1,
+  "/F33_IRQ": 1,
+  "/SPI2_SCK": 1,
+  "/F33_VSENSE": 3,
+  "/HUB_PV_MID1": 2,
+  "/HUB_PV_N": 2,
+  "/HUB_PV_P": 2,
+  "/SPI1_MISO": 2,
+  "/SPI1_MOSI": 2,
+  "/SPI1_SCK": 2,
+  "/U3_IRQ": 1,
+  "/VSCAP": 5,
+  "/W1_SOLAR_N": 5,
+  "/W1_SOLAR_P": 1,
+  "/W2_SOLAR_N": 5,
+  "/W3_SOLAR_N": 5,
+  "GND": 27,
+  "/EN": 1
+ },
+ "details": [
+  {
+   "net": "+3V3",
+   "refs": [
+    "C10",
+    "U1"
+   ],
+   "descs": [
+    "Pad 2 [+3V3] of U1 on F.Cu",
+    "Pad 1 [+3V3] of C10 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U1",
+    "U3"
+   ],
+   "descs": [
+    "Pad 2 [+3V3] of U1 on F.Cu",
+    "Pad 1 [+3V3] of U3 on B.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U5"
+   ],
+   "descs": [
+    "Pad 6 [+3V3] of U5 on F.Cu",
+    "Pad 7 [+3V3] of U5 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "R_F1",
+    "U5"
+   ],
+   "descs": [
+    "Pad 6 [+3V3] of U5 on F.Cu",
+    "Pad 1 [+3V3] of R_F1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "C10",
+    "U5"
+   ],
+   "descs": [
+    "Pad 6 [+3V3] of U5 on F.Cu",
+    "Pad 1 [+3V3] of C10 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U5"
+   ],
+   "descs": [
+    "Pad 9 [+3V3] of U5 on F.Cu",
+    "Pad 7 [+3V3] of U5 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'P3V3_BCu' [+3V3] on B.Cu, priority 0",
+    "Zone 'P3V3_BCu' [+3V3] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "J_PROG",
+    "R_F1"
+   ],
+   "descs": [
+    "PTH pad 2 [+3V3] of J_PROG",
+    "Pad 1 [+3V3] of R_F1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "J_VCC",
+    "U2"
+   ],
+   "descs": [
+    "Pad 5 [+3V3] of U2 on F.Cu",
+    "Pad 3 [+3V3] of J_VCC on B.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U2",
+    "U_C"
+   ],
+   "descs": [
+    "Pad 1 [+3V3] of U_C on B.Cu",
+    "Pad 5 [+3V3] of U2 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U6",
+    "U_LORA1280"
+   ],
+   "descs": [
+    "Pad 3 [+3V3] of U_LORA1280 on F.Cu",
+    "Pad 4 [+3V3] of U6 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "J_PROG",
+    "U_LORA1280"
+   ],
+   "descs": [
+    "Pad 3 [+3V3] of U_LORA1280 on F.Cu",
+    "PTH pad 2 [+3V3] of J_PROG"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U6",
+    "U7"
+   ],
+   "descs": [
+    "Pad 5 [+3V3] of U7 on F.Cu",
+    "Pad 1 [+3V3] of U6 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U6"
+   ],
+   "descs": [
+    "Pad 4 [+3V3] of U6 on F.Cu",
+    "Pad 1 [+3V3] of U6 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "+3V3",
+   "refs": [
+    "U6"
+   ],
+   "descs": [
+    "Pad 5 [+3V3] of U6 on F.Cu",
+    "Pad 4 [+3V3] of U6 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/CUT_SENSE_W1",
+   "refs": [
+    "?",
+    "J_W1"
+   ],
+   "descs": [
+    "Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu",
+    "Track [/CUT_SENSE_W1] on F.Cu, length 0.8500 mm"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/CUT_SENSE_W2",
+   "refs": [
+    "J_W2"
+   ],
+   "descs": [
+    "Pad 3 [/CUT_SENSE_W2] of J_W2 on F.Cu",
+    "Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/CUT_SENSE_W3",
+   "refs": [
+    "J_W3"
+   ],
+   "descs": [
+    "Pad 3 [/CUT_SENSE_W3] of J_W3 on F.Cu",
+    "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/CUT_SENSE_W4",
+   "refs": [
+    "J_W4"
+   ],
+   "descs": [
+    "Pad 3 [/CUT_SENSE_W4] of J_W4 on F.Cu",
+    "Pad 3 [/CUT_SENSE_W4] of J_W4 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/F33_IRQ",
+   "refs": [
+    "U1",
+    "U2"
+   ],
+   "descs": [
+    "Pad 18 [/F33_IRQ] of U2 on F.Cu",
+    "Pad 17 [/F33_IRQ] of U1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/SPI2_SCK",
+   "refs": [
+    "U1",
+    "U2"
+   ],
+   "descs": [
+    "Pad 4 [/SPI2_SCK] of U1 on F.Cu",
+    "Pad 12 [/SPI2_SCK] of U2 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/F33_VSENSE",
+   "refs": [
+    "C_MON",
+    "R_MON1"
+   ],
+   "descs": [
+    "Pad 2 [/F33_VSENSE] of R_MON1 on F.Cu",
+    "Pad 1 [/F33_VSENSE] of C_MON on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/F33_VSENSE",
+   "refs": [
+    "R_MON2",
+    "U1"
+   ],
+   "descs": [
+    "Pad 21 [/F33_VSENSE] of U1 on F.Cu",
+    "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/F33_VSENSE",
+   "refs": [
+    "R_MON1",
+    "R_MON2"
+   ],
+   "descs": [
+    "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu",
+    "Pad 2 [/F33_VSENSE] of R_MON1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/HUB_PV_MID1",
+   "refs": [
+    "D_HUB1",
+    "D_HUB2"
+   ],
+   "descs": [
+    "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu",
+    "Pad 1 [/HUB_PV_MID1] of D_HUB2 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/HUB_PV_MID1",
+   "refs": [
+    "D_HUB1",
+    "J_HUB_PV"
+   ],
+   "descs": [
+    "PTH pad 2 [/HUB_PV_MID1] of J_HUB_PV",
+    "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/HUB_PV_N",
+   "refs": [
+    "D_HUB2",
+    "U_HUB_CVT"
+   ],
+   "descs": [
+    "Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu",
+    "Pad 2 [/HUB_PV_N] of D_HUB2 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/HUB_PV_N",
+   "refs": [
+    "J_HUB_PV",
+    "U_HUB_CVT"
+   ],
+   "descs": [
+    "PTH pad 4 [/HUB_PV_N] of J_HUB_PV",
+    "Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/HUB_PV_P",
+   "refs": [
+    "D_HUB1",
+    "U_HUB_CVT"
+   ],
+   "descs": [
+    "Pad 1 [/HUB_PV_P] of D_HUB1 on F.Cu",
+    "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/HUB_PV_P",
+   "refs": [
+    "J_HUB_PV",
+    "U_HUB_CVT"
+   ],
+   "descs": [
+    "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu",
+    "PTH pad 1 [/HUB_PV_P] of J_HUB_PV"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/SPI1_MISO",
+   "refs": [
+    "?",
+    "U3"
+   ],
+   "descs": [
+    "Track [/SPI1_MISO] on F.Cu, length 11.9000 mm",
+    "Pad 3 [/SPI1_MISO] of U3 on B.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/SPI1_MISO",
+   "refs": [
+    "?",
+    "U_C"
+   ],
+   "descs": [
+    "Track [/SPI1_MISO] on F.Cu, length 1.4000 mm",
+    "Pad 3 [/SPI1_MISO] of U_C on B.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/SPI1_MOSI",
+   "refs": [
+    "?",
+    "U3"
+   ],
+   "descs": [
+    "Pad 4 [/SPI1_MOSI] of U3 on B.Cu",
+    "Track [/SPI1_MOSI] on B.Cu, length 0.5000 mm"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/SPI1_MOSI",
+   "refs": [
+    "U3",
+    "U_C"
+   ],
+   "descs": [
+    "Pad 4 [/SPI1_MOSI] of U_C on B.Cu",
+    "Pad 4 [/SPI1_MOSI] of U3 on B.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/SPI1_SCK",
+   "refs": [
+    "?",
+    "U3"
+   ],
+   "descs": [
+    "Pad 5 [/SPI1_SCK] of U3 on B.Cu",
+    "Track [/SPI1_SCK] on F.Cu, length 1.0500 mm"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/SPI1_SCK",
+   "refs": [
+    "U3",
+    "U_C"
+   ],
+   "descs": [
+    "Pad 5 [/SPI1_SCK] of U_C on B.Cu",
+    "Pad 5 [/SPI1_SCK] of U3 on B.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/U3_IRQ",
+   "refs": [
+    "U1",
+    "U3"
+   ],
+   "descs": [
+    "Pad 19 [/U3_IRQ] of U1 on F.Cu",
+    "Pad 15 [/U3_IRQ] of U3 on B.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/VSCAP",
+   "refs": [
+    "D1",
+    "U_CUT1"
+   ],
+   "descs": [
+    "Pad 1 [/VSCAP] of U_CUT1 on B.Cu",
+    "Pad 1 [/VSCAP] of D1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/VSCAP",
+   "refs": [
+    "C_CAP1",
+    "R_BAL1"
+   ],
+   "descs": [
+    "PTH pad 1 [/VSCAP] of C_CAP1",
+    "Pad 1 [/VSCAP] of R_BAL1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/VSCAP",
+   "refs": [
+    "R_BAL1",
+    "R_DIV1"
+   ],
+   "descs": [
+    "Pad 1 [/VSCAP] of R_BAL1 on F.Cu",
+    "Pad 1 [/VSCAP] of R_DIV1 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/VSCAP",
+   "refs": [
+    "R_DIV1",
+    "U7"
+   ],
+   "descs": [
+    "Pad 1 [/VSCAP] of R_DIV1 on F.Cu",
+    "Pad 1 [/VSCAP] of U7 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/VSCAP",
+   "refs": [
+    "U7"
+   ],
+   "descs": [
+    "Pad 3 [/VSCAP] of U7 on F.Cu",
+    "Pad 1 [/VSCAP] of U7 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/W1_SOLAR_N",
+   "refs": [
+    "J_W1"
+   ],
+   "descs": [
+    "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu",
+    "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W1_SOLAR_N",
+   "refs": [
+    "D_BP2",
+    "J_W1"
+   ],
+   "descs": [
+    "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu",
+    "Pad 1 [/W1_SOLAR_N] of D_BP2 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W1_SOLAR_N",
+   "refs": [
+    "D_BP1",
+    "J_W1"
+   ],
+   "descs": [
+    "Pad 2 [/W1_SOLAR_N] of D_BP1 on B.Cu",
+    "Pad 4 [/W1_SOLAR_N] of J_W1 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W1_SOLAR_N",
+   "refs": [
+    "D_BP2",
+    "J_W2"
+   ],
+   "descs": [
+    "Pad 1 [/W1_SOLAR_N] of D_BP2 on B.Cu",
+    "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W1_SOLAR_N",
+   "refs": [
+    "J_W2"
+   ],
+   "descs": [
+    "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu",
+    "Pad 1 [/W1_SOLAR_N] of J_W2 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W1_SOLAR_P",
+   "refs": [
+    "J_W1"
+   ],
+   "descs": [
+    "Pad 1 [/W1_SOLAR_P] of J_W1 on B.Cu",
+    "Pad 1 [/W1_SOLAR_P] of J_W1 on F.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W2_SOLAR_N",
+   "refs": [
+    "D_BP2",
+    "J_W2"
+   ],
+   "descs": [
+    "Pad 2 [/W2_SOLAR_N] of D_BP2 on B.Cu",
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W2_SOLAR_N",
+   "refs": [
+    "J_W2"
+   ],
+   "descs": [
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W2_SOLAR_N",
+   "refs": [
+    "J_W2",
+    "J_W3"
+   ],
+   "descs": [
+    "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu",
+    "Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W2_SOLAR_N",
+   "refs": [
+    "J_W3"
+   ],
+   "descs": [
+    "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu",
+    "Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W2_SOLAR_N",
+   "refs": [
+    "D_BP3",
+    "J_W3"
+   ],
+   "descs": [
+    "Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu",
+    "Pad 1 [/W2_SOLAR_N] of D_BP3 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "refs": [
+    "J_W4"
+   ],
+   "descs": [
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "refs": [
+    "D_BP4",
+    "J_W4"
+   ],
+   "descs": [
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+    "Pad 1 [/W3_SOLAR_N] of D_BP4 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "refs": [
+    "J_W3"
+   ],
+   "descs": [
+    "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu",
+    "Pad 4 [/W3_SOLAR_N] of J_W3 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "refs": [
+    "D_BP3",
+    "J_W3"
+   ],
+   "descs": [
+    "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu",
+    "Pad 2 [/W3_SOLAR_N] of D_BP3 on B.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "/W3_SOLAR_N",
+   "refs": [
+    "D_BP3",
+    "J_W4"
+   ],
+   "descs": [
+    "Pad 2 [/W3_SOLAR_N] of D_BP3 on B.Cu",
+    "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu"
+   ],
+   "cls": "J_W"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "D_BP4",
+    "U2"
+   ],
+   "descs": [
+    "Pad 2 [GND] of D_BP4 on B.Cu",
+    "Pad 4 [GND] of U2 on F.Cu"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?",
+    "U_LORA1280"
+   ],
+   "descs": [
+    "Pad 14 [GND] of U_LORA1280 on F.Cu",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?",
+    "J_HUB_PV"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "PTH pad 5 [GND] of J_HUB_PV"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "GND",
+   "refs": [
+    "?"
+   ],
+   "descs": [
+    "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "Zone 'GND_FCu' [GND] on F.Cu, priority 0"
+   ],
+   "cls": "other"
+  },
+  {
+   "net": "/EN",
+   "refs": [
+    "J_PROG",
+    "U1"
+   ],
+   "descs": [
+    "Pad 3 [/EN] of U1 on F.Cu",
+    "PTH pad 3 [/EN] of J_PROG"
+   ],
+   "cls": "other"
+  }
+ ]
+}

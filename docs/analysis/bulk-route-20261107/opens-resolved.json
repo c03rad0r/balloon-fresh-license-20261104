@@ -1,0 +1,2873 @@
+[
+ {
+  "n": 1,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_PROG",
+    "num": "2",
+    "net": "+3V3",
+    "layer": null,
+    "cands": [
+     {
+      "layers": [
+       "F.Cu",
+       "B.Cu"
+      ],
+      "rect": [
+       30.15,
+       56.39,
+       31.85,
+       58.09
+      ],
+      "net": "+3V3",
+      "code": 1,
+      "attr": 0,
+      "drill": 1.0
+     }
+    ],
+    "desc": "PTH pad 2 [+3V3] of J_PROG",
+    "pos": [
+     31.0,
+     57.24
+    ],
+    "uuid": "31a3a989-fd2d-4e42-8238-be2929ac470e"
+   },
+   {
+    "kind": "pad",
+    "ref": "R_F1",
+    "num": "1",
+    "net": "+3V3",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       22.18,
+       59.24,
+       22.82,
+       59.78
+      ],
+      "net": "+3V3",
+      "code": 1,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [+3V3] of R_F1 on F.Cu",
+    "pos": [
+     22.5,
+     59.51
+    ],
+    "uuid": "f03f22eb-b4a2-4c36-8a78-4b82c66f2ff1"
+   }
+  ],
+  "nets": [
+   "+3V3"
+  ]
+ },
+ {
+  "n": 2,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W1",
+    "num": "3",
+    "net": "/CUT_SENSE_W1",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       1.0,
+       40.3,
+       5.0,
+       41.5
+      ],
+      "net": "/CUT_SENSE_W1",
+      "code": 2,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       1.0,
+       40.3,
+       5.0,
+       41.5
+      ],
+      "net": "/CUT_SENSE_W1",
+      "code": 2,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/CUT_SENSE_W1] of J_W1 on F.Cu",
+    "pos": [
+     3.0,
+     40.9
+    ],
+    "uuid": "738b27c6-47cd-4170-a13c-2927e2f504db"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W1",
+    "num": "3",
+    "net": "/CUT_SENSE_W1",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       1.0,
+       40.3,
+       5.0,
+       41.5
+      ],
+      "net": "/CUT_SENSE_W1",
+      "code": 2,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       1.0,
+       40.3,
+       5.0,
+       41.5
+      ],
+      "net": "/CUT_SENSE_W1",
+      "code": 2,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/CUT_SENSE_W1] of J_W1 on B.Cu",
+    "pos": [
+     3.0,
+     40.9
+    ],
+    "uuid": "b3f8d59c-910e-4b94-8520-e4a53ab40bd2"
+   }
+  ],
+  "nets": [
+   "/CUT_SENSE_W1"
+  ]
+ },
+ {
+  "n": 3,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W2",
+    "num": "3",
+    "net": "/CUT_SENSE_W2",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       36.3,
+       75.0,
+       37.5,
+       79.0
+      ],
+      "net": "/CUT_SENSE_W2",
+      "code": 3,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       36.3,
+       75.0,
+       37.5,
+       79.0
+      ],
+      "net": "/CUT_SENSE_W2",
+      "code": 3,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/CUT_SENSE_W2] of J_W2 on B.Cu",
+    "pos": [
+     36.9,
+     77.0
+    ],
+    "uuid": "73363747-345c-4c31-b0a9-797cb41c837c"
+   },
+   {
+    "kind": "track",
+    "net": "/CUT_SENSE_W2",
+    "layer": "F.Cu",
+    "length": 2.35,
+    "desc": "Track [/CUT_SENSE_W2] on F.Cu, length 2.3500 mm",
+    "pos": [
+     36.9,
+     77.0
+    ],
+    "uuid": "d4d21ff9-9247-4199-8252-1a1d7a9b48ee",
+    "phys": {
+     "kind": "track",
+     "net": "/CUT_SENSE_W2",
+     "layer": "F.Cu",
+     "a": [
+      36.9,
+      77.0
+     ],
+     "b": [
+      36.9,
+      74.65
+     ],
+     "w": 0.2,
+     "uuid": "d4d21ff9-9247-4199-8252-1a1d7a9b48ee"
+    },
+    "match_dist": 0.0
+   }
+  ],
+  "nets": [
+   "/CUT_SENSE_W2"
+  ]
+ },
+ {
+  "n": 4,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W3",
+    "num": "3",
+    "net": "/CUT_SENSE_W3",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       67.0,
+       38.5,
+       71.0,
+       39.7
+      ],
+      "net": "/CUT_SENSE_W3",
+      "code": 4,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       67.0,
+       38.5,
+       71.0,
+       39.7
+      ],
+      "net": "/CUT_SENSE_W3",
+      "code": 4,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/CUT_SENSE_W3] of J_W3 on F.Cu",
+    "pos": [
+     69.0,
+     39.1
+    ],
+    "uuid": "63cc25d3-ea5e-4f5e-805a-0641017adb5d"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W3",
+    "num": "3",
+    "net": "/CUT_SENSE_W3",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       67.0,
+       38.5,
+       71.0,
+       39.7
+      ],
+      "net": "/CUT_SENSE_W3",
+      "code": 4,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       67.0,
+       38.5,
+       71.0,
+       39.7
+      ],
+      "net": "/CUT_SENSE_W3",
+      "code": 4,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/CUT_SENSE_W3] of J_W3 on B.Cu",
+    "pos": [
+     69.0,
+     39.1
+    ],
+    "uuid": "151c5cd9-1d48-4a77-bebb-9e28d4c1f156"
+   }
+  ],
+  "nets": [
+   "/CUT_SENSE_W3"
+  ]
+ },
+ {
+  "n": 5,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W4",
+    "num": "3",
+    "net": "/CUT_SENSE_W4",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       34.5,
+       1.0,
+       35.7,
+       5.0
+      ],
+      "net": "/CUT_SENSE_W4",
+      "code": 5,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       34.5,
+       1.0,
+       35.7,
+       5.0
+      ],
+      "net": "/CUT_SENSE_W4",
+      "code": 5,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/CUT_SENSE_W4] of J_W4 on F.Cu",
+    "pos": [
+     35.1,
+     3.0
+    ],
+    "uuid": "2d35fd7a-74eb-4c87-b475-104a21198a9e"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W4",
+    "num": "3",
+    "net": "/CUT_SENSE_W4",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       34.5,
+       1.0,
+       35.7,
+       5.0
+      ],
+      "net": "/CUT_SENSE_W4",
+      "code": 5,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       34.5,
+       1.0,
+       35.7,
+       5.0
+      ],
+      "net": "/CUT_SENSE_W4",
+      "code": 5,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/CUT_SENSE_W4] of J_W4 on B.Cu",
+    "pos": [
+     35.1,
+     3.0
+    ],
+    "uuid": "0fcd77cf-66e4-4807-b7da-67be4e74b82f"
+   }
+  ],
+  "nets": [
+   "/CUT_SENSE_W4"
+  ]
+ },
+ {
+  "n": 6,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U2",
+    "num": "18",
+    "net": "/F33_IRQ",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       13.4344,
+       8.95,
+       14.7344,
+       10.25
+      ],
+      "net": "/F33_IRQ",
+      "code": 8,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 18 [/F33_IRQ] of U2 on F.Cu",
+    "pos": [
+     14.0844,
+     9.6
+    ],
+    "uuid": "a04d5266-e3f6-4cd0-960a-447a76b9c404"
+   },
+   {
+    "kind": "pad",
+    "ref": "U1",
+    "num": "17",
+    "net": "/F33_IRQ",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       14.905,
+       50.9,
+       15.805,
+       52.4
+      ],
+      "net": "/F33_IRQ",
+      "code": 8,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 17 [/F33_IRQ] of U1 on F.Cu",
+    "pos": [
+     15.355,
+     51.65
+    ],
+    "uuid": "2833c2bc-370f-4166-8aaa-3c0ab64b9d26"
+   }
+  ],
+  "nets": [
+   "/F33_IRQ"
+  ]
+ },
+ {
+  "n": 7,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U1",
+    "num": "4",
+    "net": "/SPI2_SCK",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       10.3,
+       37.25,
+       11.8,
+       38.15
+      ],
+      "net": "/SPI2_SCK",
+      "code": 12,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/SPI2_SCK] of U1 on F.Cu",
+    "pos": [
+     11.05,
+     37.7
+    ],
+    "uuid": "24ef7af5-d6d8-4e93-ba4c-29cb7f2873d6"
+   },
+   {
+    "kind": "pad",
+    "ref": "U2",
+    "num": "12",
+    "net": "/SPI2_SCK",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       33.0789,
+       29.95,
+       34.3789,
+       31.25
+      ],
+      "net": "/SPI2_SCK",
+      "code": 12,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 12 [/SPI2_SCK] of U2 on F.Cu",
+    "pos": [
+     33.7289,
+     30.6
+    ],
+    "uuid": "9585f437-31fa-4f77-b00b-2ede560e6814"
+   }
+  ],
+  "nets": [
+   "/SPI2_SCK"
+  ]
+ },
+ {
+  "n": 8,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "track",
+    "net": "/F33_VSENSE",
+    "layer": "F.Cu",
+    "length": 0.3,
+    "desc": "Track [/F33_VSENSE] on F.Cu, length 0.3000 mm",
+    "pos": [
+     15.0,
+     7.0
+    ],
+    "uuid": "cb24c400-0878-40f9-bbbb-f04a9b00a4af",
+    "phys": {
+     "kind": "track",
+     "net": "/F33_VSENSE",
+     "layer": "F.Cu",
+     "a": [
+      15.0,
+      7.0
+     ],
+     "b": [
+      14.7,
+      7.0
+     ],
+     "w": 0.2,
+     "uuid": "cb24c400-0878-40f9-bbbb-f04a9b00a4af"
+    },
+    "match_dist": 0.0
+   },
+   {
+    "kind": "pad",
+    "ref": "R_MON2",
+    "num": "1",
+    "net": "/F33_VSENSE",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       21.68,
+       7.74,
+       22.32,
+       8.28
+      ],
+      "net": "/F33_VSENSE",
+      "code": 14,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu",
+    "pos": [
+     22.0,
+     8.01
+    ],
+    "uuid": "4c2a2146-2485-48ff-b592-d79945c9cbf7"
+   }
+  ],
+  "nets": [
+   "/F33_VSENSE"
+  ]
+ },
+ {
+  "n": 9,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U1",
+    "num": "21",
+    "net": "/F33_VSENSE",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       19.985,
+       50.9,
+       20.885,
+       52.4
+      ],
+      "net": "/F33_VSENSE",
+      "code": 14,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 21 [/F33_VSENSE] of U1 on F.Cu",
+    "pos": [
+     20.435,
+     51.65
+    ],
+    "uuid": "65e6247f-6316-4698-9a8d-1e0900d52dcf"
+   },
+   {
+    "kind": "pad",
+    "ref": "R_MON2",
+    "num": "1",
+    "net": "/F33_VSENSE",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       21.68,
+       7.74,
+       22.32,
+       8.28
+      ],
+      "net": "/F33_VSENSE",
+      "code": 14,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/F33_VSENSE] of R_MON2 on F.Cu",
+    "pos": [
+     22.0,
+     8.01
+    ],
+    "uuid": "4c2a2146-2485-48ff-b592-d79945c9cbf7"
+   }
+  ],
+  "nets": [
+   "/F33_VSENSE"
+  ]
+ },
+ {
+  "n": 10,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "D_HUB1",
+    "num": "2",
+    "net": "/HUB_PV_MID1",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       43.75,
+       51.1,
+       46.25,
+       52.9
+      ],
+      "net": "/HUB_PV_MID1",
+      "code": 19,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu",
+    "pos": [
+     45.0,
+     52.0
+    ],
+    "uuid": "33ee17e5-b446-4b4c-bfac-f2f0ec4f0840"
+   },
+   {
+    "kind": "pad",
+    "ref": "D_HUB2",
+    "num": "1",
+    "net": "/HUB_PV_MID1",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       37.6,
+       58.25,
+       39.4,
+       60.75
+      ],
+      "net": "/HUB_PV_MID1",
+      "code": 19,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/HUB_PV_MID1] of D_HUB2 on F.Cu",
+    "pos": [
+     38.5,
+     59.5
+    ],
+    "uuid": "fb1cbe0d-0571-4108-9119-bbe2d0f444c3"
+   }
+  ],
+  "nets": [
+   "/HUB_PV_MID1"
+  ]
+ },
+ {
+  "n": 11,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_HUB_PV",
+    "num": "2",
+    "net": "/HUB_PV_MID1",
+    "layer": null,
+    "cands": [
+     {
+      "layers": [
+       "F.Cu",
+       "B.Cu"
+      ],
+      "rect": [
+       68.15,
+       65.69,
+       69.85,
+       67.39
+      ],
+      "net": "/HUB_PV_MID1",
+      "code": 19,
+      "attr": 0,
+      "drill": 1.0
+     }
+    ],
+    "desc": "PTH pad 2 [/HUB_PV_MID1] of J_HUB_PV",
+    "pos": [
+     69.0,
+     66.54
+    ],
+    "uuid": "3468ea70-e876-4af6-85b3-c6795a1e06ce"
+   },
+   {
+    "kind": "pad",
+    "ref": "D_HUB1",
+    "num": "2",
+    "net": "/HUB_PV_MID1",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       43.75,
+       51.1,
+       46.25,
+       52.9
+      ],
+      "net": "/HUB_PV_MID1",
+      "code": 19,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 2 [/HUB_PV_MID1] of D_HUB1 on F.Cu",
+    "pos": [
+     45.0,
+     52.0
+    ],
+    "uuid": "33ee17e5-b446-4b4c-bfac-f2f0ec4f0840"
+   }
+  ],
+  "nets": [
+   "/HUB_PV_MID1"
+  ]
+ },
+ {
+  "n": 12,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U_HUB_CVT",
+    "num": "3",
+    "net": "/HUB_PV_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       41.05,
+       56.125,
+       41.825,
+       56.375
+      ],
+      "net": "/HUB_PV_N",
+      "code": 20,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/HUB_PV_N] of U_HUB_CVT on F.Cu",
+    "pos": [
+     41.4375,
+     56.25
+    ],
+    "uuid": "8b33b57c-1d0f-43dd-934f-47cbc904eb7b"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_HUB_PV",
+    "num": "4",
+    "net": "/HUB_PV_N",
+    "layer": null,
+    "cands": [
+     {
+      "layers": [
+       "F.Cu",
+       "B.Cu"
+      ],
+      "rect": [
+       68.15,
+       70.77,
+       69.85,
+       72.47
+      ],
+      "net": "/HUB_PV_N",
+      "code": 20,
+      "attr": 0,
+      "drill": 1.0
+     }
+    ],
+    "desc": "PTH pad 4 [/HUB_PV_N] of J_HUB_PV",
+    "pos": [
+     69.0,
+     71.62
+    ],
+    "uuid": "762bccf4-f2aa-4bd8-bff1-4fd3f130e125"
+   }
+  ],
+  "nets": [
+   "/HUB_PV_N"
+  ]
+ },
+ {
+  "n": 13,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "D_HUB1",
+    "num": "1",
+    "net": "/HUB_PV_P",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       39.75,
+       51.1,
+       42.25,
+       52.9
+      ],
+      "net": "/HUB_PV_P",
+      "code": 21,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/HUB_PV_P] of D_HUB1 on F.Cu",
+    "pos": [
+     41.0,
+     52.0
+    ],
+    "uuid": "719db66a-e7c8-4d7e-9fe4-2cfe91c09d36"
+   },
+   {
+    "kind": "pad",
+    "ref": "U_HUB_CVT",
+    "num": "1",
+    "net": "/HUB_PV_P",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       41.05,
+       55.125,
+       41.825,
+       55.375
+      ],
+      "net": "/HUB_PV_P",
+      "code": 21,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu",
+    "pos": [
+     41.4375,
+     55.25
+    ],
+    "uuid": "21d816fb-f15d-4c1f-b5e8-f6571aba209d"
+   }
+  ],
+  "nets": [
+   "/HUB_PV_P"
+  ]
+ },
+ {
+  "n": 14,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U_HUB_CVT",
+    "num": "1",
+    "net": "/HUB_PV_P",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       41.05,
+       55.125,
+       41.825,
+       55.375
+      ],
+      "net": "/HUB_PV_P",
+      "code": 21,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/HUB_PV_P] of U_HUB_CVT on F.Cu",
+    "pos": [
+     41.4375,
+     55.25
+    ],
+    "uuid": "21d816fb-f15d-4c1f-b5e8-f6571aba209d"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_HUB_PV",
+    "num": "1",
+    "net": "/HUB_PV_P",
+    "layer": null,
+    "cands": [
+     {
+      "layers": [
+       "F.Cu",
+       "B.Cu"
+      ],
+      "rect": [
+       68.15,
+       63.15,
+       69.85,
+       64.85
+      ],
+      "net": "/HUB_PV_P",
+      "code": 21,
+      "attr": 0,
+      "drill": 1.0
+     }
+    ],
+    "desc": "PTH pad 1 [/HUB_PV_P] of J_HUB_PV",
+    "pos": [
+     69.0,
+     64.0
+    ],
+    "uuid": "e9bfd230-5c35-4ea6-a350-fe028989b543"
+   }
+  ],
+  "nets": [
+   "/HUB_PV_P"
+  ]
+ },
+ {
+  "n": 15,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U3",
+    "num": "3",
+    "net": "/SPI1_MISO",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       9.995,
+       13.77,
+       11.995,
+       14.47
+      ],
+      "net": "/SPI1_MISO",
+      "code": 31,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/SPI1_MISO] of U3 on B.Cu",
+    "pos": [
+     10.995,
+     14.12
+    ],
+    "uuid": "d3b0c27b-8d4f-49e9-b046-56d82d873f72"
+   },
+   {
+    "kind": "track",
+    "net": "/SPI1_MISO",
+    "layer": "F.Cu",
+    "length": 12.0,
+    "desc": "Track [/SPI1_MISO] on F.Cu, length 12.0000 mm",
+    "pos": [
+     23.05,
+     10.75
+    ],
+    "uuid": "baf77062-d140-46ac-b41e-77a27400e744",
+    "phys": {
+     "kind": "track",
+     "net": "/SPI1_MISO",
+     "layer": "F.Cu",
+     "a": [
+      23.05,
+      10.75
+     ],
+     "b": [
+      11.05,
+      10.75
+     ],
+     "w": 0.2,
+     "uuid": "baf77062-d140-46ac-b41e-77a27400e744"
+    },
+    "match_dist": 0.0
+   }
+  ],
+  "nets": [
+   "/SPI1_MISO"
+  ]
+ },
+ {
+  "n": 16,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "track",
+    "net": "/SPI1_MISO",
+    "layer": "F.Cu",
+    "length": 40.2,
+    "desc": "Track [/SPI1_MISO] on F.Cu, length 40.2000 mm",
+    "pos": [
+     32.35,
+     49.45
+    ],
+    "uuid": "81baf19b-502b-413b-9513-0c8786b5aa45",
+    "phys": {
+     "kind": "track",
+     "net": "/SPI1_MISO",
+     "layer": "F.Cu",
+     "a": [
+      47.75,
+      49.45
+     ],
+     "b": [
+      32.35,
+      49.45
+     ],
+     "w": 0.2,
+     "uuid": "40e99589-2dd2-4c16-bae3-33c050bb04d6"
+    },
+    "match_dist": 0.0
+   },
+   {
+    "kind": "pad",
+    "ref": "U_C",
+    "num": "3",
+    "net": "/SPI1_MISO",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       32.795,
+       13.77,
+       34.795,
+       14.47
+      ],
+      "net": "/SPI1_MISO",
+      "code": 31,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/SPI1_MISO] of U_C on B.Cu",
+    "pos": [
+     33.795,
+     14.12
+    ],
+    "uuid": "3237afef-82f8-4949-a5bf-42db898621c2"
+   }
+  ],
+  "nets": [
+   "/SPI1_MISO"
+  ]
+ },
+ {
+  "n": 17,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U3",
+    "num": "4",
+    "net": "/SPI1_MOSI",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       9.995,
+       15.06,
+       11.995,
+       15.76
+      ],
+      "net": "/SPI1_MOSI",
+      "code": 32,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/SPI1_MOSI] of U3 on B.Cu",
+    "pos": [
+     10.995,
+     15.41
+    ],
+    "uuid": "4768d599-a9c2-4929-97ca-63830f1d92d9"
+   },
+   {
+    "kind": "track",
+    "net": "/SPI1_MOSI",
+    "layer": "B.Cu",
+    "length": 0.5,
+    "desc": "Track [/SPI1_MOSI] on B.Cu, length 0.5000 mm",
+    "pos": [
+     11.05,
+     42.75
+    ],
+    "uuid": "bb79c209-65d6-4a3b-bed1-f7da59b287e9",
+    "phys": {
+     "kind": "track",
+     "net": "/SPI1_MOSI",
+     "layer": "B.Cu",
+     "a": [
+      9.75,
+      42.75
+     ],
+     "b": [
+      11.05,
+      42.75
+     ],
+     "w": 0.2,
+     "uuid": "a56b7791-d59b-424b-af93-97e9c03e7ccf"
+    },
+    "match_dist": 0.0
+   }
+  ],
+  "nets": [
+   "/SPI1_MOSI"
+  ]
+ },
+ {
+  "n": 18,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U_C",
+    "num": "4",
+    "net": "/SPI1_MOSI",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       32.795,
+       15.06,
+       34.795,
+       15.76
+      ],
+      "net": "/SPI1_MOSI",
+      "code": 32,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/SPI1_MOSI] of U_C on B.Cu",
+    "pos": [
+     33.795,
+     15.41
+    ],
+    "uuid": "0c41d907-f3fa-4464-b957-c1ad2046db73"
+   },
+   {
+    "kind": "pad",
+    "ref": "U3",
+    "num": "4",
+    "net": "/SPI1_MOSI",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       9.995,
+       15.06,
+       11.995,
+       15.76
+      ],
+      "net": "/SPI1_MOSI",
+      "code": 32,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/SPI1_MOSI] of U3 on B.Cu",
+    "pos": [
+     10.995,
+     15.41
+    ],
+    "uuid": "4768d599-a9c2-4929-97ca-63830f1d92d9"
+   }
+  ],
+  "nets": [
+   "/SPI1_MOSI"
+  ]
+ },
+ {
+  "n": 19,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U3",
+    "num": "5",
+    "net": "/SPI1_SCK",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       9.995,
+       16.35,
+       11.995,
+       17.05
+      ],
+      "net": "/SPI1_SCK",
+      "code": 34,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 5 [/SPI1_SCK] of U3 on B.Cu",
+    "pos": [
+     10.995,
+     16.7
+    ],
+    "uuid": "8e91e7c3-b1cf-4667-83d9-cc8c75a21b1a"
+   },
+   {
+    "kind": "track",
+    "net": "/SPI1_SCK",
+    "layer": "B.Cu",
+    "length": 0.9,
+    "desc": "Track [/SPI1_SCK] on B.Cu, length 0.9000 mm",
+    "pos": [
+     19.8,
+     50.25
+    ],
+    "uuid": "d12d463f-6f09-4a4f-8b71-287ad23fa66f",
+    "phys": {
+     "kind": "track",
+     "net": "/SPI1_SCK",
+     "layer": "B.Cu",
+     "a": [
+      19.8,
+      50.25
+     ],
+     "b": [
+      20.7,
+      50.25
+     ],
+     "w": 0.2,
+     "uuid": "d12d463f-6f09-4a4f-8b71-287ad23fa66f"
+    },
+    "match_dist": 0.0
+   }
+  ],
+  "nets": [
+   "/SPI1_SCK"
+  ]
+ },
+ {
+  "n": 20,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U_C",
+    "num": "5",
+    "net": "/SPI1_SCK",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       32.795,
+       16.35,
+       34.795,
+       17.05
+      ],
+      "net": "/SPI1_SCK",
+      "code": 34,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 5 [/SPI1_SCK] of U_C on B.Cu",
+    "pos": [
+     33.795,
+     16.7
+    ],
+    "uuid": "35f0135f-7f02-4bf9-b85b-8aad87e59a10"
+   },
+   {
+    "kind": "pad",
+    "ref": "U3",
+    "num": "5",
+    "net": "/SPI1_SCK",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       9.995,
+       16.35,
+       11.995,
+       17.05
+      ],
+      "net": "/SPI1_SCK",
+      "code": 34,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 5 [/SPI1_SCK] of U3 on B.Cu",
+    "pos": [
+     10.995,
+     16.7
+    ],
+    "uuid": "8e91e7c3-b1cf-4667-83d9-cc8c75a21b1a"
+   }
+  ],
+  "nets": [
+   "/SPI1_SCK"
+  ]
+ },
+ {
+  "n": 21,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U1",
+    "num": "19",
+    "net": "/U3_IRQ",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       17.445,
+       50.9,
+       18.345,
+       52.4
+      ],
+      "net": "/U3_IRQ",
+      "code": 37,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 19 [/U3_IRQ] of U1 on F.Cu",
+    "pos": [
+     17.895,
+     51.65
+    ],
+    "uuid": "57a30bd8-5a6e-4ef9-b126-9367ba0ed91a"
+   },
+   {
+    "kind": "pad",
+    "ref": "U3",
+    "num": "15",
+    "net": "/U3_IRQ",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       29.805,
+       15.06,
+       31.805,
+       15.76
+      ],
+      "net": "/U3_IRQ",
+      "code": 37,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 15 [/U3_IRQ] of U3 on B.Cu",
+    "pos": [
+     30.805,
+     15.41
+    ],
+    "uuid": "1182699f-6716-431a-afa2-eb191b75ab03"
+   }
+  ],
+  "nets": [
+   "/U3_IRQ"
+  ]
+ },
+ {
+  "n": 22,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "zone",
+    "name": "VSCAP_BCu",
+    "net": "/VSCAP",
+    "layer": "B.Cu",
+    "prio": 0,
+    "desc": "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0",
+    "pos": [
+     0.45,
+     0.45
+    ],
+    "uuid": "73c9b043-ca4d-478d-a850-a6b449ae5465"
+   },
+   {
+    "kind": "zone",
+    "name": "VSCAP_BCu",
+    "net": "/VSCAP",
+    "layer": "B.Cu",
+    "prio": 0,
+    "desc": "Zone 'VSCAP_BCu' [/VSCAP] on B.Cu, priority 0",
+    "pos": [
+     0.45,
+     0.45
+    ],
+    "uuid": "73c9b043-ca4d-478d-a850-a6b449ae5465"
+   }
+  ],
+  "nets": [
+   "/VSCAP"
+  ]
+ },
+ {
+  "n": 23,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "via",
+    "net": "/VSCAP",
+    "layers": [
+     "F.Cu",
+     "B.Cu"
+    ],
+    "desc": "Via [/VSCAP] on F.Cu - B.Cu",
+    "pos": [
+     41.839423,
+     42.652152
+    ],
+    "uuid": "a79fad88-9ed2-4cf4-ae45-6860f865ae8a",
+    "phys": {
+     "kind": "via",
+     "net": "/VSCAP",
+     "xy": [
+      41.839423,
+      42.652152
+     ],
+     "w": 0.6,
+     "drill": 0.3,
+     "layers": [
+      "F.Cu",
+      "B.Cu"
+     ],
+     "uuid": "a79fad88-9ed2-4cf4-ae45-6860f865ae8a"
+    },
+    "match_dist": 0.0
+   },
+   {
+    "kind": "pad",
+    "ref": "R_BAL1",
+    "num": "1",
+    "net": "/VSCAP",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       40.22,
+       43.18,
+       40.76,
+       43.82
+      ],
+      "net": "/VSCAP",
+      "code": 39,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/VSCAP] of R_BAL1 on F.Cu",
+    "pos": [
+     40.49,
+     43.5
+    ],
+    "uuid": "4142fa5f-663b-416e-a294-6209dfcb9e92"
+   }
+  ],
+  "nets": [
+   "/VSCAP"
+  ]
+ },
+ {
+  "n": 24,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W1",
+    "num": "4",
+    "net": "/W1_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       1.0,
+       42.1,
+       5.0,
+       43.3
+      ],
+      "net": "/W1_SOLAR_N",
+      "code": 41,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       1.0,
+       42.1,
+       5.0,
+       43.3
+      ],
+      "net": "/W1_SOLAR_N",
+      "code": 41,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/W1_SOLAR_N] of J_W1 on F.Cu",
+    "pos": [
+     3.0,
+     42.7
+    ],
+    "uuid": "7656e304-0273-4ef0-b688-28439d2db1d0"
+   },
+   {
+    "kind": "track",
+    "net": "/W1_SOLAR_N",
+    "layer": "B.Cu",
+    "length": 1.7507,
+    "desc": "Track [/W1_SOLAR_N] on B.Cu, length 1.7507 mm",
+    "pos": [
+     3.0,
+     42.7
+    ],
+    "uuid": "4bbf6b5b-365e-4f1c-96ed-eea8486b5387",
+    "phys": {
+     "kind": "track",
+     "net": "/W1_SOLAR_N",
+     "layer": "B.Cu",
+     "a": [
+      3.0,
+      42.7
+     ],
+     "b": [
+      2.95,
+      44.45
+     ],
+     "w": 0.2,
+     "uuid": "4bbf6b5b-365e-4f1c-96ed-eea8486b5387"
+    },
+    "match_dist": 0.0
+   }
+  ],
+  "nets": [
+   "/W1_SOLAR_N"
+  ]
+ },
+ {
+  "n": 25,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W2",
+    "num": "1",
+    "net": "/W1_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       32.7,
+       75.0,
+       33.9,
+       79.0
+      ],
+      "net": "/W1_SOLAR_N",
+      "code": 41,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       32.7,
+       75.0,
+       33.9,
+       79.0
+      ],
+      "net": "/W1_SOLAR_N",
+      "code": 41,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W1_SOLAR_N] of J_W2 on F.Cu",
+    "pos": [
+     33.3,
+     77.0
+    ],
+    "uuid": "f53d24e0-f3ba-4de7-8dc9-e4bb9a918f16"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W2",
+    "num": "1",
+    "net": "/W1_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       32.7,
+       75.0,
+       33.9,
+       79.0
+      ],
+      "net": "/W1_SOLAR_N",
+      "code": 41,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       32.7,
+       75.0,
+       33.9,
+       79.0
+      ],
+      "net": "/W1_SOLAR_N",
+      "code": 41,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W1_SOLAR_N] of J_W2 on B.Cu",
+    "pos": [
+     33.3,
+     77.0
+    ],
+    "uuid": "47fa5d72-1d79-4136-a964-336a8295c732"
+   }
+  ],
+  "nets": [
+   "/W1_SOLAR_N"
+  ]
+ },
+ {
+  "n": 26,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W1",
+    "num": "1",
+    "net": "/W1_SOLAR_P",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       1.0,
+       36.7,
+       5.0,
+       37.9
+      ],
+      "net": "/W1_SOLAR_P",
+      "code": 42,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       1.0,
+       36.7,
+       5.0,
+       37.9
+      ],
+      "net": "/W1_SOLAR_P",
+      "code": 42,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W1_SOLAR_P] of J_W1 on F.Cu",
+    "pos": [
+     3.0,
+     37.3
+    ],
+    "uuid": "1ebad319-8e45-4855-a4d1-33830919cf73"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W1",
+    "num": "1",
+    "net": "/W1_SOLAR_P",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       1.0,
+       36.7,
+       5.0,
+       37.9
+      ],
+      "net": "/W1_SOLAR_P",
+      "code": 42,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       1.0,
+       36.7,
+       5.0,
+       37.9
+      ],
+      "net": "/W1_SOLAR_P",
+      "code": 42,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W1_SOLAR_P] of J_W1 on B.Cu",
+    "pos": [
+     3.0,
+     37.3
+    ],
+    "uuid": "477661e4-400e-4a34-a8af-c88ffd3263ab"
+   }
+  ],
+  "nets": [
+   "/W1_SOLAR_P"
+  ]
+ },
+ {
+  "n": 27,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "D_BP2",
+    "num": "2",
+    "net": "/W2_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       28.1,
+       76.75,
+       29.9,
+       79.25
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 2 [/W2_SOLAR_N] of D_BP2 on B.Cu",
+    "pos": [
+     29.0,
+     78.0
+    ],
+    "uuid": "013e27cf-d599-469f-b884-ef947f17e181"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W2",
+    "num": "4",
+    "net": "/W2_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+    "pos": [
+     38.7,
+     77.0
+    ],
+    "uuid": "75db9ecf-9a7e-430e-a113-2ff1d948fc60"
+   }
+  ],
+  "nets": [
+   "/W2_SOLAR_N"
+  ]
+ },
+ {
+  "n": 28,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W2",
+    "num": "4",
+    "net": "/W2_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+    "pos": [
+     38.7,
+     77.0
+    ],
+    "uuid": "75db9ecf-9a7e-430e-a113-2ff1d948fc60"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W2",
+    "num": "4",
+    "net": "/W2_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on B.Cu",
+    "pos": [
+     38.7,
+     77.0
+    ],
+    "uuid": "f8c950ff-ac8d-4187-861c-23a62944ac5f"
+   }
+  ],
+  "nets": [
+   "/W2_SOLAR_N"
+  ]
+ },
+ {
+  "n": 29,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W2",
+    "num": "4",
+    "net": "/W2_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       75.0,
+       39.3,
+       79.0
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/W2_SOLAR_N] of J_W2 on F.Cu",
+    "pos": [
+     38.7,
+     77.0
+    ],
+    "uuid": "75db9ecf-9a7e-430e-a113-2ff1d948fc60"
+   },
+   {
+    "kind": "track",
+    "net": "/W2_SOLAR_N",
+    "layer": "B.Cu",
+    "length": 0.8485,
+    "desc": "Track [/W2_SOLAR_N] on B.Cu, length 0.8485 mm",
+    "pos": [
+     67.3,
+     42.7
+    ],
+    "uuid": "fcacc1ec-e4f2-47f1-a8df-6757a08468ee",
+    "phys": {
+     "kind": "track",
+     "net": "/W2_SOLAR_N",
+     "layer": "B.Cu",
+     "a": [
+      69.0,
+      42.7
+     ],
+     "b": [
+      67.3,
+      42.7
+     ],
+     "w": 0.2,
+     "uuid": "aae48b90-3086-4f43-a353-eebcbe6edb58"
+    },
+    "match_dist": 0.0
+   }
+  ],
+  "nets": [
+   "/W2_SOLAR_N"
+  ]
+ },
+ {
+  "n": 30,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W3",
+    "num": "1",
+    "net": "/W2_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       67.0,
+       42.1,
+       71.0,
+       43.3
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       67.0,
+       42.1,
+       71.0,
+       43.3
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W2_SOLAR_N] of J_W3 on B.Cu",
+    "pos": [
+     69.0,
+     42.7
+    ],
+    "uuid": "8f0a42a0-f366-48e9-b98b-7c25e2ca27e8"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W3",
+    "num": "1",
+    "net": "/W2_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       67.0,
+       42.1,
+       71.0,
+       43.3
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       67.0,
+       42.1,
+       71.0,
+       43.3
+      ],
+      "net": "/W2_SOLAR_N",
+      "code": 43,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W2_SOLAR_N] of J_W3 on F.Cu",
+    "pos": [
+     69.0,
+     42.7
+    ],
+    "uuid": "63145c0b-183b-4408-842c-58a0d4017c48"
+   }
+  ],
+  "nets": [
+   "/W2_SOLAR_N"
+  ]
+ },
+ {
+  "n": 31,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W4",
+    "num": "1",
+    "net": "/W3_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on F.Cu",
+    "pos": [
+     38.7,
+     3.0
+    ],
+    "uuid": "5839bb05-7264-4d71-9181-ecdbf26a66ef"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W4",
+    "num": "1",
+    "net": "/W3_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+    "pos": [
+     38.7,
+     3.0
+    ],
+    "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714"
+   }
+  ],
+  "nets": [
+   "/W3_SOLAR_N"
+  ]
+ },
+ {
+  "n": 32,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W4",
+    "num": "1",
+    "net": "/W3_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+    "pos": [
+     38.7,
+     3.0
+    ],
+    "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714"
+   },
+   {
+    "kind": "pad",
+    "ref": "D_BP4",
+    "num": "1",
+    "net": "/W3_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       28.1,
+       0.75,
+       29.9,
+       3.25
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W3_SOLAR_N] of D_BP4 on B.Cu",
+    "pos": [
+     29.0,
+     2.0
+    ],
+    "uuid": "ab9ab768-1f42-4847-8d2c-5c9198a18521"
+   }
+  ],
+  "nets": [
+   "/W3_SOLAR_N"
+  ]
+ },
+ {
+  "n": 33,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "J_W3",
+    "num": "4",
+    "net": "/W3_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       67.0,
+       36.7,
+       71.0,
+       37.9
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       67.0,
+       36.7,
+       71.0,
+       37.9
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/W3_SOLAR_N] of J_W3 on B.Cu",
+    "pos": [
+     69.0,
+     37.3
+    ],
+    "uuid": "48391745-6a9e-4144-8896-e3f44884766e"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W3",
+    "num": "4",
+    "net": "/W3_SOLAR_N",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       67.0,
+       36.7,
+       71.0,
+       37.9
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       67.0,
+       36.7,
+       71.0,
+       37.9
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 4 [/W3_SOLAR_N] of J_W3 on F.Cu",
+    "pos": [
+     69.0,
+     37.3
+    ],
+    "uuid": "3a568d7e-3e32-4524-b896-1dd35975c207"
+   }
+  ],
+  "nets": [
+   "/W3_SOLAR_N"
+  ]
+ },
+ {
+  "n": 34,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "track",
+    "net": "/W3_SOLAR_N",
+    "layer": "B.Cu",
+    "length": 0.2121,
+    "desc": "Track [/W3_SOLAR_N] on B.Cu, length 0.2121 mm",
+    "pos": [
+     69.55,
+     33.4
+    ],
+    "uuid": "600710fa-9269-4771-aa58-b0097affee08",
+    "phys": {
+     "kind": "track",
+     "net": "/W3_SOLAR_N",
+     "layer": "B.Cu",
+     "a": [
+      69.55,
+      33.4
+     ],
+     "b": [
+      69.7,
+      33.25
+     ],
+     "w": 0.2,
+     "uuid": "600710fa-9269-4771-aa58-b0097affee08"
+    },
+    "match_dist": 0.0
+   },
+   {
+    "kind": "pad",
+    "ref": "J_W4",
+    "num": "1",
+    "net": "/W3_SOLAR_N",
+    "layer": "B.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     },
+     {
+      "layers": [
+       "B.Cu"
+      ],
+      "rect": [
+       38.1,
+       1.0,
+       39.3,
+       5.0
+      ],
+      "net": "/W3_SOLAR_N",
+      "code": 44,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 1 [/W3_SOLAR_N] of J_W4 on B.Cu",
+    "pos": [
+     38.7,
+     3.0
+    ],
+    "uuid": "cafe191b-91a4-4b47-bafe-25299fbb5714"
+   }
+  ],
+  "nets": [
+   "/W3_SOLAR_N"
+  ]
+ },
+ {
+  "n": 35,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "zone",
+    "name": "GND_FCu",
+    "net": "GND",
+    "layer": "F.Cu",
+    "prio": 0,
+    "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "pos": [
+     0.45,
+     0.45
+    ],
+    "uuid": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72"
+   },
+   {
+    "kind": "zone",
+    "name": "GND_In1",
+    "net": "GND",
+    "layer": "In1.Cu",
+    "prio": 0,
+    "desc": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+    "pos": [
+     0.25,
+     0.25
+    ],
+    "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+   }
+  ],
+  "nets": [
+   "GND"
+  ]
+ },
+ {
+  "n": 36,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "zone",
+    "name": "GND_BCu",
+    "net": "GND",
+    "layer": "B.Cu",
+    "prio": 0,
+    "desc": "Zone 'GND_BCu' [GND] on B.Cu, priority 0",
+    "pos": [
+     0.45,
+     0.45
+    ],
+    "uuid": "4e9f05fe-7ff4-4aac-ac9e-8283f7d40e1c"
+   },
+   {
+    "kind": "zone",
+    "name": "GND_In1",
+    "net": "GND",
+    "layer": "In1.Cu",
+    "prio": 0,
+    "desc": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+    "pos": [
+     0.25,
+     0.25
+    ],
+    "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+   }
+  ],
+  "nets": [
+   "GND"
+  ]
+ },
+ {
+  "n": 37,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "zone",
+    "name": "GND_In1",
+    "net": "GND",
+    "layer": "In1.Cu",
+    "prio": 0,
+    "desc": "Zone 'GND_In1' [GND] on In1.Cu, priority 0",
+    "pos": [
+     0.25,
+     0.25
+    ],
+    "uuid": "5be5b156-b9d0-48df-a38e-a0bcd9d4e539"
+   },
+   {
+    "kind": "zone",
+    "name": "GND_FCu",
+    "net": "GND",
+    "layer": "F.Cu",
+    "prio": 0,
+    "desc": "Zone 'GND_FCu' [GND] on F.Cu, priority 0",
+    "pos": [
+     0.45,
+     0.45
+    ],
+    "uuid": "dd5a7dbb-15c7-4621-9bb5-0628a0024b72"
+   }
+  ],
+  "nets": [
+   "GND"
+  ]
+ },
+ {
+  "n": 38,
+  "severity": "error",
+  "type": "unconnected_items",
+  "ends": [
+   {
+    "kind": "pad",
+    "ref": "U1",
+    "num": "3",
+    "net": "/EN",
+    "layer": "F.Cu",
+    "cands": [
+     {
+      "layers": [
+       "F.Cu"
+      ],
+      "rect": [
+       10.3,
+       35.98,
+       11.8,
+       36.88
+      ],
+      "net": "/EN",
+      "code": 46,
+      "attr": 1,
+      "drill": 0.0
+     }
+    ],
+    "desc": "Pad 3 [/EN] of U1 on F.Cu",
+    "pos": [
+     11.05,
+     36.43
+    ],
+    "uuid": "5e672328-5888-40f6-b19b-95ccb5c81f62"
+   },
+   {
+    "kind": "pad",
+    "ref": "J_PROG",
+    "num": "3",
+    "net": "/EN",
+    "layer": null,
+    "cands": [
+     {
+      "layers": [
+       "F.Cu",
+       "B.Cu"
+      ],
+      "rect": [
+       30.15,
+       58.93,
+       31.85,
+       60.63
+      ],
+      "net": "/EN",
+      "code": 46,
+      "attr": 0,
+      "drill": 1.0
+     }
+    ],
+    "desc": "PTH pad 3 [/EN] of J_PROG",
+    "pos": [
+     31.0,
+     59.78
+    ],
+    "uuid": "17bb4f3d-b143-4474-bd55-7a711dedd338"
+   }
+  ],
+  "nets": [
+   "/EN"
+  ]
+ }
+]

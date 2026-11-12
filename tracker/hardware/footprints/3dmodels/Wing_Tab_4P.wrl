@@ -1,0 +1,19 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : Wing_Tab_4P
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: the soldered land row of Tracker_Mechanical:Wing_Tab_4P as committed - lands span 1.0..5.0 mm inboard of the interface edge (4.0 mm) x four 1.2 mm lands on 1.8 mm pitch (6.6 mm).  PLAIN PADS, NO SLOT: the 0.9 mm routed slot is ADR-046 Option A and is BELOW JLCPCB's 1.0 mm minimum NPTH slot (docs/analysis/wing-fab-cost.md s2.3, build_hub_board_v9.py header); Option B (plain pads) is the adopted fallback, so no slot is modelled.
+# TODO(unverified):
+#   - Z 0.60 mm - the wing tab thickness is the board thickness figure (ADR-055 D4 target 0.4 mm, and 0.6 mm inherited) - not settled
+#   - NOTE: the committed footprint still DRAWS the 0.9 mm slot on Edge.Cuts; see docs/3d-model-coverage-hub.md
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.3000
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.780 0.550 0.250 } }
+      geometry Box { size 4.0000 6.6000 0.6000 }
+    }
+  ]
+}

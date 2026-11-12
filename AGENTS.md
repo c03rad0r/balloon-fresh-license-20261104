@@ -153,6 +153,101 @@ behalf**, without asking first. This supersedes the previous habit of stopping a
 6. **This does NOT extend to:** placing a purchase order, spending money, publishing to a public host,
    rotating credentials, or rewriting git history. Those remain explicit-approval-only.
 
+### 1a. Ordering channel: JLCONE desktop, always
+
+Every JLCPCB order for this project is placed through the **JLCONE desktop app**
+(`https://jlcone.com/download`, or `brew install --cask jlcone`), never the website checkout.
+
+Measured from JLCPCB's own published terms (2026-11-09): the app applies a **random $1–$20 instant
+discount to every order at checkout**, credits a **$104 coupon pack** on install, and is now the
+**only** place the $2 PCB deal and the exclusive shipping rates exist. It is JLCPCB's own product —
+confirmed via `jlcpcb.com/help/article/jlcone-desktop-app`, their press release, and the Homebrew
+cask. Install only from `jlcone.com` or the cask; JLCPCB built the app partly *because* impersonating
+sites are common.
+
+**The files do not change.** JLCONE is an ordering front-end. Upload the same
+`v10-jlcpcb-upload.zip`; the same checksum verification and preview checks apply. Compare the
+**extracted `cpl-jlc.csv`** when re-verifying across rebuilds, because the zip container changes while
+the payload does not.
+
+Full record: `docs/fab/ORDERING-CHANNEL-JLCONE.md`.
+
+### 1b. Board density: MEASURE whether a second side saves space, then use it
+
+**A board must not carry idle area that a second populated side would remove.** This is a
+measurement rule, not a preference: two-sided assembly costs an extra JLCPCB side setup, a second
+stencil/paste step, mirrored/rotated CPL entries and a taller bottom stack-up. It is only worth
+paying when the second side buys a **smaller outline**, and the only way to know is to compute it.
+
+**Every placement gate must report, with denominators:**
+
+| quantity | why |
+|---|---|
+| board area, top-side part count, bottom-side part count | the baseline; `top N / bottom 0` is a claim that must be printed, not implied |
+| courtyard area **per side**, clipped to the outline | occupancy of each side, not one merged number |
+| largest empty rectangle **outside intended reservations** | the actual free space, separated from deliberate keepouts |
+| area held by each declared reservation (motor/protection, antenna, port access) | a reservation is not waste, but its size must be justified by real parts |
+
+**Then:**
+
+1. **Start single-sided, then let the measurement decide.** Try to fit everything on one side at the
+   smallest outline that respects antenna keepouts, connector edge access, sensor/port access,
+   thermal separation and the tight switching loop of any regulator. Then compute the two-sided
+   outline as well. If two sides earn the threshold in point 3, **adopt them** — the only way to
+   stay single-sided is a recorded operator decision weighing assembly cost against the saved area.
+2. **If the binding constraint is a part count on one side rather than a reservation, move the
+   parts that do not need adjacency to B.Cu and re-measure.** Safe candidates are series/pull
+   resistors, straps and configuration parts. **Do not move decoupling capacitors away from their
+   IC** unless the via loop is shown to be harmless; do not split a buck cell (TI TPS6216x Rev E
+   §11.1) or move anything whose port/edge/thermal reason is physical.
+3. **Report the measured smallest outline each way**, single-sided and two-sided, and take the
+   smaller outline if it is materially smaller (default threshold: **≥10 % board area**). If two
+   sides do not buy that much, say so with numbers and stay single-sided — a second side that saves
+   a few millimetres is a cost with no benefit.
+4. **A reservation dominates the decision when it is larger than the parts.** Do not shrink a
+   reservation to win area; size it from the actual future circuit, and label an unsized
+   reservation explicitly as unqualified.
+
+**Mechanical rules for a genuinely two-sided board — these are checked, not assumed:**
+
+- SMD pads on opposite faces at the same XY do **not** short through the FR4 substrate. Only
+  *shared copper layers* collide.
+- **Plated through-hole lands are drilled through**: no bottom-side pad or part may sit beneath
+  them, plus the required clearance.
+- Courtyard collisions only count **within one side**; opposite-side courtyards may overlap.
+- Assembly-side consequences must be stated in the same report as the area saving: extra side
+  setup and stencil, bottom-side paste, CPL mirroring/rotation, and enclosure height under the
+  board.
+
+**Why this density rule exists.** Measured 2026-11-10 on the pressure controller: 80 × 60 mm carried **26 parts
+on top and none underneath**, with courtyards on only **16.35 %** of the board. The operator asked
+for a denser board. A 65 × 50 mm single-sided candidate fit (**32.3 % smaller**).
+
+**CORRECTION (measured the same day, supersedes the earlier conclusion in this section).** A
+two-sided candidate then measured **52 × 46 mm = 2392 mm², a further 26.4 % smaller** — past the
+≥10 % threshold above. The earlier text claimed two sides "would have bought almost nothing" while a
+*single-sided* board's free area outside the reservation was only 197.6 mm². **That measured the
+wrong quantity.** "Is the single-sided board packed?" and "would a second side buy a smaller
+outline?" are different questions, and only the second decides the board. The 197.6 mm² figure
+answered the first.
+
+**Operator decision on this board (2026-11-10) — a RECORDED EXCEPTION, not a silent one.** The
+pressure controller stays **single-sided at 65 × 50 mm** even though the two-sided measurement beats
+the ≥10 % threshold. The operator chose single-sided deliberately: one stencil/paste setup, one
+assembly side, no bottom-side CPL mirroring, and a simpler enclosure. That is a valid reason to
+decline a smaller outline, and it must be written down as such — **a threshold win that is declined
+is a decision with a name on it, never an omission.** The rule below therefore still requires the
+two-sided number to be *computed and reported* on every board; it does not force the smaller outline
+when the operator has weighed the assembly cost and said no. What the rule forbids is dismissing the
+second side **without** the measurement.
+
+**The reservation still dominates, and that is unchanged.** 720 mm² of the 2392 mm² board (30 %) is
+the unqualified motor/protection keep-out, so it — not the parts — is now the largest consumer. Point
+4 governs it: size that reservation from the real circuit, never shrink it to win area.
+
+**What actually decided this board was the measured pair**, 65 × 50 single-sided vs 52 × 46
+two-sided, not a preference about assembly cost. That is the standard this rule enforces.
+
 **Why this exists.** Measured 2026-10-18: the operator was asked to adjudicate a design fork ("move `U4` 2 mm
 or reassign pins") and answered from a summary that was **wrong three times over** — the direction was
 inverted, the move collided with `U1`, and the move would not have freed the pads at all because the
@@ -572,8 +667,16 @@ Rules:
 ## FLIGHT BOARD v10 — OPERATOR DIRECTIVES (2026-10-20) — BINDING
 ### ADR-118 (umbrella) · ADR-119 (radio sites) · ADR-120 (placement process + gates)
 
-1. **Two-sided population is the default.** Parts go on both sides; the outline shrinks to
-   what the two-sided placement needs. The 70x70 v9 outline is not a v10 constraint.
+1. **Population sides: resolved by measurement, per `§1b Board density` (which governs).** Parts go
+   on both sides **when the two-sided placement earns ≥10 % of board area** against the best
+   single-sided fit; otherwise the board stays single-sided. Every placement gate computes **both**
+   outlines and reports both, with per-side occupancy. The 70x70 v9 outline is not a v10 constraint.
+   Two-sided is therefore the default **to measure**, never a default to assume — and never
+   dismissible without the measurement. After a threshold win, staying single-sided is permitted
+   **only** as a recorded operator decision weighing assembly cost against the saved area (see the
+   pressure-controller exception in §1b), never as an agent's shorthand. A reservation larger than the
+   parts dominates the decision and must not be shrunk to win area. ADR-120 R1's measured two-sided
+   first pass and §1b are consistent: measure, then choose.
 2. **Four RF sites:** LoRa2021F33 (HP) + TWO bare LoRa2021 LP + **E28-2G4M27SX module**
    (SX1280+PA+LNA+matching on-module; datasheet at `docs/modules/e28-2g4m27sx/`).
    The bare-chip SX1280 + self-built match network is ABANDONED (measured fatal scatter,
@@ -662,7 +765,8 @@ images in future so that you catch and fix such errors before showing me your pr
     passing: it plants a real same-layer crossing and requires exit 1 (verified clean rc=0,
     poisoned rc=1). A gate that once reported 165 FALSE defects must be able to report a REAL one.
 16. **Gates run BEFORE any render is shown to the operator.** Pipeline order:
-    route → 8 custom gates → `check_drc.py` → `check_schematic_parity.py` → render → Signal.
+    route → 8 custom gates → `check_drc.py` → `check_schematic_parity.py` →
+    `check_socket_edge_tracks.py` → render → Signal.
     Showing an image of a board that fails a gate is a process defect.
 17. **Renders must make LAYER IDENTITY unambiguous.** The operator flagged two same-coloured
     lanes crossing and could not tell whether it was a short — because the old renderer drew ONE
@@ -700,6 +804,41 @@ make the board. Please make sure its part of the git hooks and agents.md."*
     `schematic → ERC 0 violations → netlist → board → kicad-cli DRC 0 → 9 custom gates → render`.
     A board commit is legitimate only when every step BEFORE it is green. Rendering or routing
     ahead of a clean schematic is how connectivity gets invented.
+
+    **21a. DRC 0 means DRC 0 after pattern-derived exclusions, not 0 raw records.**
+    Measured 2026-11-08: `kicad-cli pcb drc` reports **11 `unconnected_items` records** on the
+    live board for **10 distinct pairs** (the F.Cu↔In1 GND pair is reported twice, once from each
+    side) and **5 genuine copper opens**. "DRC 0" as a raw record count is unsatisfiable by
+    construction on this board, for two reasons that are design, not defects:
+
+    * **Two-face wing lands.** Each pad number on `J_W1..J_W4` is backed by **two SMD pad objects**
+      on *disjoint* copper layers, identical bounding box, no barrel — measured **16 of 16** pads
+      across all four connectors. ADR-120 R1 says these complete in **assembly** via the two-face
+      tab, so no board copper can ever join them. Counting them makes this gate unreachable, and
+      the only way to satisfy it would be drawing copper across a wing-socket cavity, which §13a
+      forbids.
+    * **GND zone-to-zone records.** Three records are the stitcher's accounting between separate
+      ZONE objects on one net, not broken copper: **46 of 48** GND vias sit on filled copper on
+      F.Cu, B.Cu *and* In1.Cu (`ZONE.HitTestFilledArea`, which tests filled copper rather than
+      outline containment).
+
+    The exemption is therefore **a pattern derived from the board, never a hand-written list** —
+    a stale allowlist is how real defects hide. Implemented in
+    `tracker/hardware/check_unconnected_exclusions.py`, which:
+
+    * derives the two-face pattern itself (2+ objects, same footprint+number, identical bbox,
+      disjoint copper layers, none PTH);
+    * refuses to exclude a track/track pair unless the net's **component graph proves every
+      component reaches a same-net pad** — copper ending in mid-air is REAL and counts;
+    * **prints every exclusion and its reason on every run** — a silent exclusion is
+      indistinguishable from a bug;
+    * **requires `--expect-real N`** and exits non-zero without it. A gate that passes when the
+      caller omits an argument will eventually pass a broken board: verified by planting a
+      floating stub, which flipped REAL 5→6 and failed the gate.
+
+    Current authoritative count: **5 REAL opens** (`/EN`, `/SPI2_SCK`, `/F33_VSENSE`, `/VSCAP` at
+    R_BAL1, `/VSCAP` zone↔C_CAP1), all blocked by S1 pad geometry, with the four pad-local traps
+    being 2× stricter than JLCPCB's published 0.09 mm process minimum.
 22. **When a gate fires on correct input, the GATE is wrong — fix the gate, never the input.**
     Measured 2026-10-22: G3 flagged 8 `UNCONNECTED-(U1-IOxx-PADnn)` nets as "schematic nets
     missing from the board", while G4 (per-net pin sets) and G5 (registry agreement) both passed.
@@ -766,6 +905,29 @@ it gets checked & enforced automatically in future."*
     catches B48. A comment-matching test was tried first and a poison test proved it did NOT fail
     when the bug was reintroduced; it was replaced.
     **Never relax these tests to make a commit pass.** If a test fails, the router is wrong.
+
+## WING-SOCKET EDGE RULE (2026-11-03) — BINDING, ADR-142
+
+13a. **THE `J_W` EDGE EXEMPTION IS PAD-ONLY. A TRACK MUST NEVER CROSS A SOCKET CAVITY.**
+    The wing sockets are edge-launched, so their pads sit on `Edge.Cuts` on purpose and
+    are exempted from the 0.50 mm edge rule. A **track** is not. Each `J_W` carries four
+    `Edge.Cuts` graphics forming a 6.0 × 0.5 mm cavity cut into the board edge, and the
+    pads sit on the **far** side of it — so reaching a land from the board interior
+    requires crossing the cavity, which is copper physically cut by a board edge.
+    Measured crossing pairs: `/W1_SOLAR_N` −0.092, `/W2_SOLAR_N` −0.100 and −0.096,
+    `/W3_SOLAR_N` −0.096 mm.
+
+    **Do not try to fix this in `.kicad_dru`.** ADR-142 §2 swept seven condition forms
+    (`tracker/hardware/dru_edge_form_sweep.py`) and **no form reaches a track — not even a
+    conditionless `edge_clearance (min 0.00mm)` waiver**, which removes all 16 pad items
+    (20 → 4) and leaves every track item standing. The limit is the rule engine, not the
+    condition syntax; there is no tighter scoping that would work either.
+
+    Enforced by `tracker/hardware/check_socket_edge_tracks.py`, wired into
+    `scripts/git-hooks/pre-commit-board-gates.py` and `tests/test_adr142_socket_edge_tracks.py`
+    (which includes a **positive control** that plants a crossing track and requires exit 1).
+    Pairs 3, 6 and 7 complete in **assembly** via the two-face tab (ADR-120 R1,
+    `WING-TO-HUB-SOCKET-SPEC.md` §2) — that is what the two-land interface exists for.
 
 ## REPOSITORY ROOT LAYOUT (2026-10-25) — BINDING
 

@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : C_1206_3216Metric
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of Capacitor_SMD:C_1206_3216Metric as committed (4.695 x 1.700 mm; library item name `3216Metric` = IEC 1206, nominal 3.2 x 1.6 mm body)
+# TODO(unverified):
+#   - Z 0.80 mm - not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.4000
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 4.6950 1.7000 0.8000 }
+    }
+  ]
+}

@@ -1,0 +1,630 @@
+# v11 flight-board connectivity registry -- SOURCE OF TRUTH for pin->net.
+#
+# DERIVED FROM connectivity/v10_pinmap.reg AT master 04219c23 BY ADDING THE ADR-148
+# ANALOG-SENSE BLOCK.  Every v10 row is carried through unchanged.  The one inherited
+# net whose CONNECTIVITY changes is the /VSCAP divider midpoint, and it is called out
+# here rather than buried:
+#
+#   v10:  R_DIV1.2 /SCAP_ADC   R_DIV2.1 /SCAP_ADC        (net ended at a dead pad)
+#   v11:  R_DIV1.2 /SCAP_DIV   R_DIV2.1 /SCAP_DIV        (divider midpoint)
+#         /SCAP_DIV -- R_PROT1 --> /SCAP_ADC --> U_ADC2.4  (now TERMINATES on an ADC pin)
+#
+# The terminating net keeps the old name on purpose: /SCAP_ADC is what the ADRs and the
+# firmware already refer to.
+#
+# THERE IS NO v11 BOARD.  No hub_board_v11.kicad_pcb exists; nothing here is derived from
+# copper and registry.py gen/check cannot run against v11 until one does.  This file drives
+# tracker/hardware/build_v11_sch.py, the schematic generator.
+#
+# v11 SCOPE -- all four operator-approved items, none silently dropped:
+#   item 1  D_BP1..D_BP4 moved to the TOP face (ADR-146)  -- LAYOUT-ONLY, ZERO parts.
+#           NOT DONE.  PR #530 measured that the two proposed D_BP2 top sites are illegal
+#           under native DRC; accepted, not re-litigated.  No registry row can express a
+#           face change, so this file is untouched by item 1.
+#   item 2  /SCAP_ADC + solar-input dividers (ADR-148)    -- THIS FILE.
+#   item 3  real cut-driver parts (latch/AO3400A/...)     -- NOT DONE.  U_CUT1..4 remain
+#           placeholder footprints.  Their FOUR ADS1115 channels are RESERVED here.
+#   item 4  GPIO economy / MCP23017 (ADR-145)             -- NOT DONE.  No part added.
+#
+# Format: REF.PIN  NET  # authority
+# UNASSIGNED = the pin has no net. Those are listed at the end of this file.
+
+# --- U1  (ESP32-S3-WROOM-1U)
+U1.1  GND  # v9 netlist (rails)
+U1.2  +3V3  # v9 netlist (rails)
+U1.3  /EN  # ADR-121 (J_PROG)
+U1.4  /SPI2_SCK  # ADR-123 (433MHz bus: F33 alone)
+U1.5  /SPI2_MOSI  # ADR-123 (433MHz bus: F33 alone)
+U1.6  /SPI2_MISO  # ADR-123 (433MHz bus: F33 alone)
+U1.7  /F33_CS_N  # v9 netlist (F33 control)
+U1.8  /SPI1_MOSI  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U1.9  /SPI1_MISO  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U1.10  /E28_CS_N  # ADR-118 + E28 sidecar pin map
+U1.11  /E28_DIO2  # ADR-118 + E28 sidecar pin map
+U1.12  /F33_BUSY  # v9 netlist (F33 control)
+U1.13  /USB_DN  # ADR-121 (J_PROG)
+U1.14  /USB_DP  # ADR-121 (J_PROG)
+U1.15  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.16  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.17  /F33_IRQ  # v9 netlist (F33 control)
+U1.18  /F33_RESET_N  # v9 netlist (F33 control)
+U1.19  /U3_IRQ  # v9 netlist + ADR-123
+U1.20  /U3_CS_N  # v9 netlist + ADR-123
+U1.21  /F33_VSENSE  # v9 netlist (F33 control)
+U1.22  /SPI1_SCK  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U1.23  /GNSS_PPS  # v9 netlist (MAX-M10S)
+U1.24  /U3_BUSY  # v9 netlist + ADR-123
+U1.25  /U3_RESET_N  # v9 netlist + ADR-123
+U1.26  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.27  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.28  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.29  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.30  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.31  /E28_BUSY  # ADR-118 + E28 sidecar pin map
+U1.32  /E28_RESET_N  # ADR-118 + E28 sidecar pin map
+U1.33  /E28_DIO1  # ADR-118 + E28 sidecar pin map
+U1.34  /E28_DIO3  # ADR-118 + E28 sidecar pin map
+U1.35  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.36  /GNSS_TX  # v9 netlist (MAX-M10S)
+U1.37  /GNSS_RX  # v9 netlist (MAX-M10S)
+U1.38  /I2C_SCL  # v9 netlist (baro U6)
+U1.39  /I2C_SDA  # v9 netlist (baro U6)
+U1.40  GND  # v9 netlist (rails)
+U1.41  GND  # v9 netlist (rails)
+U1.""  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+
+# --- U2  (LoRa2021F33_2G4)
+U2.1  /F33_VCC  # v9 netlist (F33 control)
+U2.2  GND  # v9 netlist (rails)
+U2.3  GND  # v9 netlist (rails)
+U2.4  GND  # v9 netlist (rails)
+U2.5  +3V3  # v9 netlist (rails)
+U2.6  GND  # v9 netlist (rails)
+U2.7  GND  # v9 netlist (rails)
+U2.8  GND  # v9 netlist (rails)
+U2.9  UNASSIGNED  # ADR-137: /ANT1_433_TX was an antenna feed on our copper; deleted (antenna attaches AT the module)
+U2.10  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U2.11  GND  # v9 netlist (rails)
+U2.12  /SPI2_SCK  # ADR-123 (433MHz bus: F33 alone)
+U2.13  /F33_CS_N  # v9 netlist (F33 control)
+U2.14  /F33_BUSY  # v9 netlist (F33 control)
+U2.15  /SPI2_MOSI  # ADR-123 (433MHz bus: F33 alone)
+U2.16  /SPI2_MISO  # ADR-123 (433MHz bus: F33 alone)
+U2.17  /F33_RESET_N  # v9 netlist (F33 control)
+U2.18  /F33_IRQ  # v9 netlist (F33 control)
+
+# --- U3  (LoRa2021_Castellated)
+U3.1  +3V3  # v9 netlist (rails)
+U3.2  GND  # v9 netlist (rails)
+U3.3  /SPI1_MISO  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U3.4  /SPI1_MOSI  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U3.5  /SPI1_SCK  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U3.6  /U3_CS_N  # v9 netlist + ADR-123
+U3.7  /U3_BUSY  # v9 netlist + ADR-123
+U3.8  GND  # v9 netlist (rails)
+U3.9  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U3.10  UNASSIGNED  # ADR-137: /ANT3_2G4_RX was an antenna feed on our copper; deleted (antenna attaches AT the module)
+U3.11  GND  # v9 netlist (rails)
+U3.12  GND  # v9 netlist (rails)
+U3.13  /VTCXO_VNTC  # v9 netlist (unclassified)
+U3.14  /U3_RESET_N  # v9 netlist + ADR-123
+U3.15  /U3_IRQ  # v9 netlist + ADR-123
+U3.16  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U3.17  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U3.18  GND  # v9 netlist (rails)
+
+# --- U5  (ublox_MAX)
+U5.1  GND  # v9 netlist (rails)
+U5.2  /GNSS_TX  # v9 netlist (MAX-M10S)
+U5.3  /GNSS_RX  # v9 netlist (MAX-M10S)
+U5.4  /GNSS_PPS  # v9 netlist (MAX-M10S)
+U5.5  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U5.6  +3V3  # v9 netlist (rails)
+U5.7  +3V3  # v9 netlist (rails)
+U5.8  /GNSS_VCC  # v9 netlist (MAX-M10S)
+U5.9  +3V3  # v9 netlist (rails)
+U5.10  GND  # v9 netlist (rails)
+U5.11  UNASSIGNED  # ADR-137: /ANT4_GNSS_L1 was an antenna feed on our copper; deleted (antenna attaches AT the module)
+U5.12  GND  # v9 netlist (rails)
+U5.13  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U5.14  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U5.15  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U5.16  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U5.17  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U5.18  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+
+# --- U6  (LGA-8_3x5mm_P1.25mm)
+U6.1  +3V3  # v9 netlist (rails)
+U6.2  GND  # v9 netlist (rails)
+U6.3  GND  # v9 netlist (rails)
+U6.4  +3V3  # v9 netlist (rails)
+U6.5  +3V3  # v9 netlist (rails)
+U6.6  GND  # v9 netlist (rails)
+U6.7  /I2C_SDA  # v9 netlist (baro U6)
+U6.8  /I2C_SCL  # v9 netlist (baro U6)
+
+# --- U7  (SOT-23-5)
+U7.1  /VSCAP  # v9 netlist (harvest storage)
+U7.2  GND  # v9 netlist (rails)
+U7.3  /VSCAP  # v9 netlist (harvest storage)
+U7.4  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U7.5  +3V3  # v9 netlist (rails)
+
+# --- U_C  (LoRa2021_Castellated)
+U_C.1  +3V3  # v9 netlist (rails)
+U_C.2  GND  # v9 netlist (rails)
+U_C.3  /SPI1_MISO  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U_C.4  /SPI1_MOSI  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U_C.5  /SPI1_SCK  # ADR-123 (2.4GHz bus: U3+U_C+E28)
+U_C.6  /U_C_CS_N  # ADR-119 Site C control (copied by pad number)
+U_C.7  /U_C_BUSY  # ADR-119 Site C control (copied by pad number)
+U_C.8  GND  # v9 netlist (rails)
+U_C.9  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_C.10  UNASSIGNED  # ADR-137: /ANT_C_2G4 deleted with ANT1..ANT4 (antenna at the module)
+U_C.11  GND  # v9 netlist (rails)
+U_C.12  GND  # v9 netlist (rails)
+U_C.13  /VTCXO_VNTC  # v9 netlist (unclassified)
+U_C.14  /U_C_RESET_N  # ADR-119 Site C control (copied by pad number)
+U_C.15  /U_C_IRQ  # ADR-119 Site C control (copied by pad number)
+U_C.16  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_C.17  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_C.18  GND  # v9 netlist (rails)
+
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
+# --- ANT1..ANT4  REMOVED by ADR-137 (no RF on the hub; antenna at the module)
+# The four U.FL connectors and their feed nets were deleted from the board.
+# The rows are intentionally absent, not UNASSIGNED: an UNASSIGNED row would
+# name a component the board no longer carries.
+# --- J_W1  (Wing_Tab_4P)
+J_W1.1  /W1_SOLAR_P  # v9 netlist (wing cut/solar)
+J_W1.2  GND  # v9 netlist (rails)
+J_W1.3  UNASSIGNED  # released by item 3: the cut loop left the wing tab; RF_FEED no longer carries cut drive or sense
+J_W1.4  /W1_SOLAR_N  # v9 netlist (wing cut/solar)
+
+# --- J_W2  (Wing_Tab_4P)
+J_W2.1  /W1_SOLAR_N  # v9 netlist (wing cut/solar)
+J_W2.2  GND  # v9 netlist (rails)
+J_W2.3  UNASSIGNED  # released by item 3, see J_W1.3
+J_W2.4  /W2_SOLAR_N  # v9 netlist (wing cut/solar)
+
+# --- J_W3  (Wing_Tab_4P)
+J_W3.1  /W2_SOLAR_N  # v9 netlist (wing cut/solar)
+J_W3.2  GND  # v9 netlist (rails)
+J_W3.3  UNASSIGNED  # released by item 3, see J_W1.3
+J_W3.4  /W3_SOLAR_N  # v9 netlist (wing cut/solar)
+
+# --- J_W4  (Wing_Tab_4P)
+J_W4.1  /W3_SOLAR_N  # v9 netlist (wing cut/solar)
+J_W4.2  GND  # v9 netlist (rails)
+J_W4.3  UNASSIGNED  # released by item 3, see J_W1.3
+J_W4.4  GND  # v9 netlist (rails)
+
+# --- U_LORA1280  (NiceRF LoRa1280, SX1280 12.5 dBm, ranging) - ADR-139
+# ADR-139 replaced the E28-2G4M27SX on the BOARD; this block is the same
+# change applied to the registry, pin for pin, from the remap table in
+# tracker/hardware/swap_u_e28_to_lora1280.py. The /E28_* NET NAMES are
+# retained deliberately: they are net names, not part names, and renaming
+# them would invalidate every routed segment on the board for no
+# electrical change. Pads 8/9 (RX_EN/TX_EN) do not exist on this part;
+# OPEN-E28-EN is therefore CLOSED by ADR-139, not waived.
+U_LORA1280.1  /E28_DIO2  # ADR-139 pin remap (E28 14 DIO2); net name retained from ADR-118
+U_LORA1280.2  /E28_DIO3  # ADR-139 pin remap (E28 15 DIO3); net name retained from ADR-118
+U_LORA1280.3  +3V3  # ADR-139 pin remap (E28 1 VCC)
+U_LORA1280.4  GND  # ADR-139 pin remap (E28 2/7/10/16 -> L1280 4/10/11/12/14)
+U_LORA1280.5  /SPI1_MISO  # ADR-123 (2.4GHz bus: U3+U_C+site D) + ADR-139 pin remap (E28 3)
+U_LORA1280.6  /SPI1_MOSI  # ADR-123 (2.4GHz bus: U3+U_C+site D) + ADR-139 pin remap (E28 4)
+U_LORA1280.7  /SPI1_SCK  # ADR-123 (2.4GHz bus: U3+U_C+site D) + ADR-139 pin remap (E28 5)
+U_LORA1280.8  /E28_CS_N  # ADR-139 pin remap (E28 6 NSS_CTS); net name retained from ADR-118
+U_LORA1280.9  UNASSIGNED  # ADR-139: the LoRa1280 ANTENNA pad - no net, ADR-137 (antenna at the module)
+U_LORA1280.10  GND  # ADR-139 pin remap
+U_LORA1280.11  GND  # ADR-139 pin remap
+U_LORA1280.12  GND  # ADR-139 pin remap
+U_LORA1280.13  /E28_RESET_N  # ADR-139 pin remap (E28 11 NRESET); net name retained from ADR-118
+U_LORA1280.14  GND  # ADR-139 pin remap
+U_LORA1280.15  /E28_BUSY  # ADR-139 pin remap (E28 12 BUSY); net name retained from ADR-118
+U_LORA1280.16  /E28_DIO1  # ADR-139 pin remap (E28 13 DIO1); net name retained from ADR-118
+
+# --- C_CAP1  (CP_Radial_D10.0mm_P5.00mm)
+C_CAP1.1  /VSCAP  # v9 netlist (harvest storage)
+C_CAP1.2  /SCAP_MID  # v9 netlist (harvest storage)
+
+# --- C_CAP2  (CP_Radial_D10.0mm_P5.00mm)
+C_CAP2.1  /SCAP_MID  # v9 netlist (harvest storage)
+C_CAP2.2  GND  # v9 netlist (rails)
+
+# --- J_PROG  (PinHeader_1x06_P2.54mm_Vertical)
+J_PROG.1  GND  # v9 netlist (rails)
+J_PROG.2  +3V3  # v9 netlist (rails)
+J_PROG.3  /EN  # ADR-121 (J_PROG)
+J_PROG.4  /USB_DN  # ADR-121 (J_PROG)
+J_PROG.5  /USB_DP  # ADR-121 (J_PROG)
+J_PROG.6  /IO0  # ADR-121 (J_PROG)
+
+# --- U_HUB_CVT  (VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm)
+U_HUB_CVT.1  /HUB_PV_P  # v9 netlist (unclassified)
+U_HUB_CVT.2  GND  # v9 netlist (rails)
+U_HUB_CVT.3  /HUB_PV_N  # v9 netlist (unclassified)
+U_HUB_CVT.4  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.5  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.6  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.7  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.8  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.9  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.10  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.11  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.12  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.13  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.14  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.15  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.16  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.17  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U_HUB_CVT.""  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+
+# --- C10
+C10.1  +3V3  # ADR-129 D1 (3V3 bulk at the LDO output)
+C10.2  GND  # ADR-129 D1
+
+# --- C4
+C4.1  /GNSS_VCC  # ADR-129 D1 / ADR-029 s2(d) (GNSS filtered-rail bulk)
+C4.2  GND  # ADR-129 D1 / ADR-029 s2(d)
+
+# --- C_BULK
+C_BULK.1  /F33_VCC  # ADR-129 D1 / ADR-047 s4 (bulk AT the F33 module pin)
+C_BULK.2  GND  # ADR-129 D1 / ADR-047 s4
+
+# --- C_HF
+C_HF.1  /F33_VCC  # ADR-129 D1 / ADR-047 s4 (HF bypass at the module pin)
+C_HF.2  GND  # ADR-129 D1 / ADR-047 s4
+
+# --- C_MON
+C_MON.1  /F33_VSENSE  # ADR-129 D1 / ADR-047 s6 (ADC sample-and-hold, tau 23.5ms)
+C_MON.2  GND  # ADR-129 D1 / ADR-047 s6
+
+# --- D1
+D1.1  /VSCAP  # ADR-129 D1 / ADR-006 (solar series blocking: cathode to storage)
+D1.2  /W1_SOLAR_P  # ADR-129 D1 / ADR-006 (anode to solar; blocks night back-feed)
+
+# --- D_BP1
+D_BP1.1  /W1_SOLAR_P  # ADR-129 D2 / ADR-051 s2.7 (SS24 hub-side wing bypass, cathode)
+D_BP1.2  /W1_SOLAR_N  # ADR-129 D2 / ADR-051 s2.7 (anode)
+
+# --- D_BP2
+D_BP2.1  /W1_SOLAR_N  # ADR-129 D2 / ADR-051 s2.7 (cathode; W1_N IS the W2_P hub link)
+D_BP2.2  /W2_SOLAR_N  # ADR-129 D2 / ADR-051 s2.7 (anode)
+
+# --- D_BP3
+D_BP3.1  /W2_SOLAR_N  # ADR-129 D2 / ADR-051 s2.7 (cathode)
+D_BP3.2  /W3_SOLAR_N  # ADR-129 D2 / ADR-051 s2.7 (anode)
+
+# --- D_BP4
+D_BP4.1  /W3_SOLAR_N  # ADR-129 D2 / ADR-051 s2.7 (cathode)
+D_BP4.2  GND  # ADR-129 D2 / ADR-051 s2.7 (anode; W4_SOLAR_N IS stack bottom = GND)
+
+# --- D_HUB1
+D_HUB1.1  /HUB_PV_P  # ADR-129 D2/D3 (hub-panel bypass, cathode to cell 1 +)
+D_HUB1.2  /HUB_PV_MID1  # ADR-129 D2/D3 (anode; interior node of the hub string)
+
+# --- D_HUB2
+D_HUB2.1  /HUB_PV_MID1  # ADR-129 D2/D3 (cathode)
+D_HUB2.2  /HUB_PV_N  # ADR-129 D2/D3 (anode)
+
+# --- J_HUB_PV
+J_HUB_PV.1  /HUB_PV_P  # ADR-129 D3 (hub panel connector, 5-pin: PV_P)
+J_HUB_PV.2  /HUB_PV_MID1  # ADR-129 D3 (PV_MID1 -- cell 1/2 node, observability)
+J_HUB_PV.3  UNASSIGNED  # ADR-129 D3 spare (3-cell H3 sizing); SEE connectivity/OPEN-ITEMS.md
+J_HUB_PV.4  /HUB_PV_N  # ADR-129 D3 (PV_N -- hub string negative)
+J_HUB_PV.5  GND  # ADR-129 D3 (GND -- the one node shared with the wing system)
+
+# --- J_VCC
+J_VCC.1  /VSCAP  # ADR-129 D1 / ADR-029 D8 (F33 PA rail selector, pin 1 = raw supercap)
+J_VCC.2  /F33_VCC  # ADR-129 D1 / ADR-029 D8 (COM -> F33 PA rail)
+J_VCC.3  +3V3  # ADR-129 D1 / ADR-029 D8 (nested bare LoRa2021 position)
+
+# --- R_BAL1
+R_BAL1.1  /VSCAP  # ADR-129 D1 / ADR-006 (2-cell supercap balancing, upper)
+R_BAL1.2  /SCAP_MID  # ADR-129 D1 / ADR-006 (balancing mid-node)
+
+# --- R_BAL2
+R_BAL2.1  /SCAP_MID  # ADR-129 D1 / ADR-006 (balancing mid-node)
+R_BAL2.2  GND  # ADR-129 D1 / ADR-006 (2-cell supercap balancing, lower)
+
+# --- R_F1
+R_F1.1  +3V3  # ADR-129 D1 / ADR-029 s2(d) (GNSS rail RC filter, series)
+R_F1.2  /GNSS_VCC  # ADR-129 D1 / ADR-029 s2(d)
+
+# --- R_MON1
+R_MON1.1  /F33_VCC  # ADR-129 D1 / ADR-047 s6 (F33 rail monitor, upper 4.7M)
+R_MON1.2  /F33_VSENSE  # ADR-129 D1 / ADR-047 s6
+
+# --- R_MON2
+R_MON2.1  /F33_VSENSE  # ADR-129 D1 / ADR-047 s6
+R_MON2.2  GND  # ADR-129 D1 / ADR-047 s6 (F33 rail monitor, lower 4.7M)
+
+# --- U_CUT1
+
+# --- U_CUT2
+
+# --- U_CUT3
+
+# --- U_CUT4
+
+# =====================================================================
+# ADR-148 -- ANALOG SENSE.  Two ADS1115IDGS (C37593, VSSOP-10) on the EXISTING I2C bus,
+# zero new MCU pins.  The channel map is machine-readable in
+# tracker/hardware/v11_analog_channels.json; the generator AND the test both read it, so
+# the sheet cannot drift from the assertion.
+#
+# PGA / FSR = +/-4.096 V (PGA code 1) on BOTH devices, LSB 125 uV [SBAS444E Table 7-1].
+#   +/-2.048 V is too small: the documented cold-Voc fault drives a solar tap to 2.10 V
+#   and would leave only 29 LSB of headroom.
+#   +/-6.144 V cannot deliver full scale at VDD = 3.3 V [SBAS444E s7.3.3].
+# =====================================================================
+
+# --- U_ADC1  ADS1115IDGS, ADDR -> GND = 0x48.  CUT SENSE (v11 item 3).  DNP.
+# NOT WIRED: the sense element is a 10 mOhm series shunt that belongs to item 3, and the
+# ADS1115 input power-sequence qualification is BLOCKED
+# (docs/analysis/OPEN-25-CUTTER-ADC-SEQUENCE.md).  SBAS444E s9.1.4: an unused analog input
+# is tied to GND, which is what happens here.  DNP so the pads exist for item 3 without
+# spending supply current on a device that measures nothing yet.  The CHANNEL ALLOCATION is
+# pinned in the JSON so item 3 cannot silently choose a different one.
+U_ADC1.1  GND  # SBAS444E Table 7-2: ADDR->GND = 1001000b = 0x48
+U_ADC1.2  UNASSIGNED  # ALERT/RDY unused; SBAS444E s9.1.4 permits floating
+U_ADC1.3  GND  # SBAS444E pin 3
+U_ADC1.8  +3V3  # VDD; SBAS444E s5.3 operating 2..5.5 V
+U_ADC1.9  /I2C_SDA  # shared baro bus (U1.39)
+U_ADC1.10  /I2C_SCL  # shared baro bus (U1.38)
+
+# --- U_ADC2  ADS1115IDGS, ADDR -> VDD = 0x49.  THE FOUR RAIL-MONITOR CHANNELS.  Fitted.
+# All four at ratio 0.2198582, so ONE calibration constant and ONE PGA setting serve all.
+U_ADC2.1  +3V3  # SBAS444E Table 7-2: ADDR->VDD = 1001001b = 0x49
+U_ADC2.2  UNASSIGNED  # ALERT/RDY unused; SBAS444E s9.1.4
+U_ADC2.3  GND  # SBAS444E pin 3
+U_ADC2.4  /SCAP_ADC  # AIN0 = /VSCAP. CLOSES the v10 two-pad orphan.
+U_ADC2.5  /W1_SOLAR_SENSE  # AIN1 = /W1_SOLAR_P (12-cell stack top)
+U_ADC2.6  /W2_SOLAR_SENSE  # AIN2 = /W1_SOLAR_N (9-cell tap)
+U_ADC2.7  /W3_SOLAR_SENSE  # AIN3 = /W2_SOLAR_N (6-cell tap)
+U_ADC2.8  +3V3  # VDD
+U_ADC2.9  /I2C_SDA
+U_ADC2.10  /I2C_SCL
+
+# --- decoupling: SBAS444E s10.2 requires at least 0.1 uF at each VDD pin
+C_ADC1.1  +3V3
+C_ADC1.2  GND
+C_ADC2.1  +3V3
+C_ADC2.2  GND
+
+# --- I2C PULL-UPS.  MEASURED on hub_board_v10.kicad_pcb: the bus has NONE.  The only pads
+# on /I2C_SCL and /I2C_SDA are U1.38/U1.39 and U6.7/U6.8 -- no resistors at all.  ADR-145
+# states the bus "already exists and is already routed"; routed, yes, but with no pull-ups
+# two more devices cannot drive it.  Zero DC draw at idle (both lines high).
+R_PU1.1  +3V3
+R_PU1.2  /I2C_SCL
+R_PU2.1  +3V3
+R_PU2.2  /I2C_SDA
+
+# =====================================================================
+# /VSCAP DIVIDER.  R_DIV1/R_DIV2 exist on v10 as 1 M / 1 M (ratio 0.5).  v11 changes their
+# VALUES to 2.2 M / 620 k (ratio 0.2198582) and splits the midpoint from the ADC net with
+# a protection resistor.  A 0.5 ratio puts 4.64 V on the ADS1115 pin at the documented
+# 9.28 V un-clamped fault, against an absolute maximum of VDD+0.3 = 3.6 V -- the inherited
+# divider would destroy the ADC in exactly the fault the board exists to observe.
+# Total stays within ADR-047 s6's budget: 10.3 uW at 5.4 V against the recorded 14.6 uW.
+# =====================================================================
+# --- R_DIV1  2.2 M upper
+R_DIV1.1  /VSCAP  # ADR-129 D1 / ADR-006 (supercap ADC divider, upper) -- VALUE 2.2M
+R_DIV1.2  /SCAP_DIV  # ADR-148: was /SCAP_ADC on v10; now the divider midpoint
+
+# --- R_DIV2  620 k lower
+R_DIV2.1  /SCAP_DIV  # ADR-148: was /SCAP_ADC on v10
+R_DIV2.2  GND  # ADR-129 D1 / ADR-006 (lower) -- VALUE 620k
+
+# --- R_PROT1  input protection; bounds pin current. See docs/fab/V11-ADC-INPUT-PROTECTION.md
+R_PROT1.1  /SCAP_DIV
+R_PROT1.2  /SCAP_ADC
+
+# --- C_DIV1  first-order RC at the pin + sample-and-hold reservoir (SBAS444E s9.1.5)
+C_DIV1.1  /SCAP_ADC
+C_DIV1.2  GND
+
+# =====================================================================
+# SOLAR-INPUT DIVIDERS.  The four wings are in SERIES, so only THREE independent nodes
+# exist: /W1_SOLAR_P (12 cells above GND), /W1_SOLAR_N (9), /W2_SOLAR_N (6).  Wing
+# voltages 1-3 are DIFFERENCES of adjacent measured nodes.  Wing 4 is /W3_SOLAR_N to GND
+# and is NOT directly measurable: ADR-148 spent all eight channels (4 cut + VSCAP + 3 solar).
+# 220 k / 62 k -> ratio 0.2198582, identical to the VSCAP divider.
+# At night the string sits at 0 V and these draw NOTHING; the load exists only while the
+# array is illuminated.  Daytime 34 uA per divider against the array's 0.4-1.2 A.
+# =====================================================================
+
+# --- /W1_SOLAR_P -> AIN1   (stack top, 12 cells)
+R_SOL1.1  /W1_SOLAR_P  # 220k upper
+R_SOL1.2  /W1_SOLAR_DIV
+R_PROT2.1  /W1_SOLAR_DIV
+R_PROT2.2  /W1_SOLAR_SENSE
+R_SOL2.1  /W1_SOLAR_DIV  # 62k lower
+R_SOL2.2  GND
+C_SOL1.1  /W1_SOLAR_SENSE
+C_SOL1.2  GND
+
+# --- /W1_SOLAR_N -> AIN2   (9-cell tap; this node IS W2_P)
+R_SOL3.1  /W1_SOLAR_N  # 220k upper
+R_SOL3.2  /W2_SOLAR_DIV
+R_PROT3.1  /W2_SOLAR_DIV
+R_PROT3.2  /W2_SOLAR_SENSE
+R_SOL4.1  /W2_SOLAR_DIV  # 62k lower
+R_SOL4.2  GND
+C_SOL2.1  /W2_SOLAR_SENSE
+C_SOL2.2  GND
+
+# --- /W2_SOLAR_N -> AIN3   (6-cell tap; this node IS W3_P)
+R_SOL5.1  /W2_SOLAR_N  # 220k upper
+R_SOL5.2  /W3_SOLAR_DIV
+R_PROT4.1  /W3_SOLAR_DIV
+R_PROT4.2  /W3_SOLAR_SENSE
+R_SOL6.1  /W3_SOLAR_DIV  # 62k lower
+R_SOL6.2  GND
+C_SOL3.1  /W3_SOLAR_SENSE
+C_SOL3.2  GND
+
+# === BEGIN v11 SCOPE ITEM 3 (generated) ===
+# v11 SCOPE ITEM 3 -- FOUR NICHROME CUT CHANNELS (divider-only sense).
+# Generated from tracker/hardware/v11_cut_channels.json by
+# `python3 tracker/hardware/build_v11_cut.py --write-registry`. Do not hand-edit:
+# test_v11_cut_channels.py G2 fails if this block differs from the record.
+
+# --- GPIO spent by item 3 (3 of the 4 free pads per ADR-145)
+U1.15  /CUT_FIRE  # IO3/pad 15 - shared latch D. STRAPPING (JTAG source).
+U1.35  /CUT_A0  # IO42/pad 35 - decoder A (LSB), output capable
+U1.26  /CUT_A1  # IO45/pad 26 - decoder B (MSB). STRAPPING: VDD_SPI select, must be LOW at boot; R_A1PD 10k is both strap and idle level.
+
+# --- U_ADC1 AIN0..3: the four cut-sense currents (replaces PR546's GND placeholders)
+U_ADC1.4  /CUT_ADC1  # AIN0 = cut-sense wing 1 (scope item 3)
+U_ADC1.5  /CUT_ADC2  # AIN1 = cut-sense wing 2 (scope item 3)
+U_ADC1.6  /CUT_ADC3  # AIN2 = cut-sense wing 3 (scope item 3)
+U_ADC1.7  /CUT_ADC4  # AIN3 = cut-sense wing 4 (scope item 3)
+
+# --- CUT CHANNEL 1: latch + FET + shunt + divider + 2-conductor loop
+U_CUT1.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT1.2  GND  # SCES528F s5 pin 2
+U_CUT1.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT1.4  /CUT_LAT1  # Q -> R_G1
+U_CUT1.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT1.6  /CUT_OE1  # ~OE <- U_DEC.Y0
+Q_CUT1.1  /CUT_GATE1  # gate
+Q_CUT1.2  /CUT_SHUNT_H1  # SOURCE = shunt HIGH side = sense tap
+Q_CUT1.3  /CUT_HEAT_RET1  # DRAIN = heater return, into the shunt
+R_G1.1  /CUT_LAT1  # from U_CUT1 Q
+R_G1.2  /CUT_GATE1  # to gate
+R_GPD1.1  /CUT_GATE1  # fail-safe pull-down
+R_GPD1.2  GND
+R_SH1.1  /CUT_SHUNT_H1  # FORCE high: FET source / heater return
+R_SH1.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH1.2  /CUT_KELV_H1  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH1.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA1.1  /CUT_KELV_H1  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA1.2  /CUT_SENSE_DIV1
+R_SNSB1.1  /CUT_SENSE_DIV1
+R_SNSB1.2  GND
+R_SNS1.1  /CUT_SENSE_DIV1
+R_SNS1.2  /CUT_ADC1  # -> U_ADC1.AIN0
+C_SNS1.1  /CUT_ADC1
+C_SNS1.2  GND
+J_HT1.1  /VSCAP  # heater DRIVE conductor
+J_HT1.2  /CUT_HEAT_RET1  # dedicated heater RETURN conductor
+
+# --- CUT CHANNEL 2: latch + FET + shunt + divider + 2-conductor loop
+U_CUT2.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT2.2  GND  # SCES528F s5 pin 2
+U_CUT2.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT2.4  /CUT_LAT2  # Q -> R_G2
+U_CUT2.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT2.6  /CUT_OE2  # ~OE <- U_DEC.Y1
+Q_CUT2.1  /CUT_GATE2  # gate
+Q_CUT2.2  /CUT_SHUNT_H2  # SOURCE = shunt HIGH side = sense tap
+Q_CUT2.3  /CUT_HEAT_RET2  # DRAIN = heater return, into the shunt
+R_G2.1  /CUT_LAT2  # from U_CUT2 Q
+R_G2.2  /CUT_GATE2  # to gate
+R_GPD2.1  /CUT_GATE2  # fail-safe pull-down
+R_GPD2.2  GND
+R_SH2.1  /CUT_SHUNT_H2  # FORCE high: FET source / heater return
+R_SH2.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH2.2  /CUT_KELV_H2  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH2.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA2.1  /CUT_KELV_H2  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA2.2  /CUT_SENSE_DIV2
+R_SNSB2.1  /CUT_SENSE_DIV2
+R_SNSB2.2  GND
+R_SNS2.1  /CUT_SENSE_DIV2
+R_SNS2.2  /CUT_ADC2  # -> U_ADC1.AIN1
+C_SNS2.1  /CUT_ADC2
+C_SNS2.2  GND
+J_HT2.1  /VSCAP  # heater DRIVE conductor
+J_HT2.2  /CUT_HEAT_RET2  # dedicated heater RETURN conductor
+
+# --- CUT CHANNEL 3: latch + FET + shunt + divider + 2-conductor loop
+U_CUT3.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT3.2  GND  # SCES528F s5 pin 2
+U_CUT3.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT3.4  /CUT_LAT3  # Q -> R_G3
+U_CUT3.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT3.6  /CUT_OE3  # ~OE <- U_DEC.Y2
+Q_CUT3.1  /CUT_GATE3  # gate
+Q_CUT3.2  /CUT_SHUNT_H3  # SOURCE = shunt HIGH side = sense tap
+Q_CUT3.3  /CUT_HEAT_RET3  # DRAIN = heater return, into the shunt
+R_G3.1  /CUT_LAT3  # from U_CUT3 Q
+R_G3.2  /CUT_GATE3  # to gate
+R_GPD3.1  /CUT_GATE3  # fail-safe pull-down
+R_GPD3.2  GND
+R_SH3.1  /CUT_SHUNT_H3  # FORCE high: FET source / heater return
+R_SH3.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH3.2  /CUT_KELV_H3  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH3.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA3.1  /CUT_KELV_H3  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA3.2  /CUT_SENSE_DIV3
+R_SNSB3.1  /CUT_SENSE_DIV3
+R_SNSB3.2  GND
+R_SNS3.1  /CUT_SENSE_DIV3
+R_SNS3.2  /CUT_ADC3  # -> U_ADC1.AIN2
+C_SNS3.1  /CUT_ADC3
+C_SNS3.2  GND
+J_HT3.1  /VSCAP  # heater DRIVE conductor
+J_HT3.2  /CUT_HEAT_RET3  # dedicated heater RETURN conductor
+
+# --- CUT CHANNEL 4: latch + FET + shunt + divider + 2-conductor loop
+U_CUT4.1  +3V3  # LE tied HIGH: transparent latch, no stored state
+U_CUT4.2  GND  # SCES528F s5 pin 2
+U_CUT4.3  /CUT_FIRE  # D, shared across all four channels
+U_CUT4.4  /CUT_LAT4  # Q -> R_G4
+U_CUT4.5  +3V3  # VCC 1.65..5.5 V (SCES528F s6.1)
+U_CUT4.6  /CUT_OE4  # ~OE <- U_DEC.Y3
+Q_CUT4.1  /CUT_GATE4  # gate
+Q_CUT4.2  /CUT_SHUNT_H4  # SOURCE = shunt HIGH side = sense tap
+Q_CUT4.3  /CUT_HEAT_RET4  # DRAIN = heater return, into the shunt
+R_G4.1  /CUT_LAT4  # from U_CUT4 Q
+R_G4.2  /CUT_GATE4  # to gate
+R_GPD4.1  /CUT_GATE4  # fail-safe pull-down
+R_GPD4.2  GND
+R_SH4.1  /CUT_SHUNT_H4  # FORCE high: FET source / heater return
+R_SH4.4  GND  # FORCE low: the ONLY GND in the heater loop
+R_SH4.2  /CUT_KELV_H4  # KELVIN sense high -- Device:R_Shunt is a TRUE 4-TERMINAL part, so the measurement excludes the force-path IR drop instead of assuming it away
+R_SH4.3  GND  # KELVIN sense low (bonded to GND at the reference)
+R_SNSA4.1  /CUT_KELV_H4  # sense tap on the KELVIN pad, AFTER the shunt
+R_SNSA4.2  /CUT_SENSE_DIV4
+R_SNSB4.1  /CUT_SENSE_DIV4
+R_SNSB4.2  GND
+R_SNS4.1  /CUT_SENSE_DIV4
+R_SNS4.2  /CUT_ADC4  # -> U_ADC1.AIN3
+C_SNS4.1  /CUT_ADC4
+C_SNS4.2  GND
+J_HT4.1  /VSCAP  # heater DRIVE conductor
+J_HT4.2  /CUT_HEAT_RET4  # dedicated heater RETURN conductor
+
+# --- SERIALISATION: one-hot decoder, exactly one latch enabled at any address
+U_DEC.1  /CUT_A0  # A (LSB)
+U_DEC.2  /CUT_A1  # B (MSB)
+U_DEC.4  GND  # SCES602E s5
+U_DEC.8  +3V3  # VCC 1.65..5.5 V
+U_DEC.7  /CUT_OE1  # Y0 -> U_CUT1 ~OE (Table 4: exactly one LOW)
+U_DEC.6  /CUT_OE2  # Y1 -> U_CUT2 ~OE (Table 4: exactly one LOW)
+U_DEC.5  /CUT_OE3  # Y2 -> U_CUT3 ~OE (Table 4: exactly one LOW)
+U_DEC.3  /CUT_OE4  # Y3 -> U_CUT4 ~OE (Table 4: exactly one LOW)
+R_A0PD.1  /CUT_A0
+R_A0PD.2  GND
+R_A1PD.1  /CUT_A1
+R_A1PD.2  GND
+R_FPD.1  /CUT_FIRE
+R_FPD.2  GND
+# === END v11 SCOPE ITEM 3 ===
+
+# UNASSIGNED pins on this board: 51 -> U1.15, U1.16, U1.26, U1.27, U1.28, U1.29, U1.30, U1.35, U1."", U2.9, U2.10, U3.9, U3.10, U3.16, U3.17, U5.5, U5.11, U5.13, U5.14, U5.15, U5.16, U5.17, U5.18, U7.4, U_C.9, U_C.10, U_C.16, U_C.17, J_W1.3, J_W2.3, J_W3.3, J_W4.3, U_LORA1280.9, U_HUB_CVT.4, U_HUB_CVT.5, U_HUB_CVT.6, U_HUB_CVT.7, U_HUB_CVT.8, U_HUB_CVT.9, U_HUB_CVT.10, U_HUB_CVT.11, U_HUB_CVT.12, U_HUB_CVT.13, U_HUB_CVT.14, U_HUB_CVT.15, U_HUB_CVT.16, U_HUB_CVT.17, U_HUB_CVT."", J_HUB_PV.3, U_ADC1.2, U_ADC2.2

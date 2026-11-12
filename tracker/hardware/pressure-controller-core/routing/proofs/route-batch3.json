@@ -1,0 +1,56 @@
+{
+ "board_in": "/home/c08r4d0r/worktrees/pr-pressure-core-placement/tracker/hardware/pressure-controller-core/routing/batch2.kicad_pcb",
+ "pitch": 0.1,
+ "rules": {
+  "track_w": 0.2,
+  "clearance": 0.2,
+  "via": [
+   0.6,
+   0.3
+  ],
+  "hole_clear": 0.25,
+  "edge_clear": 0.5,
+  "via_in_pad": "forbidden",
+  "motor_area": [
+   48.0,
+   34.0,
+   78.0,
+   58.0
+  ],
+  "rule_areas_modelled": [
+   {
+    "rect": [
+     48.0,
+     34.0,
+     78.0,
+     58.0
+    ],
+    "layers": [
+     0,
+     2
+    ],
+    "outlines": 1,
+    "corners": 4
+   }
+  ],
+  "source": "docs/analysis/bulk-route-20261107/route_batch.py"
+ },
+ "pairs": [
+  {
+   "spec": "/USB5V:C4.1:U2.2",
+   "net": "/USB5V",
+   "agreement_ok": true,
+   "agreement": "4000 free cells all accepted by the validator",
+   "seconds": 36.03,
+   "result": "UNROUTED",
+   "reason": [
+    "deadline reached during search"
+   ]
+  }
+ ],
+ "routed": 0,
+ "already_connected": [],
+ "failed": [
+  "/USB5V:C4.1:U2.2"
+ ]
+}

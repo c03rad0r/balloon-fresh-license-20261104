@@ -1,0 +1,4 @@
+=== F33VS2   from 44ca9d9e305c9b6d
+world: pads=301 tracks=1332 edges=16 holes=163 origin=(-0.05, -0.05) size=(72.1, 80.1)
+UNROUTED /F33_VSENSE:U1.21:R_MON1.2: no path on any layer pair (43.62s)
+F33VS2: NOTHING WRITTEN -- tree untouched, latest.kicad_pcb unchanged

@@ -1,0 +1,19 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : ublox_MAX
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of RF_GPS:ublox_MAX as committed (9.800 x 10.200 mm) - the MAX-M10S (U5) land.  NOTE: docs/PAYLOAD-WEIGHT-ESTIMATES.md line 63 states 12.2 x 16 mm, which is a different (patch-antenna) figure; the footprint drawing is used and the disagreement is recorded, not hidden.
+# TODO(unverified):
+#   - the 12.2 x 16 mm figure in docs/PAYLOAD-WEIGHT-ESTIMATES.md vs the 9.800 x 10.200 mm footprint drawing - unreconciled
+#   - Z 2.50 mm - not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 1.2500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.720 0.740 0.770 } }
+      geometry Box { size 9.8000 10.2000 2.5000 }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "board_mm": [
+    80,
+    60
+  ],
+  "board_area_mm2": 4800.0,
+  "references": 26,
+  "side_counts": {
+    "top": 26,
+    "bottom": 0
+  },
+  "courtyard_area_total_mm2": 1809.821,
+  "courtyard_area_inside_board_mm2": 785.01,
+  "courtyard_occupancy_percent_inside_board": 16.35,
+  "free_area_inside_board_mm2": 4014.99,
+  "largest_single_empty_rectangle_mm2": 1752.0,
+  "largest_single_empty_rectangle_at_mm": [
+    25.25,
+    28.0,
+    54.75,
+    32.0
+  ],
+  "motor_reservation_mm": [
+    48,
+    34,
+    78,
+    58
+  ],
+  "motor_area_mm2": 720,
+  "motor_share_of_board_percent": 15.0,
+  "tracks": 5,
+  "copper_zones": 2
+}

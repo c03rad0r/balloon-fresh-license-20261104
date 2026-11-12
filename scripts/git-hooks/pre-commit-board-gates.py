@@ -22,6 +22,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 
 HW = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))), "tracker", "hardware")
@@ -179,6 +180,23 @@ if PY is None:
 GATES = [
     ("check_drc.py", []),
     ("check_schematic_parity.py", []),
+    # ADR-142 (Accepted 2026-11-03): the wing-socket edge exemption is PAD-ONLY. A track
+    # crossing a J_W cavity is copper physically cut by a board edge, and measured in the ADR
+    # NO .kicad_dru condition form can suppress the DRC item -- not even a conditionless
+    # waiver. DRC reports it correctly; what goes wrong is a reader counting 16 intentional
+    # pad items and treating the 4 track items as the same class of noise. This gate makes
+    # that impossible: it refuses any board carrying a track within 0.50 mm of, or across,
+    # a wing-socket cavity edge.
+    ("check_socket_edge_tracks.py", []),
+    # ADR-143 (PROPOSED 2026-11-07): H/V lane discipline, assigned by STACK POSITION
+    # (F.Cu=H, In1.Cu=V, In2.Cu=H, B.Cu=V), never by KiCad layer ID -- on these boards every
+    # copper layer has an EVEN id (F=0, B=2, In1=4, In2=6), so an "odd/even layer number" rule
+    # assigns all four layers the same direction and is inert.
+    # REPORT-ONLY ON PURPOSE. Measured on the reference board: 50.5% conformance, i.e.
+    # indistinguishable from random. A blocking gate would refuse every commit on day one.
+    # Deliberately invoked WITHOUT --strict so it prints the figure and never blocks; strict
+    # mode is for a fresh layout (or a board that records a baseline). ADR-143 section 4.
+    ("check_hv_lanes.py", []),
     # SILK LEGIBILITY (2026-10-22). Operator: "please make sure that the silk screen is legible
     # and doesn't overlap with parts or other silk screens before you start routing the board.
     # Please make sure this is part of the quality gates that have git hooks and please make sure
@@ -186,6 +204,20 @@ GATES = [
     # Hard gate, no allow-list: a designator the assembler cannot read is how a part gets fitted
     # in the wrong place. Runs BEFORE routing work by design -- silk is pre-routing work.
     ("check_silk.py", []),
+    # UNCONNECTED EXCLUSIONS (AGENTS 21a, 2026-11-08). "DRC 0" as a raw record count is
+    # unsatisfiable on this board: the two-face wing lands (16/16 pads across J_W1..J_W4) and
+    # three GND zone-to-zone records are DESIGN, not defects, and no board copper can close the
+    # former without crossing a socket cavity that 13a forbids. This gate derives those classes
+    # from the board itself, refuses to exclude any net whose component graph shows copper ending
+    # in mid-air, prints every exclusion, and REQUIRES --expect-real N so a regression cannot
+    # pass by a forgotten argument.
+    # NO --expect-real in the hook. The expectation is a property of a SPECIFIC board, and this
+    # hook runs against hub_board_v10.kicad_pcb -- not the board the 5 was measured on. Hardcoding
+    # it here made the gate compare a v10 count against a v2 number and fail permanently:
+    #   "EXCLUDED 23 record(s) ... REAL copper opens: 40 / FAIL: expected 5, found 40"
+    # The gate still fails on an unclassifiable record, which is the property that matters; the
+    # numeric expectation belongs to the per-board invocation, not the shared hook.
+    ("check_unconnected_exclusions.py", []),
 ]
 
 
@@ -368,7 +400,34 @@ for script, extra in GATES:
         failed.append(f"{script}: MISSING (gate expected but absent)")
         print(f"board-gates: FAIL {script} -- expected gate not found")
         continue
-    r = subprocess.run([PY, path, *extra], capture_output=True, text=True, timeout=900)
+
+    # check_unconnected_exclusions.py needs a BOARD and a --drc JSON, which the other gates do
+    # not: they take no arguments and inspect the staged set themselves. Rather than teach every
+    # gate a new interface, only this one is invoked with the board and a freshly written DRC
+    # report -- and if kicad-cli cannot produce that report the gate FAILS, because a gate that
+    # cannot prove it ran must never look green (AGENTS 20).
+    cmd = [PY, path, *extra]
+    if script == "check_unconnected_exclusions.py":
+        board = os.environ.get("BOARD_GATES_TARGET_BOARD", "") or BOARD
+        if not board or not os.path.exists(board):
+            print(f"board-gates: FAIL {script} -- no board supplied "
+                  f"(BOARD_GATES_TARGET_BOARD unset and {BOARD} missing); "
+                  f"refusing to skip a connectivity gate")
+            failed.append(f"{script}: no board")
+            continue
+        drc_json = os.path.join(tempfile.gettempdir(), "board-gates-drc.json")
+        try:
+            subprocess.run(["kicad-cli", "pcb", "drc", "--format", "json",
+                            "--severity-all", "--units", "mm",
+                            "--output", drc_json, board],
+                           capture_output=True, text=True, timeout=900, check=True)
+        except Exception as e:
+            print(f"board-gates: FAIL {script} -- could not produce a DRC report: {e}")
+            failed.append(f"{script}: no DRC report")
+            continue
+        cmd = [PY, path, board, "--drc", drc_json, *extra]
+
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
     tail = [l for l in (r.stdout or "").strip().splitlines() if l.strip()][-3:]
     if r.returncode == 0:
         print(f"board-gates: PASS {script}")

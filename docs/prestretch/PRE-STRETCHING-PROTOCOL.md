@@ -1,7 +1,22 @@
 # Balloon Pre-Stretching and Leak Testing Protocol
 
+> **Safety correction — 2026-11-10, [ADR-088](../adr/088-prestretch-differential-pressure-qualification.md).**
+> The numerical pressure/pump instructions below are historical, NOT executable.
+> Withdraw “1.05 bar” (do not reinterpret as gauge) and the ≥100 kPa pump recommendation.
+> Use ΔP = P_internal − P_ambient in Pa/kPa, two MS5611 with same-pressure offset
+> calibration and independent manometer validation. Target/ramp/dwell/max remain
+> UNKNOWN for each envelope. Independent relief AND pump-off shutdown verification
+> are mandatory: leakage and a GPIO pull-down alone are not safety protection.
+> Pump actuation is disabled; measurement-only work with pump power disconnected is allowed.
+> Historical BMP280, valve, threshold and automatic calibration-transfer claims do not
+> override ADR-088. No bench session alone automatically qualifies an envelope.
+
+
+
 **Track:** balloon-pre-stretching (physical preparation only)
 **Status:** Living document — update as test data arrives
+
+**2026-11-10 precedence:** `DIFFERENTIAL-PRESSURE-BASIS.md` governs pressure measurement and safety. Two MS5611 sensors and an ESP32-S3 are the selected rig; single-BMP280/C3 instructions below are legacy only. No balloon inflation until gates M/S/E pass. Existing circumference targets are process references, not permission to exceed a qualified differential ceiling. Pressure-drop tables alone do not establish flight readiness or true gas loss.
 **Sources:** Ruthroff (KC9IKB, 37 flights / 528-day best), KI4MCW (31 flights), K9YO (beginner guide), Yokohama manufacturer, Klofas / SF-HAB, IEEE Spectrum (Schneider)
 
 This protocol covers **physical balloon preparation only**. It does NOT cover firmware, circuit design, antenna, or launch logistics.
@@ -43,7 +58,7 @@ DecoGlee 18" round foil balloons are Mylar/PET. They hold their shape rigidly an
 ### B.2 Procedure
 
 1. **Inspect** the balloon for visible defects: seam gaps, pinholes, valve damage. Reject any balloon with visible defects.
-2. **Inflate** with the pump to **1.05 bar** (target launch pressure). Use the pressure sensor to confirm.
+2. **HOLD — no numeric inflation pressure is qualified.** Follow `DIFFERENTIAL-PRESSURE-BASIS.md` gates M/S/E; use balloon-specific differential limits, never the withdrawn 1.05 bar instruction. Flight filling is governed separately by the qualified free-lift procedure.
 3. **Measure circumference** with measuring tape. Record the value.
 4. **Leak test** (electronic — see §D):
    - Short test: hold 2–4 h, log pressure every 30 s.

@@ -1,0 +1,167 @@
+(footprint "Tracker_Mechanical:SolarCell_LARGE_78x39mm"
+  (version 20250114)
+  (generator "gen_3d_models")
+  (generator_version "9.0")
+  (layer "F.Cu")
+  (descr "BARE LARGE solar cell 78.55 x 38.90 x 0.21 mm, mounted END-ONLY (no bond, no carrier) on the hub array face. Body X/Y/Z CITED: ADR-049 s'Measured inputs' (78.55 x 38.90 x 0.21 mm, 30.6 cm2, ~0.5 V, ~1.2 A), reproduced by ADR-051 s1.4. ADR-052 s2.6 END-ONLY; ADR-055 D1/D3/D6 (horizontal plane, area is a DUTY CHOICE, cells on the sun-facing face). NO LANDS, measured 2026-10-08: (1) no in-repo record fixes the cell's terminal-land geometry, so any pad here would be a TODO(unverified) invention; (2) with lands present the S0 screen - gate25_check.py's LAYER-BLIND pad-box proxy - reported 5 pad-overlap pairs and 11 exact pad overlaps, ALL between a footprint on F.Cu and this cell on B.Cu (U1, U2, C_MON, D_HUB2, C_CAP2), i.e. physical non-issues on OPPOSITE copper faces, while the authority (kicad-cli pcb drc) reported courtyards_overlap 0 either way. Recommendation: make the S0 proxy layer-aware before lands are added. PLAIN PADS, NO SLOT: no routed slot and no NPTH feature (ADR-046 Option B). DNP: the array AREA is the operator's open duty choice (ADR-055 D3).")
+  (tags "solar cell LARGE 78x39 hub array ADR-051 ADR-052 ADR-055 DNP END-ONLY no-slot no-lands")
+  (attr smd)
+  (property "Reference" "PVA1"
+    (at -36 21.5 0)
+    (layer "F.SilkS")
+    (uuid "7c1a2b30-0001-4000-8000-0000000000a1")
+    (effects
+      (font
+        (size 1 1)
+        (thickness 0.15)
+      )
+    )
+  )
+  (property "Value" "SolarCell_78x39mm"
+    (at 0 21.5 0)
+    (layer "F.Fab")
+    (uuid "7c1a2b30-0002-4000-8000-0000000000a2")
+    (effects
+      (font
+        (size 1 1)
+        (thickness 0.15)
+      )
+    )
+  )
+  (property "Datasheet" ""
+    (at 0 0 0)
+    (layer "F.Fab")
+    (hide yes)
+    (uuid "7c1a2b30-0003-4000-8000-0000000000a3")
+    (effects
+      (font
+        (size 1.27 1.27)
+        (thickness 0.15)
+      )
+    )
+  )
+  (property "Description" "BARE LARGE solar cell 78.55 x 38.90 x 0.21 mm, END-ONLY mount, NO LANDS, DNP"
+    (at 0 0 0)
+    (layer "F.Fab")
+    (hide yes)
+    (uuid "7c1a2b30-0004-4000-8000-0000000000a4")
+    (effects
+      (font
+        (size 1.27 1.27)
+        (thickness 0.15)
+      )
+    )
+  )
+  (fp_rect
+    (start -39.275 -19.45)
+    (end 39.275 19.45)
+    (stroke
+      (width 0.05)
+      (type solid)
+    )
+    (fill no)
+    (layer "F.Fab")
+    (uuid "7c1a2b30-0101-4000-8000-0000000000b1")
+  )
+  (fp_line
+    (start -31.275 -15.45)
+    (end -31.275 -19.45)
+    (stroke
+      (width 0.12)
+      (type solid)
+    )
+    (layer "F.SilkS")
+    (uuid "7c1a2b30-0201-4000-8000-0000000000c1")
+  )
+  (fp_line
+    (start -31.275 -19.45)
+    (end -35.275 -19.45)
+    (stroke
+      (width 0.12)
+      (type solid)
+    )
+    (layer "F.SilkS")
+    (uuid "7c1a2b30-0202-4000-8000-0000000000c2")
+  )
+  (fp_line
+    (start -39.275 -19.45)
+    (end -35.275 -19.45)
+    (stroke
+      (width 0.12)
+      (type solid)
+    )
+    (layer "F.SilkS")
+    (uuid "7c1a2b30-0203-4000-8000-0000000000c3")
+  )
+  (fp_line
+    (start -39.275 19.45)
+    (end -35.275 19.45)
+    (stroke
+      (width 0.12)
+      (type solid)
+    )
+    (layer "F.SilkS")
+    (uuid "7c1a2b30-0204-4000-8000-0000000000c4")
+  )
+  (fp_line
+    (start 39.275 -19.45)
+    (end 35.275 -19.45)
+    (stroke
+      (width 0.12)
+      (type solid)
+    )
+    (layer "F.SilkS")
+    (uuid "7c1a2b30-0205-4000-8000-0000000000c5")
+  )
+  (fp_line
+    (start 39.275 19.45)
+    (end 35.275 19.45)
+    (stroke
+      (width 0.12)
+      (type solid)
+    )
+    (layer "F.SilkS")
+    (uuid "7c1a2b30-0206-4000-8000-0000000000c6")
+  )
+  (fp_line
+    (start -39.525 -19.7)
+    (end 39.525 -19.7)
+    (stroke
+      (width 0.05)
+      (type solid)
+    )
+    (layer "F.CrtYd")
+    (uuid "7c1a2b30-0301-4000-8000-0000000000d1")
+  )
+  (fp_line
+    (start 39.525 -19.7)
+    (end 39.525 19.7)
+    (stroke
+      (width 0.05)
+      (type solid)
+    )
+    (layer "F.CrtYd")
+    (uuid "7c1a2b30-0302-4000-8000-0000000000d2")
+  )
+  (fp_line
+    (start 39.525 19.7)
+    (end -39.525 19.7)
+    (stroke
+      (width 0.05)
+      (type solid)
+    )
+    (layer "F.CrtYd")
+    (uuid "7c1a2b30-0303-4000-8000-0000000000d3")
+  )
+  (fp_line
+    (start -39.525 19.7)
+    (end -39.525 -19.7)
+    (stroke
+      (width 0.05)
+      (type solid)
+    )
+    (layer "F.CrtYd")
+    (uuid "7c1a2b30-0304-4000-8000-0000000000d4")
+  )
+  (embedded_fonts no)
+)

@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : NiceRF_LoRa2021
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y/Z: tracker/hardware/footprints/nicerf-lora2021.json `dimensions.width_mm/height_mm/thickness_mm` = 19.81 x 14.98 x 2.32 mm
+# CASTELLATION: 9 half-cylinders per 19.81 mm edge at 1.2900 mm pitch, axis VERTICAL (through the module thickness), centred exactly ON the module edge line (half inset, half proud)
+# TODO(unverified): the castellation hole diameter for this module is NOT sourced in the repo - no half-cylinder is drawn
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 1.1600
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Box { size 19.8100 14.9800 2.3200 }
+    }
+  ]
+}

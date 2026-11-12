@@ -1,0 +1,13 @@
+{
+  "status": "FAIL",
+  "gap_mm": 26.8,
+  "length_mm": 28.91,
+  "segments": 270,
+  "vias": 2,
+  "opens_before": 16,
+  "opens_after": 16,
+  "viol_before": 20,
+  "viol_after": 17,
+  "errors_after": 0,
+  "verdict": "FAIL"
+}

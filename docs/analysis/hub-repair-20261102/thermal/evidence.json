@@ -1,0 +1,43 @@
+{
+  "original_board_sha256": "732bfe889020b3c957fb778f1c30f2a84a3e96171cec37c1fa51dae58a9c6561",
+  "silk_candidate_sha256": "94038dd0c4608f28181017599cb7b623dcb85d81f619ec66947fdec2406c1155",
+  "thermal_candidate_sha256": "8bc4428aa4c62f01255ec065cf8033ef74397a51dba74c2c5d200764fd1218cb",
+  "canonical_union_netlist_outline_placement_sha256": {
+    "before": "96994fd1b1406157429b203f2717101930f8e17bba8cc49e35f37db7752be4ce",
+    "after": "96994fd1b1406157429b203f2717101930f8e17bba8cc49e35f37db7752be4ce"
+  },
+  "filled_polygons_and_pad_zone_connect_allowed_to_change": true,
+  "counts": {
+    "before": {
+      "starved_thermal": 2,
+      "copper_edge_clearance": 16,
+      "silk_over_copper": 1,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8
+    },
+    "after": {
+      "copper_edge_clearance": 16,
+      "silk_over_copper": 1,
+      "lib_footprint_mismatch": 11,
+      "lib_footprint_issues": 8
+    }
+  },
+  "added": {},
+  "removed": {
+    "[\"starved_thermal\", \"error\", \"Thermal relief connection to zone incomplete (layer F.Cu; zone min spoke count 2; actual 1)\", [[\"44e6650b-6806-4f57-a7e5-9b2147a8235c\", \"Pad 14 [GND] of U_LORA1280 on F.Cu\"], [\"dd5a7dbb-15c7-4621-9bb5-0628a0024b72\", \"Zone 'GND_FCu' [GND] on F.Cu, priority 0\"]]]": 1,
+    "[\"starved_thermal\", \"error\", \"Thermal relief connection to zone incomplete (layer F.Cu; zone min spoke count 2; actual 1)\", [[\"2f328fa2-1da2-4a2e-970f-17a1889bceee\", \"PTH pad 1 [GND] of J_PROG\"], [\"dd5a7dbb-15c7-4621-9bb5-0628a0024b72\", \"Zone 'GND_FCu' [GND] on F.Cu, priority 0\"]]]": 1
+  },
+  "unconnected": 86,
+  "pads": [
+    {
+      "ref": "U_LORA1280",
+      "num": "14",
+      "zone_connect": "FULL"
+    },
+    {
+      "ref": "J_PROG",
+      "num": "1",
+      "zone_connect": "FULL"
+    }
+  ]
+}

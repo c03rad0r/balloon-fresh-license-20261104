@@ -1,0 +1,139 @@
+{
+  "references": 26,
+  "exported_endpoints": 125,
+  "nets": 51,
+  "side_counts": {
+    "top": 26,
+    "bottom": 0
+  },
+  "through_hole_land_counts": {
+    "J1": 4,
+    "U1": 12,
+    "U2": 2
+  },
+  "through_hole_note": "single-sided = SMT placement only; J1/U1/U2 keep their natural through-hole lands which appear on B.Cu in the bottom view. No part is mounted on the bottom side.",
+  "footprints_with_courtyard": 26,
+  "courtyard_area_total_mm2": 1809.821,
+  "courtyard_area_inside_board_mm2": 785.01,
+  "board_area_mm2": 3250.0,
+  "courtyard_occupancy_percent_inside_board": 24.15,
+  "courtyard_occupancy_denominator": "65 x 50 mm outline = 3250 mm2; courtyards clipped to the outline",
+  "courtyard_total_denominator": "sum of all 26 courtyard polygons incl. the U1 antenna volume above the north edge",
+  "motor_reservation_mm": [
+    33,
+    24,
+    63,
+    48
+  ],
+  "motor_area_mm2": 720,
+  "tracks": 0,
+  "vias": 0,
+  "courtyard_overlaps": 0,
+  "pad_bbox_overlaps": 0,
+  "antenna_keepout_mm": [
+    4,
+    -21.025,
+    52,
+    0
+  ],
+  "sensor_port_keepout_boxes_mm": {
+    "U3": [
+      46.5,
+      7.5,
+      49.5,
+      12.5
+    ],
+    "U4": [
+      58.5,
+      7.5,
+      61.5,
+      12.5
+    ]
+  },
+  "buck_cell_origin_shift_mm": -5,
+  "power_loop_mm": {
+    "CIN_to_VIN_mm": 2.35,
+    "CIN_to_PGND_mm": 3.4,
+    "SW_to_L_mm": 2.28,
+    "L_to_COUT_mm": 3.33,
+    "COUT_to_VOS_mm": 9.66,
+    "FB_divider_to_FB_mm": 4.91,
+    "sensor_to_inductor_mm": 39.83,
+    "sensor_to_S3shield_mm": 21.8
+  },
+  "power_loop_delta_vs_baseline_mm": {
+    "sensor_to_inductor_mm": -9.85,
+    "sensor_to_S3shield_mm": -9.0
+  },
+  "power_loop_mm_baseline": {
+    "CIN_to_VIN_mm": 2.35,
+    "CIN_to_PGND_mm": 3.4,
+    "SW_to_L_mm": 2.28,
+    "L_to_COUT_mm": 3.33,
+    "COUT_to_VOS_mm": 9.66,
+    "FB_divider_to_FB_mm": 4.91,
+    "sensor_to_inductor_mm": 49.68,
+    "sensor_to_S3shield_mm": 30.8
+  },
+  "footprint_pad_signature_parity": "all 26 footprints identical pad geometry/layers/nets vs source board",
+  "source_sha256": "3d422fa0323c5d56c3916a3a80849f2069540dac461164e33223db3c398fbc8f",
+  "source_board_sha256": "3d422fa0323c5d56c3916a3a80849f2069540dac461164e33223db3c398fbc8f",
+  "board_sha256": "2cc927b1021bc0953c2d458c3d18fbd991d57e48927daea0c32aeed3d17f47e7",
+  "baseline_dimensions_mm": [
+    80,
+    60
+  ],
+  "candidate_dimensions_mm": [
+    65,
+    50
+  ],
+  "area_reduction_percent": 32.29,
+  "native_violations": {
+    "lib_footprint_mismatch": 1
+  },
+  "native_unconnected_records": 77,
+  "native_opens_by_net": {
+    "/+3V3": 19,
+    "/BOOT": 3,
+    "/BUCK_FB": 2,
+    "/BUCK_SW": 1,
+    "/CC1": 1,
+    "/CC2": 1,
+    "/EN": 4,
+    "/GND": 30,
+    "/I2C_SCL": 3,
+    "/I2C_SDA": 3,
+    "/USB5V": 4,
+    "/USB_DN": 1,
+    "/USB_DN_CONN": 2,
+    "/USB_DP": 1,
+    "/USB_DP_CONN": 2
+  },
+  "native_opens_note": "record counts are DRC spanning-edge accounting, not endpoint connectivity; the per-net split moves with placement geometry",
+  "unrouted_baseline": {
+    "board": "routing/batch0.kicad_pcb (80x60, pre-pour)",
+    "unconnected_records": 77,
+    "opens_by_net": {
+      "/+3V3": 19,
+      "/BOOT": 3,
+      "/BUCK_FB": 2,
+      "/BUCK_SW": 1,
+      "/CC1": 1,
+      "/CC2": 1,
+      "/EN": 4,
+      "/GND": 30,
+      "/I2C_SCL": 3,
+      "/I2C_SDA": 3,
+      "/USB5V": 4,
+      "/USB_DN": 1,
+      "/USB_DN_CONN": 2,
+      "/USB_DP": 1,
+      "/USB_DP_CONN": 2
+    },
+    "violations": {
+      "lib_footprint_mismatch": 1
+    }
+  },
+  "opens_by_net_parity_with_unrouted_baseline": true,
+  "drc_scope": "native kicad-cli pcb drc --severity-all on the candidate copy"
+}

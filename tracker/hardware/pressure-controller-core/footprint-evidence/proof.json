@@ -1,0 +1,18 @@
+{
+  "baseline": "57d654ff",
+  "unchanged_native_net_endpoints": 125,
+  "mapped_refs": [
+    "U3",
+    "U4"
+  ],
+  "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended",
+  "scope": "isolated no-net coupon only; not controller layout or fab readiness",
+  "sha256": {
+    "PressureSensor.pretty/MS5611-01BA03_TE_Recommended.kicad_mod": "5257fed9855c5a93effabe58553b4989dbb830a773d2b9476168ed4e30ccc6df",
+    "core.kicad_sch": "6fd10237092f8046982cd1ba71fb3568b5273cf7c16e0f6344d0ece9fc4804c5",
+    "core.xml": "3bfacefd6bfe6e253fb18d347425cf94afc477bc60e5d9720f7b98eeec0f2476",
+    "footprint-evidence/coupon.kicad_pcb": "1eda84cdfa93cd7410305b938a9345ec5baccb7776a74eee4d6dd9d33537d7b1",
+    "footprint-evidence/coupon.svg": "1dd913bb3f8538c6e42caed2323ddf8eb657851de359e35f8974636034bf8d95",
+    "footprint-evidence/coupon.png": "254b87b726a0db1908f9aadaef41b30f8a74dbfadf5f86b586ccb0caece17795"
+  }
+}

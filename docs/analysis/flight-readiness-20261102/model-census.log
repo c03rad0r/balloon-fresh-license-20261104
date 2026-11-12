@@ -1,0 +1,14 @@
+
+1 of 1 board(s) NOT ready for a spatial review
+FAIL  tracker/hardware/hub_board_v10_lora1280_7of9.kicad_pcb
+    footprints 49  model refs 34  resolved 29  unresolved 5
+    no model block: H1, H2, H3, H4, HW1, HW2, HW3, HW4, J_VCC, J_W1, J_W2, J_W3, J_W4, U2, U_LORA1280
+    NO PACKAGE ${KICAD8_3DMODEL_DIR}/RF_Module.3dshapes/NiceRF_LoRa2021.wrl   (host lacks kicad-packages3d; not a repo defect -- pass --strict-package to fail on it)
+    NO PACKAGE ${KICAD9_3DMODEL_DIR}/Package_DFN_QFN.3dshapes/VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm.step   (host lacks kicad-packages3d; not a repo defect -- pass --strict-package to fail on it)
+    NO PACKAGE ${KICAD9_3DMODEL_DIR}/RF_GPS.3dshapes/ublox_MAX.step   (host lacks kicad-packages3d; not a repo defect -- pass --strict-package to fail on it)
+    NO PACKAGE ${KICAD9_3DMODEL_DIR}/RF_Module.3dshapes/ESP32-S3-WROOM-1U.step   (host lacks kicad-packages3d; not a repo defect -- pass --strict-package to fail on it)
+    HIDDEN  ${KICAD8_3DMODEL_DIR}/RF_Module.3dshapes/NiceRF_LoRa2021.wrl   (resolves, but (hide yes) keeps it out of the render)
+    HIDDEN  ${KICAD9_3DMODEL_DIR}/Package_DFN_QFN.3dshapes/VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm.step   (resolves, but (hide yes) keeps it out of the render)
+    HIDDEN  ${KICAD9_3DMODEL_DIR}/RF_GPS.3dshapes/ublox_MAX.step   (resolves, but (hide yes) keeps it out of the render)
+    HIDDEN  ${KICAD9_3DMODEL_DIR}/RF_Module.3dshapes/ESP32-S3-WROOM-1U.step   (resolves, but (hide yes) keeps it out of the render)
+    REQUIRED but has no model: U2, U_LORA1280

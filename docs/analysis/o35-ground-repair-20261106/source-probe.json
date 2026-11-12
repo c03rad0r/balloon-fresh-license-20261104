@@ -1,0 +1,272 @@
+{
+  "hashes": {
+    "board": "b899ad04f1e61bd4693b52f9a5275b4a406d8dfc59b778138d598ce768b90fbd",
+    "schematic": "3bfc8639aac3da41766c0bec8c22d16892bc58d61ecd2279abc51e141e8a6946",
+    "committed_netlist": "e6690cb0775f07dbeaa111d07cd148011b201073af83cd1b1eeaf569b3876d7c",
+    "registry": "3e308a076a688f2565f0d87cdbe932c4d03785ad4f4fc05e0bca8fe0039893cd",
+    "export": "8a09f6d4f509caff2396c074925322ce6b2292d212cbcc9edbf0b2e0b93e9503"
+  },
+  "bindings": {
+    "board": {
+      "D_BP4.1": [
+        "/W3_SOLAR_N"
+      ],
+      "D_BP4.2": [
+        "GND"
+      ],
+      "J_W4.4": [
+        "GND"
+      ],
+      "U7.2": [
+        "GND"
+      ],
+      "C10.2": [
+        "GND"
+      ]
+    },
+    "export": {
+      "D_BP4.1": [
+        "/W3_SOLAR_N"
+      ],
+      "D_BP4.2": [
+        "GND"
+      ],
+      "J_W4.4": [
+        "GND"
+      ],
+      "U7.2": [
+        "GND"
+      ],
+      "C10.2": [
+        "GND"
+      ]
+    },
+    "committed_netlist": {
+      "D_BP4.1": [
+        "/W3_SOLAR_N"
+      ],
+      "D_BP4.2": [
+        "GND"
+      ],
+      "J_W4.4": [
+        "GND"
+      ],
+      "U7.2": [
+        "GND"
+      ],
+      "C10.2": [
+        "GND"
+      ]
+    },
+    "registry": {
+      "D_BP4.1": [
+        "/W3_SOLAR_N"
+      ],
+      "D_BP4.2": [
+        "GND"
+      ],
+      "J_W4.4": [
+        "GND"
+      ],
+      "U7.2": [
+        "GND"
+      ],
+      "C10.2": [
+        "GND"
+      ]
+    }
+  },
+  "export_vs_committed_equal": false,
+  "registry_vs_export_equal": true,
+  "pads": [
+    {
+      "number": "1",
+      "net": "/W3_SOLAR_N",
+      "uuid": "ab9ab768-1f42-4847-8d2c-5c9198a18521",
+      "xy": [
+        29.0,
+        2.0
+      ],
+      "size": [
+        2.5,
+        1.8
+      ],
+      "layers": [
+        "B.Cu"
+      ]
+    },
+    {
+      "number": "2",
+      "net": "GND",
+      "uuid": "0b5d101b-cf4c-4c94-a581-5020ff4b1a7d",
+      "xy": [
+        29.0,
+        6.0
+      ],
+      "size": [
+        2.5,
+        1.8
+      ],
+      "layers": [
+        "B.Cu"
+      ]
+    }
+  ],
+  "near_tracks": [
+    {
+      "uuid": "20bdf2ac-ddc9-4bc3-bd3d-38eaefd7ec0e",
+      "net": "/SPI1_MISO",
+      "layer": "F.Cu",
+      "start": [
+        30.95,
+        8.45
+      ],
+      "end": [
+        23.05,
+        8.45
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "51c3e6c0-50b5-4456-aef9-76caf4d102d8",
+      "net": "/SPI1_MISO",
+      "layer": "F.Cu",
+      "start": [
+        32.35,
+        9.25
+      ],
+      "end": [
+        30.95,
+        9.25
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "bc9e7a54-5b06-4714-81a9-dd4a2a15311b",
+      "net": "/SPI1_MISO",
+      "layer": "F.Cu",
+      "start": [
+        30.95,
+        9.25
+      ],
+      "end": [
+        30.95,
+        8.45
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "2fcdb3fc-53a1-453b-870b-18a603478253",
+      "net": "/U3_RESET_N",
+      "layer": "F.Cu",
+      "start": [
+        30.95,
+        9.95
+      ],
+      "end": [
+        31.65,
+        9.95
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "840889f8-abdd-4fdf-b8dc-ef032933ea3a",
+      "net": "/U3_RESET_N",
+      "layer": "F.Cu",
+      "start": [
+        31.65,
+        9.95
+      ],
+      "end": [
+        31.65,
+        9.95
+      ],
+      "width": 0.6
+    },
+    {
+      "uuid": "945fe426-6d61-4551-8512-1cbf68949374",
+      "net": "/U3_RESET_N",
+      "layer": "B.Cu",
+      "start": [
+        31.65,
+        9.95
+      ],
+      "end": [
+        31.65,
+        10.65
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "15649205-5955-4b5f-95ef-7c12f14f5f53",
+      "net": "GND",
+      "layer": "F.Cu",
+      "start": [
+        29.8,
+        9.6
+      ],
+      "end": [
+        30.199846,
+        10.96175
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "3785d7c4-b54b-4758-b0dc-3979b462f16c",
+      "net": "GND",
+      "layer": "F.Cu",
+      "start": [
+        29.0,
+        6.0
+      ],
+      "end": [
+        31.040292,
+        6.0
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "7776fa83-7aed-4f66-82b2-f467bfadfa5b",
+      "net": "GND",
+      "layer": "F.Cu",
+      "start": [
+        25.8711,
+        9.6
+      ],
+      "end": [
+        27.290339,
+        9.6
+      ],
+      "width": 0.2
+    },
+    {
+      "uuid": "a497ea53-edc8-45ce-94af-2867c9f30d91",
+      "net": "GND",
+      "layer": "F.Cu",
+      "start": [
+        27.290339,
+        9.6
+      ],
+      "end": [
+        27.290339,
+        9.6
+      ],
+      "width": 0.6
+    },
+    {
+      "uuid": "ada07303-f780-4328-8252-828fab20734c",
+      "net": "GND",
+      "layer": "F.Cu",
+      "start": [
+        31.040292,
+        6.0
+      ],
+      "end": [
+        31.040292,
+        6.0
+      ],
+      "width": 0.6
+    }
+  ],
+  "erc_counts": "Counter({('warning', 'lib_symbol_issues'): 16, ('error', 'label_dangling'): 5, ('warning', 'footprint_link_issues'): 5, ('error', 'power_pin_not_driven'): 2, ('error', 'pin_not_driven'): 2})"
+}

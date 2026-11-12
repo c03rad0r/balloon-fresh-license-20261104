@@ -1,0 +1,700 @@
+{
+  "U1": {
+    "3": {
+      "name": "EN",
+      "net": "EN",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "27": {
+      "name": "IO0",
+      "net": "BOOT",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "39": {
+      "name": "IO1",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "38": {
+      "name": "IO2",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "15": {
+      "name": "IO3",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "4": {
+      "name": "IO4",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "5": {
+      "name": "IO5",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "6": {
+      "name": "IO6",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "7": {
+      "name": "IO7",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "12": {
+      "name": "IO8",
+      "net": "I2C_SDA",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "17": {
+      "name": "IO9",
+      "net": "I2C_SCL",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "18": {
+      "name": "IO10",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "19": {
+      "name": "IO11",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "20": {
+      "name": "IO12",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "21": {
+      "name": "IO13",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "22": {
+      "name": "IO14",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "8": {
+      "name": "IO15",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "9": {
+      "name": "IO16",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "2": {
+      "name": "3V3",
+      "net": "+3V3",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "1": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "40": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "41": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "37": {
+      "name": "TXD0",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "36": {
+      "name": "RXD0",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "10": {
+      "name": "IO17",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "11": {
+      "name": "IO18",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "13": {
+      "name": "USB_D-",
+      "net": "USB_DN",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "14": {
+      "name": "USB_D+",
+      "net": "USB_DP",
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "23": {
+      "name": "IO21",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "28": {
+      "name": "IO35",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "29": {
+      "name": "IO36",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "30": {
+      "name": "IO37",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "31": {
+      "name": "IO38",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "32": {
+      "name": "IO39",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "33": {
+      "name": "IO40",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "34": {
+      "name": "IO41",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "35": {
+      "name": "IO42",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "26": {
+      "name": "IO45",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "16": {
+      "name": "IO46",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "24": {
+      "name": "IO47",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    },
+    "25": {
+      "name": "IO48",
+      "net": null,
+      "footprint": "RF_Module:ESP32-S3-WROOM-1"
+    }
+  },
+  "R1": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "EN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R2": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "BOOT",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "C1": {
+    "1": {
+      "name": "~",
+      "net": "EN",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "C2": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "C3": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "SW1": {
+    "1": {
+      "name": "1",
+      "net": "EN",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    },
+    "2": {
+      "name": "2",
+      "net": "GND",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    }
+  },
+  "SW2": {
+    "1": {
+      "name": "1",
+      "net": "BOOT",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    },
+    "2": {
+      "name": "2",
+      "net": "GND",
+      "footprint": "Button_Switch_SMD:SW_SPST_TL3342"
+    }
+  },
+  "J1": {
+    "S1": {
+      "name": "SHIELD",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A1": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A12": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B1": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B12": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A4": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A9": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B4": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B9": {
+      "name": "VBUS",
+      "net": "USB5V",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A5": {
+      "name": "CC1",
+      "net": "CC1",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B5": {
+      "name": "CC2",
+      "net": "CC2",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A7": {
+      "name": "D-",
+      "net": "USB_DN_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B7": {
+      "name": "D-",
+      "net": "USB_DN_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A6": {
+      "name": "D+",
+      "net": "USB_DP_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B6": {
+      "name": "D+",
+      "net": "USB_DP_CONN",
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "A8": {
+      "name": "SBU1",
+      "net": null,
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    },
+    "B8": {
+      "name": "SBU2",
+      "net": null,
+      "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+    }
+  },
+  "R3": {
+    "1": {
+      "name": "~",
+      "net": "CC1",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R4": {
+    "1": {
+      "name": "~",
+      "net": "CC2",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R5": {
+    "1": {
+      "name": "~",
+      "net": "USB_DN_CONN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "USB_DN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R6": {
+    "1": {
+      "name": "~",
+      "net": "USB_DP_CONN",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "USB_DP",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "U2": {
+    "2": {
+      "name": "VIN",
+      "net": "USB5V",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "3": {
+      "name": "EN",
+      "net": "USB5V",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "8": {
+      "name": "PG",
+      "net": null,
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "9": {
+      "name": "PAD",
+      "net": "GND",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "1": {
+      "name": "PGND",
+      "net": "GND",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "4": {
+      "name": "AGND",
+      "net": "GND",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "7": {
+      "name": "SW",
+      "net": "BUCK_SW",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "6": {
+      "name": "VOS",
+      "net": "+3V3",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    },
+    "5": {
+      "name": "FB",
+      "net": "BUCK_FB",
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias"
+    }
+  },
+  "L1": {
+    "1": {
+      "name": "1",
+      "net": "BUCK_SW",
+      "footprint": "Inductor_SMD:L_Coilcraft_XAL6030-XXX"
+    },
+    "2": {
+      "name": "2",
+      "net": "+3V3",
+      "footprint": "Inductor_SMD:L_Coilcraft_XAL6030-XXX"
+    }
+  },
+  "R7": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "BUCK_FB",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R8": {
+    "1": {
+      "name": "~",
+      "net": "BUCK_FB",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "C4": {
+    "1": {
+      "name": "~",
+      "net": "USB5V",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    }
+  },
+  "C5": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    }
+  },
+  "C6": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric"
+    }
+  },
+  "#FLG01": {
+    "1": {
+      "name": "~",
+      "net": "USB5V",
+      "footprint": ""
+    }
+  },
+  "#FLG02": {
+    "1": {
+      "name": "~",
+      "net": "GND",
+      "footprint": ""
+    }
+  },
+  "#FLG03": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": ""
+    }
+  },
+  "U3": {
+    "2": {
+      "name": "PS",
+      "net": "+3V3",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "6": {
+      "name": "SDO",
+      "net": null,
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "7": {
+      "name": "SDI/SDA",
+      "net": "I2C_SDA",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "8": {
+      "name": "SCLK",
+      "net": "I2C_SCL",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "4": {
+      "name": "CSB",
+      "net": "GND",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "5": {
+      "name": "CSB",
+      "net": "GND",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "1": {
+      "name": "VDD",
+      "net": "+3V3",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "3": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    }
+  },
+  "U4": {
+    "2": {
+      "name": "PS",
+      "net": "+3V3",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "6": {
+      "name": "SDO",
+      "net": null,
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "7": {
+      "name": "SDI/SDA",
+      "net": "I2C_SDA",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "8": {
+      "name": "SCLK",
+      "net": "I2C_SCL",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "4": {
+      "name": "CSB",
+      "net": "+3V3",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "5": {
+      "name": "CSB",
+      "net": "+3V3",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "1": {
+      "name": "VDD",
+      "net": "+3V3",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    },
+    "3": {
+      "name": "GND",
+      "net": "GND",
+      "footprint": "PressureSensor:MS5611-01BA03_TE_Recommended"
+    }
+  },
+  "C7": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "C8": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "GND",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric"
+    }
+  },
+  "R9": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "I2C_SDA",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  },
+  "R10": {
+    "1": {
+      "name": "~",
+      "net": "+3V3",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    },
+    "2": {
+      "name": "~",
+      "net": "I2C_SCL",
+      "footprint": "Resistor_SMD:R_0603_1608Metric"
+    }
+  }
+}

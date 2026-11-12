@@ -1,0 +1,19 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : ESP32-S3-WROOM-1U
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of RF_Module:ESP32-S3-WROOM-1U as committed (18.100 x 19.300 mm).  The Espressif module is 18.0 x 25.5 mm, so the committed land is shallower than the real module - recorded, not hidden.
+# TODO(unverified):
+#   - the 18.0 x 25.5 mm Espressif module outline vs the 18.100 x 19.300 mm committed footprint drawing - unreconciled
+#   - Z 3.10 mm - ESP32-S3-WROOM-1U module height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 1.5500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.720 0.740 0.770 } }
+      geometry Box { size 18.1000 19.3000 3.1000 }
+    }
+  ]
+}

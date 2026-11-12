@@ -1,0 +1,22 @@
+batch BRIDGE1 from latest.kicad_pcb: opens=22 viol=24
+/SPI1_SCK      gap 0.050 mm  (43.800,73.000) -> (43.800,73.050) layers ['F.Cu'] -> ['B.Cu']
+   BRIDGED 0.60 mm, 6 seg, 1 via (0.1s)
+applied 1 net(s) -> /home/c08r4d0r/worktrees/pr-bulk-route-20261107/docs/analysis/bulk-route-20261107/batches/BRIDGE1/routed.kicad_pcb
+21:21:05: Debug: Adding duplicate image handler for 'PNG file'
+21:21:05: Debug: Adding duplicate image handler for 'JPEG file'
+21:21:05: Debug: Adding duplicate image handler for 'TIFF file'
+21:21:05: Debug: Adding duplicate image handler for 'GIF file'
+21:21:05: Debug: Adding duplicate image handler for 'PNM file'
+21:21:05: Debug: Adding duplicate image handler for 'PCX file'
+21:21:05: Debug: Adding duplicate image handler for 'IFF file'
+21:21:05: Debug: Adding duplicate image handler for 'Windows icon file'
+21:21:05: Debug: Adding duplicate image handler for 'Windows cursor file'
+21:21:05: Debug: Adding duplicate image handler for 'Windows animated cursor file'
+21:21:05: Debug: Adding duplicate image handler for 'TGA file'
+21:21:05: Debug: Adding duplicate image handler for 'XPM file'
+refilled 6 zone(s)
+native opens: 22 -> 22  (delta +0)
+violations: 24 -> 40
+VERDICT: FAIL
+batch BRIDGE1: REJECTED -- tree untouched
+rc=2

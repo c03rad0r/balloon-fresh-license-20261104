@@ -1,0 +1,199 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : LoRa2021F33-2G4
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: 39.0 x 21.0 mm - the `descr` of balloon_flight_v9:LoRa2021F33_2G4 ('39x21mm') and the land file LORA2021F33-2G4 footprint_pads.pcb; pad centres at 3.9289 mm pitch, 9 lands on each 39 mm edge (committed footprint).  Castellation hole diameter 0.80 +/- 0.1 mm read off the vendor drawing by the operator (2026-10-07), datasheet s9 p8.
+# CASTELLATION: 9 half-cylinders per 39.00 mm edge at 3.9289 mm pitch, axis VERTICAL (through the module thickness), centred exactly ON the module edge line (half inset, half proud)
+# TODO(unverified):
+#   - Z 2.50 mm - module thickness is NOT stated in any in-repo record; it is the operator's figure from the brief only
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 1.2500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Box { size 39.0000 21.0000 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -15.7156 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -15.7156 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -11.7867 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -11.7867 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -7.8578 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -7.8578 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -3.9289 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation -3.9289 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 0.0000 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 0.0000 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 3.9289 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 3.9289 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 7.8578 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 7.8578 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 11.7867 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 11.7867 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 15.7156 10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}
+Transform {
+  translation 15.7156 -10.5000 1.2500
+  rotation 1 0 0 1.5707963
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.620 0.640 0.680 } }
+      geometry Cylinder { radius 0.4000 height 2.5000 }
+    }
+  ]
+}

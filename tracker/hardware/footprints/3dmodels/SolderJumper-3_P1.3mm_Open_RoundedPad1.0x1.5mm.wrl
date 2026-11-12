@@ -1,0 +1,19 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: the F.CrtYd extent of Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm as committed (4.650 x 2.550 mm) - J_VCC carries NO F.Fab body drawing, so the courtyard is the only in-repo size
+# TODO(unverified):
+#   - no F.Fab body drawing exists; the courtyard extent is used
+#   - Z 0.50 mm - solder-jumper thickness is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.2500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.780 0.550 0.250 } }
+      geometry Box { size 4.6500 2.5500 0.5000 }
+    }
+  ]
+}

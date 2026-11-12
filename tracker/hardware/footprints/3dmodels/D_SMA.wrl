@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : D_SMA
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of Diode_SMD:D_SMA as committed (4.964 x 4.898 mm extent; package code SMA = JEDEC DO-214AC)
+# TODO(unverified):
+#   - Z 2.30 mm - SMA body height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 1.1500
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 4.9640 4.8980 2.3000 }
+    }
+  ]
+}

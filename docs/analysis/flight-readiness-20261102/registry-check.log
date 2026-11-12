@@ -1,0 +1,59 @@
+  DRIFT: U5.11: board=UNASSIGNED  registry=/ANT4_GNSS_L1
+  DRIFT: U2.9: board=UNASSIGNED  registry=/ANT1_433_TX
+  DRIFT: U_C.10: board=UNASSIGNED  registry=/ANT_C_2G4
+  DRIFT: U3.10: board=UNASSIGNED  registry=/ANT3_2G4_RX
+  DRIFT: U_LORA1280.1 is on the board as /E28_DIO2 but absent from the registry
+  DRIFT: U_LORA1280.2 is on the board as /E28_DIO3 but absent from the registry
+  DRIFT: U_LORA1280.3 is on the board as +3V3 but absent from the registry
+  DRIFT: U_LORA1280.4 is on the board as GND but absent from the registry
+  DRIFT: U_LORA1280.5 is on the board as /SPI1_MISO but absent from the registry
+  DRIFT: U_LORA1280.6 is on the board as /SPI1_MOSI but absent from the registry
+  DRIFT: U_LORA1280.7 is on the board as /SPI1_SCK but absent from the registry
+  DRIFT: U_LORA1280.8 is on the board as /E28_CS_N but absent from the registry
+  DRIFT: U_LORA1280.9 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_LORA1280.10 is on the board as GND but absent from the registry
+  DRIFT: U_LORA1280.11 is on the board as GND but absent from the registry
+  DRIFT: U_LORA1280.12 is on the board as GND but absent from the registry
+  DRIFT: U_LORA1280.13 is on the board as /E28_RESET_N but absent from the registry
+  DRIFT: U_LORA1280.14 is on the board as GND but absent from the registry
+  DRIFT: U_LORA1280.15 is on the board as /E28_BUSY but absent from the registry
+  DRIFT: U_LORA1280.16 is on the board as /E28_DIO1 but absent from the registry
+  DRIFT: U_CUT2.4 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT2.5 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT2.6 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT4.4 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT4.5 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT4.6 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT1.4 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT1.5 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT1.6 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT3.4 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT3.5 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: U_CUT3.6 is on the board as UNASSIGNED but absent from the registry
+  DRIFT: ANT1.1 is in the registry but ANT1 is not on the board
+  DRIFT: ANT1.2 is in the registry but ANT1 is not on the board
+  DRIFT: ANT2.1 is in the registry but ANT2 is not on the board
+  DRIFT: ANT2.2 is in the registry but ANT2 is not on the board
+  DRIFT: ANT3.1 is in the registry but ANT3 is not on the board
+  DRIFT: ANT3.2 is in the registry but ANT3 is not on the board
+  DRIFT: ANT4.1 is in the registry but ANT4 is not on the board
+  DRIFT: ANT4.2 is in the registry but ANT4 is not on the board
+  DRIFT: U_E28.1 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.2 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.3 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.4 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.5 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.6 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.7 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.8 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.9 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.10 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.11 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.12 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.13 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.14 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.15 is in the registry but U_E28 is not on the board
+  DRIFT: U_E28.16 is in the registry but U_E28 is not on the board
+pins checked: 257
+UNASSIGNED pins: 57 -> J_HUB_PV.3, U1."", U1.15, U1.16, U1.26, U1.27, U1.28, U1.29, U1.30, U1.35, U2.10, U2.9, U3.10, U3.16, U3.17, U3.9, U5.11, U5.13, U5.14, U5.15, U5.16, U5.17, U5.18, U5.5, U7.4, U_C.10, U_C.16, U_C.17, U_C.9, U_CUT1.4, U_CUT1.5, U_CUT1.6, U_CUT2.4, U_CUT2.5, U_CUT2.6, U_CUT3.4, U_CUT3.5, U_CUT3.6, U_CUT4.4, U_CUT4.5, U_CUT4.6, U_HUB_CVT."", U_HUB_CVT.10, U_HUB_CVT.11, U_HUB_CVT.12, U_HUB_CVT.13, U_HUB_CVT.14, U_HUB_CVT.15, U_HUB_CVT.16, U_HUB_CVT.17, U_HUB_CVT.4, U_HUB_CVT.5, U_HUB_CVT.6, U_HUB_CVT.7, U_HUB_CVT.8, U_HUB_CVT.9, U_LORA1280.9
+DRIFT: 4   MISSING: 52

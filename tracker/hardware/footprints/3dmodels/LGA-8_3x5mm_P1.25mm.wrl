@@ -1,0 +1,18 @@
+#VRML V2.0 utf8
+# --------------------------------------------------------------------------
+# MODEL     : LGA-8_3x5mm_P1.25mm
+# GENERATED : scripts/gen_3d_models.py  (parametric, deterministic)
+# SOURCE    : X/Y: F.Fab body drawing of Package_LGA:LGA-8_3x5mm_P1.25mm as committed (3.100 x 5.100 mm); the library item name states 3x5mm; docs/PAYLOAD-WEIGHT-ESTIMATES.md line 70 gives the MS5611 baro as 5.0 x 3.0 mm
+# TODO(unverified):
+#   - Z 1.00 mm - MS5611 body height is not stated in any in-repo record
+# --------------------------------------------------------------------------
+
+Transform {
+  translation 0.0000 0.0000 0.5000
+  children [
+    Shape {
+      appearance Appearance { material Material { diffuseColor 0.100 0.110 0.120 } }
+      geometry Box { size 3.1000 5.1000 1.0000 }
+    }
+  ]
+}
