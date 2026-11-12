@@ -30,7 +30,7 @@ U1.23  /GNSS_PPS  # v9 netlist (MAX-M10S)
 U1.24  /U3_BUSY  # v9 netlist + ADR-123
 U1.25  /U3_RESET_N  # v9 netlist + ADR-123
 U1.26  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
-U1.27  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
+U1.27  /IO0  # added by 321617cd (board) -- registry was never updated; boot strap, no copper (ADR-150)
 U1.28  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U1.29  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
 U1.30  UNASSIGNED  # SEE connectivity/OPEN-ITEMS.md
