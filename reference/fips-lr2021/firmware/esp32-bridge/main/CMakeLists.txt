@@ -23,3 +23,12 @@ target_compile_options(${COMPONENT_LIB} PRIVATE
 if(IDF_TARGET STREQUAL "esp32c3")
     target_compile_options(${COMPONENT_LIB} PRIVATE -DLR2021_NICERF_C3=1)
 endif()
+
+# Opt-in throughput experiment only. The default remains the validated CR 3/4
+# profile. Enable with: idf.py -DLR2021_FLRC_CR_NONE=ON build
+option(LR2021_FLRC_CR_NONE
+       "Use uncoded FLRC (CR_NONE/BT_1); experimental, not yet gate-qualified"
+       OFF)
+if(LR2021_FLRC_CR_NONE)
+    target_compile_options(${COMPONENT_LIB} PRIVATE -DLR2021_CR_SHAPE=0x27)
+endif()

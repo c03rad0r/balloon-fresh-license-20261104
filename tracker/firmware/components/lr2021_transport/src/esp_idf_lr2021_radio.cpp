@@ -325,7 +325,7 @@ Lr2021Error EspHalLr2021Radio::init_sequence(const Lr2021Config& config) {
         0x02, 0x49,
         0x0C,   // preamble=8 | syncLen=4/2
         0x4C,   // syncTx=1 | syncMatch=1 | fixed=1 | crc=0
-        0x00, config.payload_length
+        (uint8_t)(config.payload_length >> 8), (uint8_t)config.payload_length
     };
     spi_write(cmd_pktparams, 6);
     vTaskDelay(pdMS_TO_TICKS(1));

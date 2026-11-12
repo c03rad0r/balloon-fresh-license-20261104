@@ -29,6 +29,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <algorithm>
 #include <string.h>
 #include <vector>
 #include <optional>
@@ -61,8 +62,8 @@
 /// SPI clock frequency (20 MHz max verified per speed-tests)
 #define LR2021_SPI_FREQ_HZ    20000000U
 
-/// Maximum FLRC payload per packet (proven baseline: 255 bytes at 2600 kbps)
-#define LR2021_MAX_PACKET     255u
+/// Maximum FLRC payload per packet (16-bit FLRC field: 6..511 bytes)
+#define LR2021_MAX_PACKET     511u
 
 /// Busy pin poll timeout (iterations)
 #define LR2021_BUSY_TIMEOUT_ITER  100000U
@@ -96,7 +97,7 @@ struct Lr2021Config {
     int8_t   tx_power_dbm;    ///< TX power in dBm (range: -18 to +12)
     uint8_t  sync_word[4];    ///< Sync word bytes (must match on TX and RX)
     bool     crc_enabled;     ///< Enable CRC (recommended)
-    uint8_t  payload_length;  ///< Maximum payload length per packet (FLRC: max 255)
+    uint16_t payload_length;  ///< Fixed packet length per packet (FLRC: 6..511)
 
     /// Default config — proven baseline from balloon-range-tests Track 1
     Lr2021Config()
@@ -197,6 +198,14 @@ namespace Lr2021Opcodes {
     constexpr size_t arr_len(const uint8_t (&)[N]) { return N; }
 }
 
+// ── FLRC packet-length encoding ─────────────────────────────────────
+
+/// Encode the big-endian 16-bit FLRC payloadLen packet-params field.
+inline void lr2021_flrc_encode_payload_length(uint16_t length, uint8_t out[2]) {
+    out[0] = (uint8_t)(length >> 8);
+    out[1] = (uint8_t)length;
+}
+
 // ── E80 TX framing ─────────────────────────────────────────────────
 
 /// Build a vendor-format WRITE_TX_FIFO frame for the E80 path.
@@ -217,6 +226,18 @@ inline std::vector<uint8_t> lr2021_e80_build_tx_fifo(
     frame[1] = Lr2021Opcodes::OP_WRITE_TX_FIFO[1];
     if (len != 0) memcpy(frame.data() + 2, data, len);
     return frame;
+}
+
+/// Extended FIFO regions: DS Rev 2.2 §5.3.3.1, Tables 5-2 and 5-3.
+/// Each frame is WRITE_REGMEM32 (0x0104) + 24-bit address + 32-bit value.
+inline std::vector<std::vector<uint8_t>> lr2021_extended_fifo_commands()
+{
+    return {
+        {0x01, 0x04, 0xF3, 0x00, 0x2C, 0x00, 0x80, 0x40, 0x00},
+        {0x01, 0x04, 0xF3, 0x00, 0x34, 0x00, 0x00, 0x03, 0xFC},
+        {0x01, 0x04, 0xF3, 0x00, 0x28, 0x00, 0x80, 0x44, 0x00},
+        {0x01, 0x04, 0xF3, 0x00, 0x30, 0x00, 0x00, 0x03, 0xE8},
+    };
 }
 
 // ── Abstract Radio Interface ───────────────────────────────────────
@@ -379,7 +400,7 @@ private:
     spi_device_handle_t spi_dev_;
     bool spi_initialized_;
     bool is_tx_;
-    uint8_t payload_length_ = 255;
+    uint16_t payload_length_ = 255;
 
     // SPI helper methods
     Lr2021Error spi_write(const uint8_t* data, size_t len);
@@ -392,6 +413,8 @@ private:
     Lr2021Error wait_busy();
     bool check_irq_pin();
     Lr2021Error hardware_reset();
+
+    Lr2021Error configure_extended_fifos();
 
     // Command helper
     Lr2021Error cmd(const uint8_t* data, size_t len);

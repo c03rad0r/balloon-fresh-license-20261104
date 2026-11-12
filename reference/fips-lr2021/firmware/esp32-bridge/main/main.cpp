@@ -36,11 +36,14 @@
 #endif
 
 #if LR2021_NICERF_C3
-static const uint8_t FW_VERSION[3] = {0, 5, 12};
+static const uint8_t FW_VERSION[3] = {0, 5, 20};
 #else
-static const uint8_t FW_VERSION[3] = {0, 4, 22};
+static const uint8_t FW_VERSION[3] = {0, 4, 30};
 #endif
 static const uint16_t CAPS = 0x0007;
+static constexpr size_t RADIO_MAX_PAYLOAD = 511;
+static_assert(6 + RADIO_MAX_PAYLOAD <= BRIDGE_MAX_PAYLOAD,
+              "RX payload must fit the host bridge frame");
 
 #if LR2021_E80_COMPAT
 static constexpr uint32_t E80_IRQ_RX_DONE = 1UL << 18;
@@ -95,11 +98,14 @@ static void sendStat(void)
 
 static bool radioApply(const CfgPayload &cfg)
 {
+    if (cfg.radio_payload < 6 || cfg.radio_payload > RADIO_MAX_PAYLOAD) {
+        return false;
+    }
     gRadioCfg.freq_mhz = (float)cfg.frequency_hz / 1000000.0f;
     gRadioCfg.bitrate_kbps = cfg.bitrate_kbps;
     gRadioCfg.tx_power_dbm = cfg.tx_power_dbm;
     gRadioCfg.crc_enabled = true;
-    gRadioCfg.payload_length = (uint8_t)cfg.radio_payload;
+    gRadioCfg.payload_length = cfg.radio_payload;
     memcpy(gRadioCfg.sync_word, cfg.sync_word, 4);
 
     Lr2021Error err = Lr2021Error::WrongState;
@@ -316,7 +322,7 @@ static void handleRx(void)
     bool phy_crc_error = false;
 #endif
 
-    static uint8_t buf[255];
+    static uint8_t buf[RADIO_MAX_PAYLOAD];
     PacketStatus st;
     Lr2021Error err = gRadio.read_packet(buf, sizeof(buf), st);
     gRadio.clear_irq();
@@ -328,7 +334,7 @@ static void handleRx(void)
         return;
     }
 
-    static uint8_t payload[6 + 255];
+    static uint8_t payload[6 + RADIO_MAX_PAYLOAD];
     size_t len = frameLength(buf, st.length);
     payload[0] = (uint8_t)(st.rssi_dbm & 0xFF);
     payload[1] = (uint8_t)((st.rssi_dbm >> 8) & 0xFF);

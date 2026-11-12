@@ -317,6 +317,10 @@ uint8_t EspIdfLr2021Radio::bitrate_to_brbw(uint32_t bitrate_kbps) {
     }
 }
 
+#ifndef LR2021_CR_SHAPE
+#define LR2021_CR_SHAPE 0x17  /* CR_3_4 (0x1<<4), BT_1 (0x7) */
+#endif
+
 /**
  * Build FLRC packet params bytes.
  * preamble=16 (index 3), syncTx=1, syncMatch=1, fixed=1, crc depends on config.
@@ -343,16 +347,28 @@ static void build_packet_params(const Lr2021Config& config, uint8_t params[4]) {
 #else
     uint8_t byte1 = (1u << 6) | (1u << 3) | (1u << 2) | crc_byte;
 #endif
-    // Byte 2-3: payloadLen big-endian (upper byte 0 for ≤255)
+    // Bytes 2-3: payloadLen big-endian, full FLRC u16 range (6..511).
     params[0] = byte0;
     params[1] = byte1;
-    params[2] = 0x00;
-    params[3] = config.payload_length;
+    uint8_t payload_be[2];
+    lr2021_flrc_encode_payload_length(config.payload_length, payload_be);
+    params[2] = payload_be[0];
+    params[3] = payload_be[1];
 }
 
 #ifndef LR2021_E80_COMPAT
 #define LR2021_E80_COMPAT 0
 #endif
+
+Lr2021Error EspIdfLr2021Radio::configure_extended_fifos() {
+    /* Switch after calibration and before FIFO clearing/start_rx. CalibFE
+     * overwrites FIFO contents, so applying it later would invalidate them. */
+    for (const auto& frame : lr2021_extended_fifo_commands()) {
+        Lr2021Error err = cmd(frame.data(), frame.size());
+        if (err != Lr2021Error::Ok) return err;
+    }
+    return Lr2021Error::Ok;
+}
 
 Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
     // Step 0: Hardware reset
@@ -400,7 +416,7 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
 
     err = step({0x01, 0x12, 0x09, 0x11});             // DIO9 = IRQ/pulldown
     if (err != Lr2021Error::Ok) return err;
-    err = step({0x02, 0x48, bitrate_to_brbw(config.bitrate_kbps), 0x17});
+    err = step({0x02, 0x48, bitrate_to_brbw(config.bitrate_kbps), LR2021_CR_SHAPE});
     if (err != Lr2021Error::Ok) return err;
     err = step({0x02, 0x4C, 0x01,
                 config.sync_word[0], config.sync_word[1],
@@ -429,6 +445,8 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
     if (err != Lr2021Error::Ok) return err;
 
     err = step({0x01, 0x15, 0x09, 0x00, 0x4C, 0x00, 0x00}); // DIO9 mask
+    if (err != Lr2021Error::Ok) return err;
+    err = configure_extended_fifos();
     if (err != Lr2021Error::Ok) return err;
     err = cmd(Lr2021Opcodes::OP_CLR_TX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_TX_FIFO));
     if (err != Lr2021Error::Ok) return err;
@@ -500,7 +518,7 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
                 config.sync_word[0], config.sync_word[1],
                 config.sync_word[2], config.sync_word[3]});
     if (err != Lr2021Error::Ok) return err;
-    err = step({0x02, 0x48, bitrate_to_brbw(config.bitrate_kbps), 0x17});
+    err = step({0x02, 0x48, bitrate_to_brbw(config.bitrate_kbps), LR2021_CR_SHAPE});
     if (err != Lr2021Error::Ok) return err;
 
     uint8_t pkt_params[4];
@@ -511,6 +529,8 @@ Lr2021Error EspIdfLr2021Radio::init_sequence(const Lr2021Config& config) {
 
     // RX_DONE bit18 | TX_DONE bit19 | CRC_ERROR bit22 => 0x004C0000.
     err = step({0x01, 0x15, 0x08, 0x00, 0x4C, 0x00, 0x00});
+    if (err != Lr2021Error::Ok) return err;
+    err = configure_extended_fifos();
     if (err != Lr2021Error::Ok) return err;
     err = cmd(Lr2021Opcodes::OP_CLR_TX_FIFO, sizeof(Lr2021Opcodes::OP_CLR_TX_FIFO));
     if (err != Lr2021Error::Ok) return err;
@@ -687,6 +707,7 @@ Lr2021Error EspIdfLr2021Radio::send_packet(const uint8_t* data, size_t len) {
     buf.push_back((uint8_t)len);
     buf.insert(buf.end(), data, data + len);
 #endif
+
     err = cmd(buf.data(), buf.size());
     if (err != Lr2021Error::Ok) return err;
 
@@ -707,9 +728,16 @@ Lr2021Error EspIdfLr2021Radio::read_packet(uint8_t* buf, size_t buf_len, PacketS
     size_t length = ((size_t)pkt_status[0] << 8) | pkt_status[1];
     if (length == 0) length = payload_length_;
     size_t n = length < buf_len ? length : buf_len;
-    if (n != 0) {
-        err = direct_fifo_read(buf, n);
+    size_t received = 0;
+    while (received < n) {
+        /* Bound host SPI FIFO transactions. If the received payload was
+         * already intact before this change, the extra CS frames cannot alter
+         * the radio frame content or its FIPS CRC. */
+        size_t chunk = n - received;
+        if (chunk > 128) chunk = 128;
+        err = direct_fifo_read(buf + received, chunk);
         if (err != Lr2021Error::Ok) return err;
+        received += chunk;
     }
 
     status = PacketStatus{};
