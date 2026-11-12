@@ -65,6 +65,31 @@ def main():
         print("REFUSED: board load failed")
         return 3
     tracks = [t for t in b.GetTracks() if "TRACK" in str(type(t)) and not "VIA" in str(type(t))]
+
+    # FILLED ZONES, per net. CORRECTED 2026-11-11.
+    #
+    # The dead-end test below used to consider only pads and other track endpoints, so a track
+    # that ends in a POURED ZONE of its own net was called a dead end. On the board of record
+    # that produced 61 reported violations of which 58 are electrically connected -- 43 GND,
+    # 11 +3V3, 4 /VSCAP all terminate in their own fill. A checker that ignores pour fill is not
+    # conservative: it buries the real defects in noise. This project has already been bitten by
+    # the same class twice (base-station "143 violations" = 74 stale-zone false positives).
+    zones_by_net = {}
+    for z in b.Zones():
+        if z.GetIsRuleArea() or not z.IsFilled():
+            continue
+        zones_by_net.setdefault(str(z.GetNetname()), []).append(z)
+    COPPER = (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu)
+
+    def in_own_zone(netname, x, y):
+        """Is this point on filled copper of the same net? Uses KiCad's own hit-test."""
+        pt = pcbnew.VECTOR2I(int(round(x * UM)), int(round(y * UM)))
+        for z in zones_by_net.get(netname, ()):
+            for layer in COPPER:
+                if z.IsOnLayer(layer) and z.HitTestFilledArea(layer, pt):
+                    return True
+        return False
+
     pads = []
     for fp in b.GetFootprints():
         for p in fp.Pads():
@@ -98,7 +123,10 @@ def main():
             touches_pad = any(pcode == code and player.Contains(t.GetLayer())
                               and point_in_bbox(ex, ey, bb, half + 0.05)
                               for _r, _n, _pn, pcode, player, bb in pads)
-            touches_track = False
+            # A T-junction counts: the test used to accept only another track's ENDPOINT, so a
+            # track joining the middle of another was also called a dead end. A passing track is
+            # a real connection, so it is tested explicitly.
+            touches_track = t_in_own_zone = in_own_zone(name, ex, ey)
             for o in tracks:
                 if o is t:
                     continue

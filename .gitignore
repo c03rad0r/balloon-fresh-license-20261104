@@ -33,6 +33,15 @@ tracker/firmware/radio_test/sdkconfig.defaults
 tracker/firmware/dependencies.lock
 **/test_fips_fragmented
 **/test_lr2021
+# These are BUILT by `make test` in fips_transport/test, but two of them were committed and are
+# linked against libmbedcrypto.so.16 (mbedtls 3.x). This distro and ubuntu-latest both ship
+# mbedtls 2.28 (libmbedcrypto.so.7), so the committed binary cannot load and
+# tests/test_c_host.py::TestFIPSTransport fails on pristine master with
+#   "./test_fips: error while loading shared libraries: libmbedcrypto.so.16"
+# Ignoring them makes `make` rebuild against the local mbedtls. Tracked copies are removed from
+# the index in the same commit, because .gitignore does not affect already-tracked files.
+**/test_fips
+**/test_fips_pipeline
 
 # Tollgate build artifacts (ESP-IDF sdkconfig, compiled test binaries)
 mesh-stack/tollgate/sdkconfig
