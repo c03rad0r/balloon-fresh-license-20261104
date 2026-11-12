@@ -29,6 +29,38 @@ Host tests: **25/25** FIPS LR2021 link tests, **4/4** native transport tests,
 no registered MCP speed-test tool or isolated WAN route was present. Wirehair,
 production TDMA and MTU increases remain deferred.
 
+## EU 2.4 GHz / 511-byte experiment — partial, not accepted
+
+Measured 2026-11-11/12 on the same S3 `34:85` and NiceRF C3 `B0:A6` pair.
+This work is documented but was **not accepted into the default runtime
+profile**. Full handover: [`HANDOVER-2026-11-12.md`](HANDOVER-2026-11-12.md).
+
+| Gate | Result |
+|---|---|
+| HF carrier control, 128-byte packets | 20/20 both directions, zero link errors |
+| 511-byte smoke, CR 3/4, after FIFO/read fixes | 20/20 both directions, zero link errors |
+| 511-byte strict 100, CR 3/4 | 100/100 unique each direction, but 1 and 6 host link CRC/framing errors |
+| 511-byte strict 100, CR-none | 100/100 with 12 errors one way; 99/100 with 13 errors the other |
+| FIPS XK / IPv6 / HTTP / SSH at 2.4 GHz / 511 | **not run — strict link gate did not pass** |
+| Maximum application goodput | **unknown / not claimed** |
+
+Root causes/fixes established during the experiment:
+
+- The bridge RX path was limited to 255 bytes; the 16-bit FLRC payload length
+  was also narrowed in the driver/config structs.
+- The four extended-FIFO `WriteRegMem32` commands were malformed: a 4-byte
+  address was sent where three bytes are required. Corrected frames are tested
+  in `test_extended_fifo_commands_match_datasheet`.
+- A 511-byte RX FIFO read in one SPI transaction still produced corrupt later
+  payloads. Bounded 128-byte RX reads fixed delivery in the accepted smoke runs.
+- The CR-none profile increased observed link errors; it remains opt-in via
+  `-DLR2021_FLRC_CR_NONE=ON`. The default remains CR 3/4.
+- The raw `2.6 Mbps` value is the FLRC air setting, not measured HTTP goodput.
+
+Bench state at handover: experimental CR-none images S3 `0.4.29` / C3 `0.5.19`
+remain flashed; locks are released and FIPS test daemons are stopped. Source
+HEAD default is S3 `0.4.30` / C3 `0.5.20` and was not flashed.
+
 ## Host tests
 
 Run:

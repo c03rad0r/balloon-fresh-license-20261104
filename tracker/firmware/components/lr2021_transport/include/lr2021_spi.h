@@ -29,6 +29,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <algorithm>
 #include <string.h>
 #include <vector>
 #include <optional>
@@ -227,6 +228,18 @@ inline std::vector<uint8_t> lr2021_e80_build_tx_fifo(
     return frame;
 }
 
+/// Extended FIFO regions: DS Rev 2.2 §5.3.3.1, Tables 5-2 and 5-3.
+/// Each frame is WRITE_REGMEM32 (0x0104) + 24-bit address + 32-bit value.
+inline std::vector<std::vector<uint8_t>> lr2021_extended_fifo_commands()
+{
+    return {
+        {0x01, 0x04, 0xF3, 0x00, 0x2C, 0x00, 0x80, 0x40, 0x00},
+        {0x01, 0x04, 0xF3, 0x00, 0x34, 0x00, 0x00, 0x03, 0xFC},
+        {0x01, 0x04, 0xF3, 0x00, 0x28, 0x00, 0x80, 0x44, 0x00},
+        {0x01, 0x04, 0xF3, 0x00, 0x30, 0x00, 0x00, 0x03, 0xE8},
+    };
+}
+
 // ── Abstract Radio Interface ───────────────────────────────────────
 
 /**
@@ -400,6 +413,8 @@ private:
     Lr2021Error wait_busy();
     bool check_irq_pin();
     Lr2021Error hardware_reset();
+
+    Lr2021Error configure_extended_fifos();
 
     // Command helper
     Lr2021Error cmd(const uint8_t* data, size_t len);

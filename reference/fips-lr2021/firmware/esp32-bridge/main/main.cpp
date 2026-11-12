@@ -36,9 +36,9 @@
 #endif
 
 #if LR2021_NICERF_C3
-static const uint8_t FW_VERSION[3] = {0, 5, 13};
+static const uint8_t FW_VERSION[3] = {0, 5, 20};
 #else
-static const uint8_t FW_VERSION[3] = {0, 4, 23};
+static const uint8_t FW_VERSION[3] = {0, 4, 30};
 #endif
 static const uint16_t CAPS = 0x0007;
 static constexpr size_t RADIO_MAX_PAYLOAD = 511;

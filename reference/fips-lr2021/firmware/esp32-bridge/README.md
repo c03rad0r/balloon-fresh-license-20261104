@@ -37,14 +37,25 @@ docker run --rm \
   bash -lc 'idf.py set-target esp32s3 && idf.py build'
 ```
 
-The firmware version reported by the validated **868 MHz baseline** S3 image is
-**0.4.22** (NiceRF C3: **0.5.12**).
+The firmware version on the validated **868 MHz baseline** is S3 **0.4.22** /
+C3 **0.5.12**.
 
-The `throughput-2400` branch builds experimental S3 **0.4.23** and C3 **0.5.13**
-images with bounded 511-byte RX/SPI buffers and a 16-bit FLRC packet length.
-Those images are **built but not yet flashed or RF-qualified**: flash approval is
-pending in `docs/coordination/FLASH-QUEUE.md`, and no 511-byte/2.4 GHz throughput
-claim applies to the baseline firmware.
+The current source default profile builds S3 **0.4.30** / C3 **0.5.20** and
+includes bounded 511-byte RX/SPI buffers, the 16-bit FLRC length field,
+corrected extended-FIFO register setup and bounded SPI RX reads. It keeps the
+validated CR 3/4 modulation by default.
+
+The bench was last flashed with the **CR-none throughput experiment**, S3
+**0.4.29** / C3 **0.5.19**. That experiment is not accepted for production or
+HTTP performance claims. To reproduce its uncoded modulation from current
+source, add the explicit build option:
+
+```bash
+idf.py -DLR2021_FLRC_CR_NONE=ON build
+```
+
+See `docs/THROUGHPUT-2400-PLAN.md` and
+`docs/HANDOVER-2026-11-12.md` for the measured boundary and remaining gates.
 The build must set the main task stack to 8192 bytes (see `sdkconfig.defaults`)
 because large protocol/radio buffer paths otherwise cause a boot loop.
 

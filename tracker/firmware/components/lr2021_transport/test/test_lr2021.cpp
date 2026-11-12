@@ -738,6 +738,23 @@ TEST(test_e80_tx_fifo_bound_511_and_mock_rx) {
     return 1;
 }
 
+TEST(test_extended_fifo_commands_match_datasheet) {
+    const auto commands = lr2021_extended_fifo_commands();
+    const std::vector<std::vector<uint8_t>> expected = {
+        {0x01, 0x04, 0xF3, 0x00, 0x2C, 0x00, 0x80, 0x40, 0x00},
+        {0x01, 0x04, 0xF3, 0x00, 0x34, 0x00, 0x00, 0x03, 0xFC},
+        {0x01, 0x04, 0xF3, 0x00, 0x28, 0x00, 0x80, 0x44, 0x00},
+        {0x01, 0x04, 0xF3, 0x00, 0x30, 0x00, 0x00, 0x03, 0xE8},
+    };
+    CHECK(commands == expected);
+    for (const auto& frame : commands) {
+        CHECK_EQ(frame.size(), (size_t)9); // opcode(2) + address(3) + value(4)
+        CHECK_EQ(frame[0], 0x01);
+        CHECK_EQ(frame[1], 0x04);
+    }
+    return 1;
+}
+
 TEST(test_e80_tx_fifo_does_not_truncate_longer_payload) {
     std::vector<uint8_t> payload(20, 0xA5);
     auto frame = lr2021_e80_build_tx_fifo(payload.data(), payload.size(), 12);
@@ -806,6 +823,7 @@ int main(void) {
     RUN(test_flrc_payload_length_is_16bit_big_endian);
     RUN(test_e80_tx_fifo_exact_256_and_padded_511);
     RUN(test_e80_tx_fifo_bound_511_and_mock_rx);
+    RUN(test_extended_fifo_commands_match_datasheet);
     RUN(test_e80_tx_fifo_does_not_truncate_longer_payload);
 
     printf("\n[Transport TX→RX loop]\n");

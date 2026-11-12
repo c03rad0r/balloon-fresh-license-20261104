@@ -36,6 +36,8 @@ RESOURCES:
     board-c      — ESP32-S3 board C (MAC 20:6e:f1:98:d7:08, display board)
     c3-a         — ESP32-C3 + LR2021 board A (MAC b0:a6:04:00:96:dc, /dev/ttyACM0)
     c3-b         — ESP32-C3 + LR2021 board B (MAC 88:56:a6:7b:c6:98, /dev/ttyACM1)
+    fips-s3      — FIPS ESP32-S3 + E80 adapter (MAC 34:85:18:8d:ff:94)
+    fips-e80-pair — Coordinated FIPS S3 and NiceRF C3 pair (fips-s3 + c3-a)
     all-s3       — All 3 ESP32-S3 boards (board-a + board-b + board-c)
     both-c3      — Both ESP32-C3 boards (c3-a + c3-b, for TX/RX tests)
     both         — TX + RX (RP2040 pair)
@@ -99,6 +101,7 @@ BOARD_SERIALS = {
 BOARD_MACS = {
     "c3-a": "B0:A6:04:00:96:DC",   # /dev/ttyACM0
     "c3-b": "88:56:A6:7B:C6:98",   # /dev/ttyACM1
+    "fips-s3": "34:85:18:8D:FF:94", # FIPS ESP32-S3/E80 (approved custom carrier)
 }
 
 
@@ -153,6 +156,8 @@ def _get_resources(resource: str) -> list:
         return ["board-a", "board-b", "board-c"]
     if resource == "both-c3":
         return ["c3-a", "c3-b"]
+    if resource == "fips-e80-pair":
+        return ["fips-s3", "c3-a"]
     if resource == "all":
         return ["tx", "rx", "board-a", "board-b", "board-c"]
     return [resource]
@@ -794,7 +799,7 @@ Examples:
     parser.add_argument("action", choices=["acquire", "release", "status", "check"],
                         help="Action to perform")
     parser.add_argument("resource", nargs="?",
-                        choices=["tx", "rx", "both", "board-a", "board-b", "board-c", "c3-a", "c3-b", "both-c3", "all-s3", "all"],
+                        choices=["tx", "rx", "both", "board-a", "board-b", "board-c", "c3-a", "c3-b", "both-c3", "fips-s3", "fips-e80-pair", "all-s3", "all"],
                         help="Which board(s) to lock/unlock/check")
     parser.add_argument("--purpose", default="unspecified",
                         help="Why you need the board (shown to other sessions)")

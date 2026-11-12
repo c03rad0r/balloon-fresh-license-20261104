@@ -5,7 +5,11 @@
 HTTP transfers at both 128 KiB and 1 MiB, and a remote public-key SSH command
 verified on 2026-11-10. The optional MCP/WAN check remains open; the validated
 host is pinned at `c03rad0r/fips@8155e5ff`.
-See `docs/PING-RELIABILITY-PLAN.md` for measured results and reproduction.
+
+The EU-2.4 GHz / 511-byte speed experiment is **partial**: 20/20 reciprocal
+delivery was demonstrated, but the strict 100-packet zero-error gate did not
+pass. See [`docs/HANDOVER-2026-11-12.md`](docs/HANDOVER-2026-11-12.md) for the
+shareable overview and [remaining work](docs/THROUGHPUT-2400-PLAN.md).
 
 **Latest hardware guide:** [`docs/E80-ESP32-S3-FIPS-ONBOARDING.md`](docs/E80-ESP32-S3-FIPS-ONBOARDING.md)
 
@@ -30,6 +34,9 @@ RP2040 bridge firmware, configs and test scripts.
 - **Repairing additional radio endpoints?** `docs/CARRIER-RECOVERY-PLAN.md` keeps
   the C3/Pico/native recovery steps, measured bidirectional C3 proof and the
   half-duplex CSMA/CA implementation checklist.
+- **Sharing or handing off the work?** `docs/HANDOVER-2026-11-12.md` is a
+  self-contained overview of the verified baseline, the partial 2.4 GHz
+  experiment, source links, and remaining work.
 - **Maximizing EU 2.4 GHz throughput?** `docs/THROUGHPUT-2400-PLAN.md` tracks
   the gated 511-byte qualification, pacing sweep and HTTP comparison.
 - **Persistent fleet reachability?** `docs/ARCHIPELAGO-FIPS-ONBOARDING.md`
@@ -164,6 +171,7 @@ virtual end-to-end success is not a substitute for RF verification.
 | `docs/CARRIER-RECOVERY-PLAN.md` | Other radio endpoint recovery, C3 DIO9 proof and half-duplex CSMA/CA checklist |
 | `docs/PING-RELIABILITY-PLAN.md` | Active duplicate-aware ping reliability flow-control checklist |
 | `docs/THROUGHPUT-2400-PLAN.md` | EU 2.4 GHz / 511-byte bounded-buffer qualification and throughput sweep |
+| `docs/HANDOVER-2026-11-12.md` | Shareable end-to-end handover: verified results, partial experiment, source links, remaining work |
 | `docs/ARCHIPELAGO-FIPS-ONBOARDING.md` | Global-host private-Hermes identity, version and persistent reachability checklist |
 | `tests/hardware/http-speed.sh` | FIPS-namespace HTTP goodput meter with a mandatory 0%-loss ping gate |
 | `tests/hardware/ping-gate.sh` | strict bidirectional 50/50 IPv6 gate; blocks benchmarking on any loss |

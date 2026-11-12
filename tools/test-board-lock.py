@@ -27,7 +27,7 @@ import time
 import importlib.util
 _spec = importlib.util.spec_from_file_location(
     "balloon_board_lock",
-    os.path.expanduser("~/repos/balloon-fresh/tools/balloon-board-lock.py"),
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "balloon-board-lock.py"),
 )
 lock = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(lock)

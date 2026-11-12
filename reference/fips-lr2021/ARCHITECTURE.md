@@ -119,6 +119,20 @@ The bridge re-initializes the LR2021 and ACKs the values it actually applied.
 The host refuses to start if they do not match, so a wrong band is a loud
 failure rather than a silent deaf link.
 
+### 511-byte packets on the E80/ESP32 bridge
+
+The FLRC length field is 16-bit, but the default LR2021 FIFOs are only 256 bytes.
+The bridge therefore:
+
+- writes the FLRC payload length as two big-endian bytes;
+- relocates TX and RX FIFOs to their documented 1024-byte regions with 9-byte
+  `WriteRegMem32` commands (2-byte opcode + 3-byte address + 4-byte value);
+- reads oversized RX FIFOs in bounded 128-byte SPI transactions.
+
+The 868 MHz 128-byte configuration remains the validated baseline. The
+2.4 GHz/511-byte experiment demonstrated 20/20 reciprocal smoke delivery but has
+not passed its strict 100-packet gate; see `../docs/HANDOVER-2026-11-12.md`.
+
 ## Relay mode
 
 The relay repeats each unique received packet once, with a short hash cache to
