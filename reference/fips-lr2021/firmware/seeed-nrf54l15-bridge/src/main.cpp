@@ -1,6 +1,7 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/uart.h>
 #include <zephyr/kernel.h>
+#include <zephyr/sys/ring_buffer.h>
 
 #include "bridge_core.h"
 
@@ -9,8 +10,68 @@ namespace {
 const struct device* const kHostUart = DEVICE_DT_GET(DT_NODELABEL(uart20));
 constexpr size_t kReadChunk = 512;
 constexpr size_t kWriteCap = 4096;
-constexpr int kTxTimeoutMs = 100;
 constexpr int kStatPeriodMs = 5000;
+
+RING_BUF_DECLARE(host_rx_ring, 4096);
+RING_BUF_DECLARE(host_tx_ring, 8192);
+seeed_bridge::LoopbackCore core;
+
+void queue_host_bytes(const uint8_t* data, size_t len) {
+    size_t sent = 0;
+    while (sent < len) {
+        uint32_t written =
+            ring_buf_put(&host_tx_ring, data + sent, static_cast<uint32_t>(len - sent));
+        sent += written;
+        uart_irq_tx_enable(kHostUart);
+        if (sent < len) {
+            k_sleep(K_MSEC(1));
+        }
+    }
+}
+
+void host_uart_isr(const struct device* dev, void* user_data) {
+    (void)user_data;
+    if (!uart_irq_update(dev)) {
+        return;
+    }
+
+    if (uart_irq_rx_ready(dev)) {
+        while (uart_irq_rx_ready(dev)) {
+            uint8_t chunk[64];
+            int received = uart_fifo_read(dev, chunk, sizeof(chunk));
+            if (received <= 0) {
+                break;
+            }
+            (void)ring_buf_put(&host_rx_ring, chunk,
+                               static_cast<uint32_t>(received));
+        }
+    }
+
+    if (uart_irq_tx_ready(dev)) {
+        static uint8_t pending = 0;
+        static bool has_pending = false;
+
+        if (has_pending) {
+            if (uart_fifo_fill(dev, &pending, 1) != 1) {
+                return;
+            }
+            has_pending = false;
+        }
+
+        while (uart_irq_tx_ready(dev)) {
+            uint8_t byte = 0;
+            if (ring_buf_get(&host_tx_ring, &byte, 1) != 1) {
+                uart_irq_tx_disable(dev);
+                break;
+            }
+            if (uart_fifo_fill(dev, &byte, 1) != 1) {
+                pending = byte;
+                has_pending = true;
+                break;
+            }
+        }
+    }
+}
 
 [[noreturn]] void fatal() {
     k_panic();
@@ -35,34 +96,31 @@ int main() {
     if (uart_configure(kHostUart, &config) != 0) {
         fatal();
     }
+    if (uart_irq_callback_user_data_set(kHostUart, host_uart_isr, NULL) != 0) {
+        fatal();
+    }
+    uart_irq_rx_enable(kHostUart);
 
-    static seeed_bridge::LoopbackCore core;
     static uint8_t read_buf[kReadChunk];
     static uint8_t write_buf[kWriteCap];
     int64_t last_stat_ms = k_uptime_get();
 
     for (;;) {
-        size_t read_len = 0;
-        while (read_len < sizeof(read_buf)) {
-            unsigned char byte = 0;
-            if (uart_poll_in(kHostUart, &byte) != 0) {
-                break;
-            }
-            read_buf[read_len++] = byte;
-        }
+        uint32_t read_len =
+            ring_buf_get(&host_rx_ring, read_buf, sizeof(read_buf));
 
         if (read_len > 0) {
             size_t out_len =
                 core.process(read_buf, read_len, write_buf, sizeof(write_buf));
             if (out_len > 0) {
-                (void)uart_tx(kHostUart, write_buf, out_len, kTxTimeoutMs);
+                queue_host_bytes(write_buf, out_len);
             }
         }
 
         if (k_uptime_get() - last_stat_ms >= kStatPeriodMs) {
             size_t out_len = core.encodeStat(write_buf, sizeof(write_buf));
             if (out_len > 0) {
-                (void)uart_tx(kHostUart, write_buf, out_len, kTxTimeoutMs);
+                queue_host_bytes(write_buf, out_len);
             }
             last_stat_ms = k_uptime_get();
         }

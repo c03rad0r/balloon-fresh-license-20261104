@@ -10,12 +10,19 @@ FLRP_DATA_SIZE ?= (20*1024)
 FLRP_LOW_FREQ ?= true
 FLRP_CRYPTO ?= true
 BAUD ?= 115200
+BRIDGE_BAUD ?= 115200
+BENCH_SECONDS ?= 5
+BENCH_PAYLOAD ?= 255
+BENCH_WINDOW ?= 4
+BALLOON_TRACK ?= lr2021-bench
+BENCH_PYTHON ?= $(SEED_USP_WORKSPACE)/.venv/bin/python
 
 SEED_USP = SEED_USP_WORKSPACE="$(SEED_USP_WORKSPACE)" \
 	USP_ZEPHYR_REF="$(USP_ZEPHYR_REF)" \
 	FLRP_DATA_SIZE="$(FLRP_DATA_SIZE)" \
 	FLRP_LOW_FREQ="$(FLRP_LOW_FREQ)" \
 	FLRP_CRYPTO="$(FLRP_CRYPTO)" \
+	BRIDGE_BAUD="$(BRIDGE_BAUD)" \
 	./scripts/seeed-usp.sh
 
 .PHONY: all bootstrap host-test mock-e2e build-fips build-e80 flash-e80 clean
@@ -23,7 +30,8 @@ SEED_USP = SEED_USP_WORKSPACE="$(SEED_USP_WORKSPACE)" \
 .PHONY: seeed-per-flash-rx seeed-per-flash-tx
 .PHONY: seeed-flrp-build-initiator seeed-flrp-build-slave
 .PHONY: seeed-flrp-flash-initiator seeed-flrp-flash-slave seeed-monitor
-.PHONY: seeed-bridge-host-test seeed-bridge-loopback-build
+.PHONY: seeed-bridge-host-test seeed-bridge-loopback-build seeed-bridge-loopback-flash
+.PHONY: seeed-bridge-usb-bench
 
 all: host-test mock-e2e build-e80
 
@@ -83,6 +91,15 @@ seeed-bridge-host-test:
 
 seeed-bridge-loopback-build:
 	$(SEED_USP) build bridge-loopback
+
+seeed-bridge-loopback-flash:
+	PROBE="$(PROBE)" $(SEED_USP) flash bridge-loopback
+
+seeed-bridge-usb-bench:
+	@test -n "$(PORT)" || { echo "Usage: make seeed-bridge-usb-bench PORT=/dev/serial/by-id/... BRIDGE_BAUD=115200"; exit 1; }
+	BALLOON_TRACK="$(BALLOON_TRACK)" "$(BENCH_PYTHON)" tests/hardware/seeed_usb_bench.py \
+		--port "$(PORT)" --baud "$(BRIDGE_BAUD)" --seconds "$(BENCH_SECONDS)" \
+		--payload-size "$(BENCH_PAYLOAD)" --window "$(BENCH_WINDOW)"
 
 clean:
 	rm -rf build firmware/rp2040-bridge/.pio

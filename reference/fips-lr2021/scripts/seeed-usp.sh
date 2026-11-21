@@ -8,6 +8,7 @@ REFERENCE_DIR=$(cd -- "$SCRIPT_DIR/.." && pwd)
 USP_ZEPHYR_URL=${USP_ZEPHYR_URL:-https://github.com/Lora-net/usp_zephyr.git}
 USP_ZEPHYR_REF=${USP_ZEPHYR_REF:-64f416bddd5c95ec4504b00627aa932eb88c7bd5}
 ZEPHYR_SDK_VERSION=${ZEPHYR_SDK_VERSION:-1.0.1}
+BRIDGE_BAUD=${BRIDGE_BAUD:-115200}
 WORKSPACE=${SEED_USP_WORKSPACE:-$REFERENCE_DIR/build/seeed-usp-workspace}
 VENV_DIR="$WORKSPACE/.venv"
 USP_DIR="$WORKSPACE/usp_zephyr"
@@ -30,13 +31,14 @@ Commands:
   setup                         Create the local venv, checkout and Zephyr SDK.
   doctor                        Report host/workspace/probe/serial prerequisites.
   build per-rx|per-tx|flrp-initiator|flrp-slave|bridge-loopback
-  flash per-rx|per-tx|flrp-initiator|flrp-slave   (requires PROBE)
+  flash per-rx|per-tx|flrp-initiator|flrp-slave|bridge-loopback   (requires PROBE)
   monitor                       Open the stock UART console (requires PORT).
 
 Environment:
   SEED_USP_WORKSPACE  Defaults to reference/fips-lr2021/build/seeed-usp-workspace.
   USP_ZEPHYR_REF      Full immutable commit; defaults to the pinned v1.2.1 source.
   ZEPHYR_SDK_VERSION  Defaults to 1.0.1.
+  BRIDGE_BAUD         Loopback UART build rate; 9600..1000000, default 115200.
   FLRP_DATA_SIZE      Defaults to (20*1024); integer or compact A*B expression.
   FLRP_LOW_FREQ       true (stock sub-GHz default) or false (2.4 GHz).
   FLRP_CRYPTO         true (AES-CMAC integrity) or false (radio CRC).
@@ -122,6 +124,7 @@ role_settings() {
     BUILD_NAME=
     SAMPLE_REL=
     EXTRA_CFLAGS=
+    EXTRA_CMAKE_ARGS=
 
     case "$role" in
         per-rx)
@@ -150,6 +153,11 @@ role_settings() {
         bridge-loopback)
             BUILD_NAME=seeed-bridge-loopback
             SAMPLE_REL=
+            [[ "$BRIDGE_BAUD" =~ ^[0-9]+$ ]] ||
+                die "BRIDGE_BAUD must be numeric (supported stock UART range: 9600..1000000)."
+            (( BRIDGE_BAUD >= 9600 && BRIDGE_BAUD <= 1000000 )) ||
+                die "BRIDGE_BAUD must be between 9600 and 1000000 for the standard UART path."
+            EXTRA_CMAKE_ARGS="-DCONFIG_SEEED_BRIDGE_UART_BAUD=$BRIDGE_BAUD"
             ;;
         *)
             die "Unknown role '$role'. Expected per-rx, per-tx, flrp-initiator, flrp-slave or bridge-loopback."
@@ -329,9 +337,14 @@ build_role() {
     log "Building $role from $APP_DIR"
     log "Build directory: $BUILD_DIR"
     log "EXTRA_CFLAGS: $EXTRA_CFLAGS"
+    local -a cmake_args=("-DEXTRA_CFLAGS=$EXTRA_CFLAGS")
+    if [[ -n "$EXTRA_CMAKE_ARGS" ]]; then
+        cmake_args+=("$EXTRA_CMAKE_ARGS")
+        log "Extra CMake argument: $EXTRA_CMAKE_ARGS"
+    fi
     run_west build --pristine --build-dir "$BUILD_DIR" --board "$BOARD" \
         --shield semtech_loraplus_expansion_board --shield semtech_wio_lr2021 \
-        "$APP_DIR" -- "-DEXTRA_CFLAGS=$EXTRA_CFLAGS"
+        "$APP_DIR" -- "${cmake_args[@]}"
 }
 
 flash_role() {
@@ -343,6 +356,12 @@ flash_role() {
     require_workspace
     [[ -f "$BUILD_DIR/CMakeCache.txt" ]] ||
         die "Build output for $role is missing at $BUILD_DIR; run its matching seeed-*-build target first."
+    if [[ "$role" == bridge-loopback ]]; then
+        local built_baud
+        built_baud=$(sed -n 's/^CONFIG_SEEED_BRIDGE_UART_BAUD=//p' "$BUILD_DIR/zephyr/.config")
+        [[ "$built_baud" == "$BRIDGE_BAUD" ]] ||
+            die "Loopback build baud is '$built_baud', not BRIDGE_BAUD='$BRIDGE_BAUD'. Rebuild with the requested baud before flashing."
+    fi
 
     log "Flashing only $role image $BUILD_DIR to explicit PROBE=$PROBE"
     run_west flash --build-dir "$BUILD_DIR" --runner pyocd --dev-id "$PROBE"
