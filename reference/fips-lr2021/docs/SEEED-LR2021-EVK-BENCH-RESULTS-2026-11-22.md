@@ -8,14 +8,15 @@
 | A | `7CDB5271` | `/dev/serial/by-id/usb-Seeed_Studio_Seeed_Studio_XIAO_nrf54_CMSIS-DAP_7CDB5271-if02` |
 | B | `A8022EF0` | `/dev/serial/by-id/usb-Seeed_Studio_Seeed_Studio_XIAO_nrf54_CMSIS-DAP_A8022EF0-if02` |
 
-**Software:** local bridge branch `feat/seeed-nrf54l15-bridge`, based on
-`bd33ef0e`, plus Zephyr 4.4.0 and Zephyr SDK 1.0.1 from the pinned USP
-workspace.
+**Software:** bridge branch `feat/seeed-nrf54l15-bridge` at `b2267e54`; FIPS
+fork `c03rad0r/fips` `seeed-halfduplex` at `78b76d45`; Zephyr 4.4.0 and Zephyr
+SDK 1.0.1 from the pinned USP workspace.
 
 > These are bench measurements from the two attached EVKs. Raw logs are local
 > build artefacts under `reference/fips-lr2021/build/` and are intentionally not
-> committed. No FIPS-over-radio result or 2.6 Mbit/s application-throughput
-> claim is made.
+> committed. FIPS-over-radio results are included; 2.6 Mbit/s is the raw FLRC PHY
+> rate, never application throughput. The full implementation record is in
+> [`SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md`](SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md).
 
 ## USB/UART host-path measurement
 
