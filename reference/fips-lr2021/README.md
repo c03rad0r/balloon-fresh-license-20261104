@@ -28,15 +28,19 @@ RP2040 bridge firmware, configs and test scripts.
 - **Developing the Seeed nRF54 bridge?**
   [`firmware/seeed-nrf54l15-bridge/README.md`](firmware/seeed-nrf54l15-bridge/README.md)
   describes the **loopback and direct-FLRC** modes, the measured two-node RF
-  results and the 1 Mbaud USB/UART ceiling. FIPS-over-radio evidence is still
-  being collected.
+  results, the reset fixes and the 1 Mbaud USB/UART ceiling. FIPS-over-radio
+  now runs at 25 kbit/s with 0% UDP loss; iperf3 TCP bulk is still open.
 - **Running FIPS over the two EVKs?**
   [`docs/SEEED-LR2021-EVK-FIPS-E2E.md`](docs/SEEED-LR2021-EVK-FIPS-E2E.md)
   documents the two-container harness, the 1 Mbaud configs, ping6/iperf3/SSH
   gates and the validated UDP self-test.
+- **Implementation report (2026-11-22):**
+  [`docs/SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md`](docs/SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md)
+  records the complete firmware, reset diagnosis, half-duplex link-layer
+  changes, measured results, rejected experiments and open items.
 - **Seeed EVK measured results (2026-11-22):**
   [`docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md`](docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md)
-  — USB loopback, stock PER and stock FLRP evidence.
+  — USB loopback, stock PER/FLRP, direct-FLRC and FIPS evidence.
 - **No physical access?** `docs/FLASHING-WITHOUT-BUTTONS.md` — both ESP32 and
   RP2040 can be reflashed over USB with no button press.
 - **Picking up this work?** `docs/LEARNINGS.md` first, then `docs/OTA-PROOF-PLAN.md`.
@@ -148,8 +152,10 @@ virtual end-to-end success is not a substitute for RF verification.
 | `ARCHITECTURE.md` | design and data path |
 | `fips/` | fork pin, vendored diff, FIPS configs |
 | `firmware/rp2040-bridge/` | RP2040 + E80 bridge firmware |
-| `firmware/seeed-nrf54l15-bridge/` | offline host-loopback codec/UART skeleton; no radio yet |
-| `docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` | measured EVK USB, PER and FLRP bench evidence |
+| `firmware/seeed-nrf54l15-bridge/` | loopback and direct-FLRC bridge; reset diagnosis and half-duplex FIPS fixes |
+| `docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` | measured EVK USB, PER/FLRP, direct-FLRC and FIPS evidence |
+| `docs/SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md` | complete implementation report and half-duplex results |
+| `docs/SEEED-LR2021-EVK-FIPS-E2E.md` | two-container FIPS run guide and validated tuning |
 | `firmware/esp32-bridge/` | ESP32-S3 + E80 SPI-bypass firmware |
 | `docs/E80-ESP32-S3-FIPS-ONBOARDING.md` | end-to-end soldering, flashing, RF and FIPS guide |
 | `scripts/` | bootstrap, sync, build, flash, demo |

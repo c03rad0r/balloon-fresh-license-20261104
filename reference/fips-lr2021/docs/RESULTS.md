@@ -1,8 +1,10 @@
 # Results
 
-**Status: hardware testing in progress.** Do not fill this in from expectations.
-See `SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` for the dated EVK USB,
-stock PER/FLRP and direct-FLRC two-node evidence and local raw-log hashes.
+**Status: EVK packet path and low-rate FIPS measured; TCP bulk open.** See
+`SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` for the dated EVK USB,
+stock PER/FLRP, direct-FLRC and FIPS evidence and local raw-log hashes, and
+`SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md` for the complete
+implementation report.
 
 ## Host tests
 
@@ -36,13 +38,14 @@ Fill only with measured numbers. Attach the raw CSV/log path.
 
 | Date | Band | Handshake | Ping | iperf3 UDP | Relay? | Notes |
 |---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
+| 2026-11-22 | eu2400 | connected | 5/5, 0% | 25k: 0%, 24.9 kbit/s; 50k: 3.4% | no | half-duplex link; SSH pass; iperf3 TCP bulk 0 bytes |
 
 ## Soak
 
 | Date | Band | Duration | Resets | Drops | Result |
 |---|---|---:|---:|---:|---|
-|  |  |  |  |  |  |
+| 2026-11-22 | eu2400 | 600 s | 0 | 5/6251 (0.08%) | pass at 25k offered, 24.9 kbit/s |
+| 2026-11-22 | eu2400 | ~35 min | 0 | 0% (30,000 × 64 B) | direct-FLRC packet soak pass |
 
 ## Hardware bridge protocol
 

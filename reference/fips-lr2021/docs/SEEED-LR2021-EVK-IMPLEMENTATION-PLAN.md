@@ -1,9 +1,13 @@
 # Seeed LR2021 EVK onboarding — implementation plan and checklist
 
-**Status:** PR #478 is open; host implementation and all four sample builds are
-complete. Hardware measurements and FIPS-on-EVK are not verified.
+**Status (2026-11-22):** the direct-FLRC bridge and FIPS-on-EVK milestone is
+implemented and measured. The packet path is 0% loss in both directions and a
+30,000-message soak; FIPS runs at 25 kbit/s with 0% UDP loss and SSH works.
+`iperf3` TCP bulk remains open. The checklist below is the 2026-11-08 baseline;
+the current evidence is in
+[`SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md`](SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md).
 **Target:** `reference/fips-lr2021/` in `felixfelix-bot/balloon-fresh`.
-**Last updated:** 2026-11-08
+**Last updated:** 2026-11-22
 
 This is the working checklist for the official Semtech LR2021 LoRa Plus
 Evaluation Kit onboarding guide and its Make targets. It is intentionally

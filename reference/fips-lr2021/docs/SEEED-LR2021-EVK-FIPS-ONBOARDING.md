@@ -5,10 +5,12 @@ stations: Seeed **XIAO nRF54L15 + LoRa Plus expansion board + Wio LR2021**.
 **Scope:** no-soldering vendor samples, RF/PER and bulk-transfer baselines, and
 measurements needed before a future nRF54 FIPS bridge.
 
-> **No local board, RF, host-throughput or FIPS success is claimed.** This is a
-> runbook plus pinned source tooling. Commands become evidence only when the
-> operator saves their actual output. The implementation status and validation
-> log are in [the implementation checklist](SEEED-LR2021-EVK-IMPLEMENTATION-PLAN.md).
+> **Historical runbook (2026-11-07).** The no-soldering EVK path has since been
+> built and measured; the "not run" rows below are the pre-work baseline, not
+> current status. The current evidence is in
+> [`SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md`](SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md)
+> and the dated numbers in
+> [`SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md`](SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md).
 
 ## 1. Status and evidence boundaries
 
@@ -19,7 +21,7 @@ measurements needed before a future nRF54 FIPS bridge.
 | Board-tested | Probe IDs and controlled flash/boot logs from these exact boards | **Not run here** |
 | RF-tested | Complete, repeatable TX and RX logs with regulatory/setup metadata | **Not run here** |
 | Host-link-tested | Error-checked delivered USB/UART byte counts and timing | **Not run; stock path is not a throughput test** |
-| FIPS-tested | Existing FIPS protocol over a direct-FLRC nRF54 bridge, followed by Noise/IP/SSH/iperf evidence | **Not implemented or run** |
+| FIPS-tested | Existing FIPS protocol over a direct-FLRC nRF54 bridge, followed by Noise/IP/SSH/iperf evidence | **Done 2026-11-22**: see the implementation report; UDP 25k 0%, SSH pass, TCP bulk open |
 
 Semtech's upstream **validated** label describes Semtech's validation; it is not
 validation of this worktree's boards. Keep README examples, successful compile,
@@ -417,12 +419,15 @@ not as “stock”. Do not merge gross-burst values into these goodput columns.
 |---|---|---|---|---:|---|---|
 | not run | SAMD11 CDC + nRF54 UART20 |  |  |  |  |  |
 
-### FIPS follow-up (not this PR)
+### FIPS follow-up (measured 2026-11-22)
 
 | Gate | Result/evidence |
 |---|---|
-| Direct-FLRC `BRIDGE-PROTOCOL.md` host loopback | not run |
-| Bridge-to-bridge raw packets / loss | not run |
-| Distinct-node FIPS Noise handshake | not run |
-| IPv6 ping / SSH | not run |
-| iperf3 ramp, delivered goodput and loss | not run |
+| Direct-FLRC `BRIDGE-PROTOCOL.md` host loopback | pass (host tests) |
+| Bridge-to-bridge raw packets / loss | 100/100 at 64 B and 255 B both directions; 30,000 × 64 B soak 0% |
+| Distinct-node FIPS Noise handshake | connected |
+| IPv6 ping / SSH | ping 5/5 at 0%; SSH `SSH_OVER_FIPS_OK` |
+| iperf3 ramp, delivered goodput and loss | 25k 0% / 24.9 kbit/s; 50k 3.4%; 100k 46%; TCP bulk 0 bytes |
+
+See [`SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md`](SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md)
+for the full report and the FIPS E2E guide for the harness.
