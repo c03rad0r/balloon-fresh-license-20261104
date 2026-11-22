@@ -86,17 +86,23 @@ done
 printf '\n=== ping6 over fips0 ===\n'
 timeout 30 docker exec "$name_a" ping6 -c 10 -I fips0 "$addr_b"
 
-printf '\n=== iperf3 UDP ramp ===\n'
-docker exec -d "$name_b" iperf3 -s -B "$addr_b" -p 5201
+printf '\n=== iperf3 UDP ===\n'
+docker exec "$name_b" pkill -x iperf3 2>/dev/null || true
+docker exec "$name_b" sh -c "nohup iperf3 -s -B '$addr_b' -p 5201 >/tmp/iperf3.log 2>&1 &"
 sleep 1
-for rate in 100k 250k 400k 600k 800k 1M; do
+for rate in ${IPERF_RATES:-10k 25k 50k}; do
     printf '\n--- UDP offered %s ---\n' "$rate"
-    timeout 40 docker exec "$name_a" iperf3 -c "$addr_b" -p 5201 -u -b "$rate" -l "$iperf_len" -t 10 --connect-timeout 5000 || true
+    timeout "${IPERF_TIMEOUT:-40}" docker exec "$name_a" \
+        iperf3 -c "$addr_b" -p 5201 -u -b "$rate" -l "$iperf_len" \
+        -t "${IPERF_SECONDS:-10}" --connect-timeout 5000 || true
 done
+docker exec "$name_b" pkill -x iperf3 2>/dev/null || true
 
-docker exec "$name_b" pkill -f 'iperf3 -s' 2>/dev/null || true
-printf '\n=== iperf3 TCP ===\n'
-timeout 40 docker exec "$name_a" iperf3 -c "$addr_b" -p 5201 -t 10 --connect-timeout 5000 || true
+printf '\n=== iperf3 TCP (bulk; may not pass) ===\n'
+docker exec "$name_b" sh -c "nohup iperf3 -s -B '$addr_b' -p 5201 >/tmp/iperf3.log 2>&1 &"
+sleep 1
+timeout 45 docker exec "$name_a" iperf3 -c "$addr_b" -p 5201 -t 10 --connect-timeout 5000 || true
+docker exec "$name_b" pkill -x iperf3 2>/dev/null || true
 
 if [ "${RUN_SSH:-0}" = 1 ]; then
     key="${SSH_KEY:-$config_dir/id_ed25519}"

@@ -21,6 +21,8 @@ enum BridgeKind : uint8_t {
   BR_EVT = 8,
   BR_PING = 9,
   BR_PONG = 10,
+  BR_DIAG = 11,
+  BR_DIAG_ACK = 12,
 };
 
 struct BridgeFrame {

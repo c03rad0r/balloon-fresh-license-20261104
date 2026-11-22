@@ -1,7 +1,8 @@
 # Seeed nRF54L15 bridge — loopback and direct-FLRC modes
 
 **Status: direct LR2021 FLRC bridge implemented and bench-validated on two EVKs.
-FIPS-over-radio validation is still in progress.**
+FIPS-over-radio now runs reliably at 25 kbit/s with 0% UDP loss; `iperf3` TCP
+bulk is still not usable.**
 
 The application has two build modes:
 
@@ -66,6 +67,28 @@ EU 2.4 GHz, 2440 MHz, FLRC 2600 kbps, CR 3/4, 12 dBm, 255-byte radio payload,
 A 255-byte application message is two radio frames at `radio_payload: 255`. The
 bridge TX queue is 16 packets deep; a four-packet queue dropped the second
 fragment under back-to-back host delivery.
+
+### Radio stability fixes (2026-11-22)
+
+Two vendor-code panic paths were found by the persistent boot record:
+
+1. **Oversize RX length.** A corrupted FLRC length header can carry up to 511
+   bytes even when the application sends 255. The RAL rejected a length larger
+   than the 255-byte RAC buffer, and the modem panic macro rebooted the MCU.
+   The backend now gives the RAC a 511-byte RX buffer (512-byte array) and drops
+   any frame above the 255-byte application payload in the callback.
+2. **Stale RX_DONE during TX.** `rp_irq_get_status` can process a stale
+   `RX_DONE` while the current task is `TX_FLRC`; `rp_get_pkt_payload` then
+   returns `ID_ERROR` and the planner panics. The backend clears the radio IRQ
+   status before every RX/TX submit.
+
+The crash reason is persisted in `.noinit` and exposed by the host `diag`
+command (`fips-lr2021ctl diag`), together with live RAC counters. The earlier
+"station B reset" was a modem panic, not a Zephyr fatal or brownout; both
+boards stayed at boot #2 through 25k/50k/100k FIPS traffic after the fix.
+
+Firmware image: **87,780 bytes**, SHA256
+`526ba7f571fe0cb505c1354a8c2320683ba5d506dfff3bf31c90b8e42e40318a`.
 
 ### 511-byte payloads are not adopted
 

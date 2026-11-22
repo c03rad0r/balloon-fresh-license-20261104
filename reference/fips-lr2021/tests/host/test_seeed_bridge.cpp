@@ -110,6 +110,17 @@ uint16_t fakeCapabilities(void* context) {
     return static_cast<FakeRadio*>(context)->capabilities;
 }
 
+size_t fakeDiagnostics(void* context, char* out, size_t cap) {
+    (void)context;
+    const char* text = "radio=fake\n";
+    size_t len = strlen(text);
+    if (len > cap) {
+        len = cap;
+    }
+    memcpy(out, text, len);
+    return len;
+}
+
 void testRadioBackend() {
     FakeRadio fake = {};
     fake.configure_ok = true;
@@ -118,7 +129,7 @@ void testRadioBackend() {
     fake.capabilities = seeed_bridge::kCapabilitiesFlrc;
     seeed_bridge::RadioBackend backend = {
         &fake, fakeConfigure, fakeSend, fakeChipId, fakeCapabilities,
-        NULL, NULL, NULL, NULL};
+        NULL, NULL, NULL, NULL, fakeDiagnostics};
     seeed_bridge::BridgeCore core(&backend);
 
     const uint8_t version = 1;
@@ -311,6 +322,27 @@ void testOutputBounds() {
 
 }  // namespace
 
+void testDiagnosticsRequest() {
+    FakeRadio fake = {};
+    fake.configure_ok = true;
+    fake.send_ok = true;
+    seeed_bridge::RadioBackend backend = {
+        &fake, fakeConfigure, fakeSend, fakeChipId, fakeCapabilities,
+        NULL, NULL, NULL, NULL, fakeDiagnostics};
+    seeed_bridge::BridgeCore core(&backend);
+
+    const auto request = encode(BR_DIAG, NULL, 0);
+    uint8_t out[256];
+    size_t written = core.process(request.data(), request.size(), out, sizeof(out));
+    assert(written > 0);
+    const auto frames = decode(out, written);
+    assert(frames.size() == 1);
+    assert(frames[0].kind == BR_DIAG_ACK);
+    const char* expected = "radio=fake\n";
+    assert(frames[0].payload.size() == strlen(expected));
+    assert(memcmp(frames[0].payload.data(), expected, strlen(expected)) == 0);
+}
+
 int main() {
     testHello();
     testCfgRejected();
@@ -321,6 +353,7 @@ int main() {
     testPingOutputBounds();
     testOutputBounds();
     testRadioBackend();
+    testDiagnosticsRequest();
     std::printf("Seeed bridge loopback host tests passed\n");
     return 0;
 }

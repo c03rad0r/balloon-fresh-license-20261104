@@ -45,6 +45,9 @@ struct RadioBackend {
     void (*on_crc_error)(void* context);
     void (*on_tx_timeout)(void* context);
     void (*on_drop)(void* context);
+    // Optional human-readable diagnostics (boot record, radio/RAC counters).
+    // Returns the number of bytes written to `out`, or 0 when unavailable.
+    size_t (*diagnostics)(void* context, char* out, size_t cap);
 };
 
 // Host-protocol bridge core. With no RadioBackend it reproduces the previous
@@ -80,6 +83,9 @@ public:
     void noteCrcError();
     void noteTxTimeout();
     void noteDrop();
+    // Cumulative warm-reset count from the persistent boot record. This is an
+    // assignment, not an increment, so STAT reports the same value across reads.
+    void noteBootCount(uint32_t resets);
 
     const uint32_t* counters() const { return counters_; }
     uint8_t lastCfgStatus() const { return last_cfg_status_; }
@@ -102,6 +108,7 @@ private:
                    size_t* used);
     void handleTx(const BridgeFrame& frame, uint8_t* out, size_t cap,
                   size_t* used);
+    void handleDiag(uint8_t* out, size_t cap, size_t* used);
 
     const RadioBackend* radio_;
     BridgeDecoder decoder_;

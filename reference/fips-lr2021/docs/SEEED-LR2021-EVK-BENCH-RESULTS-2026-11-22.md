@@ -152,36 +152,81 @@ capability but not a validated FIPS configuration. Even if stabilized, it
 cannot lift FIPS above the ~1 Mbit/s host-UART ceiling; it only reduces radio
 framing/ACK overhead.
 
-## FIPS over the direct-FLRC bridge (2026-11-22)
+## FIPS over the direct-FLRC bridge (2026-11-22, updated)
 
-The two EVKs were run as two FIPS nodes in isolated Docker containers with
-`--network none`, one serial device each and `CAP_NET_ADMIN` for `fips0`.
-Configs: 1 Mbaud, EU 2.4 GHz, `radio_payload: 255`, link `mtu: 512`,
-`ack_timeout_ms: 200`, `max_retries: 5`. No host or container network path was
-available, so the FIPS traffic had to cross the radios.
+Two EVKs run as isolated Docker containers (`--network none`, one serial device
+each, `CAP_NET_ADMIN` for `fips0`). Config: 1 Mbaud, EU 2.4 GHz,
+`radio_payload: 255`, link `mtu: 512`, `ack_timeout_ms: 200`,
+`ack_delay_ms: 10`, `tx_pacing_ms: 2`, `max_retries: 5`, node A `master: true`
+and node B `master: false`.
+
+The FIPS revision is `78b76d45c71f443099ff7bc5f89ecab4260495d5` on
+`c03rad0r/fips` branch `seeed-halfduplex`. Both ends must run it: the link frame
+set gained a poll kind.
+
+### Reset root cause and fix
+
+The earlier "intermittent reset" was **not** a Zephyr fatal, watchdog or
+brownout. A persistent `.noinit` boot record and the modem crash log showed a
+vendor planner panic: `rp_irq_get_status:1036` processed a stale `RX_DONE`
+while the current task was `TX_FLRC`, so `rp_get_pkt_payload` returned
+`ID_ERROR` and the panic macro rebooted the MCU. A second path was an oversize
+RX length in `rp_get_pkt_payload`.
+
+Fixes in the bridge:
+
+- clear the radio IRQ status before every RX/TX submit, so a stale `RX_DONE`
+  cannot be attributed to a TX task;
+- give the RAC a 511-byte RX buffer and drop frames above the 255-byte
+  application payload in the callback, so a corrupt length cannot trip the
+  RAL/panic path;
+- keep a 100 ms RX window and abort to TX only after 5 ms of radio silence, so
+  a fragment burst is never truncated.
+
+The record is readable with `fips-lr2021ctl diag` or over SWD. Both stations
+stayed at **boot #2** through 20 s each at 25k/50k/100k offered; the old build
+had reset 14 times in a comparable run.
+
+### Link-layer changes
+
+The EVK medium is half-duplex. The previous link layer ACKed every fragment
+immediately and allowed many messages in flight, so data and ACKs collided:
+94–99% UDP loss. The revised link layer:
+
+- adds a link poll and a **master/slave role**; only the master initiates, the
+  slave transmits after receiving a frame;
+- ACKs a **complete** message immediately and delays only a partial-message
+  ACK by 10 ms;
+- keeps **one link message in flight**, paces host→bridge frames at 2 ms, and
+  gives ACKs priority over queued data;
+- logs frames, ACKs, retransmits, drops and ACK-match counts every second.
+
+### Measured results
 
 | Gate | Result |
 |---|---|
 | Native `lr2021` transport | **up** |
 | Noise peer authentication | **connected** |
-| `ping6` over `fips0` | **9–10/10**, 0–10% loss, RTT 54–306 ms |
-| `iperf3` UDP 100k–1M, 300-byte datagrams | **94–99% loss**, 0.45–5.1 kbit/s received |
-| `iperf3` TCP | **not achieved** |
-| SSH over `fips0` | **not achieved** |
-| Sustained FIPS load | station B intermittently reset (`tx=0` after reboot); no crash log or reset reason captured |
+| `ping6` over `fips0` | **5/5, 0% loss**, RTT 66–1746 ms |
+| iperf3 UDP 10k offered | **0% loss**, 9.1 kbit/s delivered |
+| iperf3 UDP 25k offered | **0% loss**, 24.9 kbit/s delivered (20 s) |
+| iperf3 UDP 50k offered | **3.4% loss**, 34.6 kbit/s delivered (20 s, queue tail) |
+| iperf3 UDP 100k offered | 46% loss, 36.3 kbit/s delivered |
+| 10-minute UDP soak, 25k | **0.08% loss** (5/6251), 24.9 kbit/s, no reset |
+| Raw TCP, 4 KiB | completed in ~4.5 s (~7 kbit/s) |
+| SSH over `fips0` | `SSH_OVER_FIPS_OK`; `uname -s` returned Linux |
+| iperf3 TCP bulk | **0 bytes over 30 s**; not usable |
+| Reset stability | both stations at boot #2 through 25k/50k/100k |
 
-The one-at-a-time link-layer PER test is 100/100 at 64 and 255 bytes after the
-2 ms inter-frame guard, and the 64-byte 30,000-message soak is 0% loss. The raw
-packet path is therefore sound. The failure is in **sustained FIPS/link-layer
-pipelining**: 300-byte datagrams (two radio frames) at offered rates of
-100 kbit/s and above are almost entirely lost, while a 56-byte ICMP echo (one
-frame) usually succeeds. The bridge also resets intermittently under this load;
-the modem crash log is empty and a `__noinit` fatal marker did not survive, so
-the reset cause remains open.
+A 10-minute 25k UDP soak delivered 6,251 datagrams with 5 lost (0.08%) and no
+MCU reset. The stable operating point is **25 kbit/s at 0% loss**. The delivered rate
+saturates around 35 kbit/s before loss rises. The limiter is now per-message
+half-duplex turnaround and FIPS queuing, not CRC, radio loss or host UART.
 
-Do not report an iperf3 or FIPS application throughput number as a success.
-The current evidence supports packet-level RF validation and FIPS ping, not a
-usable bulk FIPS link.
+`iperf3` TCP bulk remains an open failure: the control connection establishes
+and SSH works, but the bulk data stream delivers 0 bytes at 30 s with the
+default, 8 KiB and 4 KiB socket windows. Raw 4 KiB TCP does complete, so this
+is a throughput/window problem rather than a broken TCP path.
 
 ### Direct-FLRC log hashes
 
@@ -190,9 +235,15 @@ usable bulk FIPS link.
 31c08aa9684bdb91001f0d25885cf6b6e07692c34260029504049c316a770167  guard-255.log
 f913294518be05607225a10a9536e2166f8e0482084e5902afaab9919c901b50  soak-part1-BtoA.log
 0aca10d10619973a9d1ed9dfbdfe8f5c781398abe9ca60acf1c7a6cafedf9466  soak-part2-AtoB.log
-237ed9049dc875d4051efd62c38ccc6f1125248ffe13d46438e508c51a02455b  fips-e2e-300.log
+900d7c9acdcdf1a90a2c4d980aa7dea91cafae6bb9b51c4c549236d4cbdc4664  phase2-irqclear-rates.log
+422f7678d893da483a1cdd8989f18e0af0c076584f49bf782f5ef2ec99c3d804  phase2-final-rates.log
+6cfb4097910652c41244865bd284098bbb7830145d679762e0efaef89683cac5  phase2-complete-ack.log
+6a600c134db2a05b5fde397cb27b4ffcd6ff9f792c25a8d19d05ca7e95cb39d6  phase2-master-slave.log
+96a82785154334ba00fd7aee6ef3d21937dfc5a75a0fdfc5554f09f4aeb882ba  phase2-soak-25k-10min.log
 ```
 
+The firmware image for these runs is 87,780 bytes, SHA256
+`526ba7f571fe0cb505c1354a8c2320683ba5d506dfff3bf31c90b8e42e40318a`.
 ## Conclusions
 
 1. The stock official-EVK USB path is measured and stable at 1 Mbaud.
@@ -206,10 +257,14 @@ f913294518be05607225a10a9536e2166f8e0482084e5902afaab9919c901b50  soak-part1-Bto
 6. The direct-FLRC bridge is reliable at the packet level: 64 B and 255 B are
    100/100 one-at-a-time with the 2 ms inter-frame guard, and 30,000 × 64 B
    messages over ~35 minutes had 0% loss.
-7. FIPS over the bridge is **not a usable bulk link yet**. The native LR2021
-   transport and Noise peer authentication work, and `ping6` passes 9–10/10,
-   but iperf3 UDP at 100k–1M delivers only 0.45–5.1 kbit/s with 94–99% loss.
-   Station B also resets intermittently under load; the reset cause is open.
+7. FIPS over the bridge is now **usable at low rate**: `ping6` is 5/5 at 0%
+   loss, 25 kbit/s UDP is 0% loss, 50k is 3.4% loss, SSH works, and both
+   stations stay at boot #2 through 25k/50k/100k traffic. The old 94–99% loss
+   and the intermittent resets were caused by half-duplex ACK collisions and a
+   vendor modem panic on a stale RX IRQ; both are fixed.
+8. `iperf3` **TCP bulk is still not usable** (0 bytes over 30 s), although a raw
+   4 KiB TCP transfer and SSH succeed. The current limiter is the half-duplex
+   link layer's per-message turnaround, not the radio or host UART.
 
 ## High-speed UARTE00 build (not hardware-tested)
 
@@ -232,10 +287,12 @@ and remains unverified.
 ## Bench state after this run
 
 Both stations were left running the **direct-FLRC 1 Mbaud image in receive
-mode**. The FIPS containers are stopped and no host is sending traffic, so the
-radios are not transmitting. The earlier loopback image was replaced by the FLRC
-image during this test. The 4 Mbaud UARTE00 image was only built; it was not
-flashed because no external USB-UART adapter was attached.
+mode**: 87,780 bytes, SHA256
+`526ba7f571fe0cb505c1354a8c2320683ba5d506dfff3bf31c90b8e42e40318a`.
+The FIPS containers are stopped and no host is sending traffic, so the radios
+are not transmitting. The earlier loopback image was replaced by the FLRC image
+during this test. The 4 Mbaud UARTE00 image was only built; it was not flashed
+because no external USB-UART adapter was attached.
 
 ## Log hashes
 

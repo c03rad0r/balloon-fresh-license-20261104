@@ -28,9 +28,15 @@ transports:
     baud: 1000000
     band: eu2400
     local_id: 1
-    mtu: 1400
+    mtu: 512
     radio_payload: 255
     auto_connect: true
+    # Half-duplex link tuning validated on the EVK (2026-11-22).
+    ack_timeout_ms: 200
+    ack_delay_ms: 10
+    tx_pacing_ms: 2
+    # Exactly one end is the master; the other transmits only in response.
+    master: true
 
 peers:
   - npub: "REPLACE_WITH_PEER_NPUB"

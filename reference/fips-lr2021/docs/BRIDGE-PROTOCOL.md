@@ -29,6 +29,8 @@ reconnect or a bridge reset.
 | 8 | EVT | bridge → host |
 | 9 | PING | host → bridge |
 | 10 | PONG | bridge → host |
+| 11 | DIAG | host → bridge |
+| 12 | DIAG_ACK | bridge → host |
 
 ## HELLO
 
@@ -112,6 +114,9 @@ Payload: one raw radio packet, exactly as it should appear on air.
 tx_packets, rx_packets, crc_errors, drops, tx_timeouts, resets
 ```
 
+`resets` is the cumulative warm-reset count from the persistent boot record
+(boot count minus one), not a per-read increment.
+
 ## EVT
 
 UTF-8 text, e.g. `watchdog reinit`, for the host log.
@@ -119,6 +124,21 @@ UTF-8 text, e.g. `watchdog reinit`, for the host log.
 ## PING/PONG
 
 Empty payload. The bridge replies `PONG` followed by `STAT`.
+
+## DIAG
+
+Empty request. The bridge replies `DIAG_ACK` with UTF-8 lines:
+
+```
+boot#<n> rst=<decoded RESETREAS> up=<ms>
+fatal#<n> r=<reason> pc=<hex> lr=<hex> th=<thread>   (only after a fatal)
+flrc up=<ms> svc=<n> eng=<n> rx_ok=<n> rx_fail=<n> tx_ok=<n> tx_fail=<n> abort=<n>
+cb rx=<n> tx=<n> crc=<n> to=<n> ab=<n> other=<n> rc=<n> st=<n>
+q host_tx=<n> tx_full=<n> rx_full=<n> rx_over=<n> irq_clr=<n> tx_hw=<n> rx_hw=<n> cfg=<n> rxen=<n>
+modem=<vendor crash string>                          (only if one was stored)
+```
+
+It is intended for bench diagnosis and is not sent unless requested.
 
 ## Timing
 
@@ -128,3 +148,8 @@ Empty payload. The bridge replies `PONG` followed by `STAT`.
 - Link retry budget: 3.
 - Reassembly timeout: 500 ms.
 - Dedup window: 5 s.
+
+The Seeed EVK half-duplex profile uses different link values: `mtu: 512`,
+`radio_payload: 255`, `ack_timeout_ms: 200`, `ack_delay_ms: 10`,
+`tx_pacing_ms: 2`, `max_retries: 5`, and a master/slave role. See
+`fips/configs/seeed-eu2400-node-*.example.yaml`.

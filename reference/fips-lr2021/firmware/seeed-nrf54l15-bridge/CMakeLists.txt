@@ -7,11 +7,13 @@ project(seeed_nrf54l15_bridge)
 target_sources(app PRIVATE
   src/main.cpp
   src/bridge_core.cpp
+  src/reset_diag.cpp
+  src/fatal_hook.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/../rp2040-bridge/src/bridge_protocol.h
 )
 
 if(CONFIG_SEEED_BRIDGE_FLRC)
-  target_sources(app PRIVATE src/flrc_radio.cpp src/fatal_hook.cpp)
+  target_sources(app PRIVATE src/flrc_radio.cpp)
 endif()
 target_include_directories(app PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src

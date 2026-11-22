@@ -29,4 +29,8 @@ bool flrcRadioPop(RadioRxPacket* packet);
 // Non-blocking pop of one diagnostic event string.
 bool flrcRadioPopEvent(char* text, size_t cap);
 
+// Human-readable diagnostics for the BR_DIAG request. Returns the number of
+// bytes written, or 0 when unavailable.
+size_t flrcRadioDiagnostics(void* context, char* out, size_t cap);
+
 }  // namespace seeed_bridge

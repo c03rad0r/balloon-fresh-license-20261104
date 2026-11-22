@@ -4,12 +4,17 @@ This is the reproducible harness for the FIPS-over-FLRC test on two official
 Seeed/Semtech LR2021 EVKs. It uses two isolated Docker containers so both FIPS
 nodes can run on one host without network namespaces or root.
 
-**Status (2026-11-22):** the harness was run over the LR2021 transport. The
-native transport, Noise peer authentication and `ping6` work. Bulk UDP does
-**not**: 100k–1M offered delivered 0.45–5.1 kbit/s at 94–99% loss, and station B
-intermittently reset under load. TCP and SSH did not pass. The container/FIPS
-data plane itself is validated over a UDP transport (handshake, ping, iperf3,
-SSH); do not present those UDP self-test numbers as radio results.
+**Status (2026-11-22, updated):** the half-duplex link now works. With the
+`seeed-halfduplex` FIPS revision and the tuning below, `ping6` is 5/5 at 0%
+loss, UDP at 10k and 25k offered is **0% loss** (24.9 kbit/s delivered at 25k),
+50k is 3.4% loss, a 10-minute 25k soak lost 0.08%, and SSH completes over
+`fips0`. A 4 KiB raw TCP transfer completes in ~4.5 s. `iperf3` **TCP bulk** still reports 0 bytes and is not a
+usable throughput result. The earlier 94–99% UDP loss was caused by per-fragment
+ACK collisions and a vendor modem panic on a stale RX IRQ; both are fixed.
+
+The container/FIPS data plane is also validated over a UDP transport
+(handshake, ping, iperf3, SSH); do not present those UDP self-test numbers as
+radio results.
 
 ## Prerequisites
 
@@ -43,22 +48,41 @@ SSH); do not present those UDP self-test numbers as radio results.
 4. `iperf3` and `ping6` are available inside the image (installed by the
    Dockerfile). `openssh-server` is installed for the optional SSH gate.
 
+## Link tuning (validated)
+
+| Setting | Value | Why |
+|---|---|---|
+| `mtu` | 512 | keeps a FIPS frame to about three radio fragments |
+| `radio_payload` | 255 | validated bridge payload |
+| `ack_timeout_ms` | 200 | covers the 10 ms ACK delay plus turnaround |
+| `ack_delay_ms` | 10 | partial-message ACK only; complete messages ACK immediately |
+| `tx_pacing_ms` | 2 | matches the bridge's inter-frame guard; no queue overflow |
+| `max_retries` | 5 | bounded recovery |
+| `master` | `true` on A, `false` on B | only one end initiates on a half-duplex link |
+
+Both nodes must run the `seeed-halfduplex` FIPS revision. The link frame set
+gained a poll kind, so a mismatched peer will not interoperate.
+
 ## LR2021 run result (2026-11-22)
 
 | Gate | Result |
 |---|---|
 | `lr2021` transport | up |
 | Noise peer authentication | connected |
-| `ping6` over `fips0` | 9–10/10, 0–10% loss, RTT 54–306 ms |
-| iperf3 UDP 100k–1M (300 B datagrams) | 94–99% loss, 0.45–5.1 kbit/s received |
-| iperf3 TCP | not achieved |
-| SSH over `fips0` | not achieved |
-| Sustained load | station B intermittently reset; cause not captured |
+| `ping6` over `fips0` | 5/5, 0% loss, RTT 66–1746 ms |
+| iperf3 UDP 10k offered | 0% loss, 9.1 kbit/s |
+| iperf3 UDP 25k offered | 0% loss, 24.9 kbit/s (20 s) |
+| iperf3 UDP 50k offered | 3.4% loss, 34.6 kbit/s (20 s, queue tail) |
+| iperf3 UDP 100k offered | 46% loss, 36.3 kbit/s delivered |
+| 10-minute UDP soak, 25k | 0.08% loss (5/6251), no reset |
+| Raw TCP | 4 KiB in ~4.5 s (~7 kbit/s) |
+| SSH over `fips0` | `SSH_OVER_FIPS_OK` |
+| iperf3 TCP bulk | 0 bytes over 30 s; not usable |
+| Reset stability | both stations stayed at boot #2 through 25k/50k/100k tests |
 
-The one-frame ICMP path works; the two-frame bulk path is not usable with the
-pinned link layer. The bridge also resets intermittently under FIPS load. This
-is an open blocker; the harness is preserved for the next attempt, not a
-throughput result.
+The stable operating point is **25 kbit/s at 0% loss**; ~35 kbit/s is the
+approximate ceiling before loss rises. The limiter is per-message half-duplex
+turnaround and FIPS queuing, not CRC or radio loss.
 
 ## Run
 
@@ -73,7 +97,8 @@ tests/hardware/run_fips_e2e.sh
 
 Set `KEEP=1` to leave the containers running for inspection and `RUN_SSH=1`
 to run the SSH gate. `SSH_KEY` defaults to
-`$FIPS_E2E_CONFIG_DIR/id_ed25519`.
+`$FIPS_E2E_CONFIG_DIR/id_ed25519`. `IPERF_RATES` defaults to `10k 25k 50k`;
+`IPERF_SECONDS` and `IPERF_TIMEOUT` control each run and its timeout.
 
 Each container runs with:
 
@@ -89,8 +114,8 @@ Each container runs with:
 | FIPS transport | `fipsctl show transports` reports `lr2021` `up` |
 | Peer auth | `fipsctl show peers` contains the peer npub with `connectivity: connected` |
 | ping6 | 10/10 replies over `fips0`, 0% loss |
-| iperf3 UDP | Record offered vs delivered bitrate, loss and jitter for 100k–1M |
-| iperf3 TCP | Record throughput and retransmits separately |
+| iperf3 UDP | 10k and 25k offered: 0% loss. 50k: record the loss/queue tail |
+| iperf3 TCP | **Not a gate on this link**: bulk reports 0 bytes. Record raw TCP (4 KiB) separately |
 | SSH | `echo SSH_OVER_FIPS_OK` over the peer's `fips0` address |
 | Soak | No resets, no unexplained drops, counters reconciled |
 

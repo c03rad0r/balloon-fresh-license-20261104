@@ -4,6 +4,7 @@
 #include <zephyr/sys/ring_buffer.h>
 
 #include "bridge_core.h"
+#include "reset_diag.h"
 
 #if defined(CONFIG_SEEED_BRIDGE_FLRC)
 #include "flrc_radio.h"
@@ -121,6 +122,7 @@ int main() {
         radio_backend.on_tx_timeout = onRadioTxTimeout;
         radio_backend.on_drop = onRadioDrop;
         core.setRadio(&radio_backend);
+        core.noteBootCount(seeed_boot_count() - 1);
     }
 #endif
 
@@ -163,6 +165,7 @@ int main() {
         }
 
         if (k_uptime_get() - last_stat_ms >= kStatPeriodMs) {
+            seeed_reset_diag_update_uptime();
             size_t out_len = core.encodeStat(write_buf, sizeof(write_buf));
             if (out_len > 0) {
                 queue_host_bytes(write_buf, out_len);

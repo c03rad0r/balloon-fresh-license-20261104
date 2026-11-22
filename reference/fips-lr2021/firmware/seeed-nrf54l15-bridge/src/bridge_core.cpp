@@ -90,6 +90,8 @@ void BridgeCore::noteTxTimeout() { counters_[TxTimeouts]++; }
 
 void BridgeCore::noteDrop() { counters_[Drops]++; }
 
+void BridgeCore::noteBootCount(uint32_t resets) { counters_[Resets] = resets; }
+
 void BridgeCore::handleHello(uint8_t* out, size_t cap, size_t* used) {
     uint16_t chip_id = 0;
     uint16_t capabilities = kCapabilitiesLoopback;
@@ -173,6 +175,24 @@ void BridgeCore::handleTx(const BridgeFrame& frame, uint8_t* out, size_t cap,
     }
 }
 
+void BridgeCore::handleDiag(uint8_t* out, size_t cap, size_t* used) {
+    char text[512];
+    size_t len = 0;
+    if (radio_ != NULL && radio_->diagnostics != NULL) {
+        len = radio_->diagnostics(radio_->context, text, sizeof(text));
+    }
+    if (len == 0) {
+        const char* fallback = "radio=none\n";
+        len = strlen(fallback);
+        if (len > sizeof(text)) {
+            len = sizeof(text);
+        }
+        memcpy(text, fallback, len);
+    }
+    (void)append(BR_DIAG_ACK, reinterpret_cast<const uint8_t*>(text),
+                 static_cast<uint16_t>(len), out, cap, used);
+}
+
 void BridgeCore::handle(const BridgeFrame& frame, uint8_t* out, size_t cap,
                         size_t* used) {
     switch (frame.kind) {
@@ -184,6 +204,9 @@ void BridgeCore::handle(const BridgeFrame& frame, uint8_t* out, size_t cap,
         break;
     case BR_TX:
         handleTx(frame, out, cap, used);
+        break;
+    case BR_DIAG:
+        handleDiag(out, cap, used);
         break;
     case BR_PING: {
         const size_t before = *used;
