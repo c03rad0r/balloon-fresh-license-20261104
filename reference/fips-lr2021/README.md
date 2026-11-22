@@ -27,8 +27,11 @@ RP2040 bridge firmware, configs and test scripts.
   Wirehair/FEC evaluation.
 - **Developing the Seeed nRF54 bridge?**
   [`firmware/seeed-nrf54l15-bridge/README.md`](firmware/seeed-nrf54l15-bridge/README.md)
-  describes the current **offline loopback only** increment; no radio or FIPS
-  capability is implemented there yet.
+  describes the current **offline loopback** increment and its measured USB/UART
+  ceiling; no radio or FIPS capability is implemented there yet.
+- **Seeed EVK measured results (2026-11-22):**
+  [`docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md`](docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md)
+  — USB loopback, stock PER and stock FLRP evidence.
 - **No physical access?** `docs/FLASHING-WITHOUT-BUTTONS.md` — both ESP32 and
   RP2040 can be reflashed over USB with no button press.
 - **Picking up this work?** `docs/LEARNINGS.md` first, then `docs/OTA-PROOF-PLAN.md`.
@@ -141,6 +144,7 @@ virtual end-to-end success is not a substitute for RF verification.
 | `fips/` | fork pin, vendored diff, FIPS configs |
 | `firmware/rp2040-bridge/` | RP2040 + E80 bridge firmware |
 | `firmware/seeed-nrf54l15-bridge/` | offline host-loopback codec/UART skeleton; no radio yet |
+| `docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` | measured EVK USB, PER and FLRP bench evidence |
 | `firmware/esp32-bridge/` | ESP32-S3 + E80 SPI-bypass firmware |
 | `docs/E80-ESP32-S3-FIPS-ONBOARDING.md` | end-to-end soldering, flashing, RF and FIPS guide |
 | `scripts/` | bootstrap, sync, build, flash, demo |

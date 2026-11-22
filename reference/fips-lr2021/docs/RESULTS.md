@@ -1,6 +1,8 @@
 # Results
 
-**Status: hardware pending.** Do not fill this in from expectations.
+**Status: hardware testing in progress.** Do not fill this in from expectations.
+See `SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` for the dated EVK evidence
+summary and local raw-log hashes.
 
 ## Host tests
 
