@@ -71,6 +71,7 @@ four-frame window. This is a framed loopback measurement, not RF throughput.
 | A / 921600 | 468.77 kbit/s | 468.77 kbit/s | 481.63 kbit/s | 492.71 kbit/s | 0/1155 |
 | A / 1000000 | 495.02 kbit/s | 495.02 kbit/s | 508.61 kbit/s | 520.31 kbit/s | 0/1219 |
 | A / 1000000 (clean reflash) | 481.96 kbit/s | 481.96 kbit/s | 495.19 kbit/s | 506.58 kbit/s | 0/1187 |
+| A / 1000000 (final alias build) | 495.30 kbit/s | 495.30 kbit/s | 508.90 kbit/s | 520.60 kbit/s | 0/1220 |
 | B / 1000000, 10 s | 495.88 kbit/s | 495.88 kbit/s | 509.50 kbit/s | 521.21 kbit/s | 0/2437 |
 
 At 1 Mbaud this is approximately **0.99 Mbit/s aggregate payload** and
@@ -94,3 +95,46 @@ USP-Zephyr 4.4.0 and SDK 1.0.1.
   preserve a trailing `0xA5` across reads.
 - Window 4 is stable at 115200 through 1 Mbaud. Larger windows overran the RX
   path; do not treat a high “offered” rate as successful delivery.
+
+## High-speed UARTE00 option — built, not hardware-tested
+
+The standard nRF54L15 UART used by the built-in SAMD11 USB bridge is limited to
+1 Mbaud. The SoC also has UARTE00, which supports up to 4 Mbaud on dedicated P2
+pins. On XIAO those are:
+
+| UARTE00 signal | XIAO pin | SoC pin |
+|---|---|---|
+| TX | D6 | P2.08 |
+| RX | D7 | P2.07 |
+| GND | GND | GND |
+
+This is the exposed user UART; it is not connected internally to the USB-C
+connector. Testing it requires an external **3.3 V-logic** USB-UART adapter
+connected as adapter TX → D7, adapter RX → D6, and grounds joined. Do not inject
+5 V logic or power the board through the adapter. A Grove UART cable or jumper
+wires are sufficient; no soldering is required if those pins/connector are
+accessible.
+
+Use an adapter actually rated above the target baud (for example FT232H/FT2232H
+or another adapter with a documented 3.3 V high-speed UART mode). Many common
+CP2102/CH340 variants do not meet this requirement. Which adapter will be used
+must be recorded with the result.
+
+Build/flash the high-speed variant only after wiring:
+
+```bash
+make seeed-bridge-loopback-highspeed-build BRIDGE_BAUD=4000000
+make seeed-bridge-loopback-highspeed-flash BRIDGE_BAUD=4000000 PROBE='<probe>'
+make seeed-bridge-usb-bench PORT='<external USB-UART port>' BRIDGE_BAUD=4000000
+```
+
+The 4 Mbaud image builds successfully (31,660 bytes, SHA256
+`34faf9ba3ef0b47f5009209708f4152d5c0f4fb80b391ca3af33bdd5ccf6abfb`) and the
+devicetree confirms UARTE00 on P2.07/P2.08 with UART21 disabled. **No adapter
+was attached, so 4 Mbaud throughput and even electrical operation remain
+unverified.** Start at lower rates and increase only after error-free delivery.
+
+The theoretical 4 Mbaud 8N1 ceiling is 3.2 Mbit/s of user bytes per direction,
+before framing and turnaround. Even if that host path works, it does not make
+2.6 Mbit/s end-to-end FIPS possible: the radio payload and FIPS/link overhead
+remain below the raw FLRC PHY rate.

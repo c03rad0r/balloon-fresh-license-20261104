@@ -1,0 +1,9 @@
+/*
+ * Default host transport: the XIAO's UART20, wired to the SAMD11 USB-UART.
+ * The high-speed build overrides this alias with UARTE00 on D6/D7.
+ */
+/ {
+	aliases {
+		seeed-bridge-uart = &uart20;
+	};
+};

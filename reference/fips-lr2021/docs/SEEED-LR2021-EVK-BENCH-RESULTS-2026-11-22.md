@@ -31,6 +31,7 @@ because the firmware echoes each packet.
 | A / 921600 | 468.765 kbit/s | 481.633 / 492.712 kbit/s | 1155/1155 | 0 |
 | A / 1000000 | 495.022 kbit/s | 508.611 / 520.308 kbit/s | 1219/1219 | 0 |
 | A / 1000000 clean reflash | 481.962 kbit/s | 495.192 / 506.582 kbit/s | 1187/1187 | 0 |
+| A / 1000000 final alias build | 495.299 kbit/s | 508.896 / 520.599 kbit/s | 1220/1220 | 0 |
 | B / 1000000, 10 s | 495.883 kbit/s | 509.496 / 521.213 kbit/s | 2437/2437 | 0 |
 
 At 1 Mbaud:
@@ -107,6 +108,31 @@ range. Six initiator periods produced at least five transfers in each direction:
    direct USB-SPI to the radio, or a different host board. Wiring, pogo/clip
    adapters and purchases require separate review and approval.
 
+## High-speed UARTE00 build (not hardware-tested)
+
+The nRF54L15 UARTE00 high-speed peripheral can use dedicated P2.07 RX / P2.08 TX,
+which correspond to XIAO D7/D6. A compile-tested overlay for 4 Mbaud exists in
+`firmware/seeed-nrf54l15-bridge/overlays/uart00.overlay`. It disables UART21 to
+avoid pin contention and builds successfully:
+
+- artifact: `build/seeed-usp-workspace/build/seeed-bridge-loopback-hs/zephyr/zephyr.bin`
+- size: 31,660 bytes
+- SHA256: `34faf9ba3ef0b47f5009209708f4152d5c0f4fb80b391ca3af33bdd5ccf6abfb`
+- devicetree: UARTE00 status okay, current-speed 4,000,000, alias
+  `seeed-bridge-uart = &uart00`; UART21 disabled.
+
+No external 3.3 V USB-UART adapter was attached, so no 4 Mbaud electrical or
+throughput result exists. The XIAO's built-in USB-C path does not reach these
+pins. A Grove/jumper connection to an external high-speed adapter is required
+and remains unverified.
+
+## Bench state after this run
+
+Both stations were left running the **non-transmitting 1 Mbaud loopback**
+firmware. The PER transmitter was explicitly replaced after capture so it is not
+continuing scheduled RF transmissions. The 4 Mbaud UARTE00 image was only built;
+it was not flashed because no external USB-UART adapter was attached.
+
 ## Log hashes
 
 ```text
@@ -115,6 +141,7 @@ de4770a8467fcd653db92800132526a2ca0fa029d2abd057b2547b3c61a51e5c  bench-A-115200
 ffcb1969223b703845cec6a25306d924d7fbc3a1813c071ed2b6f8f35aac57bf  bench-A-460800.log
 72815dae649a36380a095ab5d8dab70fb7430c474c9337b51729be6228c7f4e8  bench-A-921600.log
 d744c3f0976590d654a4e82aa934c9cd49e83b67d2d5826630773338c00600de  bench-A-1000000.log
+c3f546b5ce1f458fc19ee6058b5d941488b40dcdc618f68e0a2fa14d3ba1b4ea  bench-A-final-1000000.log
 ecb1faecb167ca2983cbfabff3841c4cf74a2e44790c68d3d255087edf67f5ea  bench-B-1000000.log
 12fe111a3c89f9cf323d5927afedb403940589722ba0c37cfc9b2d2cdc85b68c  per-rx-steady.log
 5938b6d30a3ac949f0e40ebb44e3c6b69e7efabc1928fdbc53599d3950dbd7fa  per-tx-steady.log

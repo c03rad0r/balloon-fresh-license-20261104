@@ -9,6 +9,7 @@ USP_ZEPHYR_URL=${USP_ZEPHYR_URL:-https://github.com/Lora-net/usp_zephyr.git}
 USP_ZEPHYR_REF=${USP_ZEPHYR_REF:-64f416bddd5c95ec4504b00627aa932eb88c7bd5}
 ZEPHYR_SDK_VERSION=${ZEPHYR_SDK_VERSION:-1.0.1}
 BRIDGE_BAUD=${BRIDGE_BAUD:-115200}
+BRIDGE_UART=${BRIDGE_UART:-standard}
 WORKSPACE=${SEED_USP_WORKSPACE:-$REFERENCE_DIR/build/seeed-usp-workspace}
 VENV_DIR="$WORKSPACE/.venv"
 USP_DIR="$WORKSPACE/usp_zephyr"
@@ -38,7 +39,8 @@ Environment:
   SEED_USP_WORKSPACE  Defaults to reference/fips-lr2021/build/seeed-usp-workspace.
   USP_ZEPHYR_REF      Full immutable commit; defaults to the pinned v1.2.1 source.
   ZEPHYR_SDK_VERSION  Defaults to 1.0.1.
-  BRIDGE_BAUD         Loopback UART build rate; 9600..1000000, default 115200.
+  BRIDGE_BAUD         Loopback UART build rate; standard 9600..1000000, default 115200.
+  BRIDGE_UART         standard (UART20/SAMD11) or highspeed (UARTE00 on D6/D7).
   FLRP_DATA_SIZE      Defaults to (20*1024); integer or compact A*B expression.
   FLRP_LOW_FREQ       true (stock sub-GHz default) or false (2.4 GHz).
   FLRP_CRYPTO         true (AES-CMAC integrity) or false (radio CRC).
@@ -124,7 +126,7 @@ role_settings() {
     BUILD_NAME=
     SAMPLE_REL=
     EXTRA_CFLAGS=
-    EXTRA_CMAKE_ARGS=
+    EXTRA_CMAKE_ARGS=()
 
     case "$role" in
         per-rx)
@@ -152,12 +154,27 @@ role_settings() {
             ;;
         bridge-loopback)
             BUILD_NAME=seeed-bridge-loopback
+            EXTRA_CMAKE_ARGS=("-DCONFIG_SEEED_BRIDGE_UART_BAUD=$BRIDGE_BAUD")
+            case "$BRIDGE_UART" in
+                standard)
+                    [[ "$BRIDGE_BAUD" =~ ^[0-9]+$ ]] ||
+                        die "BRIDGE_BAUD must be numeric."
+                    (( BRIDGE_BAUD >= 9600 && BRIDGE_BAUD <= 1000000 )) ||
+                        die "Standard UART20 supports BRIDGE_BAUD 9600..1000000."
+                    ;;
+                highspeed)
+                    BUILD_NAME=seeed-bridge-loopback-hs
+                    [[ "$BRIDGE_BAUD" =~ ^[0-9]+$ ]] ||
+                        die "BRIDGE_BAUD must be numeric."
+                    (( BRIDGE_BAUD >= 9600 && BRIDGE_BAUD <= 4000000 )) ||
+                        die "High-speed UARTE00 supports BRIDGE_BAUD 9600..4000000."
+                    EXTRA_CMAKE_ARGS+=("-DEXTRA_DTC_OVERLAY_FILE=$REFERENCE_DIR/firmware/seeed-nrf54l15-bridge/overlays/uart00.overlay")
+                    ;;
+                *)
+                    die "BRIDGE_UART must be 'standard' or 'highspeed'."
+                    ;;
+            esac
             SAMPLE_REL=
-            [[ "$BRIDGE_BAUD" =~ ^[0-9]+$ ]] ||
-                die "BRIDGE_BAUD must be numeric (supported stock UART range: 9600..1000000)."
-            (( BRIDGE_BAUD >= 9600 && BRIDGE_BAUD <= 1000000 )) ||
-                die "BRIDGE_BAUD must be between 9600 and 1000000 for the standard UART path."
-            EXTRA_CMAKE_ARGS="-DCONFIG_SEEED_BRIDGE_UART_BAUD=$BRIDGE_BAUD"
             ;;
         *)
             die "Unknown role '$role'. Expected per-rx, per-tx, flrp-initiator, flrp-slave or bridge-loopback."
@@ -338,9 +355,9 @@ build_role() {
     log "Build directory: $BUILD_DIR"
     log "EXTRA_CFLAGS: $EXTRA_CFLAGS"
     local -a cmake_args=("-DEXTRA_CFLAGS=$EXTRA_CFLAGS")
-    if [[ -n "$EXTRA_CMAKE_ARGS" ]]; then
-        cmake_args+=("$EXTRA_CMAKE_ARGS")
-        log "Extra CMake argument: $EXTRA_CMAKE_ARGS"
+    if (( ${#EXTRA_CMAKE_ARGS[@]} > 0 )); then
+        cmake_args+=("${EXTRA_CMAKE_ARGS[@]}")
+        log "Extra CMake arguments: ${EXTRA_CMAKE_ARGS[*]}"
     fi
     run_west build --pristine --build-dir "$BUILD_DIR" --board "$BOARD" \
         --shield semtech_loraplus_expansion_board --shield semtech_wio_lr2021 \

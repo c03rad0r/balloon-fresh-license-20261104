@@ -7,7 +7,7 @@
 
 namespace {
 
-const struct device* const kHostUart = DEVICE_DT_GET(DT_NODELABEL(uart20));
+const struct device* const kHostUart = DEVICE_DT_GET(DT_ALIAS(seeed_bridge_uart));
 constexpr size_t kReadChunk = 512;
 constexpr size_t kWriteCap = 4096;
 constexpr int kStatPeriodMs = 5000;

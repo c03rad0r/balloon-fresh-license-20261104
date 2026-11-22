@@ -31,6 +31,7 @@ SEED_USP = SEED_USP_WORKSPACE="$(SEED_USP_WORKSPACE)" \
 .PHONY: seeed-flrp-build-initiator seeed-flrp-build-slave
 .PHONY: seeed-flrp-flash-initiator seeed-flrp-flash-slave seeed-monitor
 .PHONY: seeed-bridge-host-test seeed-bridge-loopback-build seeed-bridge-loopback-flash
+.PHONY: seeed-bridge-loopback-highspeed-build seeed-bridge-loopback-highspeed-flash
 .PHONY: seeed-bridge-usb-bench
 
 all: host-test mock-e2e build-e80
@@ -94,6 +95,12 @@ seeed-bridge-loopback-build:
 
 seeed-bridge-loopback-flash:
 	PROBE="$(PROBE)" $(SEED_USP) flash bridge-loopback
+
+seeed-bridge-loopback-highspeed-build:
+	BRIDGE_UART=highspeed $(SEED_USP) build bridge-loopback
+
+seeed-bridge-loopback-highspeed-flash:
+	PROBE="$(PROBE)" BRIDGE_UART=highspeed $(SEED_USP) flash bridge-loopback
 
 seeed-bridge-usb-bench:
 	@test -n "$(PORT)" || { echo "Usage: make seeed-bridge-usb-bench PORT=/dev/serial/by-id/... BRIDGE_BAUD=115200"; exit 1; }
