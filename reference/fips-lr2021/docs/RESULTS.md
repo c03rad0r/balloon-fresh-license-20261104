@@ -47,6 +47,22 @@ Fill only with measured numbers. Attach the raw CSV/log path.
 | 2026-11-22 | eu2400 | 600 s | 0 | 5/6251 (0.08%) | pass at 25k offered, 24.9 kbit/s |
 | 2026-11-22 | eu2400 | ~35 min | 0 | 0% (30,000 × 64 B) | direct-FLRC packet soak pass |
 
+## Recommended next experiments (speed-up roadmap)
+
+Full detail is in
+[`SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md`](SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md#10-recommended-speed-up-roadmap).
+
+1. **MTU 1357 + block ACK** — send a block of frames with one bitmap ACK and
+   selective repeat; measure 25k/50k/100k/200k UDP and raw 4/16/64 KiB TCP.
+2. **Timing sweep** — inter-frame guard 2/1/0.5 ms; RX quiet guard 5/3/2 ms;
+   master sleep 3/1 ms; poll 20/10 ms; measure loss, CRC and 100 × 255 B PER.
+3. **Control-plane reduction** — static peer, longer beacon interval, lighter
+   MMP if available; measure TCP latency and SSH responsiveness.
+4. **UART DMA / flow control** — only if the link exceeds ~200–300 kbit/s;
+   async UART, credits, bounded host-output blocking.
+5. **USB-SPI / different host board** — only if >1 Mbit/s is required. The stock
+   XIAO UART is 1 Mbaud and UARTE00 conflicts with SPI00.
+
 ## Hardware bridge protocol
 
 2026-11-02, `/dev/ttyUSB6`, probe `203584200D2D0D42`:

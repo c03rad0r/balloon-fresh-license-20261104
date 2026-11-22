@@ -358,3 +358,169 @@ ignored `build/flrc/` directory.
    separately from iperf3.
 5. Above ~1 Mbit/s requires a hardware change (direct USB-SPI or a different
    host board); no purchase or wiring is approved.
+
+---
+
+## 10. Recommended speed-up roadmap
+
+**Baseline:** 25 kbit/s at 0% UDP loss, ~35 kbit/s ceiling, 1 Mbaud host UART
+(~0.99 Mbit/s aggregate framed payload), FLRC PHY 2.6 Mbit/s. The link layer is
+using about 2.5% of the UART, so the first four steps target the link layer, not
+the radio.
+
+The order below is deliberate: amortise the half-duplex turnaround first, then
+reduce per-frame overhead, then remove control-plane contention, and only then
+change the host link. Run **one change at a time** and record the commit, config
+and log hashes.
+
+### 10.1 MTU 1357 + block ACK (do this first)
+
+**Why:** the current link is stop-and-wait with one message in flight. Every
+message pays the ACK delay and turnaround. A 512-byte link MTU also produces an
+effective IPv6 MTU of 435 and forces FIPS to fragment larger packets.
+
+**Change:**
+
+- raise the link MTU to **1357** (the FIPS warning's suggested minimum) and keep
+  `radio_payload: 255`;
+- send a block of 4–8 FIPS frames (or a 4–8 KiB byte budget) before turning
+  around;
+- replace per-message ACKs with **one bitmap ACK per block** and selective
+  repeat for missing frames;
+- keep `ack_timeout_ms` generous enough for the block RTT (start at 300 ms).
+
+```yaml
+    mtu: 1357
+    radio_payload: 255
+    ack_timeout_ms: 300
+    ack_delay_ms: 10
+    tx_pacing_ms: 2
+    max_retries: 5
+    master: true       # false on node B
+```
+
+**Measure:**
+
+- UDP 25k, 50k, 100k, 200k offered, 20–60 s each;
+- raw TCP 4 KiB, 16 KiB and 64 KiB;
+- offered/delivered bitrate, loss, jitter, retransmits, drops, CRC, pending
+  depth, RTT and resets.
+
+**Acceptance:** 25k and 50k remain 0% loss; 100k is below 1%; 16 KiB raw TCP
+completes; no resets and no queue overflow.
+
+**Risks:** a lost fragment now costs a retransmission inside a larger block;
+keep the 2 ms guard until the timing sweep, and do not raise the window until
+selective repeat is proven.
+
+### 10.2 Timing sweep (guard 2 / 1 / 0.5 ms; quiet 5 / 3 / 2 ms)
+
+**Why:** the 2 ms inter-frame guard, 5 ms RX quiet guard, 3 ms master
+post-message sleep and 20 ms poll interval are conservative. The harmonised
+bench's ≥40 ms rule applies only to frames longer than 256 bytes; the 255-byte
+frames used here can likely run tighter.
+
+**Sweep:**
+
+| Parameter | Values |
+|---|---|
+| Inter-frame TX guard | 2, 1, 0.5 ms |
+| RX quiet guard before TX | 5, 3, 2 ms |
+| Master post-message sleep | 3, 1 ms |
+| Poll interval | 20, 10 ms |
+
+**Measure:** for each setting, 100 × 255-byte PER plus a 60 s 25k and 50k UDP
+run. Record loss, CRC errors, retransmits, drops and average RTT.
+
+**Acceptance:** choose the lowest guard that keeps 25k/50k at 0% loss and
+100 × 255-byte PER at 100/100, with no increase in CRC errors. Back off one step
+if CRC errors appear.
+
+**Risk:** too short a guard truncates the peer's fragment and causes CRC errors
+on both sides; the counters make this visible.
+
+### 10.3 Control-plane reduction (measure TCP latency and SSH responsiveness)
+
+**Why:** FIPS tree/MMP/control traffic shares the half-duplex medium with user
+data. On a static bench link it consumes airtime and inflates RTT, which hurts
+TCP and interactive SSH.
+
+**Changes:**
+
+- use a static peer and disable announcement/listen/auto-connect where a static
+  peer is sufficient;
+- raise `beacon_interval_secs` (minimum 10);
+- use a lighter MMP/session-MMP mode if the FIPS revision exposes one;
+- avoid unnecessary discovery on the point-to-point link.
+
+**Measure:**
+
+- `ping6` RTT distribution (min/avg/max/p95);
+- SSH command latency for a short command and a 1 MiB `dd` over SSH;
+- raw TCP 4 KiB and 16 KiB transfer time;
+- `fipsctl show peers` MMP SRTT and delivery ratios;
+- link stats before/after.
+
+**Acceptance:** lower p95 RTT and SSH latency with no peer drop or delivery
+regression. Do not disable a control function that the static peer needs to stay
+authenticated.
+
+### 10.4 UART DMA / flow control (only if the link exceeds ~200–300 kbit/s)
+
+**Why:** the stock UART is 1 Mbaud and the bridge currently writes the host TX
+ring one byte at a time from the UART ISR. At higher link rates this becomes the
+next bottleneck, and `queue_host_bytes` can block the loop that also services
+the radio.
+
+**Changes:**
+
+- move to Zephyr async UART/DMA and larger FIFO writes;
+- add host→bridge TX credits instead of silent queue drops;
+- bound or remove the blocking wait when the host output ring is full;
+- keep radio service independent of host-output stalls.
+
+**Measure:** host-path throughput in both directions, CPU load, bridge queue
+high-water marks, drops and main-loop latency at the achieved link rate.
+
+**Acceptance:** no host-side drops at the achieved rate and a bounded radio
+service latency. If the link is still below ~200 kbit/s, this step is not the
+priority.
+
+### 10.5 Hardware USB-SPI / different host board (only if >1 Mbit/s is required)
+
+**Why:** the stock XIAO path is capped at 1 Mbaud. UARTE00 at 4 Mbaud shares the
+peripheral instance with SPI00, which the LR2021 needs, so it cannot run
+concurrently on this board. A link-layer fix alone cannot exceed ~1 Mbit/s.
+
+**Options:**
+
+1. direct **USB-SPI** to the LR2021, bypassing the UART;
+2. a **different host board** with USB High-Speed or an independent high-speed
+   UART;
+3. a different radio/host combination if the goal is throughput rather than the
+   EVK form factor.
+
+**Measure:** the same UDP/TCP matrix plus host-path throughput; report the
+aggregate and per-direction numbers separately.
+
+**Acceptance:** >1 Mbit/s aggregate at a documented loss rate, or a recorded
+hardware limit. Purchases and wiring require explicit approval.
+
+### 10.6 Measurement matrix and definition of done
+
+| Step | UDP | TCP | Other | Evidence |
+|---|---|---|---|---|
+| 10.1 MTU + block ACK | 25k/50k/100k/200k, 20–60 s | 4/16/64 KiB raw | retransmits, drops, CRC, pending | logs + hashes |
+| 10.2 Timing sweep | 25k/50k, 60 s each | 4 KiB raw | 100 × 255 B PER, CRC | per-setting table |
+| 10.3 Control reduction | 25k/50k | 4/16 KiB raw | ping p95, SSH command, MMP SRTT | before/after table |
+| 10.4 UART DMA/credits | at achieved rate | at achieved rate | CPU, queue high-water, drops | host-path log |
+| 10.5 USB-SPI/host board | full matrix | full matrix | aggregate/direction | hardware report |
+
+**Definition of done for each step:** a committed config/firmware change, a
+before/after table, log hashes, no unexplained resets, and a statement of what
+did **not** improve. Keep the 10-minute soak for every step and run the full
+30-minute soak before calling a step complete.
+
+**Do not claim 2.6 Mbit/s application throughput.** That is the FLRC PHY rate.
+The stock host path is the hard ceiling below 1 Mbit/s; the link layer is the
+current limiter at 25 kbit/s.

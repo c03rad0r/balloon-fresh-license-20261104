@@ -37,7 +37,8 @@ RP2040 bridge firmware, configs and test scripts.
 - **Implementation report (2026-11-22):**
   [`docs/SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md`](docs/SEEED-LR2021-EVK-FIPS-HALF-DUPLEX-2026-11-22.md)
   records the complete firmware, reset diagnosis, half-duplex link-layer
-  changes, measured results, rejected experiments and open items.
+  changes, measured results, rejected experiments, open items and the
+  prioritised speed-up roadmap.
 - **Seeed EVK measured results (2026-11-22):**
   [`docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md`](docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md)
   — USB loopback, stock PER/FLRP, direct-FLRC and FIPS evidence.
