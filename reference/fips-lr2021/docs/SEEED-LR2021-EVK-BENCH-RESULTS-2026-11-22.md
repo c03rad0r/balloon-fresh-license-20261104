@@ -97,6 +97,102 @@ range. Six initiator periods produced at least five transfers in each direction:
 - Raw logs: `build/radio-baseline/flrp-initiator.log`,
   `build/radio-baseline/flrp-slave.log`.
 
+## Direct-FLRC bridge (2026-11-22)
+
+The loopback was replaced with a raw LR2021 FLRC backend using the official
+Semtech RAC transaction API. The host framing, link-layer ARQ/reassembly and
+FIPS transport are unchanged. Both stations report protocol 1, firmware 0.2.0,
+chip `0x0118` (LR2021 1.24) and capabilities `0x000a`.
+
+Test profile: EU 2.4 GHz, 2440 MHz, FLRC 2600 kbps, CR 3/4, 12 dBm, 255-byte
+radio payload, 1 Mbaud host UART. Each row is a 100-message link-layer PER run.
+
+| Direction | App payload | Sent | Delivered | Loss | RSSI |
+|---|---:|---:|---:|---:|---:|
+| B→A | 64 B | 100 | 100 | 0% | −20.6 dBm |
+| A→B | 64 B | 100 | 100 | 0% | −20.6 dBm |
+| B→A | 255 B | 100 | 100 | 0% | −20.6 dBm |
+| A→B | 255 B | 100 | 100 | 0% | −20.6 dBm |
+
+The final four runs used the isolated pinned link layer and the 2 ms inter-frame
+guard. RSSI varied between about −16 and −21 dBm as the bench hardware was moved;
+the final runs were all near −20.6 dBm.
+
+Soak image: **85,124 bytes**, SHA256
+`52308113d589b422728961622f8b87f79a38cb7fd9720ad994f978dbcd86926e`.
+Final image after the 2 ms inter-frame guard and reset diagnostics:
+**85,516 bytes**, SHA256
+`fb781d1a2a5becfac8236b556b6492deea94feecc32cc3cf1a10dfa41fa29f37`
+(built from the bridge working tree before the follow-up commit).
+
+A 255-byte application message is two radio frames at `radio_payload: 255`.
+Two faults were found and fixed:
+
+1. The bridge TX queue was four packets deep; the host delivered fragments faster
+   than the radio drained them. Raising it to 16 removed over 1,000 drops per
+   short run.
+2. Back-to-back fragments could start before the peer re-armed RX. With the
+   isolated pinned link layer, 255-byte traffic was 69/100 without a guard. A
+   **2 ms inter-frame transmit guard** made it 100/100 in both directions.
+
+No CRC errors or TX timeouts were recorded in the final runs.
+
+### 511-byte FLRC payloads
+
+The LR2021 driver documents an FLRC payload range of **6–511 bytes**, and the
+radio FIFO is 1023 bytes, so the hardware can send 511-byte packets. We raised
+the bridge limit to 511 and tested it. Single-frame traffic (480-byte
+application payload) passed only intermittently, and multi-frame 500/1000-byte
+traffic intermittently reset the MCU or stalled the sender despite a 16 KB main
+stack and 4 KB system workqueue stack. The repository's harmonized-bench rules
+also require a **≥40 ms gap** between packets longer than 256 bytes.
+
+The production bridge is therefore capped at 255 bytes. 511 is a real hardware
+capability but not a validated FIPS configuration. Even if stabilized, it
+cannot lift FIPS above the ~1 Mbit/s host-UART ceiling; it only reduces radio
+framing/ACK overhead.
+
+## FIPS over the direct-FLRC bridge (2026-11-22)
+
+The two EVKs were run as two FIPS nodes in isolated Docker containers with
+`--network none`, one serial device each and `CAP_NET_ADMIN` for `fips0`.
+Configs: 1 Mbaud, EU 2.4 GHz, `radio_payload: 255`, link `mtu: 512`,
+`ack_timeout_ms: 200`, `max_retries: 5`. No host or container network path was
+available, so the FIPS traffic had to cross the radios.
+
+| Gate | Result |
+|---|---|
+| Native `lr2021` transport | **up** |
+| Noise peer authentication | **connected** |
+| `ping6` over `fips0` | **9–10/10**, 0–10% loss, RTT 54–306 ms |
+| `iperf3` UDP 100k–1M, 300-byte datagrams | **94–99% loss**, 0.45–5.1 kbit/s received |
+| `iperf3` TCP | **not achieved** |
+| SSH over `fips0` | **not achieved** |
+| Sustained FIPS load | station B intermittently reset (`tx=0` after reboot); no crash log or reset reason captured |
+
+The one-at-a-time link-layer PER test is 100/100 at 64 and 255 bytes after the
+2 ms inter-frame guard, and the 64-byte 30,000-message soak is 0% loss. The raw
+packet path is therefore sound. The failure is in **sustained FIPS/link-layer
+pipelining**: 300-byte datagrams (two radio frames) at offered rates of
+100 kbit/s and above are almost entirely lost, while a 56-byte ICMP echo (one
+frame) usually succeeds. The bridge also resets intermittently under this load;
+the modem crash log is empty and a `__noinit` fatal marker did not survive, so
+the reset cause remains open.
+
+Do not report an iperf3 or FIPS application throughput number as a success.
+The current evidence supports packet-level RF validation and FIPS ping, not a
+usable bulk FIPS link.
+
+### Direct-FLRC log hashes
+
+```text
+27c5011ab13ad708fa68ade5355229ee9ec88c767dc9cf0610b14cd5f8c20da4  guard-64b.log
+31c08aa9684bdb91001f0d25885cf6b6e07692c34260029504049c316a770167  guard-255.log
+f913294518be05607225a10a9536e2166f8e0482084e5902afaab9919c901b50  soak-part1-BtoA.log
+0aca10d10619973a9d1ed9dfbdfe8f5c781398abe9ca60acf1c7a6cafedf9466  soak-part2-AtoB.log
+237ed9049dc875d4051efd62c38ccc6f1125248ffe13d46438e508c51a02455b  fips-e2e-300.log
+```
+
 ## Conclusions
 
 1. The stock official-EVK USB path is measured and stable at 1 Mbaud.
@@ -107,6 +203,13 @@ range. Six initiator periods produced at least five transfers in each direction:
 5. Reaching multi-megabit FIPS requires a different host link: high-speed UART,
    direct USB-SPI to the radio, or a different host board. Wiring, pogo/clip
    adapters and purchases require separate review and approval.
+6. The direct-FLRC bridge is reliable at the packet level: 64 B and 255 B are
+   100/100 one-at-a-time with the 2 ms inter-frame guard, and 30,000 × 64 B
+   messages over ~35 minutes had 0% loss.
+7. FIPS over the bridge is **not a usable bulk link yet**. The native LR2021
+   transport and Noise peer authentication work, and `ping6` passes 9–10/10,
+   but iperf3 UDP at 100k–1M delivers only 0.45–5.1 kbit/s with 94–99% loss.
+   Station B also resets intermittently under load; the reset cause is open.
 
 ## High-speed UARTE00 build (not hardware-tested)
 
@@ -128,10 +231,11 @@ and remains unverified.
 
 ## Bench state after this run
 
-Both stations were left running the **non-transmitting 1 Mbaud loopback**
-firmware. The PER transmitter was explicitly replaced after capture so it is not
-continuing scheduled RF transmissions. The 4 Mbaud UARTE00 image was only built;
-it was not flashed because no external USB-UART adapter was attached.
+Both stations were left running the **direct-FLRC 1 Mbaud image in receive
+mode**. The FIPS containers are stopped and no host is sending traffic, so the
+radios are not transmitting. The earlier loopback image was replaced by the FLRC
+image during this test. The 4 Mbaud UARTE00 image was only built; it was not
+flashed because no external USB-UART adapter was attached.
 
 ## Log hashes
 

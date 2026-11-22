@@ -1,0 +1,42 @@
+/*
+ * FLRC bridge board setup.
+ *
+ * UART20 stays enabled: it is the framed host transport through the SAMD11
+ * USB bridge. SPI00 stays enabled: it is the LR2021 radio bus.
+ *
+ * Disable peripherals the stock FLRC sample disables so they cannot contend
+ * for power or pins. UART21 is the exposed Grove UART and is unused here.
+ */
+
+&uart21 {
+	status = "disabled";
+};
+
+&i2c22 {
+	status = "disabled";
+};
+
+&i2c30 {
+	status = "disabled";
+};
+
+&adc {
+	status = "disabled";
+};
+
+&pdm20 {
+	status = "disabled";
+};
+
+/* Let the radio driver own RF switch power sequencing. */
+&rfsw_ctl {
+	/delete-property/ regulator-boot-on;
+};
+
+&rfsw_pwr {
+	/delete-property/ regulator-boot-on;
+};
+
+&vbat_pwr {
+	/delete-property/ regulator-boot-on;
+};

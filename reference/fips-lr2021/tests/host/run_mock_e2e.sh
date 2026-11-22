@@ -4,11 +4,12 @@ set -euo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 root="$(cd "$here/../.." && pwd)"
 fips="${FIPS_DIR:-$root/build/fips}"
-ctl="$fips/target/release/fips-lr2021ctl"
-[ -x "$ctl" ] || ctl="$fips/target/debug/fips-lr2021ctl"
+target_dir="${CARGO_TARGET_DIR:-$fips/target}"
+ctl="$target_dir/release/fips-lr2021ctl"
+[ -x "$ctl" ] || ctl="$target_dir/debug/fips-lr2021ctl"
 if [ ! -x "$ctl" ]; then
   "$root/scripts/build.sh"
-  ctl="$fips/target/release/fips-lr2021ctl"
+  ctl="$target_dir/release/fips-lr2021ctl"
 fi
 
 python3 "$here/mock_radio.py" /tmp/fips-lr2021-a /tmp/fips-lr2021-b >/tmp/fips-lr2021-mock.log 2>&1 &

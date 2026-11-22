@@ -5,6 +5,10 @@
 
 #include "bridge_core.h"
 
+#if defined(CONFIG_SEEED_BRIDGE_FLRC)
+#include "flrc_radio.h"
+#endif
+
 namespace {
 
 const struct device* const kHostUart = DEVICE_DT_GET(DT_ALIAS(seeed_bridge_uart));
@@ -14,7 +18,15 @@ constexpr int kStatPeriodMs = 5000;
 
 RING_BUF_DECLARE(host_rx_ring, 4096);
 RING_BUF_DECLARE(host_tx_ring, 8192);
-seeed_bridge::LoopbackCore core;
+seeed_bridge::BridgeCore core;
+
+#if defined(CONFIG_SEEED_BRIDGE_FLRC)
+void onRadioTxDone(void*) { core.noteTxDone(); }
+void onRadioCrcError(void*) { core.noteCrcError(); }
+void onRadioTxTimeout(void*) { core.noteTxTimeout(); }
+void onRadioDrop(void*) { core.noteDrop(); }
+#endif
+
 
 void queue_host_bytes(const uint8_t* data, size_t len) {
     size_t sent = 0;
@@ -101,11 +113,44 @@ int main() {
     }
     uart_irq_rx_enable(kHostUart);
 
+#if defined(CONFIG_SEEED_BRIDGE_FLRC)
+    static seeed_bridge::RadioBackend radio_backend;
+    if (seeed_bridge::flrcRadioInit(&radio_backend)) {
+        radio_backend.on_tx_done = onRadioTxDone;
+        radio_backend.on_crc_error = onRadioCrcError;
+        radio_backend.on_tx_timeout = onRadioTxTimeout;
+        radio_backend.on_drop = onRadioDrop;
+        core.setRadio(&radio_backend);
+    }
+#endif
+
     static uint8_t read_buf[kReadChunk];
     static uint8_t write_buf[kWriteCap];
     int64_t last_stat_ms = k_uptime_get();
 
     for (;;) {
+#if defined(CONFIG_SEEED_BRIDGE_FLRC)
+        seeed_bridge::flrcRadioRunEngine();
+        seeed_bridge::flrcRadioService();
+        char event_text[80];
+        while (seeed_bridge::flrcRadioPopEvent(event_text, sizeof(event_text))) {
+            size_t event_len =
+                core.encodeEvent(event_text, write_buf, sizeof(write_buf));
+            if (event_len > 0) {
+                queue_host_bytes(write_buf, event_len);
+            }
+        }
+        seeed_bridge::RadioRxPacket packet;
+        while (seeed_bridge::flrcRadioPop(&packet)) {
+            size_t rx_len = core.encodeRx(packet.rssi_dbm, packet.snr_db,
+                                          packet.data, packet.len, write_buf,
+                                          sizeof(write_buf));
+            if (rx_len > 0) {
+                queue_host_bytes(write_buf, rx_len);
+            }
+        }
+#endif
+
         uint32_t read_len =
             ring_buf_get(&host_rx_ring, read_buf, sizeof(read_buf));
 
@@ -127,6 +172,12 @@ int main() {
 
         if (read_len == 0) {
             k_sleep(K_MSEC(1));
+        } else {
+#if defined(CONFIG_SEEED_BRIDGE_FLRC)
+            // Host TX frames were queued during process(); start them now.
+            seeed_bridge::flrcRadioService();
+            k_yield();
+#endif
         }
     }
 }

@@ -31,8 +31,8 @@ Usage: scripts/seeed-usp.sh COMMAND [ROLE]
 Commands:
   setup                         Create the local venv, checkout and Zephyr SDK.
   doctor                        Report host/workspace/probe/serial prerequisites.
-  build per-rx|per-tx|flrp-initiator|flrp-slave|bridge-loopback
-  flash per-rx|per-tx|flrp-initiator|flrp-slave|bridge-loopback   (requires PROBE)
+  build per-rx|per-tx|flrp-initiator|flrp-slave|bridge-loopback|bridge-flrc
+  flash per-rx|per-tx|flrp-initiator|flrp-slave|bridge-loopback|bridge-flrc   (requires PROBE)
   monitor                       Open the stock UART console (requires PORT).
 
 Environment:
@@ -176,13 +176,28 @@ role_settings() {
             esac
             SAMPLE_REL=
             ;;
+        bridge-flrc)
+            BUILD_NAME=seeed-bridge-flrc
+            [[ "$BRIDGE_BAUD" =~ ^[0-9]+$ ]] ||
+                die "BRIDGE_BAUD must be numeric."
+            (( BRIDGE_BAUD >= 9600 && BRIDGE_BAUD <= 1000000 )) ||
+                die "The FLRC bridge uses UART20 and supports BRIDGE_BAUD 9600..1000000. UARTE00 shares its peripheral with radio SPI00 and cannot run concurrently."
+            [[ "$BRIDGE_UART" == standard ]] ||
+                die "The FLRC bridge cannot use highspeed UART: UARTE00 and SPI00 share the same peripheral instance."
+            EXTRA_CMAKE_ARGS=(
+                "-DCONFIG_SEEED_BRIDGE_UART_BAUD=$BRIDGE_BAUD"
+                "-DEXTRA_CONF_FILE=$REFERENCE_DIR/firmware/seeed-nrf54l15-bridge/prj-flrc.conf"
+                "-DEXTRA_DTC_OVERLAY_FILE=$REFERENCE_DIR/firmware/seeed-nrf54l15-bridge/overlays/flrc.overlay"
+            )
+            SAMPLE_REL=
+            ;;
         *)
-            die "Unknown role '$role'. Expected per-rx, per-tx, flrp-initiator, flrp-slave or bridge-loopback."
+            die "Unknown role '$role'. Expected per-rx, per-tx, flrp-initiator, flrp-slave, bridge-loopback or bridge-flrc."
             ;;
     esac
 
     BUILD_DIR="$WORKSPACE/build/$BUILD_NAME"
-    if [[ "$role" == bridge-loopback ]]; then
+    if [[ "$role" == bridge-loopback || "$role" == bridge-flrc ]]; then
         APP_DIR="$REFERENCE_DIR/firmware/seeed-nrf54l15-bridge"
     else
         APP_DIR="$USP_DIR/$SAMPLE_REL"
@@ -373,11 +388,11 @@ flash_role() {
     require_workspace
     [[ -f "$BUILD_DIR/CMakeCache.txt" ]] ||
         die "Build output for $role is missing at $BUILD_DIR; run its matching seeed-*-build target first."
-    if [[ "$role" == bridge-loopback ]]; then
+    if [[ "$role" == bridge-loopback || "$role" == bridge-flrc ]]; then
         local built_baud
         built_baud=$(sed -n 's/^CONFIG_SEEED_BRIDGE_UART_BAUD=//p' "$BUILD_DIR/zephyr/.config")
         [[ "$built_baud" == "$BRIDGE_BAUD" ]] ||
-            die "Loopback build baud is '$built_baud', not BRIDGE_BAUD='$BRIDGE_BAUD'. Rebuild with the requested baud before flashing."
+            die "Bridge build baud is '$built_baud', not BRIDGE_BAUD='$BRIDGE_BAUD'. Rebuild with the requested baud before flashing."
     fi
 
     log "Flashing only $role image $BUILD_DIR to explicit PROBE=$PROBE"

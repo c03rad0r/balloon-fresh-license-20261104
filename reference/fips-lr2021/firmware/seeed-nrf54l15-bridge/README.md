@@ -1,22 +1,29 @@
-# Seeed nRF54L15 bridge — offline loopback only
+# Seeed nRF54L15 bridge — loopback and direct-FLRC modes
 
-**Status: offline host-loopback skeleton. No LR2021 radio path is implemented.
-No hardware, RF, host-throughput or FIPS result is claimed.**
+**Status: direct LR2021 FLRC bridge implemented and bench-validated on two EVKs.
+FIPS-over-radio validation is still in progress.**
 
-This application validates the existing bridge wire codec and UART transport on
-the official Seeed/Semtech LR2021 EVK. It deliberately does **not** load or
-configure the LR2021 radio yet. Its `HELLO_ACK` reports:
+The application has two build modes:
 
-- protocol 1;
-- firmware 0.1.0;
-- chip ID 0;
-- capabilities `0x0008`, meaning variable packet length only. Sub-GHz, 2.4 GHz
-  and relay capability bits are clear.
+- **Loopback** (`seeed-bridge-loopback-*`): the original offline codec/UART
+  regression path. It never opens the radio. `CFG` returns a nonzero "radio
+  unavailable" status.
+- **FLRC** (`seeed-bridge-flrc-*`): a raw LR2021 FLRC packet bridge using the
+  official Semtech RAC transaction API. It preserves the host framing and
+  counters; FIPS fragmentation, ARQ, deduplication, Noise and IPv6 remain in
+  the host.
 
-`CFG` is decoded and acknowledged with a nonzero "radio unavailable" status; it
-is never reported as successfully applied. `TX` packets of 1–255 bytes are
-returned locally as `RX` frames with zero RSSI, zero SNR and `crc_ok=1`. This
-proves framing and counters, not radio transmission.
+Both modes report protocol 1. The FLRC build reports firmware 0.2.0, the real
+LR2021 version (observed `0x0118`), and capabilities `0x000a` (2.4 GHz +
+variable length). Sub-GHz is implemented but not advertised as verified; relay
+is rejected.
+
+A `CFG` request is accepted only when the radio backend validates and applies
+the requested band, frequency, path, power, bitrate, payload length and sync
+word. Applied values are echoed in `CFG_ACK`; invalid requests return a nonzero
+status. `TX` payloads are queued to the radio and `RX` frames arrive
+asynchronously with measured RSSI/SNR and `crc_ok`. The firmware does not parse
+FIPS or hold keys.
 
 ## Build and test
 
@@ -25,38 +32,58 @@ guide:
 
 ```bash
 make seeed-bridge-host-test
-make seeed-bridge-loopback-build BRIDGE_BAUD=115200
-make seeed-bridge-loopback-flash BRIDGE_BAUD=115200 PROBE='<full-CMSIS-DAP-id>'
-make seeed-bridge-usb-bench PORT='/dev/serial/by-id/<console>' BRIDGE_BAUD=115200
+
+# Loopback regression mode
+make seeed-bridge-loopback-build BRIDGE_BAUD=1000000
+make seeed-bridge-loopback-flash BRIDGE_BAUD=1000000 PROBE='<full-CMSIS-DAP-id>'
+make seeed-bridge-usb-bench PORT='/dev/serial/by-id/<console>' BRIDGE_BAUD=1000000
+
+# Direct LR2021 FLRC mode
+make seeed-bridge-flrc-build BRIDGE_BAUD=1000000
+make seeed-bridge-flrc-flash BRIDGE_BAUD=1000000 PROBE='<full-CMSIS-DAP-id>'
 ```
 
 The flash target refuses to flash if the built UART baud differs from
-`BRIDGE_BAUD`. The benchmark echoes framed 255-byte payloads and reports both
-directions and wire overhead. Build and flash at each rate under test. A window
-of 4 is stable at high rates; larger windows overrun the current receive ring.
+`BRIDGE_BAUD`. The FLRC build requires the USP/LoRa Basics Modem driver through
+`prj-flrc.conf`; the loopback build stays radio-free.
 
 The build uses the normal `xiao_nrf54l15/nrf54l15/cpuapp` board and the LoRa Plus
 Expansion Board plus Wio-LR2021 shields. The host UART baud defaults to 115200
-and is a build-time Kconfig value, `SEEED_BRIDGE_UART_BAUD`. A raw `west build`
-may supply an application config overlay when a deliberately supported rate is
-being investigated. Do not assume a higher baud is supported or delivers useful
-throughput until it has been measured.
+and is a build-time Kconfig value, `SEEED_BRIDGE_UART_BAUD`.
 
-The radio-free loopback is suitable for validating:
+## Direct-FLRC bench result (2026-11-22)
+
+EU 2.4 GHz, 2440 MHz, FLRC 2600 kbps, CR 3/4, 12 dBm, 255-byte radio payload,
+1 Mbaud host UART. 100 link-layer messages per run:
+
+| Direction | App payload | Delivered | Loss | RSSI |
+|---|---:|---:|---:|---:|
+| B→A | 64 B | 100/100 | 0% | −16 dBm |
+| A→B | 64 B | 100/100 | 0% | −20.9 dBm |
+| B→A | 255 B | 100/100 | 0% | −16 dBm |
+| A→B | 255 B | 100/100 | 0% | −16.8 dBm |
+
+A 255-byte application message is two radio frames at `radio_payload: 255`. The
+bridge TX queue is 16 packets deep; a four-packet queue dropped the second
+fragment under back-to-back host delivery.
+
+### 511-byte payloads are not adopted
+
+The LR2021 driver documents FLRC payload lengths of 6–511 bytes and the radio
+FIFO is 1023 bytes. We raised the bridge limit to 511 and tested it: single-frame
+480-byte traffic was intermittent, and multi-frame 500/1000-byte traffic
+intermittently reset the MCU or stalled the sender. The harmonized-bench rules
+also require a **≥40 ms gap** between packets longer than 256 bytes. The
+production bridge is capped at 255 bytes. 511 is a hardware capability, not a
+validated FIPS configuration, and it would not lift FIPS above the ~1 Mbit/s
+host-UART ceiling.
+
+The radio-free loopback remains suitable for validating:
 
 - bridge framing, CRC and resynchronization;
 - HELLO/CFG capability and rejection behavior;
 - PING/PONG, STAT and counters;
 - UART chunking and output bounds.
-
-With the host utility running on the UART, `fips-lr2021ctl hello` should report
-protocol 1, firmware 0.1.0, `chip=0x0000` and `capabilities=0x0008`. A subsequent
-`cfg` command **must fail** with a nonzero rejection because no radio is present;
-that is expected, not a regression to work around.
-
-It is **not** suitable for RF, range, throughput, FIPS handshake, IPv6, SSH or
-iperf claims. The direct-FLRC radio implementation and hardware validation are
-deferred until the bench baseline exists.
 
 ## Host validation (2026-11-22)
 

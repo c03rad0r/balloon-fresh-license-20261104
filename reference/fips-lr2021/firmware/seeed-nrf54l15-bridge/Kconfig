@@ -9,4 +9,13 @@ config SEEED_BRIDGE_UART_BAUD
       claim that every configured rate is supported by the UART path or by a
       connected host.
 
+config SEEED_BRIDGE_FLRC
+    bool "Enable the LR2021 FLRC radio backend"
+    default n
+    help
+      Build the bridge with the raw LR20xx FLRC packet path instead of the
+      offline loopback. The host protocol and counters are unchanged. This
+      option requires the USP/LoRa Basics Modem radio driver and the Wio-LR2021
+      shield.
+
 source "Kconfig.zephyr"

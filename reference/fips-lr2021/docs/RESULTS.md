@@ -1,8 +1,8 @@
 # Results
 
 **Status: hardware testing in progress.** Do not fill this in from expectations.
-See `SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` for the dated EVK evidence
-summary and local raw-log hashes.
+See `SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md` for the dated EVK USB,
+stock PER/FLRP and direct-FLRC two-node evidence and local raw-log hashes.
 
 ## Host tests
 

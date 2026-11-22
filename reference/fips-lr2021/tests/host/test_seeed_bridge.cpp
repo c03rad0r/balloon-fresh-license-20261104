@@ -65,13 +65,120 @@ void testHello() {
     assert(frames[0].kind == BR_HELLO_ACK);
     assert(frames[0].payload.size() == 8);
     assert(frames[0].payload[0] == 1);
-    assert(frames[0].payload[1] == 0 && frames[0].payload[2] == 1 &&
+    assert(frames[0].payload[1] == 0 && frames[0].payload[2] == 2 &&
            frames[0].payload[3] == 0);
     assert(frames[0].payload[4] == 0 && frames[0].payload[5] == 0);
     assert(frames[0].payload[6] == 0x08 && frames[0].payload[7] == 0x00);
     for (size_t i = 0; i < seeed_bridge::LoopbackCore::kCounterCount; i++) {
         assert(core.counters()[i] == 0);
     }
+}
+
+struct FakeRadio {
+    int configured;
+    int sent;
+    bool configure_ok;
+    bool send_ok;
+    uint16_t chip_id;
+    uint16_t capabilities;
+    uint8_t last_payload[256];
+    uint16_t last_len;
+};
+
+bool fakeConfigure(void* context, const CfgPayload& cfg,
+                   uint8_t* status) {
+    FakeRadio* radio = static_cast<FakeRadio*>(context);
+    radio->configured++;
+    radio->last_len = cfg.radio_payload;
+    *status = radio->configure_ok ? 0 : 7;
+    return radio->configure_ok;
+}
+
+bool fakeSend(void* context, const uint8_t* data, uint16_t len) {
+    FakeRadio* radio = static_cast<FakeRadio*>(context);
+    radio->sent++;
+    radio->last_len = len;
+    std::memcpy(radio->last_payload, data, len);
+    return radio->send_ok;
+}
+
+uint16_t fakeChipId(void* context) {
+    return static_cast<FakeRadio*>(context)->chip_id;
+}
+
+uint16_t fakeCapabilities(void* context) {
+    return static_cast<FakeRadio*>(context)->capabilities;
+}
+
+void testRadioBackend() {
+    FakeRadio fake = {};
+    fake.configure_ok = true;
+    fake.send_ok = true;
+    fake.chip_id = 0x0118;
+    fake.capabilities = seeed_bridge::kCapabilitiesFlrc;
+    seeed_bridge::RadioBackend backend = {
+        &fake, fakeConfigure, fakeSend, fakeChipId, fakeCapabilities,
+        NULL, NULL, NULL, NULL};
+    seeed_bridge::BridgeCore core(&backend);
+
+    const uint8_t version = 1;
+    const auto hello = encode(BR_HELLO, &version, 1);
+    uint8_t out[512];
+    size_t n = core.process(hello.data(), hello.size(), out, sizeof(out));
+    auto frames = decode(out, n);
+    assert(frames.size() == 1 && frames[0].kind == BR_HELLO_ACK);
+    assert(frames[0].payload[4] == 0x18 && frames[0].payload[5] == 0x01);
+    assert(frames[0].payload[6] == 0x0A && frames[0].payload[7] == 0x00);
+
+    const auto cfg = makeCfg();
+    const auto cfg_frame = encode(BR_CFG, cfg.data(), cfg.size());
+    n = core.process(cfg_frame.data(), cfg_frame.size(), out, sizeof(out));
+    frames = decode(out, n);
+    assert(frames.size() == 1 && frames[0].kind == BR_CFG_ACK);
+    assert(frames[0].payload[0] == 0);
+    assert(fake.configured == 1);
+    assert(core.counters()[3] == 0);
+
+    const uint8_t payload[] = {'r', 'a', 'd', 'i', 'o'};
+    const auto tx = encode(BR_TX, payload, sizeof(payload));
+    n = core.process(tx.data(), tx.size(), out, sizeof(out));
+    assert(n == 0);  // no synchronous echo in radio mode
+    assert(fake.sent == 1 && fake.last_len == sizeof(payload));
+    assert(std::memcmp(fake.last_payload, payload, sizeof(payload)) == 0);
+    assert(core.counters()[0] == 0);  // TX done not confirmed yet
+
+    core.noteTxDone();
+    assert(core.counters()[0] == 1);
+
+    const uint8_t rx_data[] = {1, 2, 3, 4};
+    n = core.encodeRx(-77, 9, rx_data, sizeof(rx_data), out, sizeof(out));
+    frames = decode(out, n);
+    assert(frames.size() == 1 && frames[0].kind == BR_RX);
+    assert(frames[0].payload.size() == 6 + sizeof(rx_data));
+    assert(frames[0].payload[0] == 0xB3 && frames[0].payload[1] == 0xFF);
+    assert(frames[0].payload[2] == 9 && frames[0].payload[3] == 1);
+    assert(frames[0].payload[4] == sizeof(rx_data) &&
+           frames[0].payload[5] == 0);
+    assert(std::memcmp(frames[0].payload.data() + 6, rx_data,
+                       sizeof(rx_data)) == 0);
+    assert(core.counters()[1] == 1);
+
+    core.noteCrcError();
+    core.noteTxTimeout();
+    core.noteDrop();
+    assert(core.counters()[2] == 1 && core.counters()[4] == 1 &&
+           core.counters()[3] == 1);
+
+    fake.send_ok = false;
+    n = core.process(tx.data(), tx.size(), out, sizeof(out));
+    assert(n == 0 && fake.sent == 2 && core.counters()[3] == 2);
+
+    fake.configure_ok = false;
+    n = core.process(cfg_frame.data(), cfg_frame.size(), out, sizeof(out));
+    frames = decode(out, n);
+    assert(frames.size() == 1 && frames[0].payload[0] == 7);
+    assert(core.lastCfgStatus() == 7);
+    assert(core.counters()[3] == 3);
 }
 
 void testCfgRejected() {
@@ -213,6 +320,7 @@ int main() {
     testCrcRecoveryAndUnknown();
     testPingOutputBounds();
     testOutputBounds();
+    testRadioBackend();
     std::printf("Seeed bridge loopback host tests passed\n");
     return 0;
 }

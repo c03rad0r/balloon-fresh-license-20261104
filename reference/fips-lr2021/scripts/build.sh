@@ -14,7 +14,8 @@ cd "$fips"
 cargo build --release -p fips-lr2021 --bins
 cargo build --release -p fips-mesh
 
+target_dir="${CARGO_TARGET_DIR:-$fips/target}"
 echo "binaries:"
-ls -1 "$fips/target/release/fips" \
-      "$fips/target/release/fips-lr2021d" \
-      "$fips/target/release/fips-lr2021ctl" 2>/dev/null || true
+ls -1 "$target_dir/release/fips" \
+      "$target_dir/release/fips-lr2021d" \
+      "$target_dir/release/fips-lr2021ctl" 2>/dev/null || true

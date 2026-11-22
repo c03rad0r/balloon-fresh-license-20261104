@@ -1,0 +1,40 @@
+# Seeed LR2021 EVK — node A, EU 2.4 GHz, stock 1 Mbaud USB path.
+#
+# Copy this file to a private location, replace the nsec and peer npub, and
+# never commit real identities. The peer's `addr` is the LR2021 link id, not its
+# npub; node B uses link id 2 and points back at link id 1.
+#
+# radio_payload 255 is the validated FIPS payload for this bridge. The LR2021
+# FLRC driver accepts up to 511 bytes, but multi-frame 511-byte traffic was not
+# stable in our bench tests, and the harmonized bench requires a >=40 ms gap
+# between packets longer than 256 bytes.
+node:
+  identity:
+    nsec: "REPLACE_WITH_NSEC"
+
+tun:
+  enabled: true
+  name: fips0
+  mtu: 1280
+
+dns:
+  enabled: false
+
+transports:
+  lr2021:
+    # Replace with the station A /dev/serial/by-id/... path.
+    port: /dev/ttyACM0
+    # The XIAO nRF54L15 standard UART tops out at 1 Mbaud.
+    baud: 1000000
+    band: eu2400
+    local_id: 1
+    mtu: 1400
+    radio_payload: 255
+    auto_connect: true
+
+peers:
+  - npub: "REPLACE_WITH_PEER_NPUB"
+    alias: "seeed-node-b"
+    addresses:
+      - transport: lr2021
+        addr: "2"

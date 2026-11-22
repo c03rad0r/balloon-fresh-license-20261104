@@ -27,8 +27,13 @@ RP2040 bridge firmware, configs and test scripts.
   Wirehair/FEC evaluation.
 - **Developing the Seeed nRF54 bridge?**
   [`firmware/seeed-nrf54l15-bridge/README.md`](firmware/seeed-nrf54l15-bridge/README.md)
-  describes the current **offline loopback** increment and its measured USB/UART
-  ceiling; no radio or FIPS capability is implemented there yet.
+  describes the **loopback and direct-FLRC** modes, the measured two-node RF
+  results and the 1 Mbaud USB/UART ceiling. FIPS-over-radio evidence is still
+  being collected.
+- **Running FIPS over the two EVKs?**
+  [`docs/SEEED-LR2021-EVK-FIPS-E2E.md`](docs/SEEED-LR2021-EVK-FIPS-E2E.md)
+  documents the two-container harness, the 1 Mbaud configs, ping6/iperf3/SSH
+  gates and the validated UDP self-test.
 - **Seeed EVK measured results (2026-11-22):**
   [`docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md`](docs/SEEED-LR2021-EVK-BENCH-RESULTS-2026-11-22.md)
   — USB loopback, stock PER and stock FLRP evidence.
